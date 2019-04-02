@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="TestTarget">
+  <resultMap type="com.skplanet.sascm.object.UaextCampaignTesterBO" id="UaextCampaignTesterBO">
+    <result property="num"       column="num" />
+    <result property="mem_id"    column="mem_id" />
+    <result property="mem_no"    column="mem_no" />
+    <result property="pcid"      column="pcid" />
+    <result property="name"      column="name" />
+    <result property="tel"       column="tel" />
+    <result property="email"     column="email" />
+    <result property="use_yn"    column="use_yn" />
+    <result property="create_id" column="create_id" />
+    <result property="create_nm" column="create_nm" />
+    <result property="create_dt" column="create_dt" />
+    <result property="update_id" column="update_id" />
+    <result property="update_nm" column="update_nm" />
+    <result property="update_dt" column="update_dt" />
+  </resultMap>
+	<!-- 테스트 대상자 목록 조회 -->
+	<select id="TestTarget.getTestTargetList" parameterType="Map"  resultMap="UaextCampaignTesterBO">
+		SELECT
+			 ROWNUM        	 num       
+			,A.MEM_ID        mem_id    
+			,B.MEM_NO        mem_no      
+			,(SELECT PCID FROM DM_D_PCID_TARGET WHERE RCT_MAP_RNK = 1 AND MEM_NO = B.MEM_NO) 
+				|| '(' || (SELECT COUNT(0) FROM DM_D_PCID_TARGET WHERE MEM_NO = B.MEM_NO) ||')' pcid      
+			,B.MEM_NM        name      
+			,B.CEL_TEL_NO    tel       
+			,B.EMAIL         email     
+			,USE_YN          use_yn
+			,CREATE_ID       create_id 
+			,(SELECT USER_NAME FROM CM_USER WHERE ID = A.CREATE_ID) create_nm
+			,TO_CHAR(A.CREATE_DT, 'YYYY-MM-DD HH24:MI:SS')     create_dt 
+			,A.UPDATE_ID     update_iud 
+			,(SELECT USER_NAME FROM CM_USER WHERE ID = A.UPDATE_ID) update_nm
+			,TO_CHAR(A.UPDATE_DT, 'YYYY-MM-DD HH24:MI:SS')     update_dt 
+		 FROM CM_CAMPAIGN_TESTER A
+		     ,DM_D_MEMBER            B
+	    WHERE 1 = 1
+	      AND A.MEM_ID = B.MEM_ID
+		  AND A.MEM_ID   LIKE '%'||#{SMEM_ID}||'%'
+		ORDER BY A.MEM_ID
+	</select>
+	
+	
+	<!-- 테스트 대상자 고객ID 존재여부 체크 -->
+	<select id="TestTarget.getTestTargetMemIdChk" parameterType="Map"  resultType="String">
+		SELECT CASE WHEN COUNT(0) > 0 THEN 'Y' ELSE 'N' END CHK
+		  FROM DM_D_MEMBER
+	     WHERE MEM_ID = #{MEM_ID}
+	</select>
+	
+	
+	<!-- 테스트 대상자 중복 여부 체크 -->
+	<select id="TestTarget.getTestTargetMemIdDup" parameterType="Map"  resultType="String">
+		SELECT CASE WHEN COUNT(0) > 0 THEN 'Y' ELSE 'N' END DUP
+		  FROM CM_CAMPAIGN_TESTER
+	     WHERE MEM_ID = #{MEM_ID}
+	</select>
+	
+	
+	<!-- 테스트 대상자 상세 정보 조회 -->
+	<select id="TestTarget.getTestTargetMemIdDtl" parameterType="Map"  resultMap="UaextCampaignTesterBO">
+		SELECT
+			 #{MEM_ID}     mem_id    
+			,MEM_NO        mem_no      
+			,MEM_NM        name    
+			,CEL_TEL_NO    tel       
+			,EMAIL         email
+			,(SELECT USER_NAME FROM CM_USER WHERE ID = B.CREATE_ID) create_nm
+			,TO_CHAR(B.CREATE_DT, 'YYYY-MM-DD HH24:MI:SS')     create_dt 
+			,(SELECT USER_NAME FROM CM_USER WHERE ID = B.UPDATE_ID) update_nm
+			,TO_CHAR(B.UPDATE_DT, 'YYYY-MM-DD HH24:MI:SS')     update_dt 			
+		 FROM DM_D_MEMBER A
+		     ,CM_CAMPAIGN_TESTER B
+	    WHERE A.MEM_ID = #{MEM_ID}
+	      AND A.MEM_ID = B.MEM_ID(+)
+	</select>
+	
+	
+	<!-- 테스트 대상자 PCID 조회 -->
+	<select id="TestTarget.getTestTargetMemIdPcList" parameterType="Map"  resultMap="UaextCampaignTesterBO">
+	<![CDATA[ 
+        SELECT B.PCID
+          FROM DM_D_MEMBER      A  
+              ,DM_D_PCID_TARGET B
+         WHERE A.MEM_ID = #{MEM_ID}
+           AND A.MEM_NO = B.MEM_NO
+         ORDER BY RCT_MAP_RNK ASC
+    ]]>
+	</select>
+	
+	
+	<!-- 테스트 대상자 등록 -->
+	<insert id="TestTarget.setTestTargetMemId" parameterType="Map" >
+		INSERT INTO CM_CAMPAIGN_TESTER
+		(
+		     MEM_ID
+			,USE_YN
+			,CREATE_ID
+			,CREATE_DT
+		)
+		VALUES
+		(
+			 TRIM(#{MEM_ID})
+			,TRIM(#{USE_YN})
+			,TRIM(#{CREATE_ID})
+			,SYSDATE	
+		)
+	</insert>
+	
+	
+	<!-- 테스트 대상자 수정 -->
+	<update id="TestTarget.updateTestTargetMemId" parameterType="Map" >
+		UPDATE CM_CAMPAIGN_TESTER
+		   SET USE_YN    = #{USE_YN}
+		      ,UPDATE_ID = #{UPDATE_ID}
+		      ,UPDATE_DT = SYSDATE
+	     WHERE MEM_ID    = #{MEM_ID}
+	</update>
+	
+	
+	
+	<!-- 테스트 대상자 삭제 -->
+	<update id="TestTarget.deleteTestTargetMemId" parameterType="Map" >
+		DELETE CM_CAMPAIGN_TESTER
+	     WHERE MEM_ID    = #{MEM_ID}
+	</update>
+	
+	
+</mapper>

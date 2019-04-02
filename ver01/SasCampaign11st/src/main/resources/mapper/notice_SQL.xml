@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Notice">
+
+  <resultMap type="com.skplanet.sascm.object.UaextNoticeBO" id="UaextNoticeBO">
+    <result property="num" column="num" />
+    <result property="notice_no" column="notice_no" />
+    <result property="title" column="title" />
+    <result property="content" column="content" />
+    <result property="top_start_dt" column="top_start_dt" />
+    <result property="top_end_dt" column="top_end_dt" />
+    <result property="disp_yn" column="disp_yn" />
+    <result property="create_id" column="create_id" />
+    <result property="create_nm" column="create_nm" />
+    <result property="create_dt" column="create_dt" />
+    <result property="update_id" column="update_id" />
+    <result property="update_nm" column="update_nm" />
+    <result property="update_dt" column="update_dt" />
+    <result property="top_yn" column="top_yn" />
+  </resultMap>
+
+	<!-- 공지사항 목록 조회 -->
+	<select id="Notice.getNoticeList" parameterType="Map"  resultMap="UaextNoticeBO">
+		<![CDATA[
+		SELECT a.* FROM (
+			SELECT a.*
+			      ,ROWNUM num
+			FROM(
+				SELECT
+				     NOTICE_NO			 	         									notice_no
+					,TITLE                           									title
+					,CONTENT                         									content
+					,TO_CHAR(TOP_START_DT, 'YYYY-MM-DD')								top_start_dt
+					,TO_CHAR(TOP_END_DT  , 'YYYY-MM-DD')    							top_end_dt
+					,DISP_YN                         									disp_yn
+					,CREATE_ID                       									create_id
+					,(SELECT USER_NAME FROM CM_USER WHERE ID = A.CREATE_ID) 		create_nm
+					,TO_CHAR(CREATE_DT, 'YYYY-MM-DD HH24:MI:SS')                       	create_dt
+					,UPDATE_ID                       									update_id
+					,(SELECT USER_NAME FROM CM_USER WHERE ID = A.UPDATE_ID)		update_nm
+					,TO_CHAR(UPDATE_DT, 'YYYY-MM-DD HH24:MI:SS')                       	update_dt
+					,ROWNUM              												row_num
+					,CASE WHEN CREATE_DT >= SYSDATE - 7 THEN 'Y' ELSE 'N' END           top_yn
+				  FROM CM_NOTICE A
+			     WHERE 1 = 1
+			     ORDER BY NOTICE_NO DESC
+			)a
+		)a
+	    WHERE num >=  #{searchRangeStart}
+	      AND num <=  #{searchRangeEnd}
+	    ORDER BY CREATE_DT DESC
+	    ]]>
+	</select>
+
+
+	<!-- 공지사항 목록 전체 건수 -->
+	<select id="Notice.getNoticeListCnt" parameterType="Map"  resultType="String">
+		SELECT COUNT(0)  cnt
+		  FROM CM_NOTICE
+	     WHERE 1 = 1
+	</select>
+
+	<!-- 공지사항 상세 조회 -->
+	<select id="Notice.getNoticeDetail" parameterType="Map"  resultMap="UaextNoticeBO">
+		SELECT
+			 NOTICE_NO			 	         									notice_no
+			,TITLE                           									title
+			,CONTENT                         									content
+			,TO_CHAR(TOP_START_DT, 'YYYY-MM-DD')								top_start_dt
+			,TO_CHAR(TOP_END_DT  , 'YYYY-MM-DD')    							top_end_dt
+			,DISP_YN                         									disp_yn
+			,CREATE_ID                       									create_id
+			,(SELECT USER_NAME FROM CM_USER WHERE ID = A.CREATE_ID) 		create_nm
+			,TO_CHAR(CREATE_DT, 'YYYY-MM-DD HH24:MI:SS')                       	create_dt
+			,UPDATE_ID                       									update_id
+			,(SELECT USER_NAME FROM CM_USER WHERE ID = A.UPDATE_ID)		update_nm
+			,TO_CHAR(UPDATE_DT, 'YYYY-MM-DD HH24:MI:SS')                       	update_dt
+		  FROM CM_NOTICE A
+	     WHERE 1 = 1
+	       AND NOTICE_NO = #{NOTICE_NO}
+	</select>
+
+
+	<!-- 공지사항 삭제 -->
+	<delete id="Notice.delteNoticeDetail" parameterType="Map"  >
+		DELETE FROM CM_NOTICE
+	     WHERE 1 = 1
+	       AND NOTICE_NO = #{NOTICE_NO}
+	</delete>
+
+
+	<!-- 공지사항 저장 -->
+	<update id="Notice.setNoticeDetail" parameterType="Map" >
+		MERGE INTO CM_NOTICE
+		USING DUAL
+		ON (    NOTICE_NO     = #{NOTICE_NO}   )
+		WHEN MATCHED THEN
+		UPDATE SET TITLE                 = TRIM(#{TITLE})
+		          ,CONTENT               = TRIM(#{CONTENT})
+		          ,TOP_START_DT          = TO_DATE(TRIM(#{TOP_START_DT}), 'YYYY-MM-DD')
+		          ,TOP_END_DT            = TO_DATE(TRIM(#{TOP_END_DT})  , 'YYYY-MM-DD')
+		          ,DISP_YN               = TRIM(#{DISP_YN})
+		          ,UPDATE_ID             = TRIM(#{UPDATE_ID})
+		          ,UPDATE_DT             = SYSDATE
+		WHEN NOT MATCHED THEN
+		INSERT (
+			 NOTICE_NO
+			,TITLE
+			,CONTENT
+			,TOP_START_DT
+			,TOP_END_DT
+			,DISP_YN
+			,CREATE_ID
+			,CREATE_DT
+		)
+		VALUES (
+			 (SELECT NVL(MAX(TO_NUMBER(NOTICE_NO)),0)+1 FROM CM_NOTICE)
+			,TRIM(#{TITLE})
+			,TRIM(#{CONTENT})
+			,TO_DATE(TRIM(#{TOP_START_DT}), 'YYYY-MM-DD')
+			,TO_DATE(TRIM(#{TOP_END_DT})  , 'YYYY-MM-DD')
+			,TRIM(#{DISP_YN})
+			,TRIM(#{CREATE_ID})
+			,SYSDATE
+		)
+	</update>
+
+
+	<!-- 공지사항 목록 조회 -->
+	<select id="Notice.getNoticeList2" parameterType="Map"  resultMap="UaextNoticeBO">
+		SELECT a.* FROM (
+			SELECT a.*
+			      ,ROWNUM num
+			FROM(
+				SELECT *
+				  FROM (
+				SELECT
+					 NOTICE_NO			 	         									notice_no
+					,TITLE                           									title
+					,CONTENT                         									content
+					,TO_CHAR(TOP_START_DT, 'YYYY-MM-DD')								top_start_dt
+					,TO_CHAR(TOP_END_DT  , 'YYYY-MM-DD')    							top_end_dt
+					,DISP_YN                         									disp_yn
+					,CREATE_ID                       									create_id
+					,(SELECT USER_NAME FROM CM_USER WHERE ID = A.CREATE_ID) 		create_nm
+					,TO_CHAR(CREATE_DT, 'YYYY-MM-DD HH24:MI:SS')                       	create_dt
+					,UPDATE_ID                       									update_id
+					,(SELECT USER_NAME FROM CM_USER WHERE ID = A.UPDATE_ID)		update_nm
+					,TO_CHAR(UPDATE_DT, 'YYYY-MM-DD HH24:MI:SS')                       	update_dt
+					,ROWNUM              												row_num
+					,'Y'                                                                top_yn
+				  FROM CM_NOTICE A
+			     WHERE 1 = 1
+			       AND SYSDATE BETWEEN TOP_START_DT AND TOP_END_DT
+			       AND DISP_YN = 'Y'
+			     ORDER BY NOTICE_NO DESC
+			    )
+			    UNION ALL
+				SELECT *
+			   	  FROM (
+					SELECT
+						 NOTICE_NO			 	         									notice_no
+						,TITLE                           									title
+						,CONTENT                         									content
+						,TO_CHAR(TOP_START_DT, 'YYYY-MM-DD')								top_start_dt
+						,TO_CHAR(TOP_END_DT  , 'YYYY-MM-DD')    							top_end_dt
+						,DISP_YN                         									disp_yn
+						,CREATE_ID                       									create_id
+						,(SELECT USER_NAME FROM CM_USER WHERE ID = A.CREATE_ID) 		create_nm
+						,TO_CHAR(CREATE_DT, 'YYYY-MM-DD HH24:MI:SS')                       	create_dt
+						,UPDATE_ID                       									update_id
+						,(SELECT USER_NAME FROM CM_USER WHERE ID = A.UPDATE_ID)		update_nm
+						,TO_CHAR(UPDATE_DT, 'YYYY-MM-DD HH24:MI:SS')                       	update_dt
+						,ROWNUM              												row_num
+						,'N'                                                                top_yn
+					  FROM CM_NOTICE A
+				     WHERE 1 = 1
+				       AND DISP_YN = 'Y'
+				     ORDER BY NOTICE_NO DESC
+				)
+			)a
+		)a
+		<![CDATA[
+	    WHERE num >=  #{searchRangeStart}
+	      AND num <=  #{searchRangeEnd}
+	    ]]>
+	    ORDER BY num
+	</select>
+
+
+	<!-- 공지사항 목록 전체 건수 -->
+	<select id="Notice.getNoticeListCnt2" parameterType="Map"  resultType="String">
+		SELECT COUNT(0)  cnt
+		FROM(
+			SELECT NOTICE_NO
+	          FROM CM_NOTICE
+		     WHERE 1 = 1
+	           AND SYSDATE BETWEEN TOP_START_DT AND TOP_END_DT
+	           AND DISP_YN = 'Y'
+	         UNION ALL
+	        SELECT NOTICE_NO
+			  FROM CM_NOTICE
+		     WHERE 1 = 1
+		       AND DISP_YN = 'Y'
+	     )
+	</select>
+
+</mapper>

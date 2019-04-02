@@ -1,0 +1,926 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="CampaignContent">
+   <resultMap type="com.skplanet.sascm.object.CampaignContentBO" id="CampaignContentBO">
+    <result property="offer_content_id"         column="offer_content_id" />
+    <result property="offer_content_cd"         column="offer_content_cd" />
+	<result property="offer_content_nm"         column="offer_content_nm" />
+	<result property="offer_content_desc"       column="offer_content_desc" />
+	<result property="tmpl_cupn_no"             column="tmpl_cupn_no" />
+	<result property="tmpl_cupn_nm"             column="tmpl_cupn_nm" />
+	<result property="offer_template_resue_yn"  column="offer_template_resue_yn" />
+	<result property="offer_type_cd"            column="offer_type_cd" />
+	<result property="offer_type_nm"            column="offer_type_nm" />
+	<result property="disp_name"                column="disp_name" />
+	<result property="offer_detail_cd"          column="offer_detail_cd" />
+	<result property="offer_detail_nm"          column="offer_detail_nm" />
+	<result property="campaignname"             column="campaignname" />
+	<result property="campaigncode"             column="campaigncode" />
+	<result property="cellid"                   column="cellid" />
+	<result property="cellrow"                  column="cellrow" />
+	<result property="cellname"                 column="cellname" />
+	<result property="create_id"                column="create_id" />
+	<result property="create_dt"                column="create_dt" />
+	<result property="update_id"                column="update_id" />
+	<result property="update_dt"                column="update_dt" />
+  <result property="num"                column="num" />
+   </resultMap>
+   
+   <resultMap type="com.skplanet.sascm.object.CampaignContentChannelBO" id="CampaignContentChannelBO">
+    <result property="campaignname"             column="campaignname" />
+    <result property="campaigncode"             column="campaigncode" />
+    <result property="offer_content_id"         column="offer_content_id" />
+    <result property="cellname"                 column="cellname" />
+	<result property="channel_cd"               column="channel_cd" />
+	<result property="channel_nm"               column="channel_nm" />
+	<result property="camp_term_cd"             column="camp_term_cd" />
+	<result property="camp_bgn_dt"              column="camp_bgn_dt" />
+    <result property="camp_end_dt"              column="camp_end_dt" />
+    <result property="manual_trans_yn"          column="manual_trans_yn" />
+    <result property="channel_priority_yn"      column="channel_priority_yn" />
+    <result property="camp_status_cd"           column="camp_status_cd" />
+	<result property="toast_title"              column="toast_title" />
+	<result property="sms_msg"                  column="sms_msg" />
+	<result property="lms_title"                column="lms_title" />
+	<result property="email_name"               column="email_name" />
+	<result property="mobile_disp_title"        column="mobile_disp_title" />
+	<result property="cellid"                   column="cellid" />
+	<result property="cellrow"                  column="cellrow" />
+    <result property="toast_msg"                column="toast_msg" />
+    <result property="toast_msg_query"          column="toast_msg_query" />
+    <result property="toast_link_url"           column="toast_link_url" />
+    <result property="toast_msg_desc"           column="toast_msg_desc" />
+    <result property="toast_priority_rnk"       column="toast_priority_rnk" />
+    <result property="toast_evnt_typ_cd"        column="toast_evnt_typ_cd" />
+    <result property="sms_msg_query"            column="sms_msg_query" />
+    <result property="sms_longurl"              column="sms_longurl" />
+    <result property="sms_shorturl"             column="sms_shorturl" />
+    <result property="sms_returncall"           column="sms_returncall" />
+    <result property="sms_disp_dt"              column="sms_disp_dt" />
+    <result property="sms_priority_rnk"         column="sms_priority_rnk" />
+    <result property="email_desc"               column="email_desc" />
+    <result property="email_disp_dt"            column="email_disp_dt" />
+    <result property="email_priority_rnk"       column="email_priority_rnk" />
+    <result property="mobile_app_kd_cd"         column="mobile_app_kd_cd" />
+    <result property="mobile_content"           column="mobile_content" />
+    <result property="mobile_add_text"          column="mobile_add_text" />
+    <result property="mobile_disp_dt"           column="mobile_disp_dt" />
+    <result property="mobile_priority_rnk"      column="mobile_priority_rnk" />
+    <result property="lms_msg"                  column="lms_msg" />
+    <result property="lms_msg_query"            column="lms_msg_query" />
+    <result property="lms_longurl"              column="lms_longurl" />
+    <result property="lms_shorturl"             column="lms_shorturl" />
+    <result property="lms_returncall"           column="lms_returncall" />
+    <result property="lms_disp_dt"              column="lms_disp_dt" />
+    <result property="lms_callback"             column="lms_callback" />
+    <result property="lms_priority_rnk"         column="lms_priority_rnk" />
+    <result property="lms_disp_time"            column="lms_disp_time" />
+    <result property="create_id"                column="create_id" />
+    <result property="create_nm"                column="create_nm" />
+    <result property="create_dt"                column="create_dt" />
+    <result property="update_id"                column="update_id" />
+    <result property="update_nm"                column="update_nm" />
+    <result property="update_dt"                column="update_dt" />
+    <result property="mobile_lnk_page_url"      column="mobile_lnk_page_url" />
+    <result property="mobile_lnk_page_typ"      column="mobile_lnk_page_typ" />  
+    <result property="mobile_send_prefer_cd"    column="mobile_send_prefer_cd" />  
+    <result property="mobile_person_msg_yn"     column="mobile_person_msg_yn" />
+    
+    <result property="sms_send_prefer_cd"       column="sms_send_prefer_cd" />  
+ 
+   </resultMap>
+   <resultMap type="com.skplanet.sascm.object.CampaignContentOfferCuBO" id="CampaignContentOfferCuBO">
+    <result property="offer_content_id"         column="offer_content_id" />
+    <result property="campaignname"        column="campaignname" />
+    <result property="campaigncode"        column="campaigncode" />
+    <result property="audience_cd"        column="audience_cd" />
+    <result property="manual_trans_yn"        column="manual_trans_yn" />
+    <result property="offer_direct_yn"        column="offer_direct_yn" />
+    <result property="channel_priority_yn"        column="channel_priority_yn" />
+    <result property="camp_status_cd"        column="camp_status_cd" />
+    <result property="filename"        column="filename" />
+    <result property="status"        column="status" />
+    <result property="camp_bgn_dt"        column="camp_bgn_dt" />
+    <result property="camp_end_dt"        column="camp_end_dt" />
+    <result property="camp_term_cd"        column="camp_term_cd" />
+    <result property="cellid"        column="cellid" />
+    <result property="cellrow"        column="cellrow" />
+    <result property="cellname"        column="cellname" />
+    <result property="cellcode"        column="cellcode" />
+    <result property="offerlistid"        column="offerlistid" />
+    <result property="offerid"        column="offerid" />
+    <result property="offername"        column="offername" />
+    <result property="offercode1"        column="offercode1" />
+    <result property="offer_type_cd"        column="offer_type_cd" />
+    <result property="offer_sys_cd"        column="offer_sys_cd" />
+    <result property="disp_name"        column="disp_name" />
+    <result property="tmpl_cupn_no"        column="tmpl_cupn_no" />
+    <result property="tmpl_cupn_no_use_yn"        column="tmpl_cupn_no_use_yn" />
+    <result property="offer_amt"        column="offer_amt" />
+    <result property="create_id"        column="create_id" />
+    
+    <result property="create_nm"        column="create_nm" />
+    <result property="create_dt"        column="create_dt" />
+    <result property="update_id"        column="update_id" />
+    <result property="update_nm"        column="update_nm" />
+    <result property="update_dt"        column="update_dt" />
+    
+    <result property="cell_package_sk"        column="cell_package_sk" />
+   </resultMap>
+   <resultMap type="com.skplanet.sascm.object.CampaignContentOfferPnBO" id="CampaignContentOfferPnBO">
+   <result property="offer_content_id"         column="offer_content_id" />
+    <result property="campaignname"        column="campaignname" />
+    <result property="campaigncode"        column="campaigncode" />
+    <result property="audience_cd"        column="audience_cd" />
+    <result property="manual_trans_yn"        column="manual_trans_yn" />
+    <result property="offer_direct_yn"        column="offer_direct_yn" />
+    <result property="channel_priority_yn"        column="channel_priority_yn" />
+    <result property="camp_status_cd"        column="camp_status_cd" />
+    <result property="filename"        column="filename" />
+    <result property="status"        column="status" />
+    <result property="cellid"        column="cellid" />
+    <result property="cellrow"        column="cellrow" />
+    <result property="cellname"        column="cellname" />
+    <result property="cellcode"        column="cellcode" />
+    <result property="offerlistid"        column="offerlistid" />
+    <result property="offerid"        column="offerid" />
+    <result property="offername"        column="offername" />
+    <result property="offercode1"        column="offercode1" />
+    <result property="offer_type_cd"        column="offer_type_cd" />
+    <result property="offer_sys_cd"        column="offer_sys_cd" />
+    <result property="disp_name"        column="disp_name" />
+    <result property="tmpl_cupn_no"        column="tmpl_cupn_no" />
+    <result property="tmpl_cupn_no_use_yn"        column="tmpl_cupn_no_use_yn" />
+    <result property="offer_amt"        column="offer_amt" />
+    <result property="create_id"        column="create_id" />
+    <result property="create_nm"        column="create_nm" />
+    <result property="create_dt"        column="create_dt" />
+    <result property="update_id"        column="update_id" />
+    <result property="update_nm"        column="update_nm" />
+    <result property="update_dt"        column="update_dt" />
+    
+    <result property="offer_aply_cd"        column="offer_aply_cd" />
+    <result property="prod_recom_cd"        column="prod_recom_cd" />
+    
+    </resultMap>
+   <select id="CampaignContent.getCampaignContentList" parameterType="Map"  resultMap="CampaignContentBO">
+    SELECT a.* FROM (
+      SELECT a.*
+            ,ROWNUM num 
+      FROM(
+       SELECT  
+               OFFER_CONTENT_ID         offer_content_id
+              ,OFFER_CONTENT_NM         offer_content_nm
+              ,OFFER_CONTENT_DESC       offer_content_desc
+              ,OFFER_TEMPLATE_RESUE_YN  offer_template_resue_yn
+              ,CREATE_ID                create_id  
+              ,CREATE_DT                create_dt
+              ,UPDATE_ID                update_id
+              ,UPDATE_DT                update_dt
+         FROM CM_CAMPAIGN_CONTENTS
+        ORDER BY OFFER_CONTENT_ID DESC
+      )a
+    )a
+    <![CDATA[ 
+      WHERE num >=  #{searchRangeStart} 
+        AND num <=  #{searchRangeEnd}
+      ORDER BY num
+      ]]>
+   </select>
+   
+   <select id="CampaignContent.getCampaignContentListCnt" parameterType="Map"  resultType="String">
+       SELECT  
+               COUNT(*) cnt
+         FROM CM_CAMPAIGN_CONTENTS
+   </select>
+   
+   <!-- 채널의 발송시간 수정 -->
+	<update id="CampaignContent.updateCampaignContent" parameterType="Map" >
+			MERGE INTO CM_CAMPAIGN_CONTENTS
+		USING DUAL
+		ON (OFFER_CONTENT_ID = #{OFFER_CONTENT_ID})
+		WHEN MATCHED THEN
+		UPDATE SET OFFER_CONTENT_NM = #{OFFER_CONTENT_NM}
+			      ,OFFER_CONTENT_DESC = #{OFFER_CONTENT_DESC}
+			      ,OFFER_TEMPLATE_RESUE_YN = 'N'
+			      ,UPDATE_ID = #{CREATE_ID}
+			      ,UPDATE_DT = SYSDATE
+		WHEN NOT MATCHED THEN
+		INSERT (
+			 OFFER_CONTENT_ID
+			,OFFER_CONTENT_NM
+			,OFFER_CONTENT_DESC
+			,OFFER_TEMPLATE_RESUE_YN
+			,CREATE_ID
+		    ,CREATE_DT
+		)
+		VALUES (
+			  #{OFFER_CONTENT_ID}
+		     ,#{OFFER_CONTENT_NM}
+		     ,#{OFFER_CONTENT_DESC}
+			 ,'N'
+			 ,#{CREATE_ID}
+			 ,SYSDATE
+		)		
+	</update>
+	<!-- 컨텐츠매핑ID조회 -->
+	<select id="CampaignContent.getOfferContentId" parameterType="Map"  resultType="String">
+		SELECT
+               CONTENTS_NO.NEXTVAL as offer_content_id
+          FROM DUAL 
+	</select>
+	<select id="CampaignContent.getCampaignContentsOfferlist" parameterType="Map"  resultMap="CampaignContentBO">
+         SELECT A.OFFER_CONTENT_ID offer_content_id
+               ,OFFER_CONTENT_NM       campaignname
+               ,'실험대상군'  cellname
+               ,B.OFFER_TYPE_CD    offer_type_cd
+               ,(SELECT CODE_NAME FROM CM_CODE_DTL WHERE COMM_CODE_ID ='C002' AND CODE_ID = B.OFFER_TYPE_CD) AS offer_type_nm
+               , 'OM'                          offer_sys_cd
+               ,B.OFFER_DETAIL_CD    offer_detail_cd
+               ,(SELECT CODE_NAME FROM CM_CODE_DTL WHERE COMM_CODE_ID = B.OFFER_TYPE_CD AND CODE_ID = B.OFFER_DETAIL_CD) AS offer_detail_nm
+               ,B.DISP_NAME disp_name
+	           , B.OFFER_ID                    offerid
+             ,COUNT(1) OVER (PARTITION BY OFFER_CONTENT_NM )      cellrow
+           FROM CM_CAMPAIGN_CONTENTS A 
+               ,CM_CAMPAIGN_CONTENTS_OFFERLIST B
+          WHERE 
+                A.OFFER_CONTENT_ID = B.OFFER_CONTENT_ID
+            AND A.OFFER_CONTENT_ID = #{OFFER_CONTENT_ID}
+   </select>
+   <!-- 공통코드 마스터 입력 -->
+	<insert id="CampaignContent.setCampaignContentsOffer" parameterType="Map" >
+		INSERT INTO CM_CAMPAIGN_CONTENTS_OFFERLIST
+		(
+		 OFFER_CONTENT_ID
+        ,OFFER_TYPE_CD
+        ,OFFER_DETAIL_CD
+        ,DISP_NAME
+        ,OFFER_ID
+        ,CREATE_ID
+        ,CREATE_DT
+    
+		)
+		VALUES
+		(
+		 TRIM(#{OFFER_CONTENT_ID})
+		,TRIM(#{OFFER_TYPE_CD})
+		,TRIM(#{OFFER_DETAIL_CD})
+		,TRIM(#{DISP_NAME})
+		,OFFERLIST_NO.NEXTVAL
+		,TRIM(#{CREATE_ID})
+		,SYSDATE
+		)
+	</insert>
+	<!-- 캠페인 채널 정보 삭제 -->
+	<delete id="CampaignContent.delCampaignContentsOffer" parameterType="Map">
+   	    DELETE FROM  CM_CAMPAIGN_CONTENTS_OFFERLIST
+         WHERE OFFER_CONTENT_ID = #{OFFER_CONTENT_ID}
+           AND OFFER_TYPE_CD = #{OFFER_TYPE_CD}
+           AND OFFER_DETAIL_CD = #{OFFER_DETAIL_CD}
+           AND OFFER_ID = #{OFFERID}
+	</delete>
+	<update id="CampaignContent.updateCampaignContentOffer" parameterType="Map" >
+		UPDATE CM_CAMPAIGN_CONTENTS_OFFERLIST
+           SET DISP_NAME = #{DISP_NAME}
+              ,UPDATE_ID = #{UPDATE_ID}
+              ,UPDATE_DT = SYSDATE
+         WHERE OFFER_CONTENT_ID= #{OFFER_CONTENT_ID}
+           AND OFFER_TYPE_CD= #{OFFER_TYPE_CD}
+           AND OFFER_DETAIL_CD	= #{OFFER_DETAIL_CD}	
+	</update>
+	<select id="CampaignContent.getChannelInfo" parameterType="Map"  resultMap="CampaignContentBO">
+            SELECT
+                  OFFER_CONTENT_ID                                   offer_content_id
+                ,OFFER_CONTENT_NM                campaignname
+                ,OFFER_CONTENT_ID+5000000                            campaigncode
+                ,COUNT(1) OVER (PARTITION BY OFFER_CONTENT_ID)       cellrow
+                ,'실험대상군('||OFFER_CONTENT_NM||')'             cellname
+             
+           FROM CM_CAMPAIGN_CONTENTS 
+          WHERE 1=1
+           AND OFFER_CONTENT_ID = #{OFFER_CONTENT_ID}
+	</select>
+	<select id="CampaignContent.getContentChannelList" parameterType="Map"  resultMap="CampaignContentChannelBO">
+	SELECT
+              distinct
+		      '실험대상군('||A.OFFER_CONTENT_NM||')'     cellname
+		     ,D.CHANNEL_CD                                  channel_cd
+		     ,(SELECT CODE_NAME FROM CM_CODE_DTL WHERE CODE_ID = D.CHANNEL_CD AND COMM_CODE_ID = 'C011') channel_nm
+		     ,D.TOAST_TITLE                         toast_title
+		     ,D.SMS_MSG                             sms_msg
+		     ,D.LMS_TITLE                           lms_title
+		     ,D.EMAIL_NAME                          email_name
+		     ,D.MOBILE_DISP_TITLE                   mobile_disp_title
+		     ,D.OFFER_CONTENT_ID                    offer_content_id
+             ,COUNT(1) OVER (PARTITION BY A.OFFER_CONTENT_ID )      cellrow
+		 FROM CM_CAMPAIGN_CONTENTS      A   
+		     ,CM_CAMPAIGN_CHANNEL    D
+		WHERE 1=1
+		  AND A.OFFER_CONTENT_ID  = #{OFFER_CONTENT_ID}
+		  AND A.OFFER_CONTENT_ID  = D.OFFER_CONTENT_ID
+    ORDER BY CELLNAME ASC
+    </select>
+    <select id="CampaignContent.getChannelDtlInfo" parameterType="Map"  resultMap="CampaignContentChannelBO">
+      SELECT E.*
+        ,D.CHANNEL_CD                               channel_cd
+        ,D.TOAST_TITLE                              toast_title
+        ,D.TOAST_MSG                                toast_msg
+        ,D.TOAST_MSG_QUERY                          toast_msg_query
+        ,D.TOAST_INPUT_MSG                          toast_input_msg
+        ,D.TOAST_IMG_URL                            toast_img_url
+        ,D.TOAST_LINK_URL                           toast_link_url
+        ,D.TOAST_MSG_DESC                           toast_msg_desc
+        ,D.TOAST_PRIORITY_RNK                       toast_priority_rnk
+        ,D.TOAST_EVNT_TYP_CD                        toast_evnt_typ_cd
+        ,D.SMS_MSG                                  sms_msg
+        ,D.SMS_MSG_QUERY                            sms_msg_query
+        ,D.SMS_LONGURL                              sms_longurl
+        ,D.SMS_SHORTURL                             sms_shorturl
+        ,D.SMS_RETURNCALL                           sms_returncall
+        ,D.SMS_CALLBACK               sms_callback
+        ,TO_CHAR(D.SMS_DISP_DT, 'YYYY-MM-DD')       sms_disp_dt
+        ,D.SMS_PRIORITY_RNK                         sms_priority_rnk
+        ,D.SMS_DISP_TIME                            sms_disp_time
+        ,D.EMAIL_EDIT_YN                            email_edit_yn
+        ,D.EMAIL_SUBJECT                            email_subject
+        ,CASE WHEN D.EMAIL_EDIT_YN = 'N' THEN '' 
+              ELSE NVL(D.EMAIL_FROMNAME,    (SELECT CODE_NAME FROM CM_CODE_DTL WHERE COMM_CODE_ID = 'C018' AND CODE_ID = 'FROMNAME'    AND USE_YN = 'Y' )) END email_fromname
+        ,CASE WHEN D.EMAIL_EDIT_YN = 'N' THEN '' 
+              ELSE NVL(D.EMAIL_FROMADDRESS, (SELECT CODE_NAME FROM CM_CODE_DTL WHERE COMM_CODE_ID = 'C018' AND CODE_ID = 'FROMADDRESS' AND USE_YN = 'Y' )) END email_fromaddress
+        ,CASE WHEN D.EMAIL_EDIT_YN = 'N' THEN '' 
+              ELSE NVL(D.EMAIL_REPLYTO,     (SELECT CODE_NAME FROM CM_CODE_DTL WHERE COMM_CODE_ID = 'C018' AND CODE_ID = 'REPYTO'      AND USE_YN = 'Y' )) END email_replyto
+        ,D.EMAIL_NAME                               email_name
+        ,D.EMAIL_DESC                               email_desc
+        ,TO_CHAR(D.EMAIL_DISP_DT, 'YYYY-MM-DD')     email_disp_dt
+        ,D.EMAIL_PRIORITY_RNK                       email_priority_rnk
+        ,D.EMAIL_DISP_TIME                          email_disp_time
+        ,D.MOBILE_APP_KD_CD                         mobile_app_kd_cd
+        ,D.MOBILE_DISP_TITLE                        mobile_disp_title
+        ,D.MOBILE_CONTENT                           mobile_content
+        ,TO_CLOB(D.MOBILE_ADD_TEXT)                           mobile_add_text
+        ,TO_CHAR(D.MOBILE_DISP_DT, 'YYYY-MM-DD')    mobile_disp_dt
+        ,D.MOBILE_PRIORITY_RNK                      mobile_priority_rnk
+        ,D.MOBILE_DISP_TIME                         mobile_disp_time
+        ,D.timeline_disp_yn                         timeline_disp_yn
+        ,D.push_msg_popup_indc_yn                   push_msg_popup_indc_yn
+        ,D.thum_img_url                             thum_img_url
+        ,D.bnnr_img_url                             bnnr_img_url
+        ,D.CREATE_ID                                create_id
+        ,(SELECT USER_NAME FROM CM_USER WHERE ID = D.CREATE_ID) create_nm
+        ,TO_CHAR(D.CREATE_DT, 'YYYY-MM-DD HH24:MI:SS') create_dt
+        ,D.UPDATE_ID                                update_id
+        ,(SELECT USER_NAME FROM CM_USER WHERE ID = D.UPDATE_ID) update_nm
+        ,TO_CHAR(D.UPDATE_DT, 'YYYY-MM-DD HH24:MI:SS') update_dt
+        ,TO_CLOB(D.EMAIL_CONTENT)                             email_content
+        ,D.LMS_TITLE
+        ,D.LMS_MSG
+        ,D.LMS_MSG_QUERY
+        ,D.LMS_LONGURL
+        ,D.LMS_SHORTURL
+        ,D.LMS_RETURNCALL
+        ,D.LMS_DISP_DT
+        ,D.LMS_CALLBACK
+        ,D.LMS_PRIORITY_RNK
+        ,D.LMS_DISP_TIME
+        ,D.MOBILE_LNK_PAGE_TYP      mobile_lnk_page_typ
+        ,D.MOBILE_LNK_PAGE_URL      mobile_lnk_page_url
+        ,D.MOBILE_SEND_PREFER_CD    mobile_send_prefer_cd
+        ,D.MOBILE_PERSON_MSG_YN     mobile_person_msg_yn
+        ,D.SMS_SEND_PREFER_CD       sms_send_prefer_cd
+        FROM (
+          SELECT
+               DISTINCT
+               OFFER_CONTENT_NM       campaignname
+              ,B.OFFER_CONTENT_ID+5000000                 campaigncode
+              ,'02'                                       camp_term_cd
+              ,''                                         camp_bgn_dt
+              ,''                                         camp_end_dt
+              ,''                                         audience_cd
+              ,'Y'                                        manual_trans_yn
+              ,'N'                                        channel_priority_yn
+              ,'EDIT'                                     camp_status_cd
+              ,B.OFFER_CONTENT_ID                         offer_content_id
+              ,COUNT(1) OVER (PARTITION BY B.OFFER_CONTENT_ID)      cellrow
+              ,'실험대상군('||B.OFFER_CONTENT_NM||')'          cellname
+              
+      FROM CM_CAMPAIGN_CONTENTS    B
+      WHERE 1=1
+        AND B.OFFER_CONTENT_ID  = #{OFFER_CONTENT_ID}
+      ) E,
+      CM_CAMPAIGN_CHANNEL    D          
+      WHERE 
+        E.OFFER_CONTENT_ID  = D.OFFER_CONTENT_ID(+)
+        AND #{CHANNEL_CD} = D.CHANNEL_CD(+)     
+    </select>
+    <!-- 채널정보 저장(SMS) -->
+  <update id="CampaignContent.setContentsChannelSms" parameterType="Map" >
+    MERGE INTO CM_CAMPAIGN_CHANNEL
+    USING DUAL
+    ON (    OFFER_CONTENT_ID     = #{OFFER_CONTENT_ID}
+        AND CHANNEL_CD = #{CHANNEL_CD}
+       )
+    WHEN MATCHED THEN
+    UPDATE SET SMS_MSG               = TRIM(#{SMS_MSG})
+              ,SMS_MSG_QUERY         = TRIM(#{SMS_MSG_QUERY})
+              ,SMS_LONGURL           = TRIM(#{SMS_LONGURL})
+              ,SMS_SHORTURL          = TRIM(#{SMS_SHORTURL})
+              ,SMS_RETURNCALL        = TRIM(#{SMS_RETURNCALL})
+              ,SMS_DISP_DT           = TO_DATE(TRIM(#{SMS_DISP_DT}),'YYYY-MM-DD')
+              ,SMS_CALLBACK          = TRIM(#{SMS_CALLBACK})
+              ,SMS_PRIORITY_RNK      = TRIM(#{SMS_PRIORITY_RNK})
+              ,SMS_DISP_TIME         = TRIM(#{SMS_DISP_TIME})
+              ,SMS_SEND_PREFER_CD    = TRIM(#{SMS_SEND_PREFER_CD})
+              ,UPDATE_ID             = TRIM(#{UPDATE_ID})
+              ,UPDATE_DT             = SYSDATE
+    WHEN NOT MATCHED THEN
+    INSERT (
+       CELLID
+      ,OFFER_CONTENT_ID
+      ,CHANNEL_CD
+      ,SMS_MSG
+      ,SMS_MSG_QUERY
+      ,SMS_LONGURL
+      ,SMS_SHORTURL
+      ,SMS_RETURNCALL
+      ,SMS_DISP_DT
+      ,SMS_CALLBACK
+      ,SMS_PRIORITY_RNK
+      ,SMS_DISP_TIME
+      ,SMS_SEND_PREFER_CD
+      ,CAMPAIGNCODE
+      ,FLOWCHARTID
+      ,CREATE_ID
+      ,CREATE_DT      
+    )
+    VALUES (
+       TRIM(#{OFFER_CONTENT_ID})
+      ,TRIM(#{OFFER_CONTENT_ID})
+      ,TRIM(#{CHANNEL_CD})
+      ,TRIM(#{SMS_MSG})
+      ,TRIM(#{SMS_MSG_QUERY})
+      ,TRIM(#{SMS_LONGURL})
+      ,TRIM(#{SMS_SHORTURL})
+      ,TRIM(#{SMS_RETURNCALL})
+      ,TO_DATE(TRIM(#{SMS_DISP_DT}),'YYYY-MM-DD')
+      ,TRIM(#{SMS_CALLBACK})
+      ,TRIM(#{SMS_PRIORITY_RNK})
+      ,TRIM(#{SMS_DISP_TIME})
+      ,TRIM(#{SMS_SEND_PREFER_CD})
+      ,TRIM(#{CAMPAIGNCODE})
+      ,TO_NUMBER(SUBSTR(TRIM(#{CAMPAIGNCODE}),5))
+      ,TRIM(#{CREATE_ID})
+      ,SYSDATE      
+    )         
+  </update>
+   <!-- 채널정보 저장(EMAIL) -->
+  <update id="CampaignContent.setContentsChannelEmail" parameterType="Map" >
+  <![CDATA[ 
+    MERGE INTO CM_CAMPAIGN_CHANNEL
+    USING DUAL
+    ON (    OFFER_CONTENT_ID     = #{OFFER_CONTENT_ID}
+        AND CHANNEL_CD = #{CHANNEL_CD}
+       )
+    WHEN MATCHED THEN
+        UPDATE SET EMAIL_NAME            = TRIM(#{EMAIL_NAME})
+                  ,EMAIL_DESC            = TRIM(#{EMAIL_DESC})
+                  ,EMAIL_EDIT_YN         = TRIM(#{EMAIL_EDIT_YN})
+                  ,EMAIL_SUBJECT         = TRIM(#{EMAIL_SUBJECT})
+                  ,EMAIL_CONTENT         = ''
+                  ,EMAIL_FROMNAME        = CASE WHEN TRIM(#{EMAIL_EDIT_YN}) = 'Y' THEN TRIM(#{EMAIL_FROMNAME})      ELSE '' END
+                  ,EMAIL_FROMADDRESS     = CASE WHEN TRIM(#{EMAIL_EDIT_YN}) = 'Y' THEN TRIM(#{EMAIL_FROMADDRESS})   ELSE '' END
+                  ,EMAIL_REPLYTO         = CASE WHEN TRIM(#{EMAIL_EDIT_YN}) = 'Y' THEN TRIM(#{EMAIL_REPLYTO})       ELSE '' END
+                  ,EMAIL_DISP_DT         = TO_DATE(TRIM(#{EMAIL_DISP_DT}), 'YYYY-MM-DD')
+                  ,EMAIL_PRIORITY_RNK    = TRIM(#{EMAIL_PRIORITY_RNK})
+                  ,EMAIL_DISP_TIME       = TRIM(#{EMAIL_DISP_TIME})
+                  ,UPDATE_ID             = TRIM(#{UPDATE_ID})
+                  ,UPDATE_DT             = SYSDATE
+        WHEN NOT MATCHED THEN
+        INSERT (
+                 CELLID
+                ,OFFER_CONTENT_ID
+                ,CHANNEL_CD
+                ,EMAIL_NAME
+                ,EMAIL_DESC
+                ,EMAIL_EDIT_YN
+                ,EMAIL_SUBJECT
+                ,EMAIL_CONTENT
+                ,EMAIL_FROMNAME
+                ,EMAIL_FROMADDRESS
+                ,EMAIL_REPLYTO
+                ,EMAIL_DISP_DT
+                ,EMAIL_PRIORITY_RNK
+                ,EMAIL_DISP_TIME
+                ,CAMPAIGNCODE
+                ,FLOWCHARTID
+                ,CREATE_ID
+                ,CREATE_DT
+        )
+        VALUES (
+                 TRIM(#{OFFER_CONTENT_ID})
+                ,TRIM(#{OFFER_CONTENT_ID})
+                ,TRIM(#{CHANNEL_CD})
+                ,TRIM(#{EMAIL_NAME})
+                ,TRIM(#{EMAIL_DESC})
+                ,TRIM(#{EMAIL_EDIT_YN})
+                ,TRIM(#{EMAIL_SUBJECT})
+                ,''
+                ,CASE WHEN TRIM(#{EMAIL_EDIT_YN}) = 'Y' THEN TRIM(#{EMAIL_FROMNAME})     ELSE '' END
+                ,CASE WHEN TRIM(#{EMAIL_EDIT_YN}) = 'Y' THEN TRIM(#{EMAIL_FROMADDRESS})  ELSE '' END
+                ,CASE WHEN TRIM(#{EMAIL_EDIT_YN}) = 'Y' THEN TRIM(#{EMAIL_REPLYTO})      ELSE '' END
+                ,TO_DATE(TRIM(#{EMAIL_DISP_DT}), 'YYYY-MM-DD')
+                ,TRIM(#{EMAIL_PRIORITY_RNK})
+                ,TRIM(#{EMAIL_DISP_TIME})
+                ,TRIM(#{CAMPAIGNCODE})
+                ,TO_NUMBER(SUBSTR(TRIM(#{CAMPAIGNCODE}),5))
+                ,TRIM(#{CREATE_ID})
+                ,SYSDATE
+        )
+    ]]>
+  </update>
+  <!-- 채널정보 저장(EMAIL-CONTENT) -->
+  <update id="CampaignContent.setContentsChannelEmail2" parameterType="Map" >
+    UPDATE CM_CAMPAIGN_CHANNEL
+       SET EMAIL_CONTENT = EMAIL_CONTENT || TRIM(#{EMAIL_CONTENT})
+     WHERE OFFER_CONTENT_ID     = #{OFFER_CONTENT_ID}
+        AND CHANNEL_CD = #{CHANNEL_CD}
+  </update>
+  <!-- 채널정보 저장(토스트배너) -->
+  <update id="CampaignContent.setContentsChannelToast" parameterType="Map" >
+    MERGE INTO CM_CAMPAIGN_CHANNEL
+    USING DUAL
+    ON (    OFFER_CONTENT_ID     = #{OFFER_CONTENT_ID}
+        AND CHANNEL_CD = #{CHANNEL_CD}
+       )
+    WHEN MATCHED THEN
+    UPDATE SET TOAST_TITLE           = TRIM(#{TOAST_TITLE})
+              ,TOAST_MSG             = TRIM(#{TOAST_MSG})
+              ,TOAST_INPUT_MSG       = TRIM(#{TOAST_INPUT_MSG})
+              ,TOAST_IMG_URL         = TRIM(#{TOAST_IMG_URL})
+              ,TOAST_MSG_QUERY       = TRIM(#{TOAST_MSG_QUERY})
+              ,TOAST_LINK_URL        = TRIM(#{TOAST_LINK_URL})
+              ,TOAST_MSG_DESC        = TRIM(#{TOAST_MSG_DESC})
+              ,TOAST_PRIORITY_RNK    = TRIM(#{TOAST_PRIORITY_RNK})
+              ,TOAST_EVNT_TYP_CD     = TRIM(#{TOAST_EVNT_TYP_CD})
+              ,UPDATE_ID             = TRIM(#{UPDATE_ID})
+              ,UPDATE_DT             = SYSDATE
+    WHEN NOT MATCHED THEN
+    INSERT (
+       CELLID
+      ,OFFER_CONTENT_ID
+      ,CHANNEL_CD
+      ,TOAST_TITLE
+      ,TOAST_MSG
+      ,TOAST_MSG_QUERY
+      ,TOAST_INPUT_MSG
+      ,TOAST_IMG_URL
+      ,TOAST_LINK_URL
+      ,TOAST_MSG_DESC
+      ,TOAST_PRIORITY_RNK
+      ,TOAST_EVNT_TYP_CD
+      ,CAMPAIGNCODE
+      ,FLOWCHARTID
+      ,CREATE_ID
+      ,CREATE_DT
+    )
+    VALUES (
+       TRIM(#{OFFER_CONTENT_ID})
+      ,TRIM(#{OFFER_CONTENT_ID})
+      ,TRIM(#{CHANNEL_CD})
+      ,TRIM(#{TOAST_TITLE})
+      ,TRIM(#{TOAST_MSG})
+      ,TRIM(#{TOAST_MSG_QUERY})
+      ,TRIM(#{TOAST_INPUT_MSG})
+      ,TRIM(#{TOAST_IMG_URL})
+      ,TRIM(#{TOAST_LINK_URL})
+      ,TRIM(#{TOAST_MSG_DESC})
+      ,TRIM(#{TOAST_PRIORITY_RNK})
+      ,TRIM(#{TOAST_EVNT_TYP_CD})
+      ,TRIM(#{CAMPAIGNCODE})
+      ,TO_NUMBER(SUBSTR(TRIM(#{CAMPAIGNCODE}),5))
+      ,TRIM(#{CREATE_ID})
+      ,SYSDATE
+    )         
+  </update>
+   <!-- 채널정보 저장(MOBILE) -->
+  <update id="CampaignContent.setContentsChannelMobile" parameterType="Map" >
+    MERGE INTO CM_CAMPAIGN_CHANNEL
+    USING DUAL
+    ON (    OFFER_CONTENT_ID     = #{OFFER_CONTENT_ID}
+        AND CHANNEL_CD = #{CHANNEL_CD}
+       )
+    WHEN MATCHED THEN
+        UPDATE SET MOBILE_APP_KD_CD           = TRIM(#{MOBILE_APP_KD_CD}) 
+                  ,MOBILE_DISP_TITLE          = TRIM(#{MOBILE_DISP_TITLE})
+                  ,MOBILE_CONTENT             = TRIM(#{MOBILE_CONTENT})   
+                  ,MOBILE_ADD_TEXT            = ''  
+                  ,MOBILE_DISP_DT             = TO_DATE(TRIM(#{MOBILE_DISP_DT}), 'YYYY-MM-DD')
+                  ,MOBILE_PRIORITY_RNK        = TRIM(#{MOBILE_PRIORITY_RNK})
+                  ,MOBILE_DISP_TIME           = TRIM(#{MOBILE_DISP_TIME})
+                  ,TIMELINE_DISP_YN           = TRIM(#{TIMELINE_DISP_YN})
+                  ,PUSH_MSG_POPUP_INDC_YN     = TRIM(#{PUSH_MSG_POPUP_INDC_YN})
+                  ,THUM_IMG_URL               = TRIM(#{THUM_IMG_URL})
+                  ,BNNR_IMG_URL               = TRIM(#{BNNR_IMG_URL})
+                  ,MOBILE_LNK_PAGE_TYP        = TRIM(#{MOBILE_LNK_PAGE_TYP})
+                  ,MOBILE_LNK_PAGE_URL        = TRIM(#{MOBILE_LNK_PAGE_URL})
+                  ,UPDATE_ID                  = TRIM(#{UPDATE_ID})
+                  ,UPDATE_DT                  = SYSDATE
+                  ,MOBILE_SEND_PREFER_CD      = TRIM(#{MOBILE_SEND_PREFER_CD})
+                  ,MOBILE_PERSON_MSG_YN       = TRIM(#{useIndi})
+        WHEN NOT MATCHED THEN
+        INSERT (
+                 CELLID
+                ,OFFER_CONTENT_ID
+                ,CHANNEL_CD
+                ,MOBILE_APP_KD_CD
+                ,MOBILE_DISP_TITLE
+                ,MOBILE_CONTENT
+                ,MOBILE_ADD_TEXT
+                ,MOBILE_DISP_DT
+                ,MOBILE_PRIORITY_RNK
+                ,MOBILE_DISP_TIME
+                ,TIMELINE_DISP_YN
+                ,PUSH_MSG_POPUP_INDC_YN
+                ,THUM_IMG_URL
+                ,BNNR_IMG_URL
+                ,CAMPAIGNCODE
+                ,FLOWCHARTID
+                ,MOBILE_LNK_PAGE_TYP
+                ,MOBILE_LNK_PAGE_URL
+                ,CREATE_ID
+                ,CREATE_DT
+                ,MOBILE_SEND_PREFER_CD
+                ,MOBILE_PERSON_MSG_YN
+        )
+        VALUES (
+                 TRIM(#{OFFER_CONTENT_ID})
+                ,TRIM(#{OFFER_CONTENT_ID})
+                ,TRIM(#{CHANNEL_CD})
+                ,TRIM(#{MOBILE_APP_KD_CD})
+                ,TRIM(#{MOBILE_DISP_TITLE})
+                ,TRIM(#{MOBILE_CONTENT})
+                ,''
+                ,TO_DATE(TRIM(#{MOBILE_DISP_DT}), 'YYYY-MM-DD')
+                ,TRIM(#{MOBILE_PRIORITY_RNK})
+                ,TRIM(#{MOBILE_DISP_TIME})
+                ,TRIM(#{TIMELINE_DISP_YN})
+                ,TRIM(#{PUSH_MSG_POPUP_INDC_YN})
+                ,TRIM(#{THUM_IMG_URL})
+                ,TRIM(#{BNNR_IMG_URL})
+                ,TRIM(#{CAMPAIGNCODE})
+                ,TO_NUMBER(SUBSTR(TRIM(#{CAMPAIGNCODE}),5))
+                ,TRIM(#{MOBILE_LNK_PAGE_TYP})
+                ,TRIM(#{MOBILE_LNK_PAGE_URL})
+                ,TRIM(#{CREATE_ID})
+                ,SYSDATE
+                ,TRIM(#{MOBILE_SEND_PREFER_CD})
+                ,TRIM(#{useIndi})
+        )
+  </update>
+  
+    <!-- 채널정보 저장(MOBILE-ADD_TEXT) -->
+  <update id="CampaignContent.setContentsChannelMobile2" parameterType="Map" >
+    UPDATE CM_CAMPAIGN_CHANNEL
+       SET MOBILE_ADD_TEXT = MOBILE_ADD_TEXT || TRIM(#{MOBILE_ADD_TEXT})
+     WHERE OFFER_CONTENT_ID     = #{OFFER_CONTENT_ID}
+        AND CHANNEL_CD = #{CHANNEL_CD}
+  </update>
+  
+   <!-- 채널정보 저장(LMS) -->
+  <update id="CampaignContent.setContentsChannelLms" parameterType="Map" >
+    MERGE INTO CM_CAMPAIGN_CHANNEL
+    USING DUAL
+    ON (     OFFER_CONTENT_ID     = #{OFFER_CONTENT_ID}
+        AND CHANNEL_CD = #{CHANNEL_CD}
+       )
+    WHEN MATCHED THEN
+    UPDATE SET LMS_TITLE             = TRIM(#{LMS_TITLE})
+              ,LMS_MSG               = TRIM(#{LMS_MSG})
+              ,LMS_MSG_QUERY         = TRIM(#{LMS_MSG_QUERY})
+              ,LMS_LONGURL           = TRIM(#{LMS_LONGURL})
+              ,LMS_SHORTURL          = TRIM(#{LMS_SHORTURL})
+              ,LMS_RETURNCALL        = TRIM(#{LMS_RETURNCALL})
+              ,LMS_DISP_DT           = TO_DATE(TRIM(#{LMS_DISP_DT}),'YYYY-MM-DD')
+              ,LMS_CALLBACK          = TRIM(#{LMS_CALLBACK})
+              ,LMS_PRIORITY_RNK      = TRIM(#{LMS_PRIORITY_RNK})
+              ,LMS_DISP_TIME         = TRIM(#{LMS_DISP_TIME})
+              ,UPDATE_ID             = TRIM(#{UPDATE_ID})
+              ,UPDATE_DT             = SYSDATE
+    WHEN NOT MATCHED THEN
+    INSERT (
+       CELLID
+      ,OFFER_CONTENT_ID
+      ,CHANNEL_CD
+      ,LMS_TITLE
+      ,LMS_MSG
+      ,LMS_MSG_QUERY
+      ,LMS_LONGURL
+      ,LMS_SHORTURL
+      ,LMS_RETURNCALL
+      ,LMS_DISP_DT
+      ,LMS_CALLBACK
+      ,LMS_PRIORITY_RNK
+      ,LMS_DISP_TIME
+      ,CAMPAIGNCODE
+      ,FLOWCHARTID
+      ,CREATE_ID
+      ,CREATE_DT      
+    )
+    VALUES (
+       TRIM(#{OFFER_CONTENT_ID})
+      ,TRIM(#{OFFER_CONTENT_ID})
+      ,TRIM(#{CHANNEL_CD})
+      ,TRIM(#{LMS_TITLE})
+      ,TRIM(#{LMS_MSG})
+      ,TRIM(#{LMS_MSG_QUERY})
+      ,TRIM(#{LMS_LONGURL})
+      ,TRIM(#{LMS_SHORTURL})
+      ,TRIM(#{LMS_RETURNCALL})
+      ,TO_DATE(TRIM(#{LMS_DISP_DT}),'YYYY-MM-DD')
+      ,TRIM(#{LMS_CALLBACK})
+      ,TRIM(#{LMS_PRIORITY_RNK})
+      ,TRIM(#{LMS_DISP_TIME})
+      ,TRIM(#{CAMPAIGNCODE})
+      ,TO_NUMBER(SUBSTR(TRIM(#{CAMPAIGNCODE}),5))
+      ,TRIM(#{CREATE_ID})
+      ,SYSDATE      
+    )         
+  </update>
+  <!-- 오퍼정보 조회(쿠폰, 도서 포인트) -->
+  <select id="CampaignContent.getOfferCuInfo" parameterType="Map"  resultMap="CampaignContentOfferCuBO">
+  SELECT   A.OFFER_CONTENT_ID                                     offer_content_id
+	     , B.OFFER_TYPE_CD                                        offer_type_cd
+		 , 'OM'                                                   offer_sys_cd
+		 , '실험대상군'                                        cellname
+		 , B.OFFER_ID                                             offerid
+		 ,A.OFFER_CONTENT_NM                  campaignname
+         ,A.OFFER_CONTENT_ID+5000000                              campaigncode
+		 , B.DISP_NAME                                            offername
+	     , C.DISP_NAME                                            disp_name 
+	     , C.TMPL_CUPN_NO                                         tmpl_cupn_no
+       , C.TMPL_CUPN_NO_USE_YN                                  tmpl_cupn_no_use_yn
+	     , C.OFFER_AMT                                            offer_amt 
+	     , 'EDIT'                                                 camp_status_cd
+	     ,''                                                      camp_bgn_dt
+		 ,''                                                      camp_end_dt
+	     , C.CREATE_ID                                            create_id
+	     , (SELECT USER_NAME FROM CM_USER WHERE ID = C.CREATE_ID) create_nm 
+	     , TO_CHAR(C.CREATE_DT, 'YYYY-MM-DD HH24:MI:SS')          create_dt
+	     , C.UPDATE_ID                                            update_id
+	     , (SELECT USER_NAME FROM CM_USER WHERE ID = C.UPDATE_ID) update_nm
+	     , TO_CHAR(C.UPDATE_DT, 'YYYY-MM-DD HH24:MI:SS')          update_dt
+   FROM CM_CAMPAIGN_CONTENTS A 
+      , CM_CAMPAIGN_CONTENTS_OFFERLIST B 
+      , CM_CAMPAIGN_OFFER C
+  WHERE 1=1
+    AND A.OFFER_CONTENT_ID = B.OFFER_CONTENT_ID(+)
+    AND A.OFFER_CONTENT_ID = C.OFFER_CONTENT_ID(+)
+    AND B.OFFER_ID = C.OFFERID
+    AND B.OFFER_ID =  #{OFFERID}
+    AND A.OFFER_CONTENT_ID = #{OFFER_CONTENT_ID}
+    AND B.OFFER_TYPE_CD = #{OFFER_TYPE_CD}
+  </select>
+  <!-- 오퍼정보 조회(포인트, 마일리지, OCB) -->
+  <select id="CampaignContent.getOfferPnInfo" parameterType="Map"  resultMap="CampaignContentOfferPnBO">
+   SELECT   A.OFFER_CONTENT_ID                                    offer_content_id
+	     , B.OFFER_TYPE_CD                                        offer_type_cd
+		 , 'OM'                                                   offer_sys_cd
+		 , '실험대상군'                                        cellname
+		 , B.OFFER_ID                                             offerid
+		 ,A.OFFER_CONTENT_NM                  campaignname
+         ,A.OFFER_CONTENT_ID+5000000                              campaigncode
+		 , B.DISP_NAME                                            offername
+		 , C.TMPL_CUPN_NO                                         tmpl_cupn_no
+	     , C.TMPL_CUPN_NO_USE_YN                                  tmpl_cupn_no_use_yn
+	     , C.DISP_NAME                                            disp_name 
+	     , C.OFFER_AMT                                            offer_amt 
+	     , 'EDIT'                                                 camp_status_cd
+	     ,''                                                      camp_bgn_dt
+		 ,''                                                      camp_end_dt
+	     , C.CREATE_ID                                            create_id
+	     , (SELECT USER_NAME FROM CM_USER WHERE ID = C.CREATE_ID) create_nm 
+	     , TO_CHAR(C.CREATE_DT, 'YYYY-MM-DD HH24:MI:SS')          create_dt
+	     , C.UPDATE_ID                                            update_id
+	     , (SELECT USER_NAME FROM CM_USER WHERE ID = C.UPDATE_ID) update_nm
+	     , TO_CHAR(C.UPDATE_DT, 'YYYY-MM-DD HH24:MI:SS')          update_dt
+
+       , C.OFFER_APLY_CD                          AS offer_aply_cd
+       , C.PROD_RECOM_CD                          AS prod_recom_cd
+               
+   FROM CM_CAMPAIGN_CONTENTS A 
+      , CM_CAMPAIGN_CONTENTS_OFFERLIST B 
+      , CM_CAMPAIGN_OFFER C
+  WHERE 1=1
+    AND A.OFFER_CONTENT_ID = B.OFFER_CONTENT_ID(+)
+    AND A.OFFER_CONTENT_ID = C.OFFER_CONTENT_ID(+)
+    AND B.OFFER_ID = C.OFFERID
+    AND B.OFFER_ID =  #{OFFERID}
+    AND A.OFFER_CONTENT_ID = #{OFFER_CONTENT_ID}
+    AND B.OFFER_TYPE_CD = #{OFFER_TYPE_CD}
+  </select>
+   <update id="CampaignContent.setOfferPn" parameterType="Map" >
+    MERGE INTO CM_CAMPAIGN_OFFER
+    USING DUAL
+    ON (    OFFER_CONTENT_ID  = #{OFFER_CONTENT_ID}
+        AND OFFERID = #{OFFERID}
+       )
+    WHEN MATCHED THEN
+    UPDATE SET DISP_NAME           = TRIM(#{DISP_NAME})
+              ,OFFER_AMT           = TRIM(#{OFFER_AMT})
+              ,OFFER_APLY_CD       = TRIM(#{OFFER_APLY_CD})
+              ,PROD_RECOM_CD       = TRIM(#{PROD_RECOM_CD})
+              ,UPDATE_ID           = TRIM(#{UPDATE_ID})
+              ,UPDATE_DT           = SYSDATE
+    WHEN NOT MATCHED THEN
+    INSERT (
+       CELLID
+      ,OFFERID
+      ,OFFER_CONTENT_ID
+      ,OFFER_TYPE_CD
+      ,OFFER_SYS_CD
+      ,DISP_NAME
+      ,OFFER_AMT
+      ,OFFER_APLY_CD 
+      ,PROD_RECOM_CD
+      ,CAMPAIGNCODE
+      ,FLOWCHARTID
+      ,CREATE_ID
+      ,CREATE_DT
+
+    )
+    VALUES (
+       TRIM(#{OFFER_CONTENT_ID})
+      ,TRIM(#{OFFERID})
+      ,TRIM(#{OFFER_CONTENT_ID})
+      ,TRIM(#{OFFER_TYPE_CD})
+      ,TRIM(#{OFFER_SYS_CD})
+      ,TRIM(#{DISP_NAME})
+      ,TRIM(#{OFFER_AMT})
+      ,TRIM(#{OFFER_APLY_CD})
+      ,TRIM(#{PROD_RECOM_CD})
+      ,TRIM(#{CAMPAIGNCODE})
+      ,TO_NUMBER(SUBSTR(TRIM(#{CAMPAIGNCODE}),5))
+      ,TRIM(#{CREATE_ID})
+      ,SYSDATE
+    )               
+  </update>
+  <!-- 오퍼정보 저장(쿠폰, 도서쿠폰) -->
+  <update id="CampaignContent.setOfferCu" parameterType="Map" >
+    MERGE INTO CM_CAMPAIGN_OFFER
+    USING DUAL
+    ON (    OFFER_CONTENT_ID  = #{OFFER_CONTENT_ID}
+        AND OFFERID = #{OFFERID}
+       )
+    WHEN MATCHED THEN
+    UPDATE SET DISP_NAME           = TRIM(#{DISP_NAME})
+              ,TMPL_CUPN_NO        = TRIM(#{TMPL_CUPN_NO})
+              ,TMPL_CUPN_NO_USE_YN = TRIM(#{TMPL_CUPN_NO_USE_YN})
+              ,OFFER_AMT           = 0
+              ,UPDATE_ID           = TRIM(#{UPDATE_ID})
+              ,UPDATE_DT           = SYSDATE
+    WHEN NOT MATCHED THEN
+    INSERT (
+       CELLID
+      ,OFFERID
+      ,OFFER_CONTENT_ID
+      ,OFFER_TYPE_CD
+      ,OFFER_SYS_CD
+      ,DISP_NAME
+      ,TMPL_CUPN_NO
+      ,TMPL_CUPN_NO_USE_YN
+      ,OFFER_AMT
+      ,CAMPAIGNCODE
+      ,FLOWCHARTID
+      ,CREATE_ID
+      ,CREATE_DT
+
+    )
+    VALUES (
+       TRIM(#{OFFER_CONTENT_ID})
+      ,TRIM(#{OFFERID})
+      ,TRIM(#{OFFER_CONTENT_ID})
+      ,TRIM(#{OFFER_TYPE_CD})
+      ,TRIM(#{OFFER_SYS_CD})
+      ,TRIM(#{DISP_NAME})
+      ,TRIM(#{TMPL_CUPN_NO})
+      ,TRIM(#{TMPL_CUPN_NO_USE_YN})
+      ,0
+      ,TRIM(#{CAMPAIGNCODE})
+      ,TO_NUMBER(SUBSTR(TRIM(#{CAMPAIGNCODE}),5))
+      ,TRIM(#{CREATE_ID})
+      ,SYSDATE
+    )      
+  </update>
+  <!-- 캠페인 채널 정보 삭제 -->
+  <delete id="CampaignContent.delCampaignOffer" parameterType="Map">
+         DELETE FROM CM_CAMPAIGN_OFFER
+          WHERE OFFER_CONTENT_ID = #{OFFER_CONTENT_ID}
+            AND OFFERID = #{OFFERID} 
+  </delete>
+  <!-- 캠페인 채널 정보 삭제 -->
+  <delete id="CampaignContent.delChannelInfo" parameterType="Map">
+    DELETE CM_CAMPAIGN_CHANNEL
+     WHERE OFFER_CONTENT_ID     = #{OFFER_CONTENT_ID}
+       AND CHANNEL_CD = #{CHANNEL_CD}
+  </delete>
+</mapper>

@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Toast">
+	
+  <resultMap type="com.skplanet.sascm.object.ToastMsgMstrSrcBO" id="ToastMsgMstrSrcBO">
+    <result property="num" column="num" />
+    <result property="campaign_mang_code" column="campaign_mang_code" />
+    <result property="campaigncode" column="campaigncode" />
+    <result property="campaignname" column="campaignname" />
+    <result property="title" column="title" />
+    <result property="msg" column="msg" />
+    <result property="link_url" column="link_url" />
+    <result property="msg_desc" column="msg_desc" />
+    <result property="disp_type" column="disp_type" />
+    <result property="disp_rnk" column="disp_rnk" />
+    <result property="disp_bgn_dy" column="disp_bgn_dy" />
+    <result property="disp_end_dy" column="disp_end_dy" />
+    <result property="cellid" column="cellid" />
+    <result property="cellnm" column="cellnm" />
+    <result property="evnt_typ_cd" column="evnt_typ_cd" />
+    <result property="evnt_typ_nm" column="evnt_typ_nm" />
+    <result property="use_yn" column="use_yn" />
+    <result property="sync_yn" column="sync_yn" />
+    <result property="create_no" column="create_no" />
+    <result property="create_nm" column="create_nm" />
+    <result property="create_dt" column="create_dt" />
+    <result property="update_no" column="update_no" />
+    <result property="update_nm" column="update_nm" />
+    <result property="update_dt" column="update_dt" />
+  </resultMap>
+  
+  
+  
+	<!-- 토스트 배너 전송 목록 조회 -->
+	<select id="Toast.getToastList" parameterType="Map"  resultMap="ToastMsgMstrSrcBO">
+		SELECT a.* FROM (
+			SELECT a.*
+			      ,ROWNUM num 		
+			FROM(
+				SELECT
+				     A.TREATMENTCODE           campaign_mang_code    
+				    ,A.CELLID                  cellid
+				    ,'E.CELLNAME'                cellnm         
+				    ,A.PACKAGEID               packageid        
+				    ,B.CAMPAIGNCODE            campaigncode     
+				    ,D.CAMPAIGN_NM             campaignname
+				    ,C.TITLE                   title
+				    ,C.MSG                     msg
+				    ,C.LINK_URL                link_url
+				    ,C.MSG_DESC                msg_desc
+				    ,C.DISP_TYPE               disp_type
+				    ,C.DISP_RNK                disp_rnk
+				    ,TO_CHAR(C.DISP_BGN_DY, 'YYYY-MM-DD')  disp_bgn_dy
+				    ,TO_CHAR(C.DISP_END_DY, 'YYYY-MM-DD')  disp_end_dy
+				    ,C.EVNT_TYP_CD             evnt_typ_cd
+				    ,(SELECT CODE_ID FROM CM_CODE_DTL WHERE COMM_CODE_ID = 'C007' AND CODE_ID = C.EVNT_TYP_CD AND USE_YN = 'Y' ) evnt_typ_nm
+				    ,C.USE_YN                  use_yn
+				    ,C.SYNC_YN                 sync_yn
+				    ,C.CREATE_NO               create_no
+				    ,(SELECT USER_NAME FROM CM_USER WHERE ID = C.CREATE_NO) create_nm
+				    ,TO_CHAR(C.CREATE_DT, 'YYYY-MM-DD HH24:MI:SS')              create_dt
+				    ,C.UPDATE_NO               update_no
+				    ,(SELECT USER_NAME FROM CM_USER WHERE ID = C.UPDATE_NO) update_nm
+				    ,TO_CHAR(C.UPDATE_DT, 'YYYY-MM-DD HH24:MI:SS')               update_dt
+				    ,ROWNUM                    row_num
+				FROM CM_CHANNEL_TRANS  A
+				    ,CM_EXTRACT_INFO   B
+				    ,DP_TOAST_MSG_MSTR_SRC C
+				    ,CI_CAMPAIGN          D
+				    
+				WHERE A.CHANNEL_CD    = 'TOAST'
+				  AND A.CELLID        = B.CELLID
+				  /*AND A.PACKAGEID     = B.PACKAGEID*/
+				  AND A.TREATMENTCODE = C.CAMPAIGN_MANG_CODE
+				  AND B.CAMPAIGNCODE  = D.CAMPAIGN_CD(+)
+				  
+			      AND B.CAMPAIGNCODE  LIKE '%'||#{SCAMPAIGNCODE}||'%'
+			     <if test='SDISP_BGN_DY != ""'>
+			        AND #{SDISP_BGN_DY} BETWEEN TO_CHAR(C.DISP_BGN_DY, 'YYYY-MM-DD') AND TO_CHAR(C.DISP_END_DY, 'YYYY-MM-DD')
+			     </if>
+			     ORDER BY CREATE_DT DESC
+			)a
+		)a
+		<![CDATA[
+	    WHERE num >=  #{searchRangeStart} 
+	      AND num <=  #{searchRangeEnd}
+        ORDER BY num
+	    ]]>
+	</select>
+	
+	
+	<!-- 토스트 배너 전송 목록 전체 건수 -->
+	<select id="Toast.getToastListCnt" parameterType="Map"  resultType="String">
+		SELECT COUNT(0)  cnt
+	  	  FROM CM_CHANNEL_TRANS  A
+		      ,CM_EXTRACT_INFO   B
+		      ,DP_TOAST_MSG_MSTR_SRC C
+		      ,CI_CAMPAIGN          D
+		  WHERE A.CHANNEL_CD    = 'TOAST'
+		    AND A.CELLID        = B.CELLID
+		    /*AND A.PACKAGEID     = B.PACKAGEID*/
+		    AND A.TREATMENTCODE = C.CAMPAIGN_MANG_CODE
+		    AND B.CAMPAIGNCODE  = D.CAMPAIGN_CD(+)
+        AND B.CAMPAIGNCODE  LIKE '%'||#{SCAMPAIGNCODE}||'%'
+		    <if test='SDISP_BGN_DY != ""'>
+		       AND #{SDISP_BGN_DY} BETWEEN TO_CHAR(C.DISP_BGN_DY, 'YYYY-MM-DD') AND TO_CHAR(C.DISP_END_DY, 'YYYY-MM-DD')
+		    </if>
+	</select>
+
+
+	<!-- 토스트 배너 전송 상세 조회 -->
+	<select id="Toast.getToastDetail" parameterType="Map"  resultMap="ToastMsgMstrSrcBO">
+		SELECT
+		     A.TREATMENTCODE           campaign_mang_code    
+		    ,A.CELLID                  cellid
+		    ,''/*E.CELLNAME*/                cellnm         
+		    ,A.PACKAGEID               packageid        
+		    ,B.CAMPAIGNCODE            campaigncode     
+		    ,D.CAMPAIGN_NM                    campaignname
+		    ,C.TITLE                   title
+		    ,C.MSG                     msg
+		    ,C.LINK_URL                link_url
+		    ,C.MSG_DESC                msg_desc
+		    ,C.DISP_TYPE               disp_type
+		    ,C.DISP_RNK                disp_rnk
+		    ,TO_CHAR(C.DISP_BGN_DY, 'YYYY-MM-DD HH24:MI:SS') disp_bgn_dy
+		    ,TO_CHAR(C.DISP_END_DY, 'YYYY-MM-DD HH24:MI:SS') disp_end_dy
+		    ,C.EVNT_TYP_CD             evnt_typ_cd
+		    ,(SELECT CODE_ID FROM CM_CODE_DTL WHERE COMM_CODE_ID = 'C007' AND CODE_ID = C.EVNT_TYP_CD AND USE_YN = 'Y' ) evnt_typ_nm
+		    ,C.USE_YN                  use_yn
+		    ,C.SYNC_YN                 sync_yn
+		    ,C.CREATE_NO               create_no
+		    ,DECODE(C.CREATE_NO,NULL,NULL,'System') create_nm
+		    ,TO_CHAR(C.CREATE_DT, 'YYYY-MM-DD HH24:MI:SS')               create_dt
+		    ,C.UPDATE_NO               update_no
+		    ,NVL((SELECT USER_NAME FROM CM_USER WHERE ID = C.UPDATE_NO),'System') update_nm
+		    ,TO_CHAR(C.UPDATE_DT, 'YYYY-MM-DD HH24:MI:SS')               update_dt
+		FROM CM_CHANNEL_TRANS  A
+		    ,CM_EXTRACT_INFO   B
+		    ,DP_TOAST_MSG_MSTR_SRC C
+		    ,CI_CAMPAIGN          D
+		    --,UA_TARGETCELLS       E
+		WHERE A.CHANNEL_CD         = 'TOAST'
+		  AND A.CELLID             = B.CELLID
+		  /*AND A.PACKAGEID          = B.PACKAGEID*/
+      AND A.TREATMENTCODE = B.RUNID
+		  AND A.TREATMENTCODE      = C.CAMPAIGN_MANG_CODE
+		  AND B.CAMPAIGNCODE       = D.CAMPAIGN_CD(+)
+		  --AND A.CELLID             = E.CELLID(+)
+		  AND C.CAMPAIGN_MANG_CODE = #{CAMPAIGN_MANG_CODE}
+	</select>
+
+
+	<!-- 토스트 배너 전송 상세 수정 -->
+	<update id="setToastDetail" parameterType="Map" >
+		UPDATE DP_TOAST_MSG_MSTR_SRC
+		   SET TITLE     = #{TITLE}
+		      ,MSG       = #{MSG}
+		      ,LINK_URL  = #{LINK_URL}
+		      ,USE_YN    = #{USE_YN}
+		      ,DISP_RNK  = #{DISP_RNK}
+		      ,SYNC_YN   = 'N'
+		      ,UPDATE_NO = #{UPDATE_ID}
+		      ,UPDATE_DT = SYSDATE
+		 WHERE CAMPAIGN_MANG_CODE = #{CAMPAIGN_MANG_CODE}
+	</update>
+	
+</mapper>

@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Calendar">
+	
+  <resultMap type="com.skplanet.sascm.object.CalendarBO" id="CalendarBO">
+    <result property="cmpgn_id" column="cmpgn_id" />
+    <result property="rsrv_dt" column="rsrv_dt" />
+    <result property="campaignname" column="campaignname" />
+    <result property="campaigncode" column="campaigncode" />
+    <result property="campaign_period" column="campaign_period" />
+    <result property="camp_from_dt" column="camp_from_dt" />
+    <result property="camp_to_dt" column="camp_to_dt" />
+    <result property="camp_from_tm" column="camp_from_tm" />
+    <result property="camp_to_tm" column="camp_to_tm" />
+    <result property="send_day" column="send_day" />
+    <result property="processed_dttm" column="processed_dttm" />
+    <result property="title" column="title" />
+    <result property="start" column="start" />
+    <result property="end" column="end" />
+    <result property="url" column="url" />
+    <result property="color" column="color" />
+  </resultMap>
+  
+  
+	<!-- 토스트 배너 전송 목록 조회 -->
+	<select id="Calendar.getCalendarList" parameterType="Map"  resultMap="CalendarBO">
+  
+      SELECT 
+                  CAMPAIGNNAME                       AS "title"
+                 , CASE WHEN CHAR_UDF_VAL = '11' THEN '#337ab7'
+                        WHEN CHAR_UDF_VAL = '12' THEN '#a94442'
+                        WHEN CHAR_UDF_VAL = '13' THEN '#d9534f'
+                        WHEN CHAR_UDF_VAL = '14' THEN '#5bc0de'
+                        WHEN CHAR_UDF_VAL = '15' THEN '#5cb85c'
+                        WHEN CHAR_UDF_VAL = '16' THEN '#8a6d3b'
+                        WHEN CHAR_UDF_VAL = '121' THEN '#777'
+                        WHEN CHAR_UDF_VAL = '122' THEN '#00000033'
+                        WHEN CHAR_UDF_VAL = '123' THEN '#f0ad4e'
+                        ELSE ''
+                   END  AS "color"
+                 , CASE WHEN CAMPAIGN_PERIOD = '그룹1' THEN TO_CHAR(CAMP_FROM_DT, 'YYYY-MM-DD')
+                    ELSE TO_CHAR(RSRV_DT, 'YYYY-MM-DD')              
+                    END AS "start"
+                 , CASE WHEN TO_CHAR(CAMP_TO_DT, 'YYYY-MM-DD') IS NULL THEN ''
+                    ELSE TO_CHAR(CAMP_TO_DT, 'YYYY-MM-DD') || ' 23:59:00'
+                    END AS "end" 
+                 , '/SASCampaign/campaign/campaignList.do?cal='||CMPGN_ID AS "url"
+      FROM(
+        SELECT 
+             CMPGN_ID                       AS CMPGN_ID
+             , RSRV_DT                        AS RSRV_DT
+             , MAX(CMPGN_NM)                  AS CAMPAIGNNAME                       /* 캠페인명     */     
+             , MAX(CMPGN_CD)                  AS CAMPAIGNCODE                       /* 캠페인코드     */
+             , MAX(CAMPAIGN_PERIOD)           AS CAMPAIGN_PERIOD                    /* 1. 캠페인기간 ( 그룹1 : 특정일자 및 시간  ,  그룹2 : 전송일로부터의 일수   )*/   
+             , MAX(CAMP_FROM_DT)              AS CAMP_FROM_DT                       /* 캠페인행사시작일자 */
+             , MAX(CAMP_TO_DT)                AS CAMP_TO_DT                         /* 캠페인행사종료일자 */
+             , MAX(NVL(CAMP_FROM_TM, 'AM 00:00'))              AS CAMP_FROM_TM      /* 캠페인행사시작시간 */
+             , MAX(NVL(CAMP_TO_TM, 'PM 11:59'))                AS CAMP_TO_TM        /* 캠페인행사종료시간 */
+             , MAX(SEND_DAY)                  AS SEND_DAY                           /* 전송일로부터의 일수 */
+             , MAX(PROCESSED_DTTM)            AS PROCESSED_DTTM                        /* PROCESSED_DTTM */
+             , MAX(CHAR_UDF_VAL)              AS CHAR_UDF_VAL                        /* CHAR_UDF_VAL */
+         FROM (
+              SELECT  G.RSRV_DT
+                    , A.CAMPAIGN_SK                                                      AS CMPGN_ID                       /* 캠페인ID     */
+                    , A.CAMPAIGN_NM                                                      AS CMPGN_NM                       /* 캠페인명     */
+                    , A.CAMPAIGN_CD                                                      AS CMPGN_CD                       /* 캠페인코드     */
+                    , CASE WHEN UPPER(B.CHAR_UDF_NM) LIKE '캠페인%기간%' THEN
+                                B.CHAR_UDF_VAL
+                           ELSE NULL
+                      END                                                                AS CAMPAIGN_PERIOD                /* 1. 캠페인기간 */
+                    , CASE WHEN UPPER(D.DATE_EXT_COLUMN_NM) IN (  'CAMP_FROM_DT1',  'CAMP_FROM_DT2' )  THEN
+                                D.DATE_UDF_VAL
+                           ELSE NULL   
+                      END                                                                AS CAMP_FROM_DT                   /* 캠페인행사시작일자 */
+                    , CASE WHEN UPPER(D.DATE_EXT_COLUMN_NM) IN ( 'CAMP_TO_DT1',  'CAMP_TO_DT2' ) THEN
+                                D.DATE_UDF_VAL
+                           ELSE NULL
+                      END                                                                AS CAMP_TO_DT                     /* 캠페인행사종료일자 */
+                    , CASE WHEN UPPER(B.CHAR_EXT_COLUMN_NM) IN (  'CAMP_FROM_TM1',  'CAMP_FROM_TM2' ) THEN
+                                B.CHAR_UDF_VAL
+                           ELSE NULL   
+                      END                                                                AS CAMP_FROM_TM                   /* 캠페인행사시작시간 */
+                    , CASE WHEN UPPER(B.CHAR_EXT_COLUMN_NM) IN ( 'CAMP_TO_TM1',  'CAMP_TO_TM2' ) THEN
+                                B.CHAR_UDF_VAL
+                           ELSE NULL
+                      END                                                                AS CAMP_TO_TM                     /* 캠페인행사종료시간 */
+                    , CASE WHEN UPPER(C.NUM_EXT_COLUMN_NM) IN ( 'SEND_DAY1', 'SEND_DAY2','SEND_DAY3' ) THEN
+                                C.NUM_UDF_VAL
+                           ELSE NULL
+                      END                                                                AS SEND_DAY                       /* 전송일로부터의 일수 */
+                    , A.PROCESSED_DTTM
+                    , CASE WHEN UPPER(B.CHAR_UDF_NM) IN ( '내부 상세', '외부 상세' ) THEN
+                                B.CHAR_UDF_VAL
+                           ELSE null
+                      END CHAR_UDF_VAL
+                FROM CI_CAMPAIGN                  A
+                     LEFT JOIN
+                     CI_CAMP_PAGE_CHAR_UDF        B
+                  ON A.CAMPAIGN_SK = B.CAMPAIGN_SK
+                     LEFT JOIN
+                     CI_CAMP_PAGE_NUM_UDF         C
+                  ON A.CAMPAIGN_SK = C.CAMPAIGN_SK
+                     LEFT JOIN
+                     CI_CAMP_PAGE_DATE_UDF        D
+                  ON A.CAMPAIGN_SK = D.CAMPAIGN_SK
+                     LEFT JOIN
+                     CM_CAMPAIGN_RUN_SCHEDULE     G
+                  ON A.CAMPAIGN_SK = G.FLOWCHARTID
+            )  
+        WHERE --CAMPAIGN_PERIOD IS NOT NULL AND CAMPAIGN_PERIOD IN ('그룹1', '그룹2') AND 
+        RSRV_DT IS NOT NULL
+        AND TO_CHAR(RSRV_DT, 'YYYY-MM') = '${nowMonth }'
+        GROUP BY  CMPGN_ID, RSRV_DT
+      )
+      ORDER BY "start" DESC
+	</select>
+	
+		
+</mapper>

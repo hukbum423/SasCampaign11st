@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+		http://www.springframework.org/schema/jdbc
+		http://www.springframework.org/schema/jdbc/spring-jdbc-3.1.xsd
+		">
+
+<!--
+	<bean id="dataSourceSpied" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+		<property name="url" value="#{contextProperties['dbconn.url']}"/>
+		<property name="username" value="#{contextProperties['dbconn.user']}"/>
+		<property name="password" value="#{contextProperties['dbconn.pass']}"/>
+    </bean>
+ -->
+
+<!-- !!!!!!!!!
+	<bean id="dataSourceSpied" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+		<property name="url" value="jdbc:mysql://goldmiru.iptime.org/muzclub"/>
+		<property name="url" value="jdbc:mysql://kimsiljang.cafe24.com/kimsiljang"/>
+		<property name="username" value="kimsiljang"/>
+		<property name="password" value="Game!224"/>
+  </bean>
+  -->
+
+	<bean id="dataSource" class="net.sf.log4jdbc.Log4jdbcProxyDataSource">
+		<constructor-arg ref="dataSourceSpied" />
+		<property name="logFormatter">
+			<bean class="net.sf.log4jdbc.tools.Log4JdbcCustomFormatter">
+				<property name="loggingType" value="MULTI_LINE" />
+				<property name="sqlPrefix" value="SQL         :  "/>
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="dataSourceSpied" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
+		<!-- -->
+		<property name="url" value="#{contextProperties['dbconn.url']}"/>
+		<property name="username" value="#{contextProperties['dbconn.user']}"/>
+		<property name="password" value="#{contextProperties['dbconn.pass']}"/>
+		<!-- -->
+		<!--
+		<property name="url" value="jdbc:oracle:thin:@10.205.195.202:1521:orcl"/>
+		<property name="username" value="tmsas"/>
+		<property name="password" value="smt19082"/>
+		-->
+		<!--
+		<property name="url" value="jdbc:oracle:thin:@192.168.1.87:1521:xe"/>
+		<property name="username" value="hr"/>
+		<property name="password" value="hr"/>
+		-->
+		
+		<property name="testOnBorrow" value="true" />
+		<property name="testOnReturn" value="true" />
+		<property name="validationQuery" value="SELECT 1 FROM DUAL"></property>
+	</bean>
+
+	<!-- BO sql -->
+	<bean id="dataSource2" class="net.sf.log4jdbc.Log4jdbcProxyDataSource">
+		<constructor-arg ref="dataSourceSpied2" />
+		<property name="logFormatter">
+			<bean class="net.sf.log4jdbc.tools.Log4JdbcCustomFormatter">
+				<property name="loggingType" value="MULTI_LINE" />
+				<property name="sqlPrefix" value="BO SQL         :  "/>
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="dataSourceSpied2" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
+		<!-- -->
+		<property name="url" value="#{contextProperties['dbconn.urlBo']}"/>
+		<property name="username" value="#{contextProperties['dbconn.userBo']}"/>
+		<property name="password" value="#{contextProperties['dbconn.passBo']}"/>
+		<!-- -->
+		<!--
+		<property name="url" value="jdbc:oracle:thin:@10.205.195.202:1521:orcl"/>
+		<property name="username" value="tmsas"/>
+		<property name="password" value="smt19082"/>
+		-->
+		<!--
+		<property name="url" value="jdbc:oracle:thin:@192.168.1.87:1521:xe"/>
+		<property name="username" value="hr"/>
+		<property name="password" value="hr"/>
+		-->
+		
+		<property name="testOnBorrow" value="true" />
+		<property name="testOnReturn" value="true" />
+		<property name="validationQuery" value="SELECT 1 FROM DUAL"></property>
+	</bean>
+
+</beans>
+
+

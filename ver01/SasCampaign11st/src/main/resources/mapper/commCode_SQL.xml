@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="CommCode">
+
+<resultMap type="com.skplanet.sascm.object.UaextCodeMstBO" id="UaextCodeMstBO">
+
+	<result property="comm_code_id" column="comm_code_id" />
+	<result property="comm_code_name" column="comm_code_name" />
+	<result property="code_desc" column="code_desc" />
+	<result property="sort_seq" column="sort_seq" />
+	<result property="use_yn" column="use_yn" />
+	<result property="create_id" column="create_id" />
+	<result property="create_nm" column="create_nm" />
+	<result property="create_dt" column="create_dt" />
+	<result property="update_id" column="update_id" />
+	<result property="update_nm" column="update_nm" />
+	<result property="update_dt" column="update_dt" />
+	<result property="num" column="num" />
+	
+ </resultMap>
+ <resultMap type="com.skplanet.sascm.object.UaextCodeDtlBO" id="UaextCodeDtlBO">
+
+	<result property="code_id" column="code_id" />
+	<result property="code_name" column="code_name" />
+	<result property="code_desc" column="code_desc" />
+	<result property="sort_seq" column="sort_seq" />
+	<result property="use_yn" column="use_yn" />
+	<result property="etc1" column="etc1" />
+	<result property="etc2" column="etc2" />
+	<result property="create_id" column="create_id" />
+	<result property="create_nm" column="create_nm" />
+	<result property="create_dt" column="create_dt" />
+	<result property="update_id" column="update_id" />
+	<result property="update_nm" column="update_nm" />
+	<result property="update_dt" column="update_dt" />
+	<result property="comm_code_id" column="comm_code_id" />
+	<result property="num" column="num" />
+	
+ </resultMap>
+	<!-- 공통코드 마스터 목록 조회 -->
+	<select id="CommCode.getCommCodeList" parameterType="Map"  resultMap="UaextCodeMstBO">
+		SELECT a.* FROM (
+			SELECT a.*
+			      ,ROWNUM num 
+			FROM(
+				SELECT 
+					 COMM_CODE_ID        comm_code_id
+					,COMM_CODE_NAME      comm_code_name
+					,CODE_DESC           code_desc
+					,SORT_SEQ            sort_seq
+					,USE_YN              use_yn
+					,CREATE_ID           create_id
+					,(SELECT USER_NAME FROM CM_USER WHERE ID = A.CREATE_ID) create_nm
+					,TO_CHAR(CREATE_DT, 'YYYY-MM-DD HH24:MI:SS')           create_dt
+					,UPDATE_ID           update_id
+					,(SELECT USER_NAME FROM CM_USER WHERE ID = A.UPDATE_ID) update_nm
+					,TO_CHAR(UPDATE_DT, 'YYYY-MM-DD HH24:MI:SS')           update_dt
+				  FROM CM_CODE_MST A
+			     WHERE 1 = 1
+			       AND COMM_CODE_ID   LIKE '%'||#{SCOMM_CODE_ID}||'%'
+			       AND COMM_CODE_NAME LIKE '%'||#{SCOMM_CODE_NAME}||'%'
+			     ORDER BY NVL(SORT_SEQ, 999999), COMM_CODE_ID
+			)a
+		)a
+		<![CDATA[ 
+	    WHERE num >=  #{searchRangeStart} 
+	      AND num <=  #{searchRangeEnd}
+	    ORDER BY num
+	    ]]>
+	</select>
+	
+	
+	<!-- 공통코드 마스터 목록 전체 건수 -->
+	<select id="CommCode.getCommCodeListCnt" parameterType="Map"  resultType="String">
+		SELECT COUNT(0)  cnt
+		  FROM CM_CODE_MST
+	     WHERE 1 = 1
+	       AND USE_YN = 'Y'
+	       AND COMM_CODE_ID   LIKE '%'||#{SCOMM_CODE_ID}||'%'
+	       AND COMM_CODE_NAME LIKE '%'||#{SCOMM_CODE_NAME}||'%'
+	</select>
+
+
+	<!-- 공통코드 상세 목록 조회 -->
+	<!-- 
+					AND USE_YN       LIKE '%'||#{USE_YN}||'%'
+	-->
+	<select id="CommCode.getCommCodeDtlList" parameterType="Map"  resultMap="UaextCodeDtlBO">
+		SELECT A.* FROM (  /* CommCode.getCommCodeDtlList */
+			SELECT A.*
+			      ,ROWNUM num 
+			FROM(
+				SELECT
+					 CODE_ID              code_id
+					,CODE_NAME            code_name
+					,CODE_DESC            code_desc
+					,SORT_SEQ             sort_seq
+					,USE_YN               use_yn
+					,ETC1                 etc1
+					,ETC2                 etc2
+					,CREATE_ID            create_id
+					,(SELECT USER_NAME FROM CM_USER WHERE ID = A.CREATE_ID) create_nm
+					,TO_CHAR(CREATE_DT, 'YYYY-MM-DD HH24:MI:SS')            create_dt
+					,UPDATE_ID            update_id
+					,(SELECT USER_NAME FROM CM_USER WHERE ID = A.UPDATE_ID) update_nm
+					,TO_CHAR(UPDATE_DT, 'YYYY-MM-DD HH24:MI:SS')            update_dt
+					,COMM_CODE_ID         comm_code_id
+				 FROM CM_CODE_DTL A
+				WHERE COMM_CODE_ID = #{codeId}
+					AND USE_YN       = #{USE_YN}
+				ORDER BY SORT_SEQ, CODE_ID
+			) A
+		) A
+		ORDER BY num
+	</select>
+
+
+	<!-- 공통코드 마스터 중복 조회 -->
+	<select id="CommCode.getCommCodeDupCnt" parameterType="Map"  resultType="String">
+		SELECT CASE WHEN COUNT(0) > 0 THEN 'Y' ELSE 'N' END DUP
+		  FROM CM_CODE_MST
+		 WHERE COMM_CODE_ID = #{COMM_CODE_ID}
+	</select>
+
+
+	<!-- 공통코드 상세\ 중복 조회 -->
+	<select id="CommCode.getCommCodeDtlDupCnt" parameterType="Map"  resultType="String">
+		SELECT CASE WHEN COUNT(0) > 0 THEN 'Y' ELSE 'N' END DUP
+		  FROM CM_CODE_DTL
+		 WHERE COMM_CODE_ID = #{COMM_CODE_ID}
+		   AND CODE_ID      = #{CODE_ID}
+	</select>
+	
+
+	<!-- 공통코드 마스터 입력 -->
+	<insert id="CommCode.setCommCodeMst" parameterType="Map" >
+		INSERT INTO CM_CODE_MST
+		(
+			 COMM_CODE_ID
+			,COMM_CODE_NAME
+			,CODE_DESC
+			,SORT_SEQ
+			,USE_YN
+			,CREATE_ID
+			,CREATE_DT
+		)
+		VALUES
+		(
+			 TRIM(#{COMM_CODE_ID})
+			,TRIM(#{COMM_CODE_NAME})
+			,TRIM(#{CODE_DESC})
+			,TRIM(#{SORT_SEQ})
+			,TRIM(#{USE_YN})
+			,TRIM(#{CREATE_ID})
+			,SYSDATE
+		)
+	</insert>
+	
+
+	<!-- 공통코드 마스터 수정 -->
+	<update id="CommCode.updateCommCodeMst" parameterType="Map" >
+		UPDATE CM_CODE_MST
+		   SET	 COMM_CODE_NAME = TRIM(#{COMM_CODE_NAME})
+		        ,CODE_DESC 		= TRIM(#{CODE_DESC})
+		        ,SORT_SEQ 		= TRIM(#{SORT_SEQ})
+		        ,USE_YN   		= TRIM(#{USE_YN})
+		        ,UPDATE_ID 		= TRIM(#{UPDATE_ID})
+		        ,UPDATE_DT 		= SYSDATE		
+		 WHERE COMM_CODE_ID     = #{COMM_CODE_ID}
+	</update>
+
+
+	<!-- 공통코드 마스터 상세조회 -->
+	<select id="CommCode.getCommCodeMst" parameterType="Map"  resultMap="UaextCodeMstBO">
+		SELECT 
+			 COMM_CODE_ID        comm_code_id
+			,COMM_CODE_NAME      comm_code_name
+			,CODE_DESC           code_desc
+			,SORT_SEQ            sort_seq
+			,USE_YN              use_yn
+			,CREATE_ID           create_id
+			,(SELECT USER_NAME FROM CM_USER WHERE ID = A.CREATE_ID) create_nm
+			,TO_CHAR(CREATE_DT, 'YYYY-MM-DD HH24:MI:SS')           create_dt
+			,UPDATE_ID           update_id
+			,(SELECT USER_NAME FROM CM_USER WHERE ID = A.UPDATE_ID) update_nm
+			,TO_CHAR(UPDATE_DT, 'YYYY-MM-DD HH24:MI:SS')           update_dt
+		  FROM CM_CODE_MST A
+	     WHERE 1 = 1
+	       AND COMM_CODE_ID = #{COMM_CODE_ID}
+	</select>
+		
+
+	<!-- 공통코드 상세 입력 -->
+	<insert id="CommCode.setCommCodeDtl" parameterType="Map" >
+		INSERT INTO CM_CODE_DTL
+		(
+			 CODE_ID
+			,CODE_NAME
+			,CODE_DESC
+			,SORT_SEQ
+			,USE_YN
+			,ETC1
+			,ETC2
+			,CREATE_ID
+			,CREATE_DT
+			,COMM_CODE_ID
+		)
+		VALUES
+		(
+			 TRIM(#{CODE_ID})
+			,TRIM(#{CODE_NAME})
+			,TRIM(#{CODE_DESC})
+			,TRIM(#{SORT_SEQ})
+			,TRIM(#{USE_YN})
+			,TRIM(#{ETC1})
+			,TRIM(#{ETC2})
+			,TRIM(#{CREATE_ID})
+			,SYSDATE
+			,TRIM(#{COMM_CODE_ID})
+		)
+	</insert>
+	
+	
+	<!-- 공통코드 상세 수정 -->
+	<update id="CommCode.updateCommCodeDtl" parameterType="Map" >
+		UPDATE CM_CODE_DTL
+		   SET	 CODE_NAME      = TRIM(#{CODE_NAME})
+		        ,CODE_DESC 		= TRIM(#{CODE_DESC})
+		        ,SORT_SEQ 		= TRIM(#{SORT_SEQ})
+		        ,USE_YN   		= TRIM(#{USE_YN})
+		        ,ETC1    		= TRIM(#{ETC1})
+		        ,ETC2    		= TRIM(#{ETC2})
+		        ,UPDATE_ID 		= TRIM(#{UPDATE_ID})
+		        ,UPDATE_DT 		= SYSDATE		
+		 WHERE COMM_CODE_ID     = #{COMM_CODE_ID}
+		   AND CODE_ID          = #{CODE_ID}
+	</update>
+	
+	
+	<!-- 공통코드 상세 상세조회 -->
+	<select id="CommCode.getCommCodeDtl" parameterType="Map"  resultMap="UaextCodeDtlBO">
+		SELECT 
+			 CODE_ID       	 code_id  
+			,CODE_NAME       code_name
+			,CODE_DESC       code_desc
+			,SORT_SEQ        sort_seq 
+			,USE_YN          use_yn   
+			,ETC1            etc1     
+			,ETC2            etc2     
+			,CREATE_ID       create_id
+			,(SELECT USER_NAME FROM CM_USER WHERE ID = A.CREATE_ID) create_nm
+			,TO_CHAR(CREATE_DT, 'YYYY-MM-DD HH24:MI:SS')       create_dt
+			,UPDATE_ID       update_id
+			,(SELECT USER_NAME FROM CM_USER WHERE ID = A.UPDATE_ID) update_nm
+			,TO_CHAR(UPDATE_DT, 'YYYY-MM-DD HH24:MI:SS')       update_dt
+			,COMM_CODE_ID    comm_code_id
+		  FROM CM_CODE_DTL A
+	     WHERE 1            = 1
+	       AND CODE_ID      = #{CODE_ID}
+	       AND COMM_CODE_ID = #{COMM_CODE_ID}
+	</select>	
+</mapper>

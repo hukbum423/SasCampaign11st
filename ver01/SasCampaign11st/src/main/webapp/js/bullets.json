@@ -1,0 +1,7 @@
+[
+  {"title":"고객수","subtitle":"명","ranges":[0,0,0],"measures":[210,270],"markers":[0]},
+  {"title":"거래액","subtitle":"억","ranges":[0,0,0],"measures":[2100,2300],"markers":[0]},
+  {"title":"수익","subtitle":"억","ranges":[0,0,0],"measures":[10,32],"markers":[0]},
+  {"title":"채널오픈율","subtitle":"%","ranges":[0,0,0],"measures":[1000,1650],"markers":[0]},
+  {"title":"비용","subtitle":"억","ranges":[0,0,0],"measures":[3.2,6.7],"markers":[0]}
+]

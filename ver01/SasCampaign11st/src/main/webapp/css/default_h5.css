@@ -1,0 +1,52 @@
+@charset "euc-kr";
+
+/* today close layer */
+.close_wrap{height:32px;border-top:1px solid #e1e1e1;}
+.close_wrap label{float:left;padding:8px 0 0 10px;color:#757575;cursor:pointer;}
+.close_wrap label input{cursor:default;}
+.close_wrap button{float:right;width:50px;height:24px;margin:4px 10px 0 0;padding-top:1px\0/IE;background:url('/SASCampaign/image/popcmn/outpop_comimg02.gif') no-repeat 0 -76px;font-size:11px;letter-spacing:-1px;color:#fff;text-align:left;text-indent:10px;line-height:24px;}
+/* TOAST BANNER */
+.ADtxt_banner_wrap {display:block;width:266px;height:130px;overflow:hidden;}
+.ADtxt_banner_wrap .adtxtW {display:block;width:266px;height:52px;overflow:hidden;}
+.ADtxt_banner_wrap .adtxtW .userW {display:block;color:#333333;font-size:12px;line-height:16px;text-decoration:underline;margin-bottom:4px;white-space:nowrap;}
+.ADtxt_banner_wrap .adtxtW .txtW {display:block;font-size:12px;line-height:14px;width:266px;height:28px;color:#666666;overflow:hidden;}
+.ADtxt_banner_wrap .adtxtW .txtW strong {color:#e52501;}
+.ADtxt_banner_wrap .bnr {display:block;width:266px;height:78px;overflow:hidden;}
+.ADtxt_banner_wrap .bnr img {width:266px;height:78px;}
+.ADtxt_olny_wrap {display:block;width:266px;height:130px;overflow:hidden;}
+.ADtxt_olny_wrap .adtxtW {display:block;width:266px;height:80px;padding-top:30px;text-align:center;overflow:hidden;}
+.ADtxt_olny_wrap .adtxtW .userW {display:block;color:#333333;font-size:12px;line-height:16px;text-decoration:underline;margin-bottom:4px;white-space:nowrap;}
+.ADtxt_olny_wrap .adtxtW .txtW {display:block;width:266px;height:56px;font-size:12px;line-height:14px;color:#666;overflow:hidden;}
+.ADtxt_olny_wrap .adtxtW .txtW strong {color:#e52501;}
+.ADtxt_olny_wrap .btnwrap {display:block;text-align:right;width:266px;height:17px;overflow:hidden;}
+.ADtxt_olny_wrap .btn_moreinfo {display:inline-block;width:66px;height:17px;background:url('/SASCampaign/image/common/tost_sp.gif') no-repeat 0 -61px;overflow:hidden;text-indent:-10000px;}
+.ADtxt_olny_wrap .btn_moreinfo em{visibility:hidden;}
+.html_ToastUp2  {display:block;position:fixed; left:50.3%; margin-left:195px; bottom:0; width:291px;height:200px; z-index:301;}/* GNB는 300 */
+*html .html_ToastUp2{position:absolute;margin-left:198px;}
+.html_ToastDown2{display:block;position:fixed; left:50.3%; margin-left:195px; bottom:0; width:291px; height:25px; z-index:301; }/* GNB는 300 */
+*html .html_ToastDown2{position:absolute;margin-left:198px;}
+.html_ToastNone2{display:none;position:fixed; left:50.3%; margin-left:195px; bottom:-213px; width:291px;/* height:213px; */ z-index:301;}/* GNB는 300 */
+*html .html_ToastNone2{position:absolute;margin-left:198px;}
+.toastbanner_bar2 {clear:both;display:block;padding:4px 2px 2px 2px;width:284px;height:23px;background:none;background-color:#eb0102;border:1px solid #ca0000;overflow:hidden;}
+.toastbanner_bar2 .tit {float:left;display:block;margin:5px 0 0 8px;width:250px;color:#ffffff;font-size:12px;line-height:15px;white-space:nowrap;overflow:hidden;}
+.toastbanner_bar2 .tit strong{font-weight:bold;}
+.toastbanner_bar2 .btn_down {float:right;display:block;width:21px;height:21px;margin-right:5px;background:#e22505 url('/SASCampaign/image/common/tost_sp2.gif') no-repeat 0 0;cursor:pointer;}
+.toastbanner_bar2 .btn_down em {visibility:hidden;}
+.toastbanner_wrap2 {border:2px solid #ea0001;border-top:none;background:#fff;padding:0px;width:286px;/* height:180px; */overflow:hidden;}
+.toastbanner_wrap2 .toast_cnt {width:286px;height:151px;overflow:hidden;}
+.toastbanner_wrap2 .toast_cnt .txtbnr {display:block;margin-left:10px;margin-top:13px;width:266px;height:130px;overflow:hidden;}/* 배너+텍스트 */
+.toastbanner_wrap2 .toast_cnt .txtonly {display:block;margin-left:10px;margin-top:13px;width:266px;height:130px;overflow:hidden;}/* 텍스트olny */
+.toastbanner_wrap2 .toast_today2 {clear:both;margin-left:0px;width:287px;height:28px;border-top:1px solid #dedede;overflow:hidden;}
+.toastbanner_wrap2 .toast_today2 .btn_today {display:block;float:left;width:114px;height:19px;background:url('/SASCampaign/image/common/tost_sp2.gif') no-repeat 0 -24px;margin:5px 0 0 7px;}
+.toastbanner_wrap2 .toast_today2 .btn_close {display:block;float:right;width:38px;height:19px;background:url('/SASCampaign/image/common/tost_sp2.gif') no-repeat 0 -47px;margin:5px 7px 0 0;}
+.toastbanner_wrap2 .toast_today2 .btn_today em, .toastbanner_wrap2 .toast_today2 .btn_close em {visibility:hidden;}
+
+/* 15-04-30 jsshin add */
+.toastbnr_wrap{position:fixed;bottom:0;left:50%;z-index:1000;width:286px;margin-left:250px;border:2px solid #465981;border-top:none;background:#fff;}
+.toastbnr_wrap h3 button{display:block;width:290px;height:29px;margin:0 -2px;border:1px solid #3f527a;background:#465981 url('/img/default/icon/bul_arrdown_fff_03.gif') no-repeat 265px 12px;line-height:27px;color:#fff;font-weight:bold;text-align:left;text-indent:10px;}
+.toastbnr_wrap .toast_inner{padding:10px;}
+.toastbnr_wrap .toast_inner div{padding-bottom:7px;color:#666;}
+.toastbnr_wrap .toast_inner div span{display:block;padding-bottom:3px;color:#333;text-decoration:underline;}
+.toastbnr_wrap .toast_inner div em{color:#ea0000;font-weight:bold;}
+.toastbnr_wrap .toast_inner div img{width:266px;height:78px;}
+.toastbnr_wrap .close_wrap > button {text-indent:0;padding:0px 0px 5px 8px;}

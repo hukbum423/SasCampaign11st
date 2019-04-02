@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Offer_om">
+  
+    <resultMap type="com.skplanet.sascm.object.OfferCouponInfoBO" id="OfferCouponInfoBO">
+      <result property="cupn_no"        column="cupn_no" />
+      <result property="cupn_nm"        column="cupn_nm" />
+      <result property="cupn_iss_stat_cd"        column="cupn_iss_stat_cd" />
+      <result property="cupn_iss_stat_nm"        column="cupn_iss_stat_nm" />
+      <result property="iss_cn_bgn_dt"        column="iss_cn_bgn_dt" />
+      <result property="iss_cn_end_dt"        column="iss_cn_end_dt" />
+      <result property="iss_cn_bgn_dt2"        column="iss_cn_bgn_dt2" />
+      <result property="iss_cn_end_dt2"        column="iss_cn_end_dt2" />
+      <result property="cupn_eftv_prd_basi_cd"        column="cupn_eftv_prd_basi_cd" />
+      <result property="cupn_eftv_prd_basi_nm"        column="cupn_eftv_prd_basi_nm" />
+      <result property="eftv_bgn_dt"        column="eftv_bgn_dt" />
+      <result property="eftv_end_dt"        column="eftv_end_dt" />
+      <result property="iss_dt_basi_dd_qty"        column="iss_dt_basi_dd_qty" />
+      <result property="cupn_dsc_mthd_cd"        column="cupn_dsc_mthd_cd" />
+      <result property="dsc_rt_amt"        column="dsc_rt_amt" />
+      <result property="max_dsc_amt"        column="max_dsc_amt" />
+      <result property="min_ord_amt"        column="min_ord_amt" />
+      <result property="isu_qty"        column="isu_qty" />
+            
+    </resultMap>
+  
+    <resultMap type="com.skplanet.sascm.object.OfferCuCtgrBO" id="OfferCuCtgrBO">
+      <result property="disp_ctgr_no"           column="disp_ctgr_no"           />               
+      <result property="disp_ctgr_nm"           column="disp_ctgr_nm"           />               
+      <result property="disp_ctgr_level"        column="disp_ctgr_level"        />               
+      <result property="disp_ctgr1_no"          column="disp_ctgr1_no"          />               
+      <result property="disp_ctgr2_no"          column="disp_ctgr2_no"          />               
+      <result property="disp_ctgr3_no"          column="disp_ctgr3_no"          />               
+      <result property="disp_ctgr4_no"          column="disp_ctgr4_no"          />               
+      <result property="disp_ctgr1_nm"          column="disp_ctgr1_nm"          />               
+      <result property="disp_ctgr2_nm"          column="disp_ctgr2_nm"          />               
+      <result property="disp_ctgr3_nm"          column="disp_ctgr3_nm"          />               
+      <result property="disp_ctgr4_nm"          column="disp_ctgr4_nm"          />               
+      <result property="disp_ctgr_cd"           column="disp_ctgr_cd"           />               
+      <result property="std_ctgr_no"            column="std_ctgr_no"            />               
+      <result property="ctgr1_adlt_crtf_yn"     column="ctgr1_adlt_crtf_yn"     />               
+      <result property="ctgr2_adlt_crtf_yn"     column="ctgr2_adlt_crtf_yn"     />               
+      <result property="ctgr3_adlt_crtf_yn"     column="ctgr3_adlt_crtf_yn"     />               
+      <result property="ctgr4_adlt_crtf_yn"     column="ctgr4_adlt_crtf_yn"     />               
+      <result property="create_dt"              column="create_dt"              />               
+      <result property="disp_prrt_rnk"          column="disp_prrt_rnk"          />               
+      <result property="uniq_soho_yn"           column="uniq_soho_yn"           />               
+      <result property="abrd_brand_yn"          column="abrd_brand_yn"          />               
+      <result property="pre_point_dis_yn"       column="pre_point_dis_yn"       />               
+      <result property="disp_ctgr_kind_cd"      column="disp_ctgr_kind_cd"      />               
+      <result property="disp_ctgr_stat_cd"      column="disp_ctgr_stat_cd"      />               
+      <result property="tmplt_typ"              column="tmplt_typ"              />               
+      <result property="best_sel_typ"           column="best_sel_typ"           />               
+      <result property="view_typ"               column="view_typ"               />               
+      <result property="overture_keyword"       column="overture_keyword"       />               
+      <result property="om_ctgr_yn"             column="om_ctgr_yn"             />               
+      <result property="svc_area_cd"            column="svc_area_cd"            />               
+      <result property="eng_disp_yn"            column="eng_disp_yn"            />               
+      <result property="disp_ctgr_eng_nm"       column="disp_ctgr_eng_nm"       />               
+      <result property="disp_ctgr1_eng_nm"      column="disp_ctgr1_eng_nm"      />               
+      <result property="disp_ctgr2_eng_nm"      column="disp_ctgr2_eng_nm"      />               
+      <result property="disp_ctgr3_eng_nm"      column="disp_ctgr3_eng_nm"      />               
+      <result property="disp_ctgr4_eng_nm"      column="disp_ctgr4_eng_nm"      />               
+      <result property="add_ctgr_typ_cd"        column="add_ctgr_typ_cd"        />               
+      <result property="brand_find_disp_yn"     column="brand_find_disp_yn"     />               
+      <result property="mapping_ctgr_yn"        column="mapping_ctgr_yn"        />               
+      <result property="mapping_seller_yn"      column="mapping_seller_yn"      />               
+      <result property="mapping_brand_yn"       column="mapping_brand_yn"       />               
+      <result property="mapping_attr_yn"        column="mapping_attr_yn"        />               
+      <result property="leaf_yn"                column="leaf_yn"                />               
+      <result property="add_ctgr_disp_type_cd"  column="add_ctgr_disp_type_cd"  />               
+      <result property="add_ctgr_disp_yn"       column="add_ctgr_disp_yn"       />               
+      <result property="pro_tot_cnt"            column="pro_tot_cnt"            />               
+      <result property="mobile_prd_tot_cnt"     column="mobile_prd_tot_cnt"     />               
+      <result property="mapping_area_ctgr_yn"   column="mapping_area_ctgr_yn"   />               
+      <result property="book_clf_cd"            column="book_clf_cd"            />               
+      <result property="ctgr_info_cd"           column="ctgr_info_cd"           />               
+      <result property="mobile_disp_yn"         column="mobile_disp_yn"         />               
+      <result property="mobile_ctgr_url"        column="mobile_ctgr_url"        />               
+      <result property="disp_ctgr_img_url"      column="disp_ctgr_img_url"      />               
+      <result property="lstn_sort_cd"           column="lstn_sort_cd"           />               
+    </resultMap>
+
+  
+  <!-- 오퍼정보 조회(OM) -->
+  <select id="Offer_om.getOfferTmplCupnInfoOM" parameterType="Map"  resultMap="OfferCouponInfoBO">
+    SELECT
+            #{S_TMPL_CUPN_NO}                                                           cupn_no
+            ,cupn_nm                                                                    cupn_nm
+            ,cupn_iss_stat_cd                                                           cupn_iss_stat_cd
+            ,decode(cupn_iss_stat_cd, '03', '승인', '미승인')                           cupn_iss_stat_nm
+            ,TO_CHAR(iss_cn_bgn_dt, 'YYYY-MM-DD HH24:MI:SS')                            iss_cn_bgn_dt
+            ,TO_CHAR(iss_cn_end_dt, 'YYYY-MM-DD HH24:MI:SS')                            iss_cn_end_dt
+            ,TO_CHAR(iss_cn_bgn_dt, 'YYYY-MM-DD')                                       iss_cn_bgn_dt2
+            ,TO_CHAR(iss_cn_end_dt, 'YYYY-MM-DD')                                       iss_cn_end_dt2
+            ,cupn_eftv_prd_basi_cd                                                      cupn_eftv_prd_basi_cd
+            ,decode(cupn_eftv_prd_basi_cd, '01', '발급후 ', '02', '유효시작일/종료일')  cupn_eftv_prd_basi_nm
+            ,TO_CHAR(eftv_bgn_dt, 'YYYY-MM-DD HH24:MI:SS')                              eftv_bgn_dt
+            ,TO_CHAR(eftv_end_dt, 'YYYY-MM-DD HH24:MI:SS')                              eftv_end_dt
+            ,iss_dt_basi_dd_qty                                                         iss_dt_basi_dd_qty
+            ,decode(cupn_dsc_mthd_cd, '01', '정액', '02', '정률', '기타')               cupn_dsc_mthd_cd
+            ,TO_CHAR(dsc_rt_amt, 'FM999,999,999,999')                                   dsc_rt_amt
+            ,TO_CHAR(decode(max_dsc_amt,-1,'',0,'',max_dsc_amt), 'FM999,999,999,999')   max_dsc_amt
+            ,TO_CHAR(min_ord_amt, 'FM999,999,999,999')                                  min_ord_amt
+            ,TO_CHAR(isu_qty, 'FM999,999,999,999')                                      isu_qty
+    FROM TABLE(TMALL.FN_MT_CUPN_INFO(#{S_TMPL_CUPN_NO}))   
+  </select>
+  
+  
+  <!-- 오퍼정보 조회(MM) -->
+  <select id="Offer_om.getOfferTmplCupnInfoMM" parameterType="Map"  resultMap="OfferCouponInfoBO">
+    SELECT
+             #{S_TMPL_CUPN_NO}                                                              cupn_no
+            ,v_cpn_nm                                                                       cupn_nm
+            ,v_cpn_stat                                                                     cupn_iss_stat_cd
+            ,decode(v_cpn_stat, 'MT00602', '승인', 'MT03202', '승인', '미승인')             cupn_iss_stat_nm
+            ,TO_CHAR(v_iss_str_dts, 'YYYY-MM-DD HH24:MI:SS')                                iss_cn_bgn_dt
+            ,TO_CHAR(v_iss_end_dts, 'YYYY-MM-DD HH24:MI:SS')                                iss_cn_end_dt
+            ,TO_CHAR(v_iss_str_dts, 'YYYY-MM-DD')                                           iss_cn_bgn_dt2
+            ,TO_CHAR(v_iss_end_dts, 'YYYY-MM-DD')                                           iss_cn_end_dt2
+            ,v_vld_term_cls                                                                 cupn_eftv_prd_basi_cd
+            ,decode(v_vld_term_cls, 'MT00402', '발급후 ', 'MT00401', '유효시작일/종료일')   cupn_eftv_prd_basi_nm
+            ,TO_CHAR(v_vld_str_dts, 'YYYY-MM-DD HH24:MI:SS')                                eftv_bgn_dt
+            ,TO_CHAR(v_vld_end_dts, 'YYYY-MM-DD HH24:MI:SS')                                eftv_end_dt
+            ,v_iss_day_date                                                                 iss_dt_basi_dd_qty
+            ,decode(v_dc_way, 'CM00202', '정액', 'CM00201', '정률', '기타')                 cupn_dsc_mthd_cd
+            ,TO_CHAR(v_ds_rt_amt, 'FM999,999,999,999')                                      dsc_rt_amt
+            ,TO_CHAR(decode(v_max_dc_amt,-1,'',0,'',v_max_dc_amt), 'FM999,999,999,999')     max_dsc_amt
+            ,TO_CHAR(v_min_ord_amt, 'FM999,999,999,999')                                    min_ord_amt
+            ,TO_CHAR(v_iss_cnt, 'FM999,999,999,999')                                        isu_qty
+            ,v_offer_type                                                                   offer_type
+     FROM TABLE(MERCHANT.FN_TBL_MT_CPN_INFO(#{S_TMPL_CUPN_NO}))
+    WHERE V_OFFER_TYPE = #{OFFER_TYPE_CD}
+  </select>
+  
+  <select id="Offer_om.getBoCategory" parameterType="Map" resultMap="OfferCuCtgrBO">
+    select  
+      * 
+    from 
+      dp_disp_Ctgr_list
+    where 
+      1=1
+      and disp_ctgr_stat_cd in ('03', '05')
+      and disp_ctgr_kind_cd = '01'
+      and disp_ctgr_level = #{level}
+      <if test='disp_ctgr1 != ""'>
+        and disp_ctgr1_no = ${disp_ctgr1}        
+      </if>
+      <if test='disp_ctgr2 != ""'>
+        and disp_ctgr2_no = ${disp_ctgr2}        
+      </if>
+      <if test='disp_ctgr3 != ""'>
+        and disp_ctgr3_no = ${disp_ctgr3}        
+      </if>
+    order by 
+      disp_prrt_rnk
+  </select>
+  
+  <select id="Offer_om.getBoCategoryList" parameterType="Map" resultMap="OfferCuCtgrBO">
+    SELECT 
+      cl.disp_ctgr_no       disp_ctgr_no
+      , cl.disp_ctgr_nm     disp_ctgr_nm
+      , cl.disp_ctgr_level  disp_ctgr_level
+      , cl.disp_ctgr1_no    disp_ctgr1_no
+      , cl.disp_ctgr2_no    disp_ctgr2_no
+      , cl.disp_ctgr3_no    disp_ctgr3_no
+      , cl.disp_ctgr4_no    disp_ctgr4_no
+      , cl.disp_ctgr1_nm    disp_ctgr1_nm
+      , cl.disp_ctgr2_nm    disp_ctgr2_nm
+      , cl.disp_ctgr3_nm    disp_ctgr3_nm
+      , cl.disp_ctgr4_nm    disp_ctgr4_nm
+    FROM mt_cupn_apl_excld_rng r, dp_disp_ctgr_list cl
+    WHERE 1=1
+    AND r.cupn_no = #{S_TMPL_CUPN_NO}
+    AND r.cupn_eftv_obj_clf_cd = '01'
+    AND r.use_yn = 'Y'
+    AND r.cupn_eftv_obj_no = cl.disp_ctgr_no
+  </select>
+
+  <select id="Offer_om.getBoSubCategory" parameterType="Map" resultMap="OfferCuCtgrBO">
+    select  
+      * 
+    from 
+      dp_disp_Ctgr_list
+    where 
+      1=1
+      and disp_ctgr_stat_cd in ('03', '05')
+      and disp_ctgr_kind_cd = '01'
+      <if test='cateNo == "1"'>
+        and disp_ctgr1_no IN (
+         <foreach collection="arrKey"  separator="," index="index" >
+          '${arrKey[index]}'
+         </foreach>
+         )
+       and disp_ctgr2_no is not null
+      </if>
+      <if test='cateNo == "2"'>
+        and disp_ctgr2_no IN (
+         <foreach collection="arrKey"  separator="," index="index" >
+          '${arrKey[index]}'
+         </foreach>
+         )
+        and disp_ctgr3_no is not null        
+      </if>
+      <if test='cateNo == "3"'>
+        and disp_ctgr3_no IN (
+         <foreach collection="arrKey"  separator="," index="index" >
+          '${arrKey[index]}'
+         </foreach>
+         )
+         and disp_ctgr4_no is not null
+      </if>
+    order by 
+      disp_prrt_rnk
+  </select>
+
+  <!-- 쿠폰 복사 처리 -->
+  <select id="Offer_om.copyCoupon1" statementType="CALLABLE" parameterMap="paramMap" resultType="java.util.HashMap">
+    <![CDATA[
+    { call TMALL.PKG_MT_CUPN_CRM.copy_coupon
+      (?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+    }
+    ]]>
+  </select>
+
+  <resultMap id="rcupn" type="hashmap"></resultMap>
+  
+  <parameterMap type="hashmap" id="paramMap">
+    <parameter property="p_cupn_no"             mode="IN" jdbcType="INTEGER" javaType="java.lang.Integer"/>  
+    <parameter property="p_cupn_nm"             mode="IN" jdbcType="VARCHAR" javaType="java.lang.String"/>  
+    <parameter property="p_cupn_dsc_mthd_cd"    mode="IN" jdbcType="VARCHAR" javaType="java.lang.String"/>  
+    <parameter property="p_dsc_amt_rt"          mode="IN" jdbcType="INTEGER" javaType="java.lang.Integer"/>  
+    <parameter property="p_max_dsc_amt"         mode="IN" jdbcType="INTEGER" javaType="java.lang.Integer"/>  
+    <parameter property="p_min_ord_amt"         mode="IN" jdbcType="INTEGER" javaType="java.lang.Integer"/>  
+    <parameter property="p_iss_cn_bgn_dt"       mode="IN" jdbcType="DATE" javaType="java.util.Date"/>  
+    <parameter property="p_iss_cn_end_dt"       mode="IN" jdbcType="DATE" javaType="java.util.Date"/>  
+    <parameter property="p_eftv_bgn_dt"         mode="IN" jdbcType="DATE" javaType="java.util.Date"/>  
+    <parameter property="p_eftv_end_dt"         mode="IN" jdbcType="DATE" javaType="java.util.Date"/>  
+    <parameter property="p_wire_wirelss_clf_cd" mode="IN" jdbcType="VARCHAR" javaType="java.lang.String"/>
+    <parameter property="p_isu_qty"             mode="IN" jdbcType="INTEGER" javaType="java.lang.Integer"/>
+    <parameter property="p_create_id"           mode="IN" jdbcType="VARCHAR" javaType="java.lang.String"/>  
+    <parameter property="p_aprv_id"             mode="IN" jdbcType="VARCHAR" javaType="java.lang.String"/>  
+    <parameter property="r_cupn_no"             mode="OUT" jdbcType="DECIMAL" javaType="java.lang.Integer"/>  
+  </parameterMap>
+
+  <select id="Offer_om.copyCoupon" statementType="CALLABLE">
+    <![CDATA[
+    { call TMALL.PKG_MT_CUPN_CRM.copy_coupon
+      (
+        #{p_cupn_no },
+        #{p_cupn_nm },            
+        #{p_cupn_dsc_mthd_cd },   
+        #{p_dsc_amt_rt },         
+        #{p_max_dsc_amt },        
+        #{p_min_ord_amt },        
+        #{p_iss_cn_bgn_dt },      
+        #{p_iss_cn_end_dt },      
+        #{p_eftv_bgn_dt },        
+        #{p_eftv_end_dt },        
+        #{p_wire_wirelss_clf_cd },
+        #{p_isu_qty },
+        #{p_create_id },          
+        #{p_aprv_id },            
+        #{r_cupn_no, mode=OUT, jdbcType=DECIMAL, javaType=java.lang.Integer, resultMap=rcupn }
+      )
+    }
+    ]]>
+  </select>
+
+  <select id="Offer_om.copyCouponCtgr" statementType="CALLABLE">
+    { call TMALL.PKG_MT_CUPN_CRM.replace_apply_category(
+        #{r_cupn_no }
+        ,#{p_ctgr_no_list }
+        ,#{p_update_id }
+      )
+    }
+  </select>
+  
+  <delete id="Offer_om.deleteCoupon" parameterType="Map">
+    Delete from TMALL.mt_offer_mem
+    WHERE campaigncode = #{campaigncode }
+      And treatmentcode = #{treatmentcode }
+      And iss_stat = '01'
+      And cupn_no = #{cupn_no }
+  </delete>
+  
+</mapper>

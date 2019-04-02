@@ -1,0 +1,485 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="CampaignInfo2">
+  <resultMap type="com.skplanet.sascm.object.CampaignInfoBO" id="CampaignInfoBO">
+    <result property="campaignname"        column="campaignname" />
+    <result property="campaigncode"        column="campaigncode" />
+    <result property="campaignid"          column="campaignid" />
+    <result property="camp_term_cd"        column="camp_term_cd" />
+    <result property="camp_bgn_dt"         column="camp_bgn_dt" />
+    <result property="camp_bgn_dt1"        column="camp_bgn_dt1" />
+    <result property="camp_bgn_dt2"        column="camp_bgn_dt2" />
+    <result property="camp_bgn_dt3"        column="camp_bgn_dt3" />
+    <result property="camp_end_dt"         column="camp_end_dt" />
+    <result property="camp_end_dt1"        column="camp_end_dt1" />
+    <result property="camp_end_dt2"        column="camp_end_dt2" />
+    <result property="camp_end_dt3"        column="camp_end_dt3" />
+    <result property="camp_term_day"       column="camp_term_day" />
+    <result property="audience_cd"         column="audience_cd" />
+    <result property="audience_nm"         column="audience_nm" />
+    <result property="manual_trans_yn"     column="manual_trans_yn" />
+    <result property="manual_trans_nm"     column="manual_trans_nm" />
+    <result property="offer_direct_yn"     column="offer_direct_yn" />
+    <result property="channel_priority_yn" column="channel_priority_yn" />
+    <result property="camp_status_cd"      column="camp_status_cd" />
+    <result property="create_id"           column="create_id" />
+    <result property="create_nm"           column="create_nm" />
+    <result property="create_dt"           column="create_dt" />
+    <result property="update_id"           column="update_id" />
+    <result property="update_nm"           column="update_nm" />
+    <result property="update_dt"           column="update_dt" />
+    <result property="channelCnt"          column="channelCnt" />
+   </resultMap>
+    <resultMap type="com.skplanet.sascm.object.CampaignListBO" id="CampaignListBO">
+    <result property="campaignid"              column="campaignid" />
+    <result property="campaigncd"              column="campaigncd" />
+    <result property="campaign_status_cd"       column="campaign_status_cd" />
+    <result property="campaign_version_no"      column="campaign_version_no" />
+    <result property="current_version_flg"      column="current_version_flg" />
+    <result property="campaignnm"               column="campaignnm" />
+    <result property="campaign_desc"            column="campaign_desc" />
+    <result property="campaign_folder_txt"      column="campaign_folder_txt" />
+    <result property="campaign_owner_nm"        column="campaign_owner_nm" />
+    <result property="campaign_group_sk"        column="campaign_group_sk" />
+    <result property="deployment_version_no"    column="deployment_version_no" />
+    <result property="min_budget_offer_amt"     column="min_budget_offer_amt" />
+    <result property="max_budget_offer_amt"     column="max_budget_offer_amt" />
+    <result property="min_budget_amt"           column="min_budget_amt" />
+    <result property="max_budget_amt"           column="max_budget_amt" />
+    <result property="start_dttm"               column="start_dttm" />
+    <result property="end_dttm"                 column="end_dttm" />
+    <result property="run_dttm"                 column="run_dttm" />
+    <result property="last_modified_dttm"       column="last_modified_dttm" />
+    <result property="last_modified_by_user_nm" column="last_modified_by_user_nm" />
+    <result property="approval_dttm"            column="approval_dttm" />
+    <result property="approval_given_by_nm"     column="approval_given_by_nm" />
+    <result property="business_context_nm"      column="business_context_nm" />
+    <result property="campaign_type_cd"         column="campaign_type_cd" />
+    <result property="deleted_flg"              column="deleted_flg" />
+        <result property="processed_dttm"           column="processed_dttm" />
+        <result property="id"                       column="id" />
+        <result property="name"                     column="name" />
+        <result property="pid"                      column="pid" />
+   </resultMap>
+  <resultMap type="com.skplanet.sascm.object.CampaignOfferBO" id="CampaignOfferBO">
+    <result property="campaignid"          column="campaignid" />
+    <result property="campaignname"        column="campaignname" />
+    <result property="campaigncode"        column="campaigncode" />
+    <result property="audience_cd"         column="audience_cd" />
+    <result property="manual_trans_yn"     column="manual_trans_yn" />
+    <result property="offer_direct_yn"     column="offer_direct_yn" />
+    <result property="channel_priority_yn" column="channel_priority_yn" />
+    <result property="camp_status_cd"      column="camp_status_cd" />
+    <result property="flowchartid"         column="flowchartid" />
+    <result property="flowchartname"       column="flowchartname" />
+    <result property="flowchartrow"        column="flowchartrow" />
+    <result property="filename"            column="filename" />
+    <result property="status"              column="status" />
+    <result property="cellid"              column="cellid" />
+    <result property="cellrow"             column="cellrow" />
+    <result property="cellname"            column="cellname" />
+    <result property="cellcode"            column="cellcode" />
+    <result property="offerlistid"         column="offerlistid" />
+    <result property="offerid"             column="offerid" />
+    <result property="offername"           column="offername" />
+    <result property="offercode1"          column="offercode1" />
+    <result property="offer_type_cd"       column="offer_type_cd" />
+    <result property="offer_sys_cd"        column="offer_sys_cd" />
+    <result property="disp_name"           column="disp_name" />
+    <result property="tmpl_cupn_no"        column="tmpl_cupn_no" />
+        <result property="tmpl_cupn_no_use_yn" column="tmpl_cupn_no_use_yn" />
+        <result property="offer_amt"           column="offer_amt" />
+        <result property="create_id"           column="create_id" />
+        <result property="create_nm"           column="create_nm" />
+        <result property="create_dt"           column="create_dt" />
+        <result property="update_id"           column="update_id" />
+        <result property="update_nm"           column="update_nm" />
+        <result property="update_dt"           column="update_dt" />
+   </resultMap>
+  
+  <!-- 캠페인 정보 조회 -->
+  <select id="CampaignInfo2.getCampaignInfo" parameterType="Map"  resultMap="CampaignInfoBO">
+    SELECT
+       A.CAMPAIGN_NM                          campaignname
+      ,A.CAMPAIGN_CD                        campaigncode
+      ,A.CAMPAIGN_SK                      campaignid
+      ,B.CAMP_TERM_CD                     camp_term_cd
+      ,B.CAMP_BGN_DT                      camp_bgn_dt
+            ,TO_CHAR(B.CAMP_BGN_DT,'YYYY-MM-DD')    camp_bgn_dt1
+            ,TO_CHAR(B.CAMP_BGN_DT,'HH24')          camp_bgn_dt2
+            ,TO_CHAR(B.CAMP_BGN_DT,'MI')            camp_bgn_dt3      
+      ,B.CAMP_END_DT                      camp_end_dt
+      ,TO_CHAR(B.CAMP_END_DT,'YYYY-MM-DD')    camp_end_dt1
+      ,TO_CHAR(B.CAMP_END_DT,'HH24')      camp_end_dt2
+      ,TO_CHAR(B.CAMP_END_DT,'MI')        camp_end_dt3
+      ,B.CAMP_TERM_DAY                    camp_term_day
+      ,B.AUDIENCE_CD                      audience_cd
+      ,（SELECT CODE_NAME FROM CM_CODE_DTL WHERE COMM_CODE_ID = 'C004' AND CODE_ID =  B.AUDIENCE_CD）  audience_nm
+      ,B.MANUAL_TRANS_YN                      manual_trans_yn
+      ,（SELECT CODE_NAME FROM CM_CODE_DTL WHERE COMM_CODE_ID = 'G003' AND CODE_ID =  B.MANUAL_TRANS_YN）  manual_trans_nm
+      ,B.OFFER_DIRECT_YN                  offer_direct_yn
+      ,B.CHANNEL_PRIORITY_YN              channel_priority_yn
+      ,B.CAMP_STATUS_CD                   camp_status_cd
+      ,B.CREATE_ID                        create_id
+      ,(SELECT USER_NAME FROM CM_USER WHERE ID = B.CREATE_ID) create_nm
+      ,TO_CHAR(B.CREATE_DT, 'YYYY-MM-DD HH24:MI:SS')  create_dt
+      ,B.UPDATE_ID                        update_id
+      ,(SELECT USER_NAME FROM CM_USER WHERE ID = B.UPDATE_ID) update_nm
+      ,TO_CHAR(B.UPDATE_DT, 'YYYY-MM-DD HH24:MI:SS')  update_dt
+    FROM CI_CAMPAIGN        A
+        ,CM_CAMPAIGN_DTL B
+     WHERE A.CAMPAIGN_SK = B.CAMPAIGNID(+)
+       AND A.CAMPAIGN_SK = #{CAMPAIGNID}
+  </select>
+  
+  
+  <!-- 캠페인 정보 저장 -->
+  <update id="CampaignInfo2.setCampaignInfo" parameterType="Map" >
+    MERGE INTO CM_CAMPAIGN_DTL
+    USING DUAL
+    ON (CAMPAIGNCODE = #{CAMPAIGNCODE})
+    WHEN MATCHED THEN
+    UPDATE SET CAMP_TERM_CD        = TRIM(#{CAMP_TERM_CD})
+              ,CAMP_BGN_DT         = CASE WHEN #{CAMP_TERM_CD} = '01' THEN TO_DATE(#{CAMP_BGN_DT1} || LPAD(#{CAMP_BGN_DT2}, 2,'0') || LPAD(#{CAMP_BGN_DT3}, 2,'0') || '00', 'YYYY-MM-DDHH24MISS') ELSE NULL END
+              ,CAMP_END_DT         = CASE WHEN #{CAMP_TERM_CD} = '01' THEN TO_DATE(#{CAMP_END_DT1} || LPAD(#{CAMP_END_DT2}, 2,'0') || LPAD(#{CAMP_END_DT3}, 2,'0') || '59', 'YYYY-MM-DDHH24MISS') ELSE NULL END
+              ,CAMP_TERM_DAY       = CASE WHEN #{CAMP_TERM_CD} = '02' THEN #{CAMP_TERM_DAY} ELSE NULL END
+              ,AUDIENCE_CD         = TRIM(#{AUDIENCE_CD})
+              ,MANUAL_TRANS_YN     = TRIM(#{MANUAL_TRANS_YN})
+              ,OFFER_DIRECT_YN     = TRIM(#{OFFER_DIRECT_YN})
+              ,CHANNEL_PRIORITY_YN = TRIM(#{CHANNEL_PRIORITY_YN})
+              ,UPDATE_ID           = TRIM(#{UPDATE_ID})
+              ,UPDATE_DT           = SYSDATE
+    WHEN NOT MATCHED THEN
+    INSERT (
+       CAMPAIGNCODE
+      ,CAMPAIGNID
+      ,CAMP_TERM_CD
+      ,CAMP_BGN_DT
+      ,CAMP_END_DT
+      ,CAMP_TERM_DAY
+      ,AUDIENCE_CD
+      ,MANUAL_TRANS_YN
+      ,OFFER_DIRECT_YN
+      ,CHANNEL_PRIORITY_YN
+      ,CAMP_STATUS_CD
+      ,CREATE_ID
+      ,CREATE_DT
+    )
+    VALUES (
+       TRIM(#{CAMPAIGNCODE})
+      ,TRIM(#{CAMPAIGNID})
+      ,TRIM(#{CAMP_TERM_CD})
+      ,CASE WHEN #{CAMP_TERM_CD} = '01' THEN TO_DATE(#{CAMP_BGN_DT1} || LPAD(#{CAMP_BGN_DT2}, 2,'0') || LPAD(#{CAMP_BGN_DT3}, 2,'0') || '00', 'YYYY-MM-DDHH24MISS') ELSE NULL END
+      ,CASE WHEN #{CAMP_TERM_CD} = '01' THEN TO_DATE(#{CAMP_END_DT1} || LPAD(#{CAMP_END_DT2}, 2,'0') || LPAD(#{CAMP_END_DT3}, 2,'0') || '59', 'YYYY-MM-DDHH24MISS') ELSE NULL END
+      ,CASE WHEN #{CAMP_TERM_CD} = '02' THEN #{CAMP_TERM_DAY} ELSE NULL END
+      ,TRIM(#{AUDIENCE_CD})
+      ,TRIM(#{MANUAL_TRANS_YN})
+      ,TRIM(#{OFFER_DIRECT_YN})
+      ,TRIM(#{CHANNEL_PRIORITY_YN})
+      ,'EDIT'
+      ,TRIM(#{CREATE_ID})
+      ,SYSDATE
+    )         
+  </update>
+  
+  
+  <!-- 채널의 우선순위 수정 -->
+  <update id="CampaignInfo2.setChannelPriority" parameterType="Map" >
+      UPDATE CM_CAMPAIGN_CHANNEL
+         SET TOAST_PRIORITY_RNK  = CASE WHEN TOAST_PRIORITY_RNK  IS NOT NULL THEN #{PRIORITY_RNK} ELSE TOAST_PRIORITY_RNK  END
+            ,SMS_PRIORITY_RNK    = CASE WHEN SMS_PRIORITY_RNK    IS NOT NULL THEN #{PRIORITY_RNK} ELSE SMS_PRIORITY_RNK    END
+          ,EMAIL_PRIORITY_RNK  = CASE WHEN EMAIL_PRIORITY_RNK  IS NOT NULL THEN #{PRIORITY_RNK} ELSE EMAIL_PRIORITY_RNK  END
+          ,MOBILE_PRIORITY_RNK = CASE WHEN MOBILE_PRIORITY_RNK IS NOT NULL THEN #{PRIORITY_RNK} ELSE MOBILE_PRIORITY_RNK END
+         WHERE CELLID IN (SELECT CELLID FROM UA_TARGETCELLS WHERE CAMPAIGNID = #{CAMPAIGNID} AND ISCONTROL = 0)   
+  </update>
+
+  
+  <!-- 캠페인 오퍼 리스트 -->
+  <select id="CampaignInfo2.getCampaignOfferList" parameterType="Map" resultMap="CampaignOfferBO">
+    SELECT
+       A.*
+      ,B.DISP_NAME                                        disp_name
+      ,B.OFFER_AMT                                        offer_amt
+      ,B.CREATE_ID                                        create_id
+      ,(SELECT USER_NAME FROM CM_USER WHERE ID = B.CREATE_ID) create_nm
+      ,B.CREATE_DT                                        create_dt
+      ,B.UPDATE_ID                                        update_id
+      ,(SELECT USER_NAME FROM CM_USER WHERE ID = B.UPDATE_ID) update_nm
+      ,B.UPDATE_DT                                        update_dt
+    FROM 
+    ( 
+      SELECT 
+               A.CAMPAIGNID                               campaignid        
+              ,A.NAME                                     campaignname 
+              ,A.CAMPAIGNCODE                             campaigncode
+              ,H.AUDIENCE_CD                              audience_cd  
+              ,H.MANUAL_TRANS_YN                          manual_trans_yn    
+              ,H.OFFER_DIRECT_YN                          offer_direct_yn
+              ,H.CHANNEL_PRIORITY_YN                      channel_priority_yn
+              ,H.CAMP_STATUS_CD                           camp_status_cd
+              ,B.FLOWCHARTID                              flowchartid       
+              ,B.NAME                                     flowchartname
+                  ,COUNT(1) OVER (PARTITION BY B.FLOWCHARTID) flowchartrow            
+              ,B.FILENAME                                 filename          
+              ,B.STATUS                                   status            
+              ,C.CELLID                                   cellid
+              ,COUNT(1) OVER (PARTITION BY B.FLOWCHARTID, C.CELLID)      cellrow            
+              ,C.CELLNAME                                 cellname          
+              ,C.CELLCODE                                 cellcode          
+              ,C.OFFERLISTID                              offerlistid       
+              ,E.OFFERID                                  offerid           
+              ,F.NAME                                     offername    
+              ,F.OFFERCODE1                               offercode1        
+              ,G.OFFER_TYPE_CD                            offer_type_cd     
+              ,G.OFFER_SYS_CD                             offer_sys_cd      
+      FROM UA_CAMPAIGN        A
+          ,UA_FLOWCHART       B
+          ,UA_TARGETCELLS     C
+          ,UA_OFFERLIST       D
+          ,UA_OFFERLISTMEMBER E
+          ,UA_OFFER           F
+          ,(
+              SELECT
+                       OFFERID
+                      ,MAX(OFFER_SYS_CD) OFFER_SYS_CD
+                      ,MAX(OFFER_TYPE_CD) OFFER_TYPE_CD
+              FROM(
+                      SELECT
+                               OFFERID
+                              ,CASE WHEN ATTRIBUTEID = (SELECT ATTRIBUTEID FROM UA_ATTRIBUTEDEF WHERE NAME IN ('OFFER_SYS_CD'))  THEN STRINGVALUE ELSE '' END OFFER_SYS_CD
+                              ,CASE WHEN ATTRIBUTEID = (SELECT ATTRIBUTEID FROM UA_ATTRIBUTEDEF WHERE NAME IN ('OFFER_TYPE_CD')) THEN STRINGVALUE ELSE '' END OFFER_TYPE_CD
+                      FROM UA_OFFERATTRIBUTE
+              )
+              GROUP BY OFFERID
+          ) G
+          ,CM_CAMPAIGN_DTL    H
+      WHERE A.CAMPAIGNID  = #{CAMPAIGNID}
+        AND A.CAMPAIGNID  = B.CAMPAIGNID
+        AND B.TEMPFLAG    = 0
+        AND B.FLOWCHARTID = C.FLOWCHARTID
+        AND A.CAMPAIGNID  = C.CAMPAIGNID
+        AND C.OFFERLISTID = D.OFFERLISTID
+        AND C.ISCONTROL   = 0
+        AND C.OFFERLISTID = E.OFFERLISTID
+        AND E.OFFERID     = F.OFFERID
+        AND F.OFFERID     = G.OFFERID
+        AND A.CAMPAIGNID  = H.CAMPAIGNID
+          ORDER BY 1, FLOWCHARTID, CELLID, OFFERID
+    ) A
+    ,CM_CAMPAIGN_OFFER  B
+    WHERE A.CELLID  = B.CELLID(+)
+      AND A.OFFERID = B.OFFERID(+)          
+  </select> 
+  
+
+
+  <!-- 대상수준이 PCID일경우 오퍼의 사용여부를 체크한다 -->
+  <select id="CampaignInfo2.getCampaignOfferUseChk" parameterType="Map" resultType="String">
+    SELECT 
+          CASE WHEN COUNT(0) != 0 THEN 'Y' ELSE 'N' END offerChk
+    FROM UA_CAMPAIGN        A
+        ,UA_FLOWCHART       B
+        ,UA_TARGETCELLS     C
+        ,UA_OFFERLIST       D
+        ,UA_OFFERLISTMEMBER E
+        ,UA_OFFER           F
+        ,(
+            SELECT
+                     OFFERID
+                    ,MAX(OFFER_SYS_CD) OFFER_SYS_CD
+                    ,MAX(OFFER_TYPE_CD) OFFER_TYPE_CD
+            FROM(
+                    SELECT
+                             OFFERID
+                            ,CASE WHEN ATTRIBUTEID = (SELECT ATTRIBUTEID FROM UA_ATTRIBUTEDEF WHERE NAME IN ('OFFER_SYS_CD'))  THEN STRINGVALUE ELSE '' END OFFER_SYS_CD
+                            ,CASE WHEN ATTRIBUTEID = (SELECT ATTRIBUTEID FROM UA_ATTRIBUTEDEF WHERE NAME IN ('OFFER_TYPE_CD')) THEN STRINGVALUE ELSE '' END OFFER_TYPE_CD
+                    FROM UA_OFFERATTRIBUTE
+            )
+            GROUP BY OFFERID
+        ) G
+        ,CM_CAMPAIGN_DTL    H
+    WHERE A.CAMPAIGNID  = #{CAMPAIGNID}
+      AND A.CAMPAIGNID  = B.CAMPAIGNID
+      AND B.TEMPFLAG    = 0
+      AND A.CAMPAIGNID  = C.CAMPAIGNID
+      AND C.OFFERLISTID = D.OFFERLISTID
+      AND C.OFFERLISTID = E.OFFERLISTID
+      AND C.ISCONTROL   = 0
+      AND E.OFFERID     = F.OFFERID
+      AND F.OFFERID     = G.OFFERID
+      AND A.CAMPAIGNID  = H.CAMPAIGNID
+          AND H.AUDIENCE_CD = 'PCID'
+          AND G.OFFER_SYS_CD != 'ZZ'  
+  </select>
+
+
+  <!-- 대상수준이 PCID일경우 토스트배너 이외의 채널 사용여부를 체크한다 -->
+  <select id="CampaignInfo2.getCampaignChannelValiChk" parameterType="Map" resultType="String">
+    SELECT 
+           CASE WHEN COUNT(0) = 0 THEN 'Y' ELSE 'N' END channelValiChk
+        FROM UA_CAMPAIGN            A
+          ,UA_FLOWCHART           B
+          ,UA_TARGETCELLS         C   
+          ,CM_CAMPAIGN_CHANNEL D
+          ,CM_CAMPAIGN_DTL     E
+     WHERE A.CAMPAIGNID  = #{CAMPAIGNID}
+       AND A.CAMPAIGNID  = B.CAMPAIGNID
+       AND B.TEMPFLAG    = 0
+       AND A.CAMPAIGNID  = C.CAMPAIGNID
+       AND A.CAMPAIGNID  = E.CAMPAIGNID
+       AND C.CELLID      = D.CELLID
+       AND C.ISCONTROL   = 0
+       AND D.CHANNEL_CD != 'TOAST'
+       AND E.AUDIENCE_CD = 'PCID'
+  </select>
+
+
+  <!-- 사용자 권한이 N일 경우에만 더미오퍼 사용가능 -->
+  <select id="CampaignInfo2.getCampaignChannelValiChk2" parameterType="Map" resultType="String">
+    SELECT CASE WHEN CNT = 0 THEN 'Y'
+                WHEN TITLE = 'N' THEN 'Y'
+           ELSE 'N' END VALI
+      FROM (
+        SELECT COUNT(0) CNT
+        FROM UA_CAMPAIGN        A
+            ,UA_FLOWCHART       B
+            ,UA_TARGETCELLS     C
+            ,UA_OFFERLIST       D
+            ,UA_OFFERLISTMEMBER E
+            ,UA_OFFER           F
+            ,(
+                SELECT
+                         OFFERID
+                        ,MAX(OFFER_SYS_CD) OFFER_SYS_CD
+                        ,MAX(OFFER_TYPE_CD) OFFER_TYPE_CD
+                FROM(
+                        SELECT
+                                 OFFERID
+                                ,CASE WHEN ATTRIBUTEID = (SELECT ATTRIBUTEID FROM UA_ATTRIBUTEDEF WHERE NAME IN ('OFFER_SYS_CD'))  THEN STRINGVALUE ELSE '' END OFFER_SYS_CD
+                                ,CASE WHEN ATTRIBUTEID = (SELECT ATTRIBUTEID FROM UA_ATTRIBUTEDEF WHERE NAME IN ('OFFER_TYPE_CD')) THEN STRINGVALUE ELSE '' END OFFER_TYPE_CD
+                        FROM UA_OFFERATTRIBUTE
+                )
+                GROUP BY OFFERID
+            ) G                
+        WHERE A.CAMPAIGNID  = #{CAMPAIGNID}
+          AND A.CAMPAIGNID  = B.CAMPAIGNID
+          AND B.TEMPFLAG    = 0
+          AND B.FLOWCHARTID = C.FLOWCHARTID
+          AND A.CAMPAIGNID  = C.CAMPAIGNID 
+          AND C.OFFERLISTID = D.OFFERLISTID
+          AND C.ISCONTROL   = 0 
+          AND C.OFFERLISTID = E.OFFERLISTID
+          AND E.OFFERID     = F.OFFERID 
+          AND F.OFFERID     = G.OFFERID
+          AND G.OFFER_TYPE_CD = 'ZZ'
+           )A
+          ,(
+             SELECT  nvl(title, (SELECT CODE_ID FROM CM_CODE_DTL WHERE COMM_CODE_ID = 'C007' AND ROWNUM = 1 AND USE_YN = 'Y' )) title
+               FROM CM_USER
+              WHERE ID = #{USER_ID}
+           ) B  
+  </select>
+
+
+  <!-- 캠페인 채널 정보 삭제 -->
+  <delete id="CampaignInfo2.delChannelInfo" parameterType="Map">
+    DELETE CM_CAMPAIGN_CHANNEL
+     WHERE CELLID     = #{CELLID}
+       AND CHANNEL_CD = #{CHANNEL_CD}
+  </delete>
+  
+  <!-- 대상수준이 DEVICEID일경우 오퍼의 사용여부를 체크한다 -->
+  <select id="CampaignInfo2.getCampaignChannelValiChkforDeviceId" parameterType="Map" resultType="String">
+    SELECT 
+          CASE WHEN COUNT(0) != 0 THEN 'Y' ELSE 'N' END offerChk
+    FROM UA_CAMPAIGN        A
+        ,UA_FLOWCHART       B
+        ,UA_TARGETCELLS     C
+        ,UA_OFFERLIST       D
+        ,UA_OFFERLISTMEMBER E
+        ,UA_OFFER           F
+        ,(
+            SELECT
+                     OFFERID
+                    ,MAX(OFFER_SYS_CD) OFFER_SYS_CD
+                    ,MAX(OFFER_TYPE_CD) OFFER_TYPE_CD
+            FROM(
+                    SELECT
+                             OFFERID
+                            ,CASE WHEN ATTRIBUTEID = (SELECT ATTRIBUTEID FROM UA_ATTRIBUTEDEF WHERE NAME IN ('OFFER_SYS_CD'))  THEN STRINGVALUE ELSE '' END OFFER_SYS_CD
+                            ,CASE WHEN ATTRIBUTEID = (SELECT ATTRIBUTEID FROM UA_ATTRIBUTEDEF WHERE NAME IN ('OFFER_TYPE_CD')) THEN STRINGVALUE ELSE '' END OFFER_TYPE_CD
+                    FROM UA_OFFERATTRIBUTE
+            )
+            GROUP BY OFFERID
+        ) G
+        ,CM_CAMPAIGN_DTL    H
+    WHERE A.CAMPAIGNID  = #{CAMPAIGNID}
+      AND A.CAMPAIGNID  = B.CAMPAIGNID
+      AND B.TEMPFLAG    = 0
+      AND A.CAMPAIGNID  = C.CAMPAIGNID
+      AND C.OFFERLISTID = D.OFFERLISTID
+      AND C.OFFERLISTID = E.OFFERLISTID
+      AND C.ISCONTROL   = 0
+      AND E.OFFERID     = F.OFFERID
+      AND F.OFFERID     = G.OFFERID
+      AND A.CAMPAIGNID  = H.CAMPAIGNID
+          AND H.AUDIENCE_CD = 'DEVICE_ID'
+          AND G.OFFER_SYS_CD != 'ZZ'  
+  </select>
+  
+  <!-- 대상수준이 DEVICEID일경우 앱 푸쉬 이외의 채널 사용여부를 체크한다 -->
+  <select id="CampaignInfo2.getCampaignChannelValiChkforMobile" parameterType="Map" resultType="String">
+    SELECT 
+           CASE WHEN COUNT(0) = 0 THEN 'Y' ELSE 'N' END channelValiChk
+        FROM UA_CAMPAIGN            A
+          ,UA_FLOWCHART           B
+          ,UA_TARGETCELLS         C   
+          ,CM_CAMPAIGN_CHANNEL D
+          ,CM_CAMPAIGN_DTL     E
+     WHERE A.CAMPAIGNID  = #{CAMPAIGNID}
+       AND A.CAMPAIGNID  = B.CAMPAIGNID
+       AND B.TEMPFLAG    = 0
+       AND A.CAMPAIGNID  = C.CAMPAIGNID
+       AND A.CAMPAIGNID  = E.CAMPAIGNID
+       AND C.CELLID      = D.CELLID
+       AND C.ISCONTROL   = 0
+       AND D.CHANNEL_CD != 'MOBILE'
+       AND E.AUDIENCE_CD = 'DEVICE_ID'
+  </select>
+  
+  <!-- 채널의 발송시간 수정 -->
+  <update id="CampaignInfo2.setChannelDispTime" parameterType="Map" >
+      UPDATE CM_CAMPAIGN_CHANNEL
+         SET SMS_DISP_TIME = NULL 
+            ,EMAIL_DISP_TIME = NULL
+            ,MOBILE_DISP_TIME = NULL
+         WHERE CELLID IN (SELECT CELLID FROM UA_TARGETCELLS WHERE CAMPAIGNID = #{CAMPAIGNID} AND ISCONTROL = 0)   
+  </update>
+  <select id="CampaignInfo2.getCampaignFolderList" parameterType="Map" resultMap="CampaignListBO">
+      SELECT     TO_CHAR(CAMPAIGN_FOLDER_TXT) AS ID ,
+            TO_CHAR(CAMPAIGN_FOLDER_TXT) AS NAME, TO_CHAR(0) AS PID
+         FROM CI_CAMPAIGN
+        WHERE INSTR(TO_CHAR(CAMPAIGN_FOLDER_TXT),'\') = 0
+        GROUP BY TO_CHAR(CAMPAIGN_FOLDER_TXT)
+      UNION ALL 
+      SELECT TO_CHAR(CAMPAIGN_FOLDER_TXT) AS ID,
+             SUBSTR(TO_CHAR(CAMPAIGN_FOLDER_TXT),INSTR(TO_CHAR(CAMPAIGN_FOLDER_TXT),'\')+1) AS NAME,
+             SUBSTR(TO_CHAR(CAMPAIGN_FOLDER_TXT),1,INSTR(TO_CHAR(CAMPAIGN_FOLDER_TXT),'\')-1) AS PID
+        FROM  CI_CAMPAIGN
+       WHERE INSTR(TO_CHAR(CAMPAIGN_FOLDER_TXT),'\')>1
+    GROUP BY TO_CHAR(CAMPAIGN_FOLDER_TXT),TO_CHAR(CAMPAIGN_CD)
+  </select>
+  <select id="CampaignInfo2.getCampaignList" parameterType="Map" resultMap="CampaignListBO">
+     SELECT CAMPAIGN_NM campaignnm,
+              CAMPAIGN_DESC campaign_desc,
+              CAMPAIGN_CD campaigncd, 
+              CAMPAIGN_SK campaignid,
+              CAMPAIGN_OWNER_NM campaign_owner_nm,
+              RUN_DTTM run_dttm,
+              '' pid
+         FROM CI_CAMPAIGN
+         WHERE TO_CHAR(CAMPAIGN_FOLDER_TXT)  LIKE '%'||#{treeValue}||'%' 
+  </select>
+
+</mapper>

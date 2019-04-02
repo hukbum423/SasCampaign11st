@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Variable">
+  <resultMap type="com.skplanet.sascm.object.UaextVariableBO" id="UaextVariableBO">
+    <result property="num"              column="num" />
+    <result property="vari_name"        column="vari_name" />
+    <result property="key_column"       column="key_column" />
+    <result property="ref_table"        column="ref_table" />
+    <result property="ref_column"       column="ref_column" />
+    <result property="if_null"          column="if_null" />
+    <result property="use_yn"           column="use_yn" />
+    <result property="create_id"        column="create_id" />
+    <result property="create_nm"        column="create_nm" />
+    <result property="create_dt"        column="create_dt" />
+    <result property="update_id"        column="update_id" />
+    <result property="update_nm"        column="update_nm" />
+    <result property="update_dt"        column="update_dt" />
+    <result property="pre_value"        column="pre_value" />
+    <result property="max_byte"         column="max_byte" />
+  </resultMap>
+	<!-- 매개변수 목록 조회 -->
+	<select id="Variable.getVariableList" parameterType="Map"  resultMap="UaextVariableBO">
+		SELECT   /* Variable.getVariableList */
+			 ROWNUM        	 num       
+			,VARI_NAME  	 vari_name  
+			,KEY_COLUMN      key_column 
+			,REF_TABLE       ref_table  
+			,REF_COLUMN      ref_column 
+			,IF_NULL         if_null
+			,MAX_BYTE        max_byte    
+			,USE_YN          use_yn
+			,CREATE_ID       create_id 
+			,(SELECT USER_NAME FROM CM_USER WHERE ID = A.CREATE_ID) create_nm
+			,TO_CHAR(CREATE_DT, 'YYYY-MM-DD HH24:MI:SS')       create_dt 
+			,UPDATE_ID       update_id 
+			,(SELECT USER_NAME FROM CM_USER WHERE ID = A.UPDATE_ID) update_nm
+			,TO_CHAR(UPDATE_DT, 'YYYY-MM-DD HH24:MI:SS')       update_dt 
+		 FROM CM_VARIABLE A
+	    WHERE 1 = 1
+		  AND VARI_NAME    LIKE '%'||#{SVARI_NAME}||'%'
+		  AND KEY_COLUMN   LIKE '%'||#{SKEY_COLUMN}||'%'
+		ORDER BY VARI_NAME
+	</select>
+	
+	
+	<!-- 매개변수 참존컬럼, 참조테이블 유효성 체크  -->
+	<select id="Variable.getVariableChk" parameterType="Map"  resultType="String" >
+		SELECT 'Y'  CHK
+		FROM(
+			SELECT ${KEY_COLUMN}, ${REF_COLUMN}
+			  FROM ${REF_TABLE}
+			 WHERE ROWNUM = 1
+	    )
+	</select>
+	
+	
+	<!-- 매개변수 중복 체크 -->
+	<select id="Variable.getVariableDup" parameterType="Map"  resultType="String">
+		SELECT CASE WHEN COUNT(0) > 0 THEN 'Y' ELSE 'N' END DUP
+		  FROM CM_VARIABLE
+	     WHERE VARI_NAME = #{VARI_NAME}
+	</select>
+	
+	
+	<!-- 매개변수 입력 -->
+	<insert id="Variable.setVariable" parameterType="Map" >
+		INSERT INTO CM_VARIABLE
+		(
+			 VARI_NAME
+			,KEY_COLUMN
+			,REF_TABLE
+			,REF_COLUMN
+			,IF_NULL
+			,MAX_BYTE
+			,USE_YN
+			,CREATE_ID
+			,CREATE_DT
+		)
+		VALUES
+		(
+			 TRIM(#{VARI_NAME})
+			,TRIM(#{KEY_COLUMN})
+			,TRIM(#{REF_TABLE})
+			,TRIM(#{REF_COLUMN})
+			,TRIM(#{IF_NULL})
+			,TRIM(#{MAX_BYTE})
+			,TRIM(#{USE_YN})
+			,TRIM(#{CREATE_ID})
+			,SYSDATE		
+		)
+	</insert>
+	
+	
+	<!-- 매개변수 수정 -->
+	<update id="Variable.updateVariable" parameterType="Map" >
+		UPDATE CM_VARIABLE
+		   SET KEY_COLUMN  = TRIM(#{KEY_COLUMN})
+		      ,REF_TABLE   = TRIM(#{REF_TABLE})
+		      ,REF_COLUMN  = TRIM(#{REF_COLUMN})
+		      ,IF_NULL     = TRIM(#{IF_NULL})
+		      ,MAX_BYTE    = TRIM(#{MAX_BYTE})
+		      ,USE_YN      = TRIM(#{USE_YN})
+		      ,UPDATE_ID   = TRIM(#{UPDATE_ID})
+		      ,UPDATE_DT   = SYSDATE
+		 WHERE VARI_NAME   = #{VARI_NAME}
+	</update>
+	
+	
+	<!-- 매개변수 삭제 -->
+	<delete id="Variable.deleteVariable" parameterType="Map" >
+		DELETE CM_VARIABLE
+		 WHERE VARI_NAME = #{VARI_NAME}
+	</delete>
+	
+		
+	<!-- 매개변수 목록 상세 조회 -->
+	<select id="Variable.getVariableDetail" parameterType="Map"  resultMap="UaextVariableBO">
+		SELECT
+			 VARI_NAME  	 vari_name  
+			,KEY_COLUMN      key_column 
+			,REF_TABLE       ref_table  
+			,REF_COLUMN      ref_column 
+			,IF_NULL         if_null    
+			,MAX_BYTE        max_byte    
+			,USE_YN          use_yn
+			,CREATE_ID       create_id 
+			,(SELECT USER_NAME FROM CM_USER WHERE ID = A.CREATE_ID) create_nm
+			,TO_CHAR(CREATE_DT, 'YYYY-MM-DD HH24:MI:SS')       create_dt 
+			,UPDATE_ID       update_id 
+			,(SELECT USER_NAME FROM CM_USER WHERE ID = A.UPDATE_ID) update_nm
+			,TO_CHAR(UPDATE_DT, 'YYYY-MM-DD HH24:MI:SS')       update_dt 
+		 FROM CM_VARIABLE A
+	    WHERE VARI_NAME = #{VARI_NAME}
+	</select>
+	
+		
+	<!-- 미리보기용 샘플 데이터 조회  -->
+	<select id="Variable.getVariablePreVal" parameterType="Map"  resultType="String" >
+	<![CDATA[ 
+		SELECT SUBSTRB(preval, 0, ${MAX_BYTE}) preval
+		  FROM (
+			SELECT ${REF_COLUMN} preval
+			  FROM ${REF_TABLE}
+			 WHERE 1 = 1 
+			   AND ${KEY_COLUMN} IS NOT NULL
+			   AND ${REF_COLUMN} IS NOT NULL
+			   AND ROWNUM <= 1000
+			 ORDER BY DBMS_RANDOM.VALUE
+		)
+		WHERE ROWNUM = 1
+	]]>
+	</select>
+	
+		
+	<!-- 미리보기용 샘플 데이터 조회(SMS용)  -->
+	<select id="Variable.getVariablePreValSMS" parameterType="Map"  resultType="String" >
+	<![CDATA[ 
+		SELECT SUBSTRB(preval, 0, ${MAX_BYTE}) preval
+		  FROM (
+			SELECT ${REF_COLUMN} preval
+			  FROM ${REF_TABLE}
+			 WHERE 1 = 1 
+			   AND ${KEY_COLUMN} IS NOT NULL
+			   AND ${REF_COLUMN} IS NOT NULL
+			   AND ROWNUM <= 1000
+			 ORDER BY DBMS_RANDOM.VALUE
+		)
+		WHERE ROWNUM = 1
+	]]>
+	</select>
+	
+</mapper>

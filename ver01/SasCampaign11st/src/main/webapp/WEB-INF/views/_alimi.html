@@ -1,0 +1,1195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>알리미 등록/조회</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+	<style>
+		body {
+			margin: 0;
+			padding: 0;
+		}
+		.btn {
+			border: none;
+			outline: none;
+			color: white;
+			padding: 5px 10px;
+			font-size: 12px;
+			cursor: pointer;
+		}
+		.success { background-color: #4CAF50; }  /* Green */
+		.success:hover { background-color: #46a049; }
+
+		.info {background-color: #2196F3;} /* Blue */
+		.info:hover {background: #0b7dda;}
+
+		.warning {background-color: #ff9800;} /* Orange */
+		.warning:hover {background: #e68a00;}
+
+		.danger {background-color: #f44336;} /* Red */ 
+		.danger:hover {background: #da190b;}
+
+		.default {background-color: #e7e7e7; color: black;} /* Gray */ 
+		.default:hover {background: #ddd;}
+		/*
+		.dropdown {
+			position: absolute;
+			display: inline-block;
+		}
+		.dropdown-content {
+			display: none;
+			position: absolute;
+			background-color: #f1f1f1;
+			min-width: 160px;
+			z-index: 1;
+		}
+		.dropdown-content a {
+			color: black;
+			padding: 12px 16px;
+			text-decoration: none;
+			display: black;
+		}
+		.dropdown-content a:hover {
+			background-color: #ddd;
+		}
+		.dropdown:hover .dropdown-content {
+			display: block;
+		}
+		.btn:hover, .dropdown:hover .btn {
+			background-color: #0b7dda;
+		}
+		*/
+	</style>
+</head>
+<body>
+	<div class="container-fluid mt-1">
+		<h5>채널 상세 정보</h5>
+<!-- Nav tabs -->
+		<ul class="nav nav-tabs">
+			<li class="nav-item">
+				<a class="nav-link active" data-toggle="tab" href="#oldAlimi">(구)알리미등록창</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" data-toggle="tab" href="#newAlimi">(신)알리미등록창</a>
+			</li>
+		</ul>
+		
+<!-- Tab panes -->
+		<div class="tab-content">
+<!-- (구)알리미 등록창 -->
+			<div id="oldAlimi" class="container-fluid tab-pane active"><br>
+				<div>
+					<h6>* 캠페인 기본</h6>
+				</div>
+				<div class="visible">
+					<table border="1" class="table table-responsive-sm">
+						<tr>
+							<td width="20%">켐페인 코드/명</td>
+							<td colspan="3">
+								<input type="text" name="fld00">
+							</td>
+						</tr>
+						<tr>
+							<td width="20%">채널</td>
+							<td width="30%">
+								<input type="text" name="fld00">
+							</td>
+							<td width="20%">고객세그먼트</td>
+							<td width="30%">
+								<input type="text" name="fld00">
+							</td>
+						</tr>
+					</table>
+				</div>
+				<div>
+					<h6>* 캠페인 내용</h6>
+				</div>
+				<div class="visible">
+					<table border="1" class="table table-responsive-sm">
+						<tr>
+							<td width="20%">앱구분</td>
+							<td width="30%">
+								<input type="text" name="fld00">
+							</td>
+							<td width="20%">발송시간</td>
+							<td width="30%">
+								<input type="text" name="fld00">
+							</td>
+						</tr>
+						<tr>
+							<td width="20%">연결페이지</td>
+							<td colspan="3">
+								<input type="text" name="fld00">
+							</td>
+						</tr>
+						<tr>
+							<td width="20%">노출일</td>
+							<td width="30%">
+								<input type="text" name="fld00">
+							</td>
+							<td width="20%">우선순위</td>
+							<td width="30%">
+								<input type="text" name="fld00">
+							</td>
+						</tr>
+						<tr>
+							<td width="20%">푸시 알림 제목</td>
+							<td colspan="3">
+								<input type="text" name="fld00">
+							</td>
+						</tr>
+						<tr>
+							<td width="20%">푸시 알림 내용</td>
+							<td colspan="3">
+								<input type="text" name="fld00">
+							</td>
+						</tr>
+						<tr>
+							<td width="20%">알리미 타임라인에 노출</td>
+							<td width="30%">
+								<input type="text" name="fld00">
+							</td>
+							<td width="20%">썸네일 이미지 URL</td>
+							<td width="30%">
+								<input type="text" name="fld00">
+							</td>
+						</tr>
+						<tr>
+							<td width="20%">알림 표시 방법</td>
+							<td width="30%">
+								<input type="text" name="fld00">
+							</td>
+							<td width="20%">스테이터스바 베너 이미지 URL</td>
+							<td width="30%">
+								<input type="text" name="fld00">
+							</td>
+						</tr>
+						<tr>
+							<td width="20%">추가 텍스트</td>
+							<td colspan="3">
+								<table>
+									<tr>
+										<td>
+											<textarea style="resize: none;" rows="5" cols="60">
+											</textarea>
+										</td><td>
+											<input id='' type='radio' /> 개인별 적용(안함)<br/>
+											<input id='' type='radio' /> 개인별 적용(DB방식)<br/>
+											<input id='' type='radio' /> 개인별 적용(API방식)<br/>
+										</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<td width="20%">등록자</td>
+							<td width="30%">
+								<input type="text" name="fld00">
+							</td>
+							<td width="20%">등록일시</td>
+							<td width="30%">
+								<input type="text" name="fld00">
+							</td>
+						</tr>
+						<tr>
+							<td width="20%">수정자</td>
+							<td width="30%">
+								<input type="text" name="fld00">
+							</td>
+							<td width="20%">수정일시</td>
+							<td width="30%">
+								<input type="text" name="fld00">
+							</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+<!-- (신)알리미 등록창 -->
+			<div id="newAlimi" class="container-fluid tab-pane fade"><br>
+				<div id="base">
+					<div>
+						<h6>* 기본내용(Base)</h6>
+					</div>
+					<div>
+						<table border="1" class="table table-responsive-sm">
+							<tr>
+								<td width="20%">알림톡 노출여부</td>
+								<td colspan="4">
+									<input type="text" name="fld00">
+								</td>
+							</tr>
+							<tr>
+								<td width="20%">알림톡 방문록 텍스트</td>
+								<td colspan="4">
+									<input type="text" name="fld00">
+								</td>
+							</tr>
+							<tr>
+								<td width="20%">알림톡 타입</td>
+								<td colspan="4">
+									<input id='type-1' name='type' type='radio' checked /> 타입-1 &nbsp;&nbsp;&nbsp;
+									<input id='type-2' name='type' type='radio' /> 타입-2 &nbsp;&nbsp;&nbsp;
+									<input id='type-3' name='type' type='radio' /> 타입-3 &nbsp;&nbsp;&nbsp;
+									<input id='type-4' name='type' type='radio' /> 타입-4 &nbsp;&nbsp;&nbsp;
+									<input id='type-5' name='type' type='radio' /> 타입-5 &nbsp;&nbsp;&nbsp;
+									<input id='type-6' name='type' type='radio' /> 타입-6 &nbsp;&nbsp;&nbsp;
+								</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+				<!-- 타입-1 -->
+				<div id='content-1'>
+					<div id="master">
+						<div>
+							<h6>* 마스터내용(Master)</h6>
+						</div>
+						<div>
+							<table border="1" class="table table-responsive-sm">
+								<tr>
+									<td width="20%">제목 1</td>
+									<td colspan="4">
+										<input type="text" name="fld00">
+									</td>
+								</tr>
+								<tr>
+									<td width="20%">광고 표시 문구</td>
+									<td colspan="4">
+										<input type="text" name="fld00">
+									</td>
+								</tr>
+								<tr>
+									<td width="20%">제목 2</td>
+									<td colspan="4">
+										<input type="text" name="fld00">
+									</td>
+								</tr>
+								<tr>
+									<td width="20%">제목 3</td>
+									<td colspan="4">
+										<input type="text" name="fld00">
+									</td>
+								</tr>
+							</table>
+						</div>
+					</div>
+					<div id="images">
+						<div>
+							<h6>* 이미지내용(Images)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button>항목추가</button>&nbsp;<button>Reset</button></h6>
+						</div>
+						<div>
+							<table border="1" class="table table-responsive-sm">
+								<tr>
+									<td width="20%">
+										이미지 URL 1
+										<div class="dropdown float-right">
+											<button type="button" class="btn btn-primary dropdown-toggle" style="height:20px;width:50px;padding:2px;" data-toggle="dropdown">
+												Opt
+											</button>
+											<div class="dropdown-menu">
+												<a class="dropdown-item" href="#">Delete</a>
+												<a class="dropdown-item" href="#">Up</a>
+												<a class="dropdown-item" href="#">Down</a>
+												<a class="dropdown-item" href="#">Clear</a>
+											</div>
+										</div>
+									</td>
+									<td colspan="4">
+										<input type="text" name="fld00">
+									</td>
+								</tr>
+							</table>
+						</div>
+					</div>
+					<div id="footer">
+						<div>
+							<h6>* 하단내용(Footer)</h6>
+						</div>
+						<div>
+							<table border="1" class="table table-responsive-sm">
+								<tr>
+									<td width="40%" colspan="2">하단 문구</td>
+									<td colspan="3">
+										<input type="text" name="fld00">
+									</td>
+								</tr>
+								<tr>
+									<td width="20%" rowspan="2">상세보기</td>
+									<td width="20%">Mobile URL</td>
+									<td colspan="3">
+										<input type="text" name="fld00">
+									</td>
+								</tr>
+								<tr>
+									<td width="20%">Web URL</td>
+									<td colspan="3">
+										<input type="text" name="fld00">
+									</td>
+								</tr>
+							</table>
+						</div>
+					</div>
+				</div>
+				<!-- 타입-2 -->
+				<div id='content-2'>
+					<div id="master">
+						<div>
+							<h6>* 마스터내용(Master)</h6>
+						</div>
+						<div>
+							<table border="1" class="table table-responsive-sm">
+								<tr>
+									<td width="20%">제목 1</td>
+									<td colspan="4">
+										<input type="text" name="fld00">
+									</td>
+								</tr>
+								<tr>
+									<td width="20%">광고 표시 문구</td>
+									<td colspan="4">
+										<input type="text" name="fld00">
+									</td>
+								</tr>
+								<tr>
+									<td width="20%">제목 2</td>
+									<td colspan="4">
+										<input type="text" name="fld00">
+									</td>
+								</tr>
+								<tr>
+									<td width="20%">제목 3</td>
+									<td colspan="4">
+										<input type="text" name="fld00">
+									</td>
+								</tr>
+							</table>
+						</div>
+					</div>
+					<div id="images">
+						<div>
+							<h6>* 이미지내용(Images)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button>항목추가</button>&nbsp;<button>Reset</button></h6>
+						</div>
+						<div>
+							<table border="1" class="table table-responsive-sm">
+								<tr>
+									<td width="20%">
+										이미지 URL 1
+										<div class="dropdown float-right">
+											<button type="button" class="btn btn-primary dropdown-toggle" style="height:20px;width:50px;padding:2px;" data-toggle="dropdown">
+												Opt
+											</button>
+											<div class="dropdown-menu">
+												<a class="dropdown-item" href="#">Delete</a>
+												<a class="dropdown-item" href="#">Up</a>
+												<a class="dropdown-item" href="#">Down</a>
+												<a class="dropdown-item" href="#">Clear</a>
+											</div>
+										</div>
+									</td>
+									<td colspan="4">
+										<input type="text" name="fld00">
+									</td>
+								</tr>
+							</table>
+						</div>
+					</div>
+					<div id="goods">
+						<div>
+							<h6>* 상품내용(Goods)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button>항목추가</button>&nbsp;<button>Reset</button></h6>
+						</div>
+						<div>
+							<table border="1" class="table table-responsive-sm">
+								<tr>
+									<td width="20%" rowspan="5">
+										상품 1
+										<div class="dropdown float-right">
+											<button type="button" class="btn btn-primary dropdown-toggle" style="height:20px;width:50px;padding:2px;" data-toggle="dropdown">
+												Opt
+											</button>
+											<div class="dropdown-menu">
+												<a class="dropdown-item" href="#">Delete</a>
+												<a class="dropdown-item" href="#">Up</a>
+												<a class="dropdown-item" href="#">Down</a>
+												<a class="dropdown-item" href="#">Clear</a>
+											</div>
+										</div>
+									</td>
+									<td width="20%">이미지 URL</td>
+									<td colspan="3">
+										<input type="text" name="fld00">
+									</td>
+								</tr>
+								<tr>
+									<td width="20%">품명</td>
+									<td colspan="3">
+										<input type="text" name="fld00">
+									</td>
+								</tr>
+								<tr>
+									<td width="20%">가격</td>
+									<td colspan="3">
+										<input type="text" name="fld00">
+									</td>
+								</tr>
+								<tr>
+									<td width="20%">표시단위</td>
+									<td colspan="3">
+										<input type="text" name="fld00">
+									</td>
+								</tr>
+								<tr>
+									<td width="20%">보기(Mobile/Web)</td>
+									<td colspan="3">
+										<input type="text" name="fld00">
+									</td>
+								</tr>
+							</table>
+						</div>
+					</div>
+					<div id="footer">
+						<div>
+							<h6>* 하단내용(Footer)</h6>
+						</div>
+						<div>
+							<table border="1" class="table table-responsive-sm">
+								<tr>
+									<td width="40%" colspan="2">하단 문구</td>
+									<td colspan="3">
+										<input type="text" name="fld00">
+									</td>
+								</tr>
+								<tr>
+									<td width="20%" rowspan="2">상세보기</td>
+									<td width="20%">Mobile URL</td>
+									<td colspan="3">
+										<input type="text" name="fld00">
+									</td>
+								</tr>
+								<tr>
+									<td width="20%">Web URL</td>
+									<td colspan="3">
+										<input type="text" name="fld00">
+									</td>
+								</tr>
+							</table>
+						</div>
+					</div>
+				</div>
+				<!-- 타입-3 -->
+				<div id='content-3'>
+					<div id="master">
+						<div>
+							<h6>* 마스터내용(Master)</h6>
+						</div>
+						<div>
+							<table border="1" class="table table-responsive-sm">
+								<tr>
+									<td width="20%">제목 1</td>
+									<td colspan="4">
+										<input type="text" name="fld00">
+									</td>
+								</tr>
+								<tr>
+									<td width="20%">광고 표시 문구</td>
+									<td colspan="4">
+										<input type="text" name="fld00">
+									</td>
+								</tr>
+								<tr>
+									<td width="20%">제목 2</td>
+									<td colspan="4">
+										<input type="text" name="fld00">
+									</td>
+								</tr>
+								<tr>
+									<td width="20%">제목 3</td>
+									<td colspan="4">
+										<input type="text" name="fld00">
+									</td>
+								</tr>
+							</table>
+						</div>
+					</div>
+					<div id="images">
+						<div>
+							<h6>* 이미지내용(Images)</h6>
+						</div>
+						<div>
+							<table border="1" class="table table-responsive-sm">
+								<tr>
+									<td width="20%">이미지 URL 1</td>
+									<td colspan="4">
+										<input type="text" name="fld00">
+									</td>
+								</tr>
+							</table>
+						</div>
+					</div>
+					<div id="coupons">
+						<div>
+							<h6>* 쿠폰내용(Coupons)</h6>
+						</div>
+						<div>
+							<table border="1" class="table table-responsive-sm">
+								<tr>
+									<td width="20%" rowspan="6">쿠폰 1</td>
+									<td width="20%">문구 1</td>
+									<td colspan="3">
+										<input type="text" name="fld00">
+									</td>
+								</tr>
+								<tr>
+									<td width="20%">문구 2</td>
+									<td colspan="3">
+										<input type="text" name="fld00">
+									</td>
+								</tr>
+								<tr>
+									<td width="20%">문구 3</td>
+									<td colspan="3">
+										<input type="text" name="fld00">
+									</td>
+								</tr>
+								<tr>
+									<td width="20%">문구 4</td>
+									<td colspan="3">
+										<input type="text" name="fld00">
+									</td>
+								</tr>
+								<tr>
+									<td width="20%">쿠폰번호</td>
+									<td colspan="3">
+										<input type="text" name="fld00">
+									</td>
+								</tr>
+								<tr>
+									<td width="20%">다운받기 노출</td>
+									<td colspan="3">
+										<input id='expose' name='expose' type='radio' /> 노출 &nbsp;&nbsp;&nbsp;
+										<input id='expose' name='expose' type='radio' /> 미노출 &nbsp;&nbsp;&nbsp;
+									</td>
+								</tr>
+							</table>
+						</div>
+					</div>
+					<div id="footer">
+						<div>
+							<h6>* 하단내용(Footer)</h6>
+						</div>
+						<div>
+							<table border="1" class="table table-responsive-sm">
+								<tr>
+									<td width="40%" colspan="2">하단 문구</td>
+									<td colspan="3">
+										<input type="text" name="fld00">
+									</td>
+								</tr>
+								<tr>
+									<td width="20%" rowspan="2">상세보기</td>
+									<td width="20%">Mobile URL</td>
+									<td colspan="3">
+										<input type="text" name="fld00">
+									</td>
+								</tr>
+								<tr>
+									<td width="20%">Web URL</td>
+									<td colspan="3">
+										<input type="text" name="fld00">
+									</td>
+								</tr>
+							</table>
+						</div>
+					</div>
+				</div>
+				<!-- 타입-4 -->
+				<div id='content-4'>
+					<div id="master">
+						<div>
+							<h6>* 마스터내용(Master)</h6>
+						</div>
+						<div>
+							<table border="1" class="table table-responsive-sm">
+								<tr>
+									<td width="20%">제목 1</td>
+									<td colspan="4">
+										<input type="text" name="fld00">
+									</td>
+								</tr>
+								<tr>
+									<td width="20%">광고 표시 문구</td>
+									<td colspan="4">
+										<input type="text" name="fld00">
+									</td>
+								</tr>
+								<tr>
+									<td width="20%">제목 2</td>
+									<td colspan="4">
+										<input type="text" name="fld00">
+									</td>
+								</tr>
+								<tr>
+									<td width="20%">제목 3</td>
+									<td colspan="4">
+										<input type="text" name="fld00">
+									</td>
+								</tr>
+							</table>
+						</div>
+					</div>
+					<div id="announce">
+						<div>
+							<h6>* 안내내용(Announce)</h6>
+						</div>
+						<div>
+							<table border="1" class="table table-responsive-sm">
+								<tr>
+									<td width="20%" rowspan="2">안내 1</td>
+									<td width="20%">문구</td>
+									<td colspan="3">
+										<input type="text" name="fld00">
+									</td>
+								</tr>
+								<tr>
+									<td width="20%">정렬</td>
+									<td colspan="3">
+										<input id='arrange' name='arrange' type='radio' /> 좌측 &nbsp;&nbsp;&nbsp;
+										<input id='arrange' name='arrange' type='radio' /> 중앙 &nbsp;&nbsp;&nbsp;
+										<input id='arrange' name='arrange' type='radio' /> 우측 &nbsp;&nbsp;&nbsp;
+									</td>
+								</tr>
+							</table>
+						</div>
+					</div>
+					<div id="footer">
+						<div>
+							<h6>* 하단내용(Footer)</h6>
+						</div>
+						<div>
+							<table border="1" class="table table-responsive-sm">
+								<tr>
+									<td width="40%" colspan="2">하단 문구</td>
+									<td colspan="3">
+										<input type="text" name="fld00">
+									</td>
+								</tr>
+								<tr>
+									<td width="20%" rowspan="2">상세보기</td>
+									<td width="20%">Mobile URL</td>
+									<td colspan="3">
+										<input type="text" name="fld00">
+									</td>
+								</tr>
+								<tr>
+									<td width="20%">Web URL</td>
+									<td colspan="3">
+										<input type="text" name="fld00">
+									</td>
+								</tr>
+							</table>
+						</div>
+					</div>
+				</div>
+				<!-- 타입-5 -->
+				<div id='content-5'>
+					<div id="master">
+						<div>
+							<h6>* 마스터내용(Master)</h6>
+						</div>
+						<div>
+							<table border="1" class="table table-responsive-sm">
+								<tr>
+									<td width="20%">제목 1</td>
+									<td colspan="4">
+										<input type="text" name="fld00">
+									</td>
+								</tr>
+								<tr>
+									<td width="20%">광고 표시 문구</td>
+									<td colspan="4">
+										<input type="text" name="fld00">
+									</td>
+								</tr>
+								<tr>
+									<td width="20%">제목 2</td>
+									<td colspan="4">
+										<input type="text" name="fld00">
+									</td>
+								</tr>
+								<tr>
+									<td width="20%">제목 3</td>
+									<td colspan="4">
+										<input type="text" name="fld00">
+									</td>
+								</tr>
+							</table>
+						</div>
+					</div>
+					<div id="goods">
+						<div>
+							<h6>* 상품내용(Goods)</h6>
+						</div>
+						<div>
+							<table border="1" class="table table-responsive-sm">
+								<tr>
+									<td width="20%" rowspan="5">상품 1</td>
+									<td width="20%">이미지 URL</td>
+									<td colspan="3">
+										<input type="text" name="fld00">
+									</td>
+								</tr>
+								<tr>
+									<td width="20%">품명</td>
+									<td colspan="3">
+										<input type="text" name="fld00">
+									</td>
+								</tr>
+								<tr>
+									<td width="20%">가격</td>
+									<td colspan="3">
+										<input type="text" name="fld00">
+									</td>
+								</tr>
+								<tr>
+									<td width="20%">표시단위</td>
+									<td colspan="3">
+										<input type="text" name="fld00">
+									</td>
+								</tr>
+								<tr>
+									<td width="20%">보기(Mobile/Web)</td>
+									<td colspan="3">
+										<input type="text" name="fld00">
+									</td>
+								</tr>
+							</table>
+						</div>
+					</div>
+					<div id="footer">
+						<div>
+							<h6>* 하단내용(Footer)</h6>
+						</div>
+						<div>
+							<table border="1" class="table table-responsive-sm">
+								<tr>
+									<td width="40%" colspan="2">하단 문구</td>
+									<td colspan="3">
+										<input type="text" name="fld00">
+									</td>
+								</tr>
+								<tr>
+									<td width="20%" rowspan="2">상세보기</td>
+									<td width="20%">Mobile URL</td>
+									<td colspan="3">
+										<input type="text" name="fld00">
+									</td>
+								</tr>
+								<tr>
+									<td width="20%">Web URL</td>
+									<td colspan="3">
+										<input type="text" name="fld00">
+									</td>
+								</tr>
+							</table>
+						</div>
+					</div>
+				</div>
+				<!-- 타입-6 -->
+				<div id='content-6'>
+					<div id="master">
+						<div>
+							<h6>* 마스터내용(Master)</h6>
+						</div>
+						<div>
+							<table border="1" class="table table-responsive-sm">
+								<tr>
+									<td width="20%">제목 1</td>
+									<td colspan="4">
+										<input type="text" name="fld00">
+									</td>
+								</tr>
+								<tr>
+									<td width="20%">광고 표시 문구</td>
+									<td colspan="4">
+										<input type="text" name="fld00">
+									</td>
+								</tr>
+								<tr>
+									<td width="20%">제목 2</td>
+									<td colspan="4">
+										<input type="text" name="fld00">
+									</td>
+								</tr>
+								<tr>
+									<td width="20%">제목 3</td>
+									<td colspan="4">
+										<input type="text" name="fld00">
+									</td>
+								</tr>
+							</table>
+						</div>
+					</div>
+					<div id="coupons">
+						<div>
+							<h6>* 쿠폰내용(Coupons)</h6>
+						</div>
+						<div>
+							<table border="1" class="table table-responsive-sm">
+								<tr>
+									<td width="20%" rowspan="6">쿠폰 1</td>
+									<td width="20%">문구 1</td>
+									<td colspan="3">
+										<input type="text" name="fld00">
+									</td>
+								</tr>
+								<tr>
+									<td width="20%">문구 2</td>
+									<td colspan="3">
+										<input type="text" name="fld00">
+									</td>
+								</tr>
+								<tr>
+									<td width="20%">문구 3</td>
+									<td colspan="3">
+										<input type="text" name="fld00">
+									</td>
+								</tr>
+								<tr>
+									<td width="20%">문구 4</td>
+									<td colspan="3">
+										<input type="text" name="fld00">
+									</td>
+								</tr>
+								<tr>
+									<td width="20%">쿠폰번호</td>
+									<td colspan="3">
+										<input type="text" name="fld00">
+									</td>
+								</tr>
+								<tr>
+									<td width="20%">다운받기 노출</td>
+									<td colspan="3">
+										<input id='expose' name='expose' type='radio' /> 노출 &nbsp;&nbsp;&nbsp;
+										<input id='expose' name='expose' type='radio' /> 미노출 &nbsp;&nbsp;&nbsp;
+									</td>
+								</tr>
+							</table>
+						</div>
+					</div>
+					<div id="footer">
+						<div>
+							<h6>* 하단내용(Footer)</h6>
+						</div>
+						<div>
+							<table border="1" class="table table-responsive-sm">
+								<tr>
+									<td width="40%" colspan="2">하단 문구</td>
+									<td colspan="3">
+										<input type="text" name="fld00">
+									</td>
+								</tr>
+								<tr>
+									<td width="20%" rowspan="2">상세보기</td>
+									<td width="20%">Mobile URL</td>
+									<td colspan="3">
+										<input type="text" name="fld00">
+									</td>
+								</tr>
+								<tr>
+									<td width="20%">Web URL</td>
+									<td colspan="3">
+										<input type="text" name="fld00">
+									</td>
+								</tr>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+<!-- (신)알리미 등록창 -->
+			<div id="totalAlimi" class="container-fluid tab-pane"><br>
+				<div id="base">
+					<div>
+						<h6>* 기본내용(Base)</h6>
+					</div>
+					<div>
+						<table border="1" class="table table-responsive-sm">
+							<tr>
+								<td width="20%">알림톡 노출여부</td>
+								<td colspan="4">
+									<input type="text" name="fld00">
+								</td>
+							</tr>
+							<tr>
+								<td width="20%">알림톡 방문록 텍스트</td>
+								<td colspan="4">
+									<input type="text" name="fld00">
+								</td>
+							</tr>
+							<tr>
+								<td width="20%">알림톡 타입</td>
+								<td colspan="4">
+									<input id='type' name='type' type='radio' /> 타입-1 &nbsp;&nbsp;&nbsp;
+									<input id='type' name='type' type='radio' /> 타입-2 &nbsp;&nbsp;&nbsp;
+									<input id='type' name='type' type='radio' /> 타입-3 &nbsp;&nbsp;&nbsp;
+									<input id='type' name='type' type='radio' /> 타입-4 &nbsp;&nbsp;&nbsp;
+									<input id='type' name='type' type='radio' /> 타입-5 &nbsp;&nbsp;&nbsp;
+									<input id='type' name='type' type='radio' /> 타입-6 &nbsp;&nbsp;&nbsp;
+								</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+				<div id="master">
+					<div>
+						<h6>* 마스터내용(Master)</h6>
+					</div>
+					<div>
+						<table border="1" class="table table-responsive-sm">
+							<tr>
+								<td width="20%">제목 1</td>
+								<td colspan="4">
+									<input type="text" name="fld00">
+								</td>
+							</tr>
+							<tr>
+								<td width="20%">광고 표시 문구</td>
+								<td colspan="4">
+									<input type="text" name="fld00">
+								</td>
+							</tr>
+							<tr>
+								<td width="20%">제목 2</td>
+								<td colspan="4">
+									<input type="text" name="fld00">
+								</td>
+							</tr>
+							<tr>
+								<td width="20%">제목 3</td>
+								<td colspan="4">
+									<input type="text" name="fld00">
+								</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+				<div id="images">
+					<div>
+						<h6>* 이미지내용(Images)</h6>
+					</div>
+					<div>
+						<table border="1" class="table table-responsive-sm">
+							<tr>
+								<td width="20%">이미지 URL 1</td>
+								<td colspan="4">
+									<input type="text" name="fld00">
+								</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+				<div id="goods">
+					<div>
+						<h6>* 상품내용(Goods)</h6>
+					</div>
+					<div>
+						<table border="1" class="table table-responsive-sm">
+							<tr>
+								<td width="20%" rowspan="5">상품 1</td>
+								<td width="20%">이미지 URL</td>
+								<td colspan="3">
+									<input type="text" name="fld00">
+								</td>
+							</tr>
+							<tr>
+								<td width="20%">품명</td>
+								<td colspan="3">
+									<input type="text" name="fld00">
+								</td>
+							</tr>
+							<tr>
+								<td width="20%">가격</td>
+								<td colspan="3">
+									<input type="text" name="fld00">
+								</td>
+							</tr>
+							<tr>
+								<td width="20%">표시단위</td>
+								<td colspan="3">
+									<input type="text" name="fld00">
+								</td>
+							</tr>
+							<tr>
+								<td width="20%">보기(Mobile/Web)</td>
+								<td colspan="3">
+									<input type="text" name="fld00">
+								</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+				<div id="coupons">
+					<div>
+						<h6>* 쿠폰내용(Coupons)</h6>
+					</div>
+					<div>
+						<table border="1" class="table table-responsive-sm">
+							<tr>
+								<td width="20%" rowspan="6">쿠폰 1</td>
+								<td width="20%">문구 1</td>
+								<td colspan="3">
+									<input type="text" name="fld00">
+								</td>
+							</tr>
+							<tr>
+								<td width="20%">문구 2</td>
+								<td colspan="3">
+									<input type="text" name="fld00">
+								</td>
+							</tr>
+							<tr>
+								<td width="20%">문구 3</td>
+								<td colspan="3">
+									<input type="text" name="fld00">
+								</td>
+							</tr>
+							<tr>
+								<td width="20%">문구 4</td>
+								<td colspan="3">
+									<input type="text" name="fld00">
+								</td>
+							</tr>
+							<tr>
+								<td width="20%">쿠폰번호</td>
+								<td colspan="3">
+									<input type="text" name="fld00">
+								</td>
+							</tr>
+							<tr>
+								<td width="20%">다운받기 노출</td>
+								<td colspan="3">
+									<input id='expose' name='expose' type='radio' /> 노출 &nbsp;&nbsp;&nbsp;
+									<input id='expose' name='expose' type='radio' /> 미노출 &nbsp;&nbsp;&nbsp;
+								</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+				<div id="announce">
+					<div>
+						<h6>* 안내내용(Announce)</h6>
+					</div>
+					<div>
+						<table border="1" class="table table-responsive-sm">
+							<tr>
+								<td width="20%" rowspan="2">안내 1</td>
+								<td width="20%">문구</td>
+								<td colspan="3">
+									<input type="text" name="fld00">
+								</td>
+							</tr>
+							<tr>
+								<td width="20%">정렬</td>
+								<td colspan="3">
+									<input id='arrange' name='arrange' type='radio' /> 좌측 &nbsp;&nbsp;&nbsp;
+									<input id='arrange' name='arrange' type='radio' /> 중앙 &nbsp;&nbsp;&nbsp;
+									<input id='arrange' name='arrange' type='radio' /> 우측 &nbsp;&nbsp;&nbsp;
+								</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+				<div id="footer">
+					<div>
+						<h6>* 하단내용(Footer)</h6>
+					</div>
+					<div>
+						<table border="1" class="table table-responsive-sm">
+							<tr>
+								<td width="40%" colspan="2">하단 문구</td>
+								<td colspan="3">
+									<input type="text" name="fld00">
+								</td>
+							</tr>
+							<tr>
+								<td width="20%" rowspan="2">상세보기</td>
+								<td width="20%">Mobile URL</td>
+								<td colspan="3">
+									<input type="text" name="fld00">
+								</td>
+							</tr>
+							<tr>
+								<td width="20%">Web URL</td>
+								<td colspan="3">
+									<input type="text" name="fld00">
+								</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+			</div>
+<!-- bottom button -->
+			<div>
+				<button class="btn success">미리보기</button>
+				<button class="btn danger"> 저장 </button>
+				<button class="btn default"> 닫기 </button>
+			</div>
+		</div>
+	</div>
+	<p>&nbsp;
+	<p>&nbsp;
+	<p>&nbsp;
+</body>
+<script>
+	$(document).ready(function() {
+
+		var hideAll = function() {
+			$("#content-1").hide();
+			$("#content-2").hide();
+			$("#content-3").hide();
+			$("#content-4").hide();
+			$("#content-5").hide();
+			$("#content-6").hide();
+		};
+
+		$("#type-1").click(function() {
+			hideAll();
+			$("#content-1").show();
+		});
+
+		$("#type-2").click(function() {
+			hideAll();
+			$("#content-2").show();
+		});
+		
+		$("#type-3").click(function() {
+			hideAll();
+			$("#content-3").show();
+		});
+		
+		$("#type-4").click(function() {
+			hideAll();
+			$("#content-4").show();
+		});
+		
+		$("#type-5").click(function() {
+			hideAll();
+			$("#content-5").show();
+		});
+		
+		$("#type-6").click(function() {
+			hideAll();
+			$("#content-6").show();
+		});
+
+		hideAll();
+		$("#content-1").show();
+	});
+</script>
+</html>
+
+
+
