@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.skplanet.sascm.object.CampaignChannelBO;
+import com.skplanet.sascm.object.ChannelAlimiBO;
 import com.skplanet.sascm.object.ChannelBO;
 
 /**
@@ -165,6 +166,23 @@ public interface ChannelDAO {
 	 * @throws Exception
 	 */
 	public int setChannelLms(Map<String, Object> param) throws SQLException;
+	///////////////////////////////////////////
+	/**
+	 * MOBILE-ALIMI 채널 정보 삭제: KANG-20190328: add by Kiea Seok Kang
+	 * 
+	 * @param param
+	 * @return
+	 * @throws SQLException
+	 */
+	public int delChannelMobileAlimi(Map<String, Object> param);
+	/**
+	 * MOBILE-ALIMI 채널 정보 검색: KANG-20190328: add by Kiea Seok Kang
+	 * 
+	 * @param param
+	 * @return
+	 * @throws SQLException
+	 */
+	public ChannelAlimiBO getChannelMobileAlimi(Map<String, Object> param);
 	/**
 	 * MOBILE-ALIMI 채널 정보 저장: KANG-20190328: add by Kiea Seok Kang
 	 * 

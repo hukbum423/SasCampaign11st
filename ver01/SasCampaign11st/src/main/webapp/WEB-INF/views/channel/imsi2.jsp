@@ -434,53 +434,28 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <script>
-	////////////////////////////////////////////////////////////////////////////////////
-	////////////////////////////////////////////////////////////////////////////////////
-	////////////////////////////////////////////////////////////////////////////////////
-	////////////////////////////////////////////////////////////////////////////////////
-	////////////////////////////////////////////////////////////////////////////////////
-	////////////////////////////////////////////////////////////////////////////////////
-	////////////////////////////////////////////////////////////////////////////////////
-	////////////////////////////////////////////////////////////////////////////////////
-	////////////////////////////////////////////////////////////////////////////////////
-	////////////////////////////////////////////////////////////////////////////////////
-	////////////////////////////////////////////////////////////////////////////////////
-	////////////////////////////////////////////////////////////////////////////////////
-	////////////////////////////////////////////////////////////////////////////////////
-	////////////////////////////////////////////////////////////////////////////////////
-	////////////////////////////////////////////////////////////////////////////////////
-	////////////////////////////////////////////////////////////////////////////////////
-	////////////////////////////////////////////////////////////////////////////////////
-	////////////////////////////////////////////////////////////////////////////////////
-	////////////////////////////////////////////////////////////////////////////////////
-	////////////////////////////////////////////////////////////////////////////////////
-	////////////////////////////////////////////////////////////////////////////////////
-	////////////////////////////////////////////////////////////////////////////////////
-	////////////////////////////////////////////////////////////////////////////////////
-	////////////////////////////////////////////////////////////////////////////////////
-	////////////////////////////////////////////////////////////////////////////////////
-	////////////////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////
+	///////////////////////////////////////////////
+	///////////////////////////////////////////////
+	///////////////////////////////////////////////
+	///////////////////////////////////////////////
+	///////////////////////////////////////////////
 	// KANG-20190325: new alimi script
-	////////////////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////
+	var base = { alimiShow: "show", alimiText: "", alimiType: "type1" };
+	var master = { title1: "", advText: "광고", title2: "", title3: "" };
+	var footer = { ftrText: "", ftrMblUrl: "", ftrWebUrl: "" };
+	//var master = { title1: "title1", advText: "advText", title2: "title2", title3: "title3" };
+	//var footer = { ftrText: "ftrText", ftrMblUrl: "http://localhost/mobile", ftrWebUrl: "http://localhost/web" };
+	function fn_getCore(orgObj) {
+		var jsonObj = JSON.stringify(orgObj)
+		if (jsonObj.charAt(0) == '[') {
+			return JSON.stringify(orgObj);   // array
+		} else {
+			return jsonObj.substring(jsonObj.indexOf("{")+1, jsonObj.lastIndexOf("}"));
+		}
+	}
 	function fn_for_test() {
 		if (!true) alert("fn_for_test();");
 		var base = { alimiShow: "show", alimiText: "임시" };
@@ -500,103 +475,25 @@
 		var obj = JSON.parse(ret);
 		console.log(">>>>> " + JSON.stringify(obj));
 	}
+	
 	////////////////////////////////////////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////////////////////////
-	////////////////////////////////////////////////////////////////////////////////////
-	////////////////////////////////////////////////////////////////////////////////////
-	// data for clear
-	var _base = { alimiShow: "show", alimiText: "", alimiType: "type1" };
-	var _master = { title1: "", advText: "광고", title2: "", title3: "" };
-	var _footer = { ftrText: "", ftrMblUrl: "", ftrWebUrl: "" };
-	//var master = { title1: "title1", advText: "advText", title2: "title2", title3: "title3" };
-	//var footer = { ftrText: "ftrText", ftrMblUrl: "http://localhost/mobile", ftrWebUrl: "http://localhost/web" };
-	var _arrImg1 = [ { imgUrl: "" }];
-	var _arrImg2 = [ { imgUrl: "" }];
-	var _arrPrd2 = [ { prdUrl: "", prdName: "", prdPrice: "", prdUnit: "", prdMblUrl: "", prdWebUrl: "" } ];
-	var _arrImg3 = [ { imgUrl: "" }];
-	var _arrCpn3 = [ { cpnText1: "", cpnText2: "", cpnText3: "", cpnText4: "", cpnNumber: "", cpnVisible: "hide" } ];
-	var _arrAnn4 = [ { annText: "", annFixed: "center" } ];
-	var _arrPrd5 = [ { prdUrl: "", prdName: "", prdPrice: "", prdUnit: "", prdMblUrl: "", prdWebUrl: "" } ];
-	var _arrCpn6 = [ { cpnText1: "", cpnText2: "", cpnText3: "", cpnText4: "", cpnNumber: "", cpnVisible: "hide" } ];
-	////////////////////////////////////////////////////////////////////////////////////
-	////////////////////////////////////////////////////////////////////////////////////
-	// data for usable
-	var fn_cloneObject = function(obj) { return JSON.parse(JSON.stringify(obj)); };
-	var fn_valueClear = function() {
-		var master = fn_cloneObject(_master);
-		var footer = fn_cloneObject(_footer);
-		var arrImg1 = fn_cloneObject(_arrImg1);
-		var arrImg2 = fn_cloneObject(_arrImg2);
-		var arrPrd2 = fn_cloneObject(_arrPrd2);
-		var arrImg3 = fn_cloneObject(_arrImg3);
-		var arrCpn3 = fn_cloneObject(_arrCpn3);
-		var arrAnn4 = fn_cloneObject(_arrAnn4);
-		var arrPrd5 = fn_cloneObject(_arrPrd5);
-		var arrCpn6 = fn_cloneObject(_arrCpn6);
-	}
-	var base = fn_cloneObject(_base);
-	var master = fn_cloneObject(_master);
-	var footer = fn_cloneObject(_footer);
-	var arrImg1 = fn_cloneObject(_arrImg1);
-	var arrImg2 = fn_cloneObject(_arrImg2);
-	var arrPrd2 = fn_cloneObject(_arrPrd2);
-	var arrImg3 = fn_cloneObject(_arrImg3);
-	var arrCpn3 = fn_cloneObject(_arrCpn3);
-	var arrAnn4 = fn_cloneObject(_arrAnn4);
-	var arrPrd5 = fn_cloneObject(_arrPrd5);
-	var arrCpn6 = fn_cloneObject(_arrCpn6);
-	fn_valueClear();
-	// clone object test
-	//_base.alimiText = "Hello";
-	//base.alimiText = "World";
-	//if (true) alert(_base.alimiText + " -> " + base.alimiText);
-</script>
-
-
-
-
-
-
-
-<script>
-	////////////////////////////////////////////////////////////////////////////////////
-	////////////////////////////////////////////////////////////////////////////////////
-	function fn_getCore(orgObj) {              // for Object.assign on MS
-		var jsonObj = JSON.stringify(orgObj)
-		if (jsonObj.charAt(0) == '[') {
-			//return JSON.stringify(orgObj);   // array
-			return jsonObj;   // array
-		} else {
-			return jsonObj.substring(jsonObj.indexOf("{")+1, jsonObj.lastIndexOf("}"));
-		}
-	}
-	function fn_checkQuotationMark(txt) {      // if contains some quotations, then return true.
-		var result = txt.search("['\"]");
-		if (result >= 0) {
-			if (true) alert("인용부호( ' , \" )는 사용할 수 없습니다.");
+	function fn_checkQuotationMark(txt) {
+		var result = str.search("['\"]");
+		if (result >= 0)
 			return true;
-		}
-		return false;
-	}
-	// 넘어온 값이 빈값인지 체크합니다. 
-	// !value 하면 생기는 논리적 오류를 제거하기 위해 
-	// 명시적으로 value == 사용 
-	// [], {} 도 빈값으로 처리 
-	function isEmpty(value) {
-		if( value == "" || value == null || value == undefined || ( value != null && typeof value == "object" && !Object.keys(value).length ) ){
-			return true;
-		} else {
+		else
 			return false;
-		}
 	}
 	////////////////////////////////////////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////////////////////////
-	function fn_clearDisableAlimi_master() {
+	function fn_clearDisableAlimi_master(alimi) {
 		if (true) console.log("fn_clearDisableAlimi_master(): ");
+		var type = "type" + alimi.talkMsgTmpltNo.substring(2);
+		if (true) console.log("type: " + type + " <- " + alimi.talkMsgTmpltNo);
 		$('#alimiText').val("").attr('readonly',true);
-		$('input[name="alimiType"]').val(['001']).attr('disabled',true);
+		$('input[name="alimiType"]').val([type]).attr('disabled',true);
 	}
-	/*
 	function fn_clearDisableAlimi_type1() {
 		if (true) console.log("fn_clearDisableAlimi_type1(): ");
 		$('#type1_title1').val("").attr('readonly',true);
@@ -613,7 +510,7 @@
 		$('#type1_imgUrl1').attr('disabled', true);  // 미리보기
 	}
 	function fn_clearDisableAlimi_type2() {
-		if (true) console.log("fn_clearDisableAlimi_type2(): ");
+		if (true) console.log("fn_clearDisableAlimi_type1(): ");
 		$('#type2_title1').val("").attr('readonly',true);
 		$('#type2_title2').val("").attr('readonly',true);
 		$('#type2_title3').val("").attr('readonly',true);
@@ -637,7 +534,7 @@
 		//$('#type1_imgUrl1').attr('disabled', true);  // 미리보기
 	}
 	function fn_clearDisableAlimi_type3() {
-		if (true) console.log("fn_clearDisableAlimi_type3(): ");
+		if (true) console.log("fn_clearDisableAlimi_type1(): ");
 		$('#type3_title1').val("").attr('readonly',true);
 		$('#type3_title2').val("").attr('readonly',true);
 		$('#type3_title3').val("").attr('readonly',true);
@@ -661,7 +558,7 @@
 		//$('#type1_imgUrl1').attr('disabled', true);  // 미리보기
 	}
 	function fn_clearDisableAlimi_type4() {
-		if (true) console.log("fn_clearDisableAlimi_type4(): ");
+		if (true) console.log("fn_clearDisableAlimi_type1(): ");
 		$('#type4_title1').val("").attr('readonly',true);
 		$('#type4_title2').val("").attr('readonly',true);
 		$('#type4_title3').val("").attr('readonly',true);
@@ -677,7 +574,7 @@
 		//$('#type1_imgUrl1').attr('disabled', true);  // 미리보기
 	}
 	function fn_clearDisableAlimi_type5() {
-		if (true) console.log("fn_clearDisableAlimi_type5(): ");
+		if (true) console.log("fn_clearDisableAlimi_type1(): ");
 		$('#type5_title1').val("").attr('readonly',true);
 		$('#type5_title2').val("").attr('readonly',true);
 		$('#type5_title3').val("").attr('readonly',true);
@@ -697,7 +594,7 @@
 		//$('#type1_imgUrl1').attr('disabled', true);  // 미리보기
 	}
 	function fn_clearDisableAlimi_type6() {
-		if (true) console.log("fn_clearDisableAlimi_type6(): ");
+		if (true) console.log("fn_clearDisableAlimi_type1(): ");
 		$('#type6_title1').val("").attr('readonly',true);
 		$('#type6_title2').val("").attr('readonly',true);
 		$('#type6_title3').val("").attr('readonly',true);
@@ -716,137 +613,29 @@
 		$('#cpn6_addItem').attr('disabled', true);  // 항목추가
 		//$('#type1_imgUrl1').attr('disabled', true);  // 미리보기
 	}
-	*/
-	function fn_clearDisableAlimi_type(type) {
-		if (true) console.log("fn_clearDisableAlimi_type(" + type + "): ");
-		$('#' + type + '_title1').val("").attr('readonly',true);
-		$('#' + type + '_title2').val("").attr('readonly',true);
-		$('#' + type + '_title3').val("").attr('readonly',true);
-		switch (type) {
-		case "type1":
-			{
-				arrImg1.forEach(function(value, index, array) {
-					$('#type1_imgUrl' + index).val("").attr('readonly',true);
-				});
-				// button(항목추가 / 미리보기) disabled
-				$('#img1_addItem').attr('disabled', true);  // 항목추가
-				$('#type1_imgUrl1').attr('disabled', true);  // 미리보기
-			}
-			break;
-		case "type2":
-			{
-				arrImg2.forEach(function(value, index, array) {
-					$('#type2_imgUrl' + index).val("").attr('readonly',true);
-				});
-				arrPrd2.forEach(function(value, index, array) {
-					$('#type2_prdUrl' + index).val("").attr('readonly',true);
-					$('#type2_prdName' + index).val("").attr('readonly',true);
-					$('#type2_prdPrice' + index).val("").attr('readonly',true);
-					$('#type2_prdUnit' + index).val("").attr('readonly',true);
-					$('#type2_prdMblUrl' + index).val("").attr('readonly',true);
-					$('#type2_prdWebUrl' + index).val("").attr('readonly',true);
-				});
-				// button(항목추가 / 미리보기) disabled
-				$('#img2_addItem').attr('disabled', true);  // 항목추가
-				$('#prd2_addItem').attr('disabled', true);  // 항목추가
-				//$('#type1_imgUrl1').attr('disabled', true);  // 미리보기
-			}
-			break;
-		case "type3":
-			{
-				arrImg3.forEach(function(value, index, array) {
-					$('#type3_imgUrl' + index).val("").attr('readonly',true);
-				});
-				arrCpn3.forEach(function(value, index, array) {
-					$('#type3_cpnText1' + index).val("").attr('readonly',true);
-					$('#type3_cpnText2' + index).val("").attr('readonly',true);
-					$('#type3_cpnText3' + index).val("").attr('readonly',true);
-					$('#type3_cpnText4' + index).val("").attr('readonly',true);
-					$('#type3_cpnNumber' + index).val("").attr('readonly',true);
-					//$('#type3_cpnVisible' + index).val("").attr('readonly',true);
-				});
-				// button(항목추가 / 미리보기) disabled
-				$('#img3_addItem').attr('disabled', true);  // 항목추가
-				$('#cpn3_addItem').attr('disabled', true);  // 항목추가
-				//$('#type1_imgUrl1').attr('disabled', true);  // 미리보기
-			}
-			break;
-		case "type4":
-			{
-				arrAnn4.forEach(function(value, index, array) {
-					$('#type4_annText' + index).val("").attr('readonly',true);
-					//$('#type4_annFixed' + index).val("").attr('readonly',true);
-				});
-				// button(항목추가 / 미리보기) disabled
-				$('#ann4_addItem').attr('disabled', true);  // 항목추가
-				//$('#type1_imgUrl1').attr('disabled', true);  // 미리보기
-			}
-			break;
-		case "type5":
-			{
-				arrPrd5.forEach(function(value, index, array) {
-					$('#type5_prdUrl' + index).val("").attr('readonly',true);
-					$('#type5_prdName' + index).val("").attr('readonly',true);
-					$('#type5_prdPrice' + index).val("").attr('readonly',true);
-					$('#type5_prdUnit' + index).val("").attr('readonly',true);
-					$('#type5_prdMblUrl' + index).val("").attr('readonly',true);
-					$('#type5_prdWebUrl' + index).val("").attr('readonly',true);
-				});
-				// button(항목추가 / 미리보기) disabled
-				$('#prd5_addItem').attr('disabled', true);  // 항목추가
-				//$('#type1_imgUrl1').attr('disabled', true);  // 미리보기
-			}
-			break;
-		case "type6":
-			{
-				arrCpn6.forEach(function(value, index, array) {
-					$('#type6_cpnText1' + index).val("").attr('readonly',true);
-					$('#type6_cpnText2' + index).val("").attr('readonly',true);
-					$('#type6_cpnText3' + index).val("").attr('readonly',true);
-					$('#type6_cpnText4' + index).val("").attr('readonly',true);
-					$('#type6_cpnNumber' + index).val("").attr('readonly',true);
-					//$('#type6_cpnVisible' + index).val("").attr('readonly',true);
-				});
-				// button(항목추가 / 미리보기) disabled
-				$('#cpn6_addItem').attr('disabled', true);  // 항목추가
-				//$('#type1_imgUrl1').attr('disabled', true);  // 미리보기
-			}
-			break;
-		default:
-			break;
-		}
-		$('#' + type + '_ftrText').val("").attr('readonly',true);
-		$('#' + type + '_ftrMblUrl').val("").attr('readonly',true);
-		$('#' + type + '_ftrWebUrl').val("").attr('readonly',true);
-	}
-	function fn_clearDisableAlimi() {
-		fn_clearDisableAlimi_master();
-		//fn_clearDisableAlimi_type1();
-		//fn_clearDisableAlimi_type2();
-		//fn_clearDisableAlimi_type3();
-		//fn_clearDisableAlimi_type4();
-		//fn_clearDisableAlimi_type5();
-		//fn_clearDisableAlimi_type6();
-		fn_clearDisableAlimi_type('type1');
-		fn_clearDisableAlimi_type('type2');
-		fn_clearDisableAlimi_type('type3');
-		fn_clearDisableAlimi_type('type4');
-		fn_clearDisableAlimi_type('type5');
-		fn_clearDisableAlimi_type('type6');
+	function fn_clearDisableAlimi(alimi) {
+		var show = alimi.talkMsgDispYn == 'Y' ? "show" : "hide";
+		$('input[name="alimiShow"]').val([show]);
+		
+		fn_clearDisableAlimi_master(alimi);
+		fn_clearDisableAlimi_type1();
+		fn_clearDisableAlimi_type2();
+		fn_clearDisableAlimi_type3();
+		fn_clearDisableAlimi_type4();
+		fn_clearDisableAlimi_type5();
+		fn_clearDisableAlimi_type6();
 	}
 	////////////////////////////////////////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////////////////////////
-	function fn_editableAlimi_master() {
+	function fn_editableAlimi_master(alimi) {
 		if (true) console.log("fn_editableAlimi_master(): ");
+		var type = "type" + alimi.talkMsgTmpltNo.substring(2);
+		if (true) console.log("type: " + type + " <- " + alimi.talkMsgTmpltNo);
 		$('#alimiText').val("").attr('readonly',false);
-		$('input[name="alimiType"]').removeAttr('disabled');
+		$('input[name="alimiType"]').val([type]).attr('disabled',false);
 	}
-	/*
-	function fn_editableAlimi_type1() {
+	function fn_editableAlimi_type1(alimi) {
 		if (true) console.log("fn_editableAlimi_type1(): ");
-		master = fn_cloneObject(_master);
-		footer = fn_cloneObject(_footer);
-		arrImg1 = fn_cloneObject(_arrImg1);
 		$('#type1_title1').val("").attr('readonly',false);
 		$('#type1_title2').val("").attr('readonly',false);
 		$('#type1_title3').val("").attr('readonly',false);
@@ -855,17 +644,13 @@
 		});
 		$('#type1_ftrText').val("").attr('readonly',false);
 		$('#type1_ftrMblUrl').val("").attr('readonly',false);
-		//$('#type1_ftrWebUrl').val("").attr('readonly',false);
+		$('#type1_ftrWebUrl').val("").attr('readonly',false);
 		// button(항목추가 / 미리보기) disabled
-		$('#img1_addItem').removeAttr('disabled');  // 항목추가
-		$('#type1_imgUrl1').removeAttr('disabled');  // 미리보기
+		$('#img1_addItem').attr('disabled', false);  // 항목추가
+		$('#type1_imgUrl1').attr('disabled', false);  // 미리보기
 	}
-	function fn_editableAlimi_type2() {
+	function fn_editableAlimi_type2(alimi) {
 		if (true) console.log("fn_editableAlimi_type2(): ");
-		master = fn_cloneObject(_master);
-		footer = fn_cloneObject(_footer);
-		arrImg2 = fn_cloneObject(_arrImg2);
-		arrPrd2 = fn_cloneObject(_arrPrd2);
 		$('#type2_title1').val("").attr('readonly',false);
 		$('#type2_title2').val("").attr('readonly',false);
 		$('#type2_title3').val("").attr('readonly',false);
@@ -878,22 +663,18 @@
 			$('#type2_prdPrice' + index).val("").attr('readonly',false);
 			$('#type2_prdUnit' + index).val("").attr('readonly',false);
 			$('#type2_prdMblUrl' + index).val("").attr('readonly',false);
-			//$('#type2_prdWebUrl' + index).val("").attr('readonly',false);
+			$('#type2_prdWebUrl' + index).val("").attr('readonly',false);
 		});
 		$('#type2_ftrText').val("").attr('readonly',false);
 		$('#type2_ftrMblUrl').val("").attr('readonly',false);
-		//$('#type2_ftrWebUrl').val("").attr('readonly',false);
+		$('#type2_ftrWebUrl').val("").attr('readonly',false);
 		// button(항목추가 / 미리보기) disabled
-		$('#img2_addItem').removeAttr('disabled');  // 항목추가
-		$('#prd2_addItem').removeAttr('disabled');  // 항목추가
+		$('#img2_addItem').attr('disabled', false);  // 항목추가
+		$('#prd2_addItem').attr('disabled', false);  // 항목추가
 		//$('#type1_imgUrl1').attr('disabled', true);  // 미리보기
 	}
-	function fn_editableAlimi_type3() {
+	function fn_editableAlimi_type3(alimi) {
 		if (true) console.log("fn_editableAlimi_type3(): ");
-		master = fn_cloneObject(_master);
-		footer = fn_cloneObject(_footer);
-		arrImg3 = fn_cloneObject(_arrImg3);
-		arrCpn3 = fn_cloneObject(_arrCpn3);
 		$('#type3_title1').val("").attr('readonly',false);
 		$('#type3_title2').val("").attr('readonly',false);
 		$('#type3_title3').val("").attr('readonly',false);
@@ -910,17 +691,14 @@
 		});
 		$('#type3_ftrText').val("").attr('readonly',false);
 		$('#type3_ftrMblUrl').val("").attr('readonly',false);
-		//$('#type3_ftrWebUrl').val("").attr('readonly',false);
+		$('#type3_ftrWebUrl').val("").attr('readonly',false);
 		// button(항목추가 / 미리보기) disabled
-		$('#img3_addItem').removeAttr('disabled');  // 항목추가
-		$('#cpn3_addItem').removeAttr('disabled');  // 항목추가
+		$('#img3_addItem').attr('disabled', false);  // 항목추가
+		$('#cpn3_addItem').attr('disabled', false);  // 항목추가
 		//$('#type1_imgUrl1').attr('disabled', false);  // 미리보기
 	}
-	function fn_editableAlimi_type4() {
+	function fn_editableAlimi_type4(alimi) {
 		if (true) console.log("fn_editableAlimi_type4(): ");
-		master = fn_cloneObject(_master);
-		footer = fn_cloneObject(_footer);
-		arrAnn4 = fn_cloneObject(_arrAnn4);
 		$('#type4_title1').val("").attr('readonly',false);
 		$('#type4_title2').val("").attr('readonly',false);
 		$('#type4_title3').val("").attr('readonly',false);
@@ -930,16 +708,13 @@
 		});
 		$('#type4_ftrText').val("").attr('readonly',false);
 		$('#type4_ftrMblUrl').val("").attr('readonly',false);
-		//$('#type4_ftrWebUrl').val("").attr('readonly',false);
+		$('#type4_ftrWebUrl').val("").attr('readonly',false);
 		// button(항목추가 / 미리보기) disabled
-		$('#ann4_addItem').removeAttr('disabled');  // 항목추가
+		$('#ann4_addItem').attr('disabled', false);  // 항목추가
 		//$('#type1_imgUrl1').attr('disabled', false);  // 미리보기
 	}
-	function fn_editableAlimi_type5() {
+	function fn_editableAlimi_type5(alimi) {
 		if (true) console.log("fn_editableAlimi_type5(): ");
-		master = fn_cloneObject(_master);
-		footer = fn_cloneObject(_footer);
-		arrPrd5 = fn_cloneObject(_arrPrd5);
 		$('#type5_title1').val("").attr('readonly',false);
 		$('#type5_title2').val("").attr('readonly',false);
 		$('#type5_title3').val("").attr('readonly',false);
@@ -949,20 +724,17 @@
 			$('#type5_prdPrice' + index).val("").attr('readonly',false);
 			$('#type5_prdUnit' + index).val("").attr('readonly',false);
 			$('#type5_prdMblUrl' + index).val("").attr('readonly',false);
-			//$('#type5_prdWebUrl' + index).val("").attr('readonly',false);
+			$('#type5_prdWebUrl' + index).val("").attr('readonly',false);
 		});
 		$('#type5_ftrText').val("").attr('readonly',false);
 		$('#type5_ftrMblUrl').val("").attr('readonly',false);
-		//$('#type5_ftrWebUrl').val("").attr('readonly',false);
+		$('#type5_ftrWebUrl').val("").attr('readonly',false);
 		// button(항목추가 / 미리보기) disabled
 		$('#prd5_addItem').attr('disabled', false);  // 항목추가
 		//$('#type1_imgUrl1').attr('disabled', false);  // 미리보기
 	}
-	function fn_editableAlimi_type6() {
+	function fn_editableAlimi_type6(alimi) {
 		if (true) console.log("fn_editableAlimi_type6(): ");
-		master = fn_cloneObject(_master);
-		footer = fn_cloneObject(_footer);
-		arrCpn6 = fn_cloneObject(_arrCpn6);
 		$('#type6_title1').val("").attr('readonly',false);
 		$('#type6_title2').val("").attr('readonly',false);
 		$('#type6_title3').val("").attr('readonly',false);
@@ -976,213 +748,50 @@
 		});
 		$('#type6_ftrText').val("").attr('readonly',false);
 		$('#type6_ftrMblUrl').val("").attr('readonly',false);
-		//$('#type6_ftrWebUrl').val("").attr('readonly',false);
+		$('#type6_ftrWebUrl').val("").attr('readonly',false);
 		// button(항목추가 / 미리보기) disabled
-		$('#cpn6_addItem').removeAttr('disabled');  // 항목추가
+		$('#cpn6_addItem').attr('disabled', false);  // 항목추가
 		//$('#type1_imgUrl1').attr('disabled', false);  // 미리보기
 	}
-	*/
-	function fn_editableAlimi_type(type) {
-		if (true) console.log("fn_editableAlimi_type(" + type + "): ");
-		$('#' + type + '_title1').val("").attr('readonly',false);
-		$('#' + type + '_title2').val("").attr('readonly',false);
-		$('#' + type + '_title3').val("").attr('readonly',false);
-		switch(type) {
-		case "type1":
-			{
-				arrImg1.forEach(function(value, index, array) {
-					$('#type1_imgUrl' + index).val("").attr('readonly',false);
-				});
-				// button(항목추가 / 미리보기) disabled
-				$('#img1_addItem').removeAttr('disabled');  // 항목추가
-				$('#type1_imgUrl1').removeAttr('disabled');  // 미리보기
+	function fn_editableAlimi(alimi) {
+		var show = alimi.talkMsgDispYn == 'Y' ? "show" : "hide";
+		$('input[name="alimiShow"]').val([show]);
+		/*
+		$('input[name="alimiShow"]').on({
+			'click': function() {
+				if (true) console.log(this + " onclick()");
+			},
+			'mouseover': function() {
+				if (true) this.css("background-color", "yellow");
+			},
+			'mouseout': function() {
+				if (true) this..css("background-color", "white");
 			}
-			break;
-		case "type2":
-			{
-				arrImg2.forEach(function(value, index, array) {
-					$('#type2_imgUrl' + index).val("").attr('readonly',false);
-				});
-				arrPrd2.forEach(function(value, index, array) {
-					$('#type2_prdUrl' + index).val("").attr('readonly',false);
-					$('#type2_prdName' + index).val("").attr('readonly',false);
-					$('#type2_prdPrice' + index).val("").attr('readonly',false);
-					$('#type2_prdUnit' + index).val("").attr('readonly',false);
-					$('#type2_prdMblUrl' + index).val("").attr('readonly',false);
-					//$('#type2_prdWebUrl' + index).val("").attr('readonly',false);
-				});
-				// button(항목추가 / 미리보기) disabled
-				$('#img2_addItem').removeAttr('disabled');  // 항목추가
-				$('#prd2_addItem').removeAttr('disabled');  // 항목추가
-				//$('#type1_imgUrl1').attr('disabled', true);  // 미리보기
-			}
-			break;
-		case "type3":
-			{
-				arrImg3.forEach(function(value, index, array) {
-					$('#type3_imgUrl' + index).val("").attr('readonly',false);
-				});
-				arrCpn3.forEach(function(value, index, array) {
-					$('#type3_cpnText1' + index).val("").attr('readonly',false);
-					$('#type3_cpnText2' + index).val("").attr('readonly',false);
-					$('#type3_cpnText3' + index).val("").attr('readonly',false);
-					$('#type3_cpnText4' + index).val("").attr('readonly',false);
-					$('#type3_cpnNumber' + index).val("").attr('readonly',false);
-					//$('#type3_cpnVisible' + index).val("").attr('readonly',false);
-				});
-				// button(항목추가 / 미리보기) disabled
-				$('#img3_addItem').removeAttr('disabled');  // 항목추가
-				$('#cpn3_addItem').removeAttr('disabled');  // 항목추가
-				//$('#type1_imgUrl1').attr('disabled', false);  // 미리보기
-			}
-			break;
-		case "type4":
-			{
-				arrAnn4.forEach(function(value, index, array) {
-					$('#type4_annText' + index).val("").attr('readonly',false);
-					//$('#type4_annFixed' + index).val("").attr('readonly',false);
-				});
-				// button(항목추가 / 미리보기) disabled
-				$('#ann4_addItem').removeAttr('disabled');  // 항목추가
-				//$('#type1_imgUrl1').attr('disabled', false);  // 미리보기
-			}
-			break;
-		case "type5":
-			{
-				arrPrd5.forEach(function(value, index, array) {
-					$('#type5_prdUrl' + index).val("").attr('readonly',false);
-					$('#type5_prdName' + index).val("").attr('readonly',false);
-					$('#type5_prdPrice' + index).val("").attr('readonly',false);
-					$('#type5_prdUnit' + index).val("").attr('readonly',false);
-					$('#type5_prdMblUrl' + index).val("").attr('readonly',false);
-					//$('#type5_prdWebUrl' + index).val("").attr('readonly',false);
-				});
-				// button(항목추가 / 미리보기) disabled
-				$('#prd5_addItem').attr('disabled', false);  // 항목추가
-				//$('#type1_imgUrl1').attr('disabled', false);  // 미리보기
-			}
-			break;
-		case "type6":
-			{
-				arrCpn6.forEach(function(value, index, array) {
-					$('#type6_cpnText1' + index).val("").attr('readonly',false);
-					$('#type6_cpnText2' + index).val("").attr('readonly',false);
-					$('#type6_cpnText3' + index).val("").attr('readonly',false);
-					$('#type6_cpnText4' + index).val("").attr('readonly',false);
-					$('#type6_cpnNumber' + index).val("").attr('readonly',false);
-					//$('#type6_cpnVisible' + index).val("").attr('readonly',false);
-				});
-				// button(항목추가 / 미리보기) disabled
-				$('#cpn6_addItem').removeAttr('disabled');  // 항목추가
-				//$('#type1_imgUrl1').attr('disabled', false);  // 미리보기
-			}
-			break;
-		default:
-			break;
-		}
-		$('#' + type + '_ftrText').val("").attr('readonly',false);
-		$('#' + type + '_ftrMblUrl').val("").attr('readonly',false);
-		//$('#' + type + '_ftrWebUrl').val("").attr('readonly',false);
-	}
-	function fn_editableAlimi() {
-		fn_editableAlimi_master();
-		//fn_editableAlimi_type1();
-		//fn_editableAlimi_type2();
-		//fn_editableAlimi_type3();
-		//fn_editableAlimi_type4();
-		//fn_editableAlimi_type5();
-		//fn_editableAlimi_type6();
-		fn_editableAlimi_type('type1');
-		fn_editableAlimi_type('type2');
-		fn_editableAlimi_type('type3');
-		fn_editableAlimi_type('type4');
-		fn_editableAlimi_type('type5');
-		fn_editableAlimi_type('type6');
+		});
+		*/
+		fn_editableAlimi_master(alimi);
+		fn_editableAlimi_type1(alimi);
+		fn_editableAlimi_type2(alimi);
+		fn_editableAlimi_type3(alimi);
+		fn_editableAlimi_type4(alimi);
+		fn_editableAlimi_type5(alimi);
+		fn_editableAlimi_type6(alimi);
 	}
 	////////////////////////////////////////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////////////////////////
-	function fn_newAlimiHideAll() {
-		$("#content-1").hide();
-		$("#content-2").hide();
-		$("#content-3").hide();
-		$("#content-4").hide();
-		$("#content-5").hide();
-		$("#content-6").hide();
-		fn_img1_appendTableTr();
-		fn_img2_appendTableTr();
-		fn_prd2_appendTableTr();
-		fn_img3_appendTableTr();
-		fn_cpn3_appendTableTr();
-		fn_ann4_appendTableTr();
-		fn_prd5_appendTableTr();
-		fn_cpn6_appendTableTr();
-	}
-	function fn_newAlimiShow(type) {
-		switch (type) {
-		case "type1":
-			fn_img1_appendTableTr();
-			$("#content-1").show();
-			break;
-		case "type2":
-			fn_img2_appendTableTr();
-			fn_prd2_appendTableTr();
-			$("#content-2").show();
-			break;
-		case "type3":
-			fn_img3_appendTableTr();
-			fn_cpn3_appendTableTr();
-			$("#content-3").show();
-			break;
-		case "type4":
-			fn_ann4_appendTableTr();
-			$("#content-4").show();
-			break;
-		case "type5":
-			fn_prd5_appendTableTr();
-			$("#content-5").show();
-			break;
-		case "type6":
-			fn_cpn6_appendTableTr();
-			$("#content-6").show();
-			break;
-		}
-	}
-</script>
-
-
-
-
-
-
-
-
-
-<script>
-	////////////////////////////////////////////////////////////////////////////////////
-	////////////////////////////////////////////////////////////////////////////////////
-	var ALIMI_SHOW;
-	var ALIMI_TYPE;
-	// callback function
 	function fn_setNewAlimi(alimi) {
+		if (true) alimi.talkMsgDispYn = 'Y';
 		if (true) console.log(">>>>> TALK_MSG_DISP_YN: " + alimi.talkMsgDispYn + " -- " + (alimi.talkMsgDispYn == 'Y' ? "알리미노출" : "알리미미노출"));
-		if (alimi.talkMsgDispYn == 'Y') {
-			// 알리미노출
-			if (true) console.log(">>>>> FIRST: 알리미노출 <<<<<");
-			fn_editableAlimi();
-			// step2
-			$('input[name="alimiShow"]').val(['show']);
-			$('input[name="alimiType"]').val(['type1']);
-			ALIMI_SHOW = 'show';
-			ALIMI_TYPE = 'type1';
-		} else {
+		if (alimi.talkMsgDispYn == 'N') {
 			// 알리미미노출
-			if (true) console.log(">>>>> FIRST: 알리미미노출 <<<<<");
-			fn_clearDisableAlimi();
-			$('input[name="alimiShow"]').val(['hide']);
-			ALIMI_SHOW = 'hide';
+			if (!true) console.log("알리미미노출");
+			fn_clearDisableAlimi(alimi);
+		} else {
+			// 알리미노출
+			if (!true) console.log("알리미노출");
+			fn_editableAlimi(alimi);
 		}
 	}
-	// ajax call
 	function fn_ajax_getChannelMobileAlimi(cellid) {
 		if (true) console.log(">>>>> url: " + '${staticPATH }/getChannelMobileAlimi.do?cellId=' + cellid);
 		jQuery.ajax({
@@ -1207,173 +816,226 @@
 			}
 		});
 	};
-	// ajax call and event functions
 	function fn_getChannelMobileAlimi(cellid) {
 		if (true) console.log(">>>>> cellid: " + cellid);
 		if (true) fn_ajax_getChannelMobileAlimi(cellid);
-		//
-		// Event
-		//
-		$('#alimiShow_show').on({       // SHOW
-			'click': function() {
-				if (ALIMI_SHOW == 'show')
-					return;
-				ALIMI_SHOW = 'show';
-				if (true) console.log("show onclick(). 노출로 변경됨.");
-				
-				ALIMI_TYPE = 'type1';
-				$('input[name="alimiType"]').val([ALIMI_TYPE]);
-				fn_valueClear();  // after fn_setDefaultValue()
-				fn_newAlimiHideAll();
-				fn_editableAlimi();
-				fn_newAlimiShow(ALIMI_TYPE);
-			}
-		});
-		$('#alimiShow_hide').on({       // HIDE
-			'click': function() {
-				if (ALIMI_SHOW == 'hide')
-					return;
-				if (!confirm("미노출 선택시 기존의 입력값들이 사라집니다.\n계속 진행하시겠습니까?")) {
-					// 원래 노출로 돌아감.
-					$("#alimiShow_show").trigger("click");
-					return;
-				}
-				// 미노출로 변경됨.
-				ALIMI_SHOW = 'hide';
-				if (true) console.log("hide onclick(). 미노출로 변경됨.");
-				
-				ALIMI_TYPE = 'type1';
-				fn_valueClear();  // after fn_setDefaultValue()
-				fn_newAlimiHideAll();
-				fn_newAlimiShow(ALIMI_TYPE);
-				fn_clearDisableAlimi();
-			}
-		});
-		$('input[name="alimiType"]').on({       // Type
-			click: function() {
-				var val = $('input[name="alimiType"]:checked').val();
-				if (true) console.log("alimiType.click() = " + val);
-				if (ALIMI_TYPE == val)
-					return;
-				if (!confirm("타입을 바꾸시면 기존에 작성한 내용은 사라집니다.\n타입을 바꾸시겠습니까?")) {
-					$('input[name="alimiType"]').val([ALIMI_TYPE]);
-					return;
-				}
-				ALIMI_TYPE = val;
-				fn_valueClear();  // after fn_setDefaultValue()
-				fn_newAlimiHideAll();
-				fn_newAlimiShow(ALIMI_TYPE);
-				fn_editableAlimi_type(ALIMI_TYPE);
-			}
-		});
-		// 항목추가 버튼
-		$("#img1_addItem").click(fn_img1_addItem_click);
-		$("#img2_addItem").click(fn_img2_addItem_click);
-		$("#prd2_addItem").click(fn_prd2_addItem_click);
-		$("#img3_addItem").click(fn_img3_addItem_click);
-		$("#cpn3_addItem").click(fn_cpn3_addItem_click);
-		$("#ann4_addItem").click(fn_ann4_addItem_click);
-		$("#prd5_addItem").click(fn_prd5_addItem_click);
-		$("#cpn6_addItem").click(fn_cpn6_addItem_click);
 	}
-</script>
-
-
-
-
-
-
-
-<script>
 	////////////////////////////////////////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////////////////////////
 	//
 	// alimi initialization
 	//
 	function fn_newAlimi_init() {
-		//if (!true) fn_for_test(); // for test
+		if (!true) fn_for_test(); // for test
 		if (true) fn_getChannelMobileAlimi('${bo.cellid}');
-		// 초기화면 세팅
-		fn_newAlimiHideAll();
-		fn_newAlimiShow("type1");
-		document.getElementById("nav-tabs-old").click();  // 첫 화면은 (구)알리미
+		//
+		// base section, and value setting
+		//
+		//$("#alimiShow_" + base["alimiShow"]).attr("checked", true);
+		//$("#alimiText").val(base["alimiText"]);
+		//$("#alimiType_" + base["alimiType"]).attr("checked", true);
+		//
+		// declare the event of radio
+		//
+		/*
+		$('.alimiShow').click(function() {
+			var val = $('.alimiShow:checked').val();
+			if (base["alimiShow"] == val) return;
+			if (true) console.log("alimiShow change: " + val);
+			base["alimiShow"] = val;
+		});
+		$('.alimiType').click(function() {
+			var val = $('.alimiType:checked').val();
+			if (base["alimiType"] == val) return;
+			if (true) console.log("alimiType change: " + val);
+			if (!confirm("타입을 바꾸시면 기존에 작성한 내용은 사라집니다.\n타입을 바꾸시겠습니까?")) {
+				$("#alimiType_" + base["alimiType"]).attr("checked", true);
+				return;
+			}
+			base["alimiType"] = val;
+			fn_newAlimi_hideAllType();
+			master = { title1: "", advText: "광고", title2: "", title3: "" };
+			footer = { ftrText: "", ftrMblUrl: "", ftrWebUrl: "" };
+			//master = { title1: "title1", advText: "advText", title2: "title2", title3: "title3" };
+			//footer = { ftrText: "ftrText", ftrMblUrl: "http://localhost/mobile", ftrWebUrl: "http://localhost/web" };
+			switch(val) {
+			case 'type1':
+				fn_set_master_footer('type1');
+				$('#content-1').show();
+				break;
+			case 'type2':
+				fn_set_master_footer('type2');
+				$('#content-2').show();
+				break;
+			case 'type3':
+				fn_set_master_footer('type3');
+				$('#content-3').show();
+				break;
+			case 'type4':
+				fn_set_master_footer('type4');
+				$('#content-4').show();
+				break;
+			case 'type5':
+				fn_set_master_footer('type5');
+				$('#content-5').show();
+				break;
+			case 'type6':
+				fn_set_master_footer('type6');
+				$('#content-6').show();
+				break;
+			default: console.log("WRONG type value....");
+			}
+		});
+		*/
+		//
+		// addItem click events
+		//
+		$("#img1_addItem").click(fn_img1_addItem_click);
+		
+		$("#img2_addItem").click(fn_img2_addItem_click);
+		$("#prd2_addItem").click(fn_prd2_addItem_click);
+		
+		$("#img3_addItem").click(fn_img3_addItem_click);
+		$("#cpn3_addItem").click(fn_cpn3_addItem_click);
+		
+		$("#ann4_addItem").click(fn_ann4_addItem_click);
+		
+		$("#prd5_addItem").click(fn_prd5_addItem_click);
+		
+		$("#cpn6_addItem").click(fn_cpn6_addItem_click);
+		//
+		// alimi initialization
+		//
+		fn_newAlimi_hideAllType();
+		//
+		// show content-1
+		//
+		fn_set_master_footer('type1');
+		$("#content-1").show();
+		//
+		// initial layer to nav-tabs-old made active
+		//
+		document.getElementById("nav-tabs-old").click();
 	}
-</script>
 
+	//
+	//
+	//
+	function fn_newAlimi_hideAllType() {
+		$("#content-1").hide();
+		$("#content-2").hide();
+		$("#content-3").hide();
+		$("#content-4").hide();
+		$("#content-5").hide();
+		$("#content-6").hide();
+		//
+		// clear contents
+		//
+		arrImg1 = [ { imgUrl: "" }];
+		
+		arrImg2 = [ { imgUrl: "" }];
+		arrPrd2 = [ { prdUrl: "", prdName: "", prdPrice: "", prdUnit: "", prdMblUrl: "", prdWebUrl: "" } ];
+		
+		arrImg3 = [ { imgUrl: "" }];
+		arrCpn3 = [ { cpnText1: "", cpnText2: "", cpnText3: "", cpnText4: "", cpnNumber: "", cpnVisible: "hide" } ];
+		
+		arrAnn4 = [ { annText: "", annFixed: "center" } ];
+		
+		arrPrd5 = [ { prdUrl: "", prdName: "", prdPrice: "", prdUnit: "", prdMblUrl: "", prdWebUrl: "" } ];
+		
+		arrCpn6 = [ { cpnText1: "", cpnText2: "", cpnText3: "", cpnText4: "", cpnNumber: "", cpnVisible: "hide" } ];
+		//
+		// setting default values to the elements
+		//
+		fn_img1_appendTableTr();
+		fn_img2_appendTableTr();
+		fn_prd2_appendTableTr();
+		fn_img3_appendTableTr();
+		fn_cpn3_appendTableTr();
+		fn_ann4_appendTableTr();
+		fn_prd5_appendTableTr();
+		fn_cpn6_appendTableTr();
+	}
+	
+	//
+	//
+	//
+	function fn_set_master_footer(type) {
+		$('#' + type + '_title1').val(master["title1"]);
+		$('#' + type + '_advText').val(master["advText"]);
+		$('#' + type + '_title2').val(master["title2"]);
+		$('#' + type + '_title3').val(master["title3"]);
+		$('#' + type + '_ftrText').val(footer["ftrText"]);
+		$('#' + type + '_ftrMblUrl').val(footer["ftrMblUrl"]);
+		$('#' + type + '_ftrWebUrl').val(footer["ftrWebUrl"]);
+	}
+	
+	// 넘어온 값이 빈값인지 체크합니다. 
+	// !value 하면 생기는 논리적 오류를 제거하기 위해 
+	// 명시적으로 value == 사용 
+	// [], {} 도 빈값으로 처리 
+	var isEmpty = function(value){ 
+		if( value == "" || value == null || value == undefined || ( value != null && typeof value == "object" && !Object.keys(value).length ) ){
+			return true;
+		} else {
+			return false;
+		}
+	};
 
-
-
-
-
-<script>
-	////////////////////////////////////////////////////////////////////////////////////
-	////////////////////////////////////////////////////////////////////////////////////
 	//
 	// type1 validation and json
 	//
 	function fn_alimi_type1_validation() {
 		// master
-		if (isEmpty($('#type1_title1').val()) || fn_checkQuotationMark($('#type1_title1').val())) {
-			$('#type1_title1').focus();
+		if (isEmpty($('#type1_title1').val())) {
+			document.getElementById('type1_title1').focus();
 			return false;
 		}
 		master["title1"] = $('#type1_title1').val();
-		//
-		if (isEmpty($('#type1_title2').val()) || fn_checkQuotationMark($('#type1_title2').val())) {
-			$('#type1_title2').focus();
+		if (isEmpty($('#type1_title2').val())) {
+			document.getElementById('type1_title2').focus();
 			return false;
 		}
 		master["title2"] = $('#type1_title2').val();
 		/*
 		if (isEmpty($('#type1_title3').val())) {
-			$('#type1_title3').focus();
-			return false;
-		}
-		*/
-		if (fn_checkQuotationMark($('#type1_title3').val())) {
-			$('#type1_title3').focus();
+			document.getElementById('type1_title3').focus();
 			return false;
 		}
 		master["title3"] = $('#type1_title3').val();
-		//
+		*/
+		
 		// array type
 		var idx = "";
 		arrImg1.forEach(function(value, index, array) {
 			if (isEmpty(value["imgUrl"]) && idx == "") {
 				idx = "type1_imgUrl" + index;
 			}
-			if (fn_checkQuotationMark(value["imgUrl"]) && idx == "") {
-				idx = "type1_imgUrl" + index;
-			}
 		});
 		if (idx != "") {
-			$('#' + idx).focus();
+			document.getElementById(idx).focus();
 			return false;
 		}
-		//
+		
 		// footer
-		if (isEmpty($('#type1_ftrText').val()) || fn_checkQuotationMark($('#type1_ftrText').val())) {
-			$('#type1_ftrText').focus();
+		if (isEmpty($('#type1_ftrText').val())) {
+			document.getElementById('type1_ftrText').focus();
 			return false;
 		}
 		footer["ftrText"] = $('#type1_ftrText').val();
-		//
-		if (isEmpty($('#type1_ftrMblUrl').val()) || fn_checkQuotationMark($('#type1_ftrMblUrl').val())) {
-			$('#type1_ftrMblUrl').focus();
+		if (isEmpty($('#type1_ftrMblUrl').val())) {
+			document.getElementById('type1_ftrMblUrl').focus();
 			return false;
 		}
 		footer["ftrMblUrl"] = $('#type1_ftrMblUrl').val();
 		/*
 		if (isEmpty($('#type1_ftrWebUrl').val())) {
-			$('#type1_ftrWebUrl').focus();
-			return false;
-		}
-		*/
-		if (fn_checkQuotationMark($('#type1_ftrWebUrl').val())) {
-			$('#type1_ftrWebUrl').focus();
+			document.getElementById('type1_ftrWebUrl').focus();
 			return false;
 		}
 		footer["ftrWebUrl"] = $('#type1_ftrWebUrl').val();
+		*/
+		
 		return true;
 	}
 	function fn_alimi_type1_json() {
@@ -1381,8 +1043,6 @@
 		case "show": base['alimiShow'] = "Y"; break;
 		default: base['alimiShow'] = "N"; break;
 		}
-		base['alimiType'] = "00" + base['alimiType'].substring(4);
-		/*
 		switch(base['alimiType']) {
 		case "type1": base['alimiType'] = "001"; break;
 		case "type2": base['alimiType'] = "002"; break;
@@ -1392,16 +1052,14 @@
 		case "type6": base['alimiType'] = "006"; break;
 		default: base['alimiType'] = "000"; break;
 		}
-		*/
 		//var obj = Object.assign(base, master, { arrImg: arrImg1 }, footer);
 		//resultJson = JSON.stringify(obj);
 		resultJson = "{" + fn_getCore(base) + "," + fn_getCore(master) + ",\"arrImg\":" + fn_getCore(arrImg1) + "," + fn_getCore(footer) + "}";
-		if (true) console.log(">>> type1_resultJson: " + resultJson);
+		if (!true) alert(resultJson);
+		if (!true) console.log(">>> " + resultJson);
 		return true;
 	}
 
-	////////////////////////////////////////////////////////////////////////////////////
-	////////////////////////////////////////////////////////////////////////////////////
 	//
 	// type2 validation and json
 	//
@@ -1505,8 +1163,6 @@
 		return true;
 	}
 
-	////////////////////////////////////////////////////////////////////////////////////
-	////////////////////////////////////////////////////////////////////////////////////
 	//
 	// type3 validation and json
 	//
@@ -1606,8 +1262,6 @@
 		return true;
 	}
 
-	////////////////////////////////////////////////////////////////////////////////////
-	////////////////////////////////////////////////////////////////////////////////////
 	//
 	// type4 validation and json
 	//
@@ -1686,8 +1340,6 @@
 		return true;
 	}
 
-	////////////////////////////////////////////////////////////////////////////////////
-	////////////////////////////////////////////////////////////////////////////////////
 	//
 	// type5 validation and json
 	//
@@ -1783,8 +1435,6 @@
 		return true;
 	}
 	
-	////////////////////////////////////////////////////////////////////////////////////
-	////////////////////////////////////////////////////////////////////////////////////
 	//
 	// type6 validation and json
 	//
@@ -1874,25 +1524,21 @@
 		if (!true) console.log(">>> " + resultJson);
 		return true;
 	}
-	//////////////////////////
-	//////////////////////////
-	//////////////////////////
-	//////////////////////////
-	//////////////////////////
-	//////////////////////////
-	//////////////////////////
-	//////////////////////////
-	//////////////////////////
-	//////////////////////////
-	//////////////////////////
+
+	//
+	// validation and json
+	//
 	function fn_alimi_validation() {
-		if (isEmpty($('#alimiText').val()) || fn_checkQuotationMark($('#alimiText').val())) {
-			$('#alimiText').focus();
+		// 알리미 문자
+		if (isEmpty($('#alimiText').val())) {
+			document.getElementById('alimiText').focus();
 			return false;
 		}
 		base["alimiText"] = $('#alimiText').val();
 		// 알리미 타입
-		var val = $('input[name="alimiType"]:checked').val();
+		var val = $('.alimiType:checked').val();
+		if (true) console.log("fn_alimi_validation() type:" + val);
+
 		switch(val) {
 		case "type1": if (!fn_alimi_type1_validation()) return false; break;
 		case "type2": if (!fn_alimi_type2_validation()) return false; break;
@@ -1902,22 +1548,12 @@
 		case "type6": if (!fn_alimi_type6_validation()) return false; break;
 		default: alert("ERROR in fn_alimi_validation()"); break;
 		}
+		
 		return true;
 	}
-	//////////////////////////
-	//////////////////////////
-	//////////////////////////
-	//////////////////////////
-	//////////////////////////
-	//////////////////////////
-	//////////////////////////
-	//////////////////////////
-	//////////////////////////
-	//////////////////////////
-	//////////////////////////
 	function fn_alimi_json() {
 		var val = $('.alimiType:checked').val();
-		if (true) console.log("fn_alimi_json() type:" + val);
+		if (true) console.log("fn_alimi_validation() type:" + val);
 		switch(val) {
 		case "type1": if (!fn_alimi_type1_json()) return false; break;
 		case "type2": if (!fn_alimi_type2_json()) return false; break;
@@ -1930,82 +1566,91 @@
 		
 		return true;
 	}
-	//////////////////////////
-	//////////////////////////
-	//////////////////////////
-	//////////////////////////
-	//////////////////////////
-	//////////////////////////
-	//////////////////////////
-	//////////////////////////
-	//////////////////////////
-	//////////////////////////
-	//////////////////////////
+	//
+	// (신)알리미 확인
+	//
 	function fn_get_alimi_json() {
 		if (true) console.log("fn_get_alimi_json()");
 		// validation
 		if (!fn_alimi_validation()) return false;
-		//
 		// make json
 		if (!fn_alimi_json()) return false;
-		//
 		// return result
-		if (true) console.log("0405: fn_get_alimi_json(): " + resultJson);
+		if (!true) console.log("1225: fn_get_alimi_json(): " + resultJson);
 		return resultJson;
 	}
 	var resultJson = "";
 </script>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 <script>
-	/////////////////////////////////////////////////
-	/////////////////////////////////////////////////
-	/////////////////////////////////////////////////
-	/////////////////////////////////////////////////
-	/////////////////////////////////////////////////
 	/////////////////////////////////////////////////
 	// KANG-20190326: type-1 script BEGIN
 	/////////////////////////////////////////////////
 	var maxArrImg1 = 5;
+	var arrImg1 = [
+		{ imgUrl: "" }    // { imgUrl: "http://localhost/imsi.png" },
+	];
 	$("img1_addItem").tooltip();
 	//
-	//
+	// click of img1 addItem
 	//
 	function fn_img1_addItem_click() {
-		if (arrImg1.length >= maxArrImg1) {
-			if (true) alert("이미지는 " + maxArrImg1 + "개까지만 등록 가능합니다.");
-			return;
-		}
 		if (!true) alert("fn_img1_addItem_click()");
 		var idx = arrImg1.length + 1;
+		//arrImg1.push({ imgUrl: "imgUrl - " + idx });
 		arrImg1.push({ imgUrl: "" });
 		fn_img1_appendTableTr();
+		
 		if (idx >= maxArrImg1) {
 			$("#img1_addItem").attr("disabled", true);
 		}
 	}
-	function fn_img1_inputBlur(idx, cls, value) {
-		if (true) console.log(idx + ": " + cls + ": " + value);
-		arrImg1[idx][cls] = value;   // KANG-20190405
+	
+	//
+	// clear the img1 table
+	//
+	function fn_img1_clear() {
+		if (!true) alert("fn_img1_clear()");
+		$("#img1_table > tbody").empty();
 	}
+	
+	//
+	// find the table tr elements : NOT USED
+	//
+	/*
+	function fn_img1_findTableTr() {
+		var arr = [];
+		$("#img1_table > tbody > tr").each(function(tr, index) {
+			// var imgUrl = $(tr).find(".imgUrl").val()
+			var imgUrl = $(tr).find("#kang").val()
+			if (true) console.log(">>> " + JSON.stringify($(tr)));
+			if (!true) console.log(">>> " + index + ": " + imgUrl);
+			arr.push({ url: imgUrl});
+		})
+		if (true) console.log("fn_img1_findTableTr: " + $("#img1_table tbody tr").length + " - " + JSON.stringify(arr));
+		
+		return false;
+	}
+	*/
+	//
+	// blur event of inut element on img1
+	//
+	function fn_img1_inputBlur(idx, cls, value) {
+		if (!true) console.log(idx + ": " + cls + ": " + value);
+		arrImg1[idx][cls] = value;
+	}
+	
+	//
+	// append a tr element to img1
+	//
 	function fn_img1_appendTableTr() {
 		// clear
-		$("#img1_table > tbody").empty();
+		fn_img1_clear();
+		
 		// value print
 		arrImg1.forEach(function(value, index, array) {
 			if (!true) alert("fn_img1_appendTableTr(): (" + index + "/" + array.length + ") : " + value.imgUrl);
+			
 			var rowHtml = "";
 			rowHtml += "<tr>";
 			rowHtml += "  <td class=\"info\">";
@@ -2030,12 +1675,20 @@
 			$("#img1_table > tbody:last").append(rowHtml);
 		});
 	}
+	
+	//
+	// delete the tr element on img1
+	//
 	function fn_img1_del(idx) {
 		if (!true) alert("fn_img_del(" + idx + ")");
 		arrImg1.splice(idx, 1);
 		fn_img1_appendTableTr();
-		$("#img1_addItem").removeAttr("disabled");
+		$("#img1_addItem").attr("disabled", false);
 	}
+	
+	//
+	// move upward on img1
+	//
 	function fn_img1_up(idx) {
 		if (!true) alert("fn_img_up(" + idx + ")");
 		var temp = arrImg1[idx-1];
@@ -2043,6 +1696,10 @@
 		arrImg1[idx] = temp;
 		fn_img1_appendTableTr();
 	}
+	
+	//
+	// move downward on img1
+	//
 	function fn_img1_down(idx) {
 		if (!true) alert("fn_img_down(" + idx + ")");
 		var temp = arrImg1[idx+1];
@@ -2063,31 +1720,71 @@
 	// KANG-20190326: type-2 script BEGIN
 	/////////////////////////////////////////////////
 	var maxArrImg2 = 1;
-	$("img2_addItem").tooltip();
-	$("prd2_addItem").tooltip();
+	var arrImg2 = [
+		{ imgUrl: "" }    // { imgUrl: "http://localhost/imsi.png" },
+	];
+	
 	//
-	//
+	// click of img2 addItem
 	//
 	function fn_img2_addItem_click() {
+		if (!true) alert("fn_img2_addItem_click()");
 		if (arrImg2.length >= maxArrImg2) {
-			if (true) alert("이미지는 " + maxArrImg2 + "개까지만 등록 가능합니다.");
+			if (true) alert("이미지는 " + maxArrImg2 + "개까지 등록 가능합니다.");
 			return;
 		}
-		if (!true) alert("fn_img2_addItem_click()");
 		var idx = arrImg2.length + 1;
+		//arrImg2.push({ imgUrl: "imgUrl - " + idx });
 		arrImg2.push({ imgUrl: "" });
 		fn_img2_appendTableTr();
+		
 		if (idx >= maxArrImg2) {
 			$("#img2_addItem").attr("disabled", true);
 		}
 	}
+	
+	//
+	// clear the img2 table
+	//
+	function fn_img2_clear() {
+		if (!true) alert("fn_img2_clear()");
+		$("#img2_table > tbody").empty();
+	}
+	
+	//
+	// find the table tr elements : NOT USED
+	//
+	/*
+	function fn_img2_findTableTr() {
+		var arr = [];
+		$("#img2_table > tbody > tr").each(function(tr, index) {
+			// var imgUrl = $(tr).find(".imgUrl").val()
+			var imgUrl = $(tr).find("#kang").val()
+			if (true) console.log(">>> " + JSON.stringify($(tr)));
+			if (!true) console.log(">>> " + index + ": " + imgUrl);
+			arr.push({ url: imgUrl});
+		})
+		if (true) console.log("fn_img2_findTableTr: " + $("#img2_table tbody tr").length + " - " + JSON.stringify(arr));
+		
+		return false;
+	}
+	*/
+	
+	//
+	// blur event of inut element on img2
+	//
 	function fn_img2_inputBlur(idx, cls, value) {
 		if (true) console.log(idx + ": " + cls + ": " + value);
 		arrImg2[idx][cls] = value;
 	}
+	
+	//
+	// append a tr element to img2
+	//
 	function fn_img2_appendTableTr() {
 		// clear
-		$("#img2_table > tbody").empty();
+		fn_img2_clear();
+		
 		// value print
 		arrImg2.forEach(function(value, index, array) {
 			if (!true) alert("fn_img2_appendTableTr(): (" + index + "/" + array.length + ") : " + value.imgUrl);
@@ -2110,18 +1807,26 @@
 			rowHtml += "  </td>";
 			rowHtml += "  <td colspan='3'>";
 			rowHtml += "    <input type='text' id='type2_imgUrl" + index + "' class='imgUrl' onblur=\"javascript:fn_img2_inputBlur(" + index + ",'imgUrl',this.value);\" style='width:700px;' value='" + value.imgUrl + "' maxlength='100' placeholder='http://' />";
-			rowHtml += "    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <button type='button' id='type2_imgUrl" + index +"' class='btn btn-success btn-sm' onclick=\"fn_pre_view_img('type2_imgUrl" + index +"');\"><i class='fa fa-eye' aria-hidden='true'></i> 미리보기</button>";
+			rowHtml += "    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <button type='button' class='btn btn-success btn-sm' onclick=\"fn_pre_view_img('type2_imgUrl" + index +"');\"><i class='fa fa-eye' aria-hidden='true'></i> 미리보기</button>";
 			rowHtml += "  </td>";
 			rowHtml += "</tr>";
 			$("#img2_table > tbody:last").append(rowHtml);
 		});
 	}
+	
+	//
+	// delete the tr element on img2
+	//
 	function fn_img2_del(idx) {
 		if (!true) alert("fn_img_del(" + idx + ")");
 		arrImg2.splice(idx, 1);
 		fn_img2_appendTableTr();
-		$("#img2_addItem").removeAttr("disabled");
+		$("#img2_addItem").attr("disabled", false);
 	}
+	
+	//
+	// move upward on img2
+	//
 	function fn_img2_up(idx) {
 		if (!true) alert("fn_img_up(" + idx + ")");
 		var temp = arrImg2[idx-1];
@@ -2129,6 +1834,10 @@
 		arrImg2[idx] = temp;
 		fn_img2_appendTableTr();
 	}
+	
+	//
+	// move downward on img2
+	//
 	function fn_img2_down(idx) {
 		if (!true) alert("fn_img_down(" + idx + ")");
 		var temp = arrImg2[idx+1];
@@ -2138,30 +1847,66 @@
 	}
 	////////////////////////////////////////////////////////////////////
 	var maxArrPrd2 = 10;
-	$("prd2_addItem").tooltip();
+	var arrPrd2 = [
+		{ prdUrl: "", prdName: "", prdPrice: "", prdUnit: "", prdMblUrl: "", prdWebUrl: "" }
+	];
 	//
-	//
+	// click of img1 addItem
 	//
 	function fn_prd2_addItem_click() {
-		if (arrPrd2.length >= maxArrPrd2) {
-			if (true) alert("이미지는 " + maxArrPrd2 + "개까지만 등록 가능합니다.");
-			return;
-		}
 		if (!true) alert("fn_prd2_addItem_click()");
 		var idx = arrPrd2.length + 1;
+		//arrPrd2.push({ imgUrl: "imgUrl - " + idx });
 		arrPrd2.push({ prdUrl: "", prdName: "", prdPrice: "", prdUnit: "", prdMblUrl: "", prdWebUrl: "" });
 		fn_prd2_appendTableTr();
+		
 		if (idx >= maxArrPrd2) {
 			$("#prd2_addItem").attr("disabled", true);
 		}
 	}
+	
+	//
+	// clear the prd2 table
+	//
+	function fn_prd2_clear() {
+		if (!true) alert("fn_prd2_clear()");
+		$("#prd2_table > tbody").empty();
+	}
+	
+	//
+	// find the table tr elements : NOT USED
+	//
+	/*
+	function fn_prd2_findTableTr() {
+		var arr = [];
+		$("#prd2_table > tbody > tr").each(function(tr, index) {
+			// var imgUrl = $(tr).find(".imgUrl").val()
+			var imgUrl = $(tr).find("#kang").val()
+			if (true) console.log(">>> " + JSON.stringify($(tr)));
+			if (!true) console.log(">>> " + index + ": " + imgUrl);
+			arr.push({ url: imgUrl});
+		})
+		if (true) console.log("fn_prd2_findTableTr: " + $("#prd2_table tbody tr").length + " - " + JSON.stringify(arr));
+		
+		return false;
+	}
+	*/
+	
+	//
+	// blur event of input element on prd2
+	//
 	function fn_prd2_inputBlur(idx, cls, value) {
 		if (true) console.log(idx + ": " + cls + ": " + value);
 		arrPrd2[idx][cls] = value;
 	}
+	
+	//
+	// append a tr element to prd2
+	//
 	function fn_prd2_appendTableTr() {
 		// clear
-		$("#prd2_table > tbody").empty();
+		fn_prd2_clear();
+		
 		// value print
 		arrPrd2.forEach(function(value, index, array) {
 			if (true) console.log("fn_prd2_appendTableTr(): (" + index + "/" + array.length + ") : " + value.prdName + ", " + value.prdUnit);
@@ -2184,7 +1929,7 @@
 			rowHtml += "  <td class='info'>이미지 URL</td>";
 			rowHtml += "  <td colspan='2'>";
 			rowHtml += "    <input type='text' id='type2_prdUrl" + index + "' class='prdUrl' onblur=\"javascript:fn_prd2_inputBlur(" + index + ",'prdUrl',this.value);\" style='width:600px;' value='" + value.prdUrl + "' maxlength='100' placeholder='http://' />";
-			rowHtml += "    &nbsp;&nbsp;&nbsp; <button type='button' id='type2_prdUrl" + index +"' class='btn btn-success btn-sm' onclick=\"fn_pre_view_img('type2_prdUrl" + index +"');\"><i class='fa fa-eye' aria-hidden='true'></i> 미리보기</button>";
+			rowHtml += "    &nbsp;&nbsp;&nbsp; <button type='button' class='btn btn-success btn-sm' onclick=\"fn_pre_view_img('type2_prdUrl" + index +"');\"><i class='fa fa-eye' aria-hidden='true'></i> 미리보기</button>";
 			rowHtml += "  </td>";
 			rowHtml += "</tr>";
 			rowHtml += "<tr>";
@@ -2227,12 +1972,19 @@
 			$("#prd2_table > tbody:last").append(rowHtml);
 		});
 	}
+	//
+	// delete the tr element on prd2
+	//
 	function fn_prd2_del(idx) {
 		if (!true) alert("fn_img_del(" + idx + ")");
 		arrPrd2.splice(idx, 1);
 		fn_prd2_appendTableTr();
-		$("#prd2_addItem").removeAttr("disabled");
+		$("#prd2_addItem").attr("disabled", false);
 	}
+	
+	//
+	// move upward on prd2
+	//
 	function fn_prd2_up(idx) {
 		if (!true) alert("fn_img_up(" + idx + ")");
 		var temp = arrPrd2[idx-1];
@@ -2240,6 +1992,10 @@
 		arrPrd2[idx] = temp;
 		fn_prd2_appendTableTr();
 	}
+	
+	//
+	// move downward on prd2
+	//
 	function fn_prd2_down(idx) {
 		if (!true) alert("fn_img_down(" + idx + ")");
 		var temp = arrPrd2[idx+1];
@@ -2260,30 +2016,71 @@
 	// KANG-20190326: type-3 script BEGIN
 	/////////////////////////////////////////////////
 	var maxArrImg3 = 1;
-	$("img3_addItem").tooltip();
+	var arrImg3 = [
+		{ imgUrl: "" }    // { imgUrl: "http://localhost/imsi.png" },
+	];
+	
 	//
-	//
+	// click of img1 addItem
 	//
 	function fn_img3_addItem_click() {
+		if (!true) alert("fn_img3_addItem_click()");
 		if (arrImg3.length >= maxArrImg3) {
-			if (true) alert("이미지는 " + maxArrImg3 + "개까지만 등록 가능합니다.");
+			if (true) alert("이미지는 " + maxArrImg3 + "개까지 등록 가능합니다.");
 			return;
 		}
-		if (!true) alert("fn_img3_addItem_click()");
 		var idx = arrImg3.length + 1;
+		//arrImg3.push({ imgUrl: "imgUrl - " + idx });
 		arrImg3.push({ imgUrl: "" });
 		fn_img3_appendTableTr();
+		
 		if (idx >= maxArrImg3) {
 			$("#img3_addItem").attr("disabled", true);
 		}
 	}
+	
+	//
+	// clear the img3 table
+	//
+	function fn_img3_clear() {
+		if (!true) alert("fn_img3_clear()");
+		$("#img3_table > tbody").empty();
+	}
+	
+	//
+	// find the table tr elements : NOT USED
+	//
+	/*
+	function fn_img3_findTableTr() {
+		var arr = [];
+		$("#img3_table > tbody > tr").each(function(tr, index) {
+			// var imgUrl = $(tr).find(".imgUrl").val()
+			var imgUrl = $(tr).find("#kang").val()
+			if (true) console.log(">>> " + JSON.stringify($(tr)));
+			if (!true) console.log(">>> " + index + ": " + imgUrl);
+			arr.push({ url: imgUrl});
+		})
+		if (true) console.log("fn_img3_findTableTr: " + $("#img3_table tbody tr").length + " - " + JSON.stringify(arr));
+		
+		return false;
+	}
+	*/
+	
+	//
+	// blur event of inut element on img3
+	//
 	function fn_img3_inputBlur(idx, cls, value) {
 		if (true) console.log(idx + ": " + cls + ": " + value);
 		arrImg3[idx][cls] = value;
 	}
+	
+	//
+	// append a tr element to img3
+	//
 	function fn_img3_appendTableTr() {
 		// clear
-		$("#img3_table > tbody").empty();
+		fn_img3_clear();
+		
 		// value print
 		arrImg3.forEach(function(value, index, array) {
 			if (!true) alert("fn_img3_appendTableTr(): (" + index + "/" + array.length + ") : " + value.imgUrl);
@@ -2306,18 +2103,26 @@
 			rowHtml += "  </td>";
 			rowHtml += "  <td colspan='3'>";
 			rowHtml += "    <input type='text' id='type3_imgUrl" + index + "' class='imgUrl' onblur=\"javascript:fn_img3_inputBlur(" + index + ",'imgUrl',this.value);\" style='width:700px;' value='" + value.imgUrl + "' maxlength='100' placeholder='http://' />";
-			rowHtml += "    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <button type='button' id='type3_imgUrl" + index +"' class='btn btn-success btn-sm' onclick=\"fn_pre_view_img('type3_imgUrl" + index +"');\"><i class='fa fa-eye' aria-hidden='true'></i> 미리보기</button>";
+			rowHtml += "    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <button type='button' class='btn btn-success btn-sm' onclick=\"fn_pre_view_img('type3_imgUrl" + index +"');\"><i class='fa fa-eye' aria-hidden='true'></i> 미리보기</button>";
 			rowHtml += "  </td>";
 			rowHtml += "</tr>";
 			$("#img3_table > tbody:last").append(rowHtml);
 		});
 	}
+	
+	//
+	// delete the tr element on img3
+	//
 	function fn_img3_del(idx) {
 		if (!true) alert("fn_img_del(" + idx + ")");
 		arrImg3.splice(idx, 1);
 		fn_img3_appendTableTr();
 		$("#img3_addItem").attr("disabled", false);
 	}
+	
+	//
+	// move upward on img3
+	//
 	function fn_img3_up(idx) {
 		if (!true) alert("fn_img_up(" + idx + ")");
 		var temp = arrImg3[idx-1];
@@ -2325,6 +2130,10 @@
 		arrImg3[idx] = temp;
 		fn_img3_appendTableTr();
 	}
+	
+	//
+	// move downward on img3
+	//
 	function fn_img3_down(idx) {
 		if (!true) alert("fn_img_down(" + idx + ")");
 		var temp = arrImg3[idx+1];
@@ -2334,38 +2143,81 @@
 	}
 	////////////////////////////////////////////////////////////
 	var maxArrCpn3 = 3;
-	$("cpn3_addItem").tooltip();
+	var arrCpn3 = [
+		{ cpnText1: "", cpnText2: "", cpnText3: "", cpnText4: "", cpnNumber: "", cpnVisible: "hide" }
+	];
 	//
-	//
+	// click of img1 addItem
 	//
 	function fn_cpn3_addItem_click() {
-		if (arrCpn3.length >= maxArrCpn3) {
-			if (true) alert("이미지는 " + maxArrCpn3 + "개까지만 등록 가능합니다.");
-			return;
-		}
 		if (!true) alert("fn_cpn3_addItem_click()");
 		var idx = arrCpn3.length + 1;
+		//arrCpn3.push({ imgUrl: "imgUrl - " + idx });
 		arrCpn3.push({ cpnText1: "", cpnText2: "", cpnText3: "", cpnText4: "", cpnNumber: "", cpnVisible: "hide" });
 		fn_cpn3_appendTableTr();
+		
 		if (idx >= maxArrCpn3) {
 			$("#cpn3_addItem").attr("disabled", true);
 		}
 	}
+	
+	//
+	// clear the cpn3 table
+	//
+	function fn_cpn3_clear() {
+		if (!true) alert("fn_cpn3_clear()");
+		$("#cpn3_table > tbody").empty();
+	}
+	
+	//
+	// find the table tr elements : NOT USED
+	//
+	/*
+	function fn_cpn3_findTableTr() {
+		var arr = [];
+		$("#cpn3_table > tbody > tr").each(function(tr, index) {
+			// var imgUrl = $(tr).find(".imgUrl").val()
+			var imgUrl = $(tr).find("#kang").val()
+			if (true) console.log(">>> " + JSON.stringify($(tr)));
+			if (!true) console.log(">>> " + index + ": " + imgUrl);
+			arr.push({ url: imgUrl});
+		})
+		if (true) console.log("fn_cpn3_findTableTr: " + $("#cpn3_table tbody tr").length + " - " + JSON.stringify(arr));
+		
+		return false;
+	}
+	*/
+	
+	//
+	// blur event of input element on cpn3
+	//
 	function fn_cpn3_inputBlur(idx, cls, value) {
 		if (true) console.log(idx + ": " + cls + ": " + value);
 		arrCpn3[idx][cls] = value;
 	}
+	
+	//
+	// click event of radio element on cpn3
+	//
 	function fn_cpn3_radioClick(idx, cls, value) {
 		if (true) console.log(idx + ": " + cls + ": " + value);
 		arrCpn3[idx][cls] = value;
 	}
+	
+	//
+	// append a tr element to cpn3
+	//
 	function fn_cpn3_appendTableTr() {
 		// clear
-		$("#cpn3_table > tbody").empty();
+		fn_cpn3_clear();
+		
 		// value print
 		arrCpn3.forEach(function(value, index, array) {
-			if (!true) console.log("fn_cpn3_appendTableTr(): (" + index + "/" + array.length + ") : " + value.cpnText1 + ", " + value.cpnVisible);
-			$('input[name="cpnVisible3"]').val(value.cpnVisible);
+			if (true) console.log("fn_cpn3_appendTableTr(): (" + index + "/" + array.length + ") : " + value.cpnText1 + ", " + value.cpnVisible);
+			
+			var checkedShow = (value.cpnVisible == "show") ? "checked" : "";
+			var checkedHide = (value.cpnVisible == "hide") ? "checked" : "";
+			
 			var rowHtml = "";
 			rowHtml += "<tr>";
 			rowHtml += "  <td class=\"info\" rowspan='6'>";
@@ -2414,19 +2266,27 @@
 			rowHtml += "<tr>";
 			rowHtml += "  <td class='info'>다운받기 노출</td>";
 			rowHtml += "  <td colspan='2'>";
-			rowHtml += "    <input name='cpnVisible3" + index + "' onclick=\"javascript:fn_cpn3_radioClick(" + index + ",'cpnVisible','show');\" type='radio' value='show' /> 쿠폰 노출 &nbsp;&nbsp;&nbsp;";
-			rowHtml += "    <input name='cpnVisible3" + index + "' onclick=\"javascript:fn_cpn3_radioClick(" + index + ",'cpnVisible','hide');\" type='radio' value='hide' /> 쿠폰 미노출 &nbsp;&nbsp;&nbsp;";
+			rowHtml += "    <input name='cpnVisible3" + index + "' onclick=\"javascript:fn_cpn3_radioClick(" + index + ",'cpnVisible','show');\" type='radio' " + checkedShow + " /> 쿠폰 노출 &nbsp;&nbsp;&nbsp;";
+			rowHtml += "    <input name='cpnVisible3" + index + "' onclick=\"javascript:fn_cpn3_radioClick(" + index + ",'cpnVisible','hide');\" type='radio' " + checkedHide + " /> 쿠폰 미노출 &nbsp;&nbsp;&nbsp;";
 			rowHtml += "  </td>";
 			rowHtml += "</tr>";
 			$("#cpn3_table > tbody:last").append(rowHtml);
 		});
 	}
+	
+	//
+	// delete the tr element on cpn3
+	//
 	function fn_cpn3_del(idx) {
 		if (!true) alert("fn_img_del(" + idx + ")");
 		arrCpn3.splice(idx, 1);
 		fn_cpn3_appendTableTr();
 		$("#cpn3_addItem").attr("disabled", false);
 	}
+	
+	//
+	// move upward on cpn3
+	//
 	function fn_cpn3_up(idx) {
 		if (!true) alert("fn_img_up(" + idx + ")");
 		var temp = arrCpn3[idx-1];
@@ -2434,6 +2294,10 @@
 		arrCpn3[idx] = temp;
 		fn_cpn3_appendTableTr();
 	}
+	
+	//
+	// move downward on cpn3
+	//
 	function fn_cpn3_down(idx) {
 		if (!true) alert("fn_img_down(" + idx + ")");
 		var temp = arrCpn3[idx+1];
@@ -2454,37 +2318,87 @@
 	// KANG-20190326: type-4 script BEGIN
 	/////////////////////////////////////////////////
 	var maxArrAnn4 = 1;
-	$("ann4_addItem").tooltip();
+	var arrAnn4 = [
+		{ annText: "", annFixed: "center" }
+	];
+	
 	//
-	//
+	// click of img1 addItem
 	//
 	function fn_ann4_addItem_click() {
+		if (!true) alert("fn_ann4_addItem_click()");
 		if (arrAnn4.length >= maxArrAnn4) {
-			if (true) alert("이미지는 " + maxArrAnn4 + "개까지만 등록 가능합니다.");
+			if (true) alert("이미지는 " + maxArrAnn4 + "개까지 등록 가능합니다.");
 			return;
 		}
-		if (!true) alert("fn_ann4_addItem_click()");
 		var idx = arrAnn4.length + 1;
+		//arrAnn4.push({ imgUrl: "imgUrl - " + idx });
 		arrAnn4.push({ annText: "", annFixed: "center" });
 		fn_ann4_appendTableTr();
+		
 		if (idx >= maxArrAnn4) {
 			$("#ann4_addItem").attr("disabled", true);
 		}
 	}
+	
+	//
+	// clear the ann4 table
+	//
+	function fn_ann4_clear() {
+		if (!true) alert("fn_ann4_clear()");
+		$("#ann4_table > tbody").empty();
+	}
+	
+	//
+	// find the table tr elements : NOT USED
+	//
+	/*
+	function fn_ann4_findTableTr() {
+		var arr = [];
+		$("#ann4_table > tbody > tr").each(function(tr, index) {
+			// var imgUrl = $(tr).find(".imgUrl").val()
+			var imgUrl = $(tr).find("#kang").val()
+			if (true) console.log(">>> " + JSON.stringify($(tr)));
+			if (!true) console.log(">>> " + index + ": " + imgUrl);
+			arr.push({ url: imgUrl});
+		})
+		if (true) console.log("fn_ann4_findTableTr: " + $("#ann4_table tbody tr").length + " - " + JSON.stringify(arr));
+		
+		return false;
+	}
+	*/
+	
+	//
+	// blur event of input element on ann4
+	//
 	function fn_ann4_inputBlur(idx, cls, value) {
 		if (true) console.log(idx + ": " + cls + ": " + value);
 		arrAnn4[idx][cls] = value;
 	}
+	
+	//
+	// click event of radio element on ann4
+	//
 	function fn_ann4_radioClick(idx, cls, value) {
 		if (true) console.log(idx + ": " + cls + ": " + value);
 		arrAnn4[idx][cls] = value;
 	}
+	
+	//
+	// append a tr element to ann4
+	//
 	function fn_ann4_appendTableTr() {
 		// clear
-		$("#ann4_table > tbody").empty();
+		fn_ann4_clear();
+		
 		// value print
 		arrAnn4.forEach(function(value, index, array) {
 			if (true) console.log("fn_ann4_appendTableTr(): (" + index + "/" + array.length + ") : " + value.annText + ", " + value.annFixed);
+			
+			var checkedLeft   = (value.annFixed == "left"  ) ? "checked" : "";
+			var checkedCenter = (value.annFixed == "center") ? "checked" : "";
+			var checkedRight  = (value.annFixed == "right" ) ? "checked" : "";
+			
 			var rowHtml = "";
 			rowHtml += "<tr>";
 			rowHtml += "  <td class=\"info\" rowspan='2'>";
@@ -2510,19 +2424,27 @@
 			rowHtml += "  <td class='info'>정렬</td>";
 			rowHtml += "  <td colspan='2'>";
 			//rowHtml += "    <input name='annFixed" + index + "' onclick=\"javascript:fn_ann4_radioClick(" + index + ",'annFixed','left'  );\" type='radio' " + checkedLeft   + " /> 좌측정렬 &nbsp;&nbsp;&nbsp;";
-			rowHtml += "    <input name='annFixed" + index + "' onclick=\"javascript:fn_ann4_radioClick(" + index + ",'annFixed','center');\" type='radio' checked /> 중앙정렬 &nbsp;&nbsp;&nbsp;";
+			rowHtml += "    <input name='annFixed" + index + "' onclick=\"javascript:fn_ann4_radioClick(" + index + ",'annFixed','center');\" type='radio' " + checkedCenter + " /> 중앙정렬 &nbsp;&nbsp;&nbsp;";
 			//rowHtml += "    <input name='annFixed" + index + "' onclick=\"javascript:fn_ann4_radioClick(" + index + ",'annFixed','right' );\" type='radio' " + checkedRight  + " /> 우측정렬 &nbsp;&nbsp;&nbsp;";
 			rowHtml += "  </td>";
 			rowHtml += "</tr>";
 			$("#ann4_table > tbody:last").append(rowHtml);
 		});
 	}
+	
+	//
+	// delete the tr element on ann4
+	//
 	function fn_ann4_del(idx) {
 		if (!true) alert("fn_img_del(" + idx + ")");
 		arrAnn4.splice(idx, 1);
 		fn_ann4_appendTableTr();
 		$("#ann4_addItem").attr("disabled", false);
 	}
+	
+	//
+	// move upward on ann4
+	//
 	function fn_ann4_up(idx) {
 		if (!true) alert("fn_img_up(" + idx + ")");
 		var temp = arrAnn4[idx-1];
@@ -2530,6 +2452,10 @@
 		arrAnn4[idx] = temp;
 		fn_ann4_appendTableTr();
 	}
+	
+	//
+	// move downward on ann4
+	//
 	function fn_ann4_down(idx) {
 		if (!true) alert("fn_img_down(" + idx + ")");
 		var temp = arrAnn4[idx+1];
@@ -2550,33 +2476,70 @@
 	// KANG-20190326: type-5 script BEGIN
 	/////////////////////////////////////////////////
 	var maxArrPrd5 = 10;
-	$("prd5_addItem").tooltip();
+	var arrPrd5 = [
+		{ prdUrl: "", prdName: "", prdPrice: "", prdUnit: "", prdMblUrl: "", prdWebUrl: "" }
+	];
 	//
-	//
+	// click of img1 addItem
 	//
 	function fn_prd5_addItem_click() {
-		if (arrPrd5.length >= maxArrPrd5) {
-			if (true) alert("이미지는 " + maxArrPrd5 + "개까지만 등록 가능합니다.");
-			return;
-		}
 		if (!true) alert("fn_prd5_addItem_click()");
 		var idx = arrPrd5.length + 1;
+		//arrPrd5.push({ imgUrl: "imgUrl - " + idx });
 		arrPrd5.push({ prdUrl: "", prdName: "", prdPrice: "", prdUnit: "", prdMblUrl: "", prdWebUrl: "" });
 		fn_prd5_appendTableTr();
+		
 		if (idx >= maxArrPrd5) {
 			$("#prd5_addItem").attr("disabled", true);
 		}
 	}
+	
+	//
+	// clear the prd5 table
+	//
+	function fn_prd5_clear() {
+		if (!true) alert("fn_prd5_clear()");
+		$("#prd5_table > tbody").empty();
+	}
+	
+	//
+	// find the table tr elements : NOT USED
+	//
+	/*
+	function fn_prd5_findTableTr() {
+		var arr = [];
+		$("#prd5_table > tbody > tr").each(function(tr, index) {
+			// var imgUrl = $(tr).find(".imgUrl").val()
+			var imgUrl = $(tr).find("#kang").val()
+			if (true) console.log(">>> " + JSON.stringify($(tr)));
+			if (!true) console.log(">>> " + index + ": " + imgUrl);
+			arr.push({ url: imgUrl});
+		})
+		if (true) console.log("fn_prd5_findTableTr: " + $("#prd5_table tbody tr").length + " - " + JSON.stringify(arr));
+		
+		return false;
+	}
+	*/
+	
+	//
+	// blur event of input element on prd5
+	//
 	function fn_prd5_inputBlur(idx, cls, value) {
 		if (true) console.log(idx + ": " + cls + ": " + value);
 		arrPrd5[idx][cls] = value;
 	}
+	
+	//
+	// append a tr element to prd5
+	//
 	function fn_prd5_appendTableTr() {
 		// clear
-		$("#prd5_table > tbody").empty();
+		fn_prd5_clear();
+		
 		// value print
 		arrPrd5.forEach(function(value, index, array) {
 			if (true) console.log("fn_prd5_appendTableTr(): (" + index + "/" + array.length + ") : " + value.prdName + ", " + value.prdUnit);
+			
 			var rowHtml = "";
 			rowHtml += "<tr>";
 			rowHtml += "  <td class=\"info\" rowspan='6'>";
@@ -2639,12 +2602,19 @@
 			$("#prd5_table > tbody:last").append(rowHtml);
 		});
 	}
+	//
+	// delete the tr element on prd5
+	//
 	function fn_prd5_del(idx) {
 		if (!true) alert("fn_img_del(" + idx + ")");
 		arrPrd5.splice(idx, 1);
 		fn_prd5_appendTableTr();
 		$("#prd5_addItem").attr("disabled", false);
 	}
+	
+	//
+	// move upward on prd5
+	//
 	function fn_prd5_up(idx) {
 		if (!true) alert("fn_img_up(" + idx + ")");
 		var temp = arrPrd5[idx-1];
@@ -2652,6 +2622,10 @@
 		arrPrd5[idx] = temp;
 		fn_prd5_appendTableTr();
 	}
+	
+	//
+	// move downward on prd5
+	//
 	function fn_prd5_down(idx) {
 		if (!true) alert("fn_img_down(" + idx + ")");
 		var temp = arrPrd5[idx+1];
@@ -2672,38 +2646,81 @@
 	// KANG-20190326: type-6 script BEGIN
 	/////////////////////////////////////////////////
 	var maxArrCpn6 = 3;
-	$("cpn6_addItem").tooltip();
+	var arrCpn6 = [
+		{ cpnText1: "", cpnText2: "", cpnText3: "", cpnText4: "", cpnNumber: "", cpnVisible: "hide" }
+	];
 	//
-	//
+	// click of img1 addItem
 	//
 	function fn_cpn6_addItem_click() {
-		if (arrCpn6.length >= maxArrCpn6) {
-			if (true) alert("이미지는 " + maxArrCpn6 + "개까지만 등록 가능합니다.");
-			return;
-		}
 		if (!true) alert("fn_cpn6_addItem_click()");
 		var idx = arrCpn6.length + 1;
+		//arrCpn6.push({ imgUrl: "imgUrl - " + idx });
 		arrCpn6.push({ cpnText1: "", cpnText2: "", cpnText3: "", cpnText4: "", cpnNumber: "", cpnVisible: "hide" });
 		fn_cpn6_appendTableTr();
+		
 		if (idx >= maxArrCpn6) {
 			$("#cpn6_addItem").attr("disabled", true);
 		}
 	}
+	
+	//
+	// clear the cpn6 table
+	//
+	function fn_cpn6_clear() {
+		if (!true) alert("fn_cpn6_clear()");
+		$("#cpn6_table > tbody").empty();
+	}
+	
+	//
+	// find the table tr elements : NOT USED
+	//
+	/*
+	function fn_cpn6_findTableTr() {
+		var arr = [];
+		$("#cpn6_table > tbody > tr").each(function(tr, index) {
+			// var imgUrl = $(tr).find(".imgUrl").val()
+			var imgUrl = $(tr).find("#kang").val()
+			if (true) console.log(">>> " + JSON.stringify($(tr)));
+			if (!true) console.log(">>> " + index + ": " + imgUrl);
+			arr.push({ url: imgUrl});
+		})
+		if (true) console.log("fn_cpn6_findTableTr: " + $("#cpn6_table tbody tr").length + " - " + JSON.stringify(arr));
+		
+		return false;
+	}
+	*/
+	
+	//
+	// blur event of input element on cpn6
+	//
 	function fn_cpn6_inputBlur(idx, cls, value) {
 		if (true) console.log(idx + ": " + cls + ": " + value);
 		arrCpn6[idx][cls] = value;
 	}
+	
+	//
+	// click event of radio element on cpn6
+	//
 	function fn_cpn6_radioClick(idx, cls, value) {
 		if (true) console.log(idx + ": " + cls + ": " + value);
 		arrCpn6[idx][cls] = value;
 	}
+	
+	//
+	// append a tr element to cpn6
+	//
 	function fn_cpn6_appendTableTr() {
 		// clear
-		$("#cpn6_table > tbody").empty();
+		fn_cpn6_clear();
+		
 		// value print
 		arrCpn6.forEach(function(value, index, array) {
 			if (true) console.log("fn_cpn6_appendTableTr(): (" + index + "/" + array.length + ") : " + value.cpnText1 + ", " + value.cpnVisible);
-			$('input[name="cpnVisible3"]').val(value.cpnVisible);
+			
+			var checkedShow = (value.cpnVisible == "show") ? "checked" : "";
+			var checkedHide = (value.cpnVisible == "hide") ? "checked" : "";
+			
 			var rowHtml = "";
 			rowHtml += "<tr>";
 			rowHtml += "  <td class=\"info\" rowspan='6'>";
@@ -2752,19 +2769,27 @@
 			rowHtml += "<tr>";
 			rowHtml += "  <td class='info'>다운받기 노출</td>";
 			rowHtml += "  <td colspan='2'>";
-			rowHtml += "    <input name='cpnVisible6" + index + "' onclick=\"javascript:fn_cpn6_radioClick(" + index + ",'cpnVisible','show');\" type='radio' value='show' /> 쿠폰 노출 &nbsp;&nbsp;&nbsp;";
-			rowHtml += "    <input name='cpnVisible6" + index + "' onclick=\"javascript:fn_cpn6_radioClick(" + index + ",'cpnVisible','hide');\" type='radio' value='hide' /> 쿠폰 미노출 &nbsp;&nbsp;&nbsp;";
+			rowHtml += "    <input name='cpnVisible6" + index + "' onclick=\"javascript:fn_cpn6_radioClick(" + index + ",'cpnVisible','show');\" type='radio' " + checkedShow + " /> 쿠폰 노출 &nbsp;&nbsp;&nbsp;";
+			rowHtml += "    <input name='cpnVisible6" + index + "' onclick=\"javascript:fn_cpn6_radioClick(" + index + ",'cpnVisible','hide');\" type='radio' " + checkedHide + " /> 쿠폰 미노출 &nbsp;&nbsp;&nbsp;";
 			rowHtml += "  </td>";
 			rowHtml += "</tr>";
 			$("#cpn6_table > tbody:last").append(rowHtml);
 		});
 	}
+	
+	//
+	// delete the tr element on cpn6
+	//
 	function fn_cpn6_del(idx) {
 		if (!true) alert("fn_img_del(" + idx + ")");
 		arrCpn6.splice(idx, 1);
 		fn_cpn6_appendTableTr();
 		$("#cpn6_addItem").attr("disabled", false);
 	}
+	
+	//
+	// move upward on cpn6
+	//
 	function fn_cpn6_up(idx) {
 		if (!true) alert("fn_img_up(" + idx + ")");
 		var temp = arrCpn6[idx-1];
@@ -2772,6 +2797,10 @@
 		arrCpn6[idx] = temp;
 		fn_cpn6_appendTableTr();
 	}
+	
+	//
+	// move downward on cpn6
+	//
 	function fn_cpn6_down(idx) {
 		if (!true) alert("fn_img_down(" + idx + ")");
 		var temp = arrCpn6[idx+1];
@@ -3233,7 +3262,7 @@
 									<div id="_images-2">
 										<div>
 											<h6>* 이미지내용(Images)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-												<button id="img2_addItem" type="button" class="btn btn-primary" style="height:20px;width:50px;padding:2px; font-size:12px;" title="이미지는 최대 1개까지 등록 가능합니다.">항목추가</button>
+												<button id="img2_addItem" type="button" class="btn btn-primary" style="height:20px;width:50px;padding:2px; font-size:12px;">항목추가</button>
 											</h6>
 										</div>
 										<div>
@@ -3253,7 +3282,7 @@
 									<div id="_goods-2">
 										<div>
 											<h6>* 상품내용(Goods)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-												<button id="prd2_addItem" type="button" class="btn btn-primary" style="height:20px;width:50px;padding:2px; font-size:12px;" title="이미지는 최대 10개까지 등록 가능합니다.">항목추가</button>
+												<button id="prd2_addItem" type="button" class="btn btn-primary" style="height:20px;width:50px;padding:2px; font-size:12px;">항목추가</button>
 											</h6>
 										</div>
 										<div>

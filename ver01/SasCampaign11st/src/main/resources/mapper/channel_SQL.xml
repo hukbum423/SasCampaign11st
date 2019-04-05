@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?> 
+<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="Channel">
@@ -61,7 +61,7 @@
     <result property="camp_bgn_dt"         column="camp_bgn_dt" />
     <result property="camp_end_dt"         column="camp_end_dt" />
     <result property="lms_title"           column="lms_title" />
-    
+
  </resultMap>
  <resultMap type="com.skplanet.sascm.object.ChannelBO" id="ChannelBO">
         <result property="campaignid"         column="campaignid" />
@@ -96,16 +96,29 @@
         <result property="lms_disp_time"      column="lms_disp_time" />
 
         <result property="mobile_lnk_page_url"      column="mobile_lnk_page_url" />
-        <result property="mobile_lnk_page_typ"      column="mobile_lnk_page_typ" />  
-        <result property="mobile_send_prefer_cd"    column="mobile_send_prefer_cd" />  
-        <result property="mobile_person_msg_yn"     column="mobile_person_msg_yn" />  
-        
+        <result property="mobile_lnk_page_typ"      column="mobile_lnk_page_typ" />
+        <result property="mobile_send_prefer_cd"    column="mobile_send_prefer_cd" />
+        <result property="mobile_person_msg_yn"     column="mobile_person_msg_yn" />
+
         <result property="sms_send_prefer_cd"       column="sms_send_prefer_cd" />
-        
+
+ </resultMap>
+ <resultMap type="com.skplanet.sascm.object.ChannelAlimiBO" id="ChannelAlimiBO">
+        <result property="cellId"             column="cellId" />
+        <result property="campaignCode"       column="campaignCode" />
+        <result property="campaignId"         column="campaignId" />
+        <result property="channelCd"          column="channelCd" />
+        <result property="appKdCd"            column="appKdCd" />
+        <result property="talkMsgDispYn"      column="talkMsgDispYn" />
+        <result property="talkMsgSummary"     column="talkMsgSummary" />
+        <result property="talkMsgTmpltNo"     column="talkMsgTmpltNo" />
+        <result property="talkBlckCont"       column="talkBlckCont" />
+        <result property="mobileSendPreferCd" column="mobileSendPreferCd" />
+        <result property="mobilePersonMsgYn"  column="mobilePersonMsgYn" />
  </resultMap>
   <!-- 캠페인 채널 리스트 -->
-    
-  
+
+
   <!-- 캠페인 채널 리스트 -->
   <select id="Channel.getCampaignChannelList" parameterType="Map" resultMap="CampaignChannelBO">
     SELECT
@@ -122,23 +135,23 @@
          ,C.CAMP_STATUS_CD                      camp_status_cd
          ,B.MARKETING_CELL_SK                   cellid
              ,COUNT(1) OVER (PARTITION BY B.COMMUNICATION_SK )      cellrow
-     FROM CI_CAMPAIGN            A   
+     FROM CI_CAMPAIGN            A
          ,CI_CELL_PACKAGE        B
          ,CM_CAMPAIGN_DTL        C
          ,CM_CAMPAIGN_CHANNEL    D
     WHERE A.CAMPAIGN_SK  = #{CAMPAIGNID}
-      AND ( B.CONTROL_GROUP_TYPE_CD IS NULL OR B.CONTROL_GROUP_TYPE_CD IN ('_CH','_CL') ) 
+      AND ( B.CONTROL_GROUP_TYPE_CD IS NULL OR B.CONTROL_GROUP_TYPE_CD IN ('_CH','_CL') )
       AND A.CAMPAIGN_SK  = B.CAMPAIGN_SK
       AND A.CAMPAIGN_SK  = C.CAMPAIGNID(+)
       AND B.MARKETING_CELL_SK       = D.CELLID(+)
-      AND B.COMMUNICATION_OCCURRENCE_NO IN ( 
-        SELECT MAX(COMMUNICATION_OCCURRENCE_NO) 
-        FROM CI_CELL_PACKAGE 
-        WHERE CAMPAIGN_SK  = A.CAMPAIGN_SK 
-          AND MARKETING_CELL_SK = B.MARKETING_CELL_SK 
+      AND B.COMMUNICATION_OCCURRENCE_NO IN (
+        SELECT MAX(COMMUNICATION_OCCURRENCE_NO)
+        FROM CI_CELL_PACKAGE
+        WHERE CAMPAIGN_SK  = A.CAMPAIGN_SK
+          AND MARKETING_CELL_SK = B.MARKETING_CELL_SK
       )
     ORDER BY CELLNAME ASC
-  </select> 
+  </select>
   <!-- 채널 기본정보 조회 -->
   <select id="Channel.getChannelInfo" parameterType="Map"  resultMap="ChannelBO">
       SELECT
@@ -162,14 +175,14 @@
         ,CI_CELL_PACKAGE    B
         ,CM_CAMPAIGN_DTL    C
     WHERE A.CAMPAIGN_SK  = #{CAMPAIGNID}
-      AND ( B.CONTROL_GROUP_TYPE_CD IS NULL OR B.CONTROL_GROUP_TYPE_CD IN ('_CH','_CL') ) 
+      AND ( B.CONTROL_GROUP_TYPE_CD IS NULL OR B.CONTROL_GROUP_TYPE_CD IN ('_CH','_CL') )
       AND A.CAMPAIGN_SK  = B.CAMPAIGN_SK
       AND A.CAMPAIGN_SK  = C.CAMPAIGNID(+)
       AND B.MARKETING_CELL_SK      = #{CELLID}
   </select>
-  
-  
-  
+
+
+
   <!-- 채널 상세정보 조회(공통) -->
   <select id="Channel.getChannelDtlInfo" parameterType="Map"  resultMap="ChannelBO">
         SELECT E.*   /* Channel.getChannelDtlInfo */
@@ -194,11 +207,11 @@
               ,D.SMS_DISP_TIME                            sms_disp_time
               ,D.EMAIL_EDIT_YN                            email_edit_yn
               ,D.EMAIL_SUBJECT                            email_subject
-              ,CASE WHEN D.EMAIL_EDIT_YN = 'N' THEN '' 
+              ,CASE WHEN D.EMAIL_EDIT_YN = 'N' THEN ''
                     ELSE NVL(D.EMAIL_FROMNAME,    (SELECT CODE_NAME FROM CM_CODE_DTL WHERE COMM_CODE_ID = 'C018' AND CODE_ID = 'FROMNAME'    AND USE_YN = 'Y' )) END email_fromname
-              ,CASE WHEN D.EMAIL_EDIT_YN = 'N' THEN '' 
+              ,CASE WHEN D.EMAIL_EDIT_YN = 'N' THEN ''
                     ELSE NVL(D.EMAIL_FROMADDRESS, (SELECT CODE_NAME FROM CM_CODE_DTL WHERE COMM_CODE_ID = 'C018' AND CODE_ID = 'FROMADDRESS' AND USE_YN = 'Y' )) END email_fromaddress
-              ,CASE WHEN D.EMAIL_EDIT_YN = 'N' THEN '' 
+              ,CASE WHEN D.EMAIL_EDIT_YN = 'N' THEN ''
                     ELSE NVL(D.EMAIL_REPLYTO,     (SELECT CODE_NAME FROM CM_CODE_DTL WHERE COMM_CODE_ID = 'C018' AND CODE_ID = 'REPYTO'      AND USE_YN = 'Y' )) END email_replyto
               ,D.EMAIL_NAME                               email_name
               ,D.EMAIL_DESC                               email_desc
@@ -258,11 +271,11 @@
               ,B.MARKETING_CELL_NM                        cellname
               ,B.MARKETING_CELL_CD                        cellcode
               ,''                                         offerlistid
-             FROM CI_CAMPAIGN            A   
+             FROM CI_CAMPAIGN            A
              ,CI_CELL_PACKAGE        B
              ,CM_CAMPAIGN_DTL        C
       WHERE A.CAMPAIGN_SK  = B.CAMPAIGN_SK
-        AND ( B.CONTROL_GROUP_TYPE_CD IS NULL OR B.CONTROL_GROUP_TYPE_CD IN ('_CH','_CL') ) 
+        AND ( B.CONTROL_GROUP_TYPE_CD IS NULL OR B.CONTROL_GROUP_TYPE_CD IN ('_CH','_CL') )
         AND A.CAMPAIGN_SK  = C.CAMPAIGNID(+)
               AND B.MARKETING_CELL_SK  = #{CELLID}
         ) E
@@ -325,10 +338,10 @@
       ,TO_NUMBER(SUBSTR(TRIM(#{CAMPAIGNCODE}),5))
       ,TRIM(#{CREATE_ID})
       ,SYSDATE
-    )         
+    )
   </update>
-  
-  
+
+
   <!-- 채널정보 저장(SMS) -->
   <update id="Channel.setChannelSms" parameterType="Map" >
     MERGE INTO CM_CAMPAIGN_CHANNEL
@@ -366,7 +379,7 @@
       ,CAMPAIGNCODE
       ,FLOWCHARTID
       ,CREATE_ID
-      ,CREATE_DT      
+      ,CREATE_DT
     )
     VALUES (
        TRIM(#{CELLID})
@@ -384,14 +397,14 @@
       ,TRIM(#{CAMPAIGNCODE})
       ,TO_NUMBER(SUBSTR(TRIM(#{CAMPAIGNCODE}),5))
       ,TRIM(#{CREATE_ID})
-      ,SYSDATE      
-    )         
+      ,SYSDATE
+    )
   </update>
-        
+
 
   <!-- 채널정보 저장(EMAIL) -->
   <update id="Channel.setChannelEmail" parameterType="Map" >
-  <![CDATA[ 
+  <![CDATA[
     MERGE INTO CM_CAMPAIGN_CHANNEL
     USING DUAL
     ON (    CELLID     = #{CELLID}
@@ -461,7 +474,7 @@
      WHERE CELLID          = #{CELLID}
        AND  CHANNEL_CD     = #{CHANNEL_CD}
   </update>
-  
+
 
   <!-- 채널정보 저장(MOBILE) -->
   <update id="Channel.setChannelMobile" parameterType="Map" >
@@ -471,10 +484,10 @@
         AND CHANNEL_CD = #{CHANNEL_CD}
        )
     WHEN MATCHED THEN
-        UPDATE SET MOBILE_APP_KD_CD           = TRIM(#{MOBILE_APP_KD_CD}) 
+        UPDATE SET MOBILE_APP_KD_CD           = TRIM(#{MOBILE_APP_KD_CD})
                   ,MOBILE_DISP_TITLE          = TRIM(#{MOBILE_DISP_TITLE})
-                  ,MOBILE_CONTENT             = TRIM(#{MOBILE_CONTENT})   
-                  ,MOBILE_ADD_TEXT            = ''  
+                  ,MOBILE_CONTENT             = TRIM(#{MOBILE_CONTENT})
+                  ,MOBILE_ADD_TEXT            = ''
                   ,MOBILE_DISP_DT             = TO_DATE(TRIM(#{MOBILE_DISP_DT}), 'YYYY-MM-DD')
                   ,MOBILE_PRIORITY_RNK        = TRIM(#{MOBILE_PRIORITY_RNK})
                   ,MOBILE_DISP_TIME           = TRIM(#{MOBILE_DISP_TIME})
@@ -545,47 +558,47 @@
      WHERE CELLID          = #{CELLID}
        AND  CHANNEL_CD     = #{CHANNEL_CD}
   </update>
-        
-        
+
+
   <!-- Toast LinkUrl 조회 -->
   <select id="Channel.getChannelToastLinkUrl" parameterType="Map"  resultType="String">
-    SELECT CODE_NAME 
+    SELECT CODE_NAME
     FROM   UAEXT_CODE_DTL
-    
+
     WHERE COMM_CODE_ID = #{codeId}
     AND   CODE_ID = #{TOAST_EVNT_TYP_CD}
     AND   USE_YN = 'Y'
   </select>
-  
+
 
   <!-- 대상수준이 PCID일경우 토스트배너 이외의 채널 사용여부를 체크한다 -->
   <select id="Channel.getCampaignChannelValiChk" parameterType="Map" resultType="String">
-      SELECT 
+      SELECT
              CASE WHEN COUNT(0) = 0 THEN 'Y' ELSE 'N' END channelValiChk
         FROM   CI_CAMPAIGN               A
-            ,CI_CELL_PACKAGE           B   
+            ,CI_CELL_PACKAGE           B
             ,CM_CAMPAIGN_CHANNEL       C
             ,CM_CAMPAIGN_DTL           D
       WHERE A.CAMPAIGN_SK  = #{CAMPAIGNID}
-        AND ( B.CONTROL_GROUP_TYPE_CD IS NULL OR B.CONTROL_GROUP_TYPE_CD IN ('_CH','_CL') ) 
+        AND ( B.CONTROL_GROUP_TYPE_CD IS NULL OR B.CONTROL_GROUP_TYPE_CD IN ('_CH','_CL') )
         AND A.CAMPAIGN_SK  = B.CAMPAIGN_SK
         AND A.CAMPAIGN_SK  = D.CAMPAIGNID
         AND B.MARKETING_CELL_SK      = C.CELLID
         AND C.CHANNEL_CD != 'TOAST'
         AND D.AUDIENCE_CD = 'PCID'
   </select>
-    
+
   <!-- 대상수준이 DEVICEID일경우 앱 푸쉬 이외의 채널 사용여부를 체크한다 -->
   <select id="Channel.getCampaignChannelValiChkforMobile" parameterType="Map" resultType="String">
-       
-     SELECT 
+
+     SELECT
              CASE WHEN COUNT(0) = 0 THEN 'Y' ELSE 'N' END channelValiChk
         FROM   CI_CAMPAIGN               A
-            ,CI_CELL_PACKAGE           B   
+            ,CI_CELL_PACKAGE           B
             ,CM_CAMPAIGN_CHANNEL       C
             ,CM_CAMPAIGN_DTL           D
       WHERE A.CAMPAIGN_SK  = #{CAMPAIGNID}
-        AND ( B.CONTROL_GROUP_TYPE_CD IS NULL OR B.CONTROL_GROUP_TYPE_CD IN ('_CH','_CL') ) 
+        AND ( B.CONTROL_GROUP_TYPE_CD IS NULL OR B.CONTROL_GROUP_TYPE_CD IN ('_CH','_CL') )
         AND A.CAMPAIGN_SK  = B.CAMPAIGN_SK
         AND A.CAMPAIGN_SK  = D.CAMPAIGNID
         AND B.MARKETING_CELL_SK      = C.CELLID
@@ -635,7 +648,7 @@
       ,CAMPAIGNCODE
       ,FLOWCHARTID
       ,CREATE_ID
-      ,CREATE_DT      
+      ,CREATE_DT
     )
     VALUES (
        TRIM(#{CELLID})
@@ -653,10 +666,36 @@
       ,TRIM(#{CAMPAIGNCODE})
       ,TO_NUMBER(SUBSTR(TRIM(#{CAMPAIGNCODE}),5))
       ,TRIM(#{CREATE_ID})
-      ,SYSDATE      
-    )         
+      ,SYSDATE
+    )
   </update>
-  
+
+  <!-- 채널정보 삭제(MOBILE-ALIMI): KANG-20190328: add by Kiea Seok Kang -->
+  <delete id="Channel.delChannelMobileAlimi" parameterType="Map">
+    DELETE CM_CAMPAIGN_CHANNEL_JS /* Channel.delChannelMobileAlimi */
+     WHERE 1=1
+       AND CELLID     = #{CELLID}
+  </delete>
+  <!-- 채널정보 검색(MOBILE-ALIMI): KANG-20190328: add by Kiea Seok Kang -->
+  <select id="Channel.getChannelMobileAlimi" parameterType="Map" resultMap="ChannelAlimiBO">
+      SELECT /* Channel.getChannelMobileAlimi */
+             CELLID                      cellId
+             , CAMPAIGNCODE              campaignCode
+             , CAMPAIGNID                campaignId
+             , CHANNEL_CD                channelCd
+             , APP_KD_CD                 appKdCd
+             , TALK_MSG_DISP_YN          talkMsgDispYn
+             , TALK_MSG_SUMMARY          talkMsgSummary
+             , TALK_MSG_TMPLT_NO         talkMsgTmpltNo
+             , TALK_BLCK_CONT            talkBlckCont
+             , MOBILE_SEND_PREFER_CD     mobileSendPreferCd
+             , MOBILE_PERSON_MSG_YN      mobilePersonMsgYn
+        FROM
+            CM_CAMPAIGN_CHANNEL_JS
+      WHERE 1=1
+        AND CELLID  = #{CELLID}
+  </select>
+
   <!-- 채널정보 저장(MOBILE-ALIMI): KANG-20190328: add by Kiea Seok Kang -->
   <update id="Channel.setChannelMobileAlimi" parameterType="Map" >
     MERGE INTO CM_CAMPAIGN_CHANNEL_JS   /* Channel.setChannelMobileAlimi */
@@ -708,4 +747,5 @@
                 ,TRIM(#{CREATE_ID})
         )
   </update>
+
 </mapper>

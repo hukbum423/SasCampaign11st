@@ -31,6 +31,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.skplanet.sascm.object.CampaignChannelBO;
 import com.skplanet.sascm.object.CampaignInfoBO;
+import com.skplanet.sascm.object.ChannelAlimiBO;
 import com.skplanet.sascm.object.ChannelBO;
 import com.skplanet.sascm.object.UaextCodeDtlBO;
 import com.skplanet.sascm.object.UaextVariableBO;
@@ -1035,7 +1036,85 @@ public class ChannelController {
 	}
 
 	/**
-	 * KANG-20190328: add alimi data
+	 * KANG-20190328: get
+	 * 
+	 * 채널 MOBILE 정보 얻기
+	 * 
+	 * @param request
+	 * @param response
+	 * @param modelMap
+	 * @param session
+	 * @throws Exception
+	 */
+	@RequestMapping("getChannelMobileAlimi.do")
+	public void getChannelMobileAlimi(HttpServletRequest request, HttpServletResponse response, ModelMap modelMap, HttpSession session) throws Exception {
+		String CELLID = Common.nvl(request.getParameter("cellId"), "");
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("CELLID", CELLID);
+
+		// paramter
+		log.info("=============================================");
+		log.info("map       : " + map);
+		log.info("=============================================");
+
+		if (Flag.flag) this.channelService.delChannelMobileAlimi(map);
+		ChannelAlimiBO alimi = this.channelService.getChannelMobileAlimi(map);
+		if (alimi == null) {
+			// if not exists, then create default data
+			log.info("ChannelAlimi: NULL -> create default data..");
+			UsmUserBO user = (UsmUserBO) session.getAttribute("ACCOUNT");
+			String jsonContent = "{"
+					+ "\"alimiShow\":\"N\","
+					+ "\"alimiText\":\"\","
+					+ "\"alimiType\":\"001\","
+					+ "\"title1\":\"\","
+					+ "\"advText\":\"광고\","
+					+ "\"title2\":\"\","
+					+ "\"title3\":\"\","
+					+ "\"arrImg\":[{\"imgUrl\":\"\"}],"
+					+ "\"ftrText\":\"\","
+					+ "\"ftrMblUrl\":\"\","
+					+ "\"ftrWebUrl\":\"\""
+					+ "}";
+			String composits = getBlockContent(jsonContent.replace("\\\"", "\""));
+			// log.info("composites: " + composits);
+
+			map.put("CELLID", CELLID);
+			map.put("CAMPAIGNCODE", "");
+			map.put("CAMPAIGNID", "");
+			map.put("CHANNEL_CD", "MOBILE");
+			map.put("MOBILE_APP_KD_CD", "");
+			map.put("TALK_MSG_DISP_YN", "N");   // <- show/hide, important
+			map.put("TALK_MSG_SUMMARY", "");
+			map.put("TALK_MSG_TMPLT_NO", "001");
+			map.put("TALK_BLCK_CONT", composits.replace("\"", "\\\""));
+			map.put("MOBILE_SEND_PREFER_CD", "");
+			map.put("MOBILE_PERSON_MSG_YN", "N");
+			map.put("useIndi", "N");
+			map.put("CREATE_ID", user.getId());
+			map.put("UPDATE_ID", user.getId());
+			
+			// KANG-20190328: save alimi data
+			if (Flag.flag) {
+				this.channelService.setChannelMobileAlimi(map);
+			}
+			alimi = this.channelService.getChannelMobileAlimi(map);
+		}
+		
+		String talkBlckCont = alimi.getTalkBlckCont().replace("\\\"", "\"");
+		alimi.setTalkBlckCont(talkBlckCont);
+		log.info("ChannelAlimi: " +  this.gson.toJson(alimi));
+		log.info("talkBlckCont(JSON): " +  talkBlckCont);
+		
+		// modelMap.addAttribute("alimi", alimi); // -> jsp
+		map.put("alimi", alimi);
+
+		jsonView.render(map, request, response);
+	}
+	
+	/**
+	 * KANG-20190328: set
 	 * 
 	 * 채널 MOBILE 정보 저장
 	 *
@@ -1122,19 +1201,17 @@ public class ChannelController {
 		String CMP_STATUS = Common.nvl(bo.getCamp_status_cd(), "");
 
 		if (Flag.flag) {
+			// add this.channelService.setChannelMobileAlimi
 			if (!CMP_STATUS.equals("START")) {
 				//모바일 정보 저장
 				this.channelService.setChannelMobile(map);
 				
 				// KANG-20190328: save alimi data
 				if (Flag.flag) {
+					
+					// data covert from pc to block
 					this.channelService.setChannelMobileAlimi(map);
 				}
-			}
-			
-			// KANG-20190402: 임시. 테스트 후 삭제  -> remove
-			if (Flag.flag) {
-				this.channelService.setChannelMobileAlimi(map);
 			}
 		}
 
@@ -1238,7 +1315,7 @@ public class ChannelController {
 		}
 		
 		if (flag) {
-			mapParams = gson.fromJson(jsonParams, new TypeToken<Map<String, Object>>(){}.getType());
+			mapParams = this.gson.fromJson(jsonParams, new TypeToken<Map<String, Object>>(){}.getType());
 			if (flag) {
 				System.out.println("----- mapParams main -----");
 				System.out.println("alimiShow: " + mapParams.get("alimiShow"));

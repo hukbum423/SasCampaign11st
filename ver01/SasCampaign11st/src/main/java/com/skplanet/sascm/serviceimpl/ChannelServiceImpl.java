@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.skplanet.sascm.dao.ChannelDAO;
 import com.skplanet.sascm.object.CampaignChannelBO;
+import com.skplanet.sascm.object.ChannelAlimiBO;
 import com.skplanet.sascm.object.ChannelBO;
 import com.skplanet.sascm.service.ChannelService;
 
@@ -242,6 +243,27 @@ public class ChannelServiceImpl implements ChannelService {
 	@Override
 	public int setChannelLms(Map<String, Object> param) throws Exception {
 		return channelDAO.setChannelLms(param);
+	}
+	///////////////////////////////////////////
+	/**
+	 * MOBILE-ALIMI 채널 정보 삭제: KANG-20190328: add by Kiea Seok Kang
+	 * 
+	 * @param map
+	 * @throws Exception
+	 */
+	@Override
+	public int delChannelMobileAlimi(Map<String, Object> param) throws Exception {
+		return this.channelDAO.delChannelMobileAlimi(param);
+	}
+	/**
+	 * MOBILE-ALIMI 채널 정보 검색: KANG-20190328: add by Kiea Seok Kang
+	 * 
+	 * @param map
+	 * @throws Exception
+	 */
+	@Override
+	public ChannelAlimiBO getChannelMobileAlimi(Map<String, Object> param) throws Exception {
+		return this.channelDAO.getChannelMobileAlimi(param);
 	}
 	/**
 	 * MOBILE-ALIMI 채널 정보 저장: KANG-20190328: add by Kiea Seok Kang

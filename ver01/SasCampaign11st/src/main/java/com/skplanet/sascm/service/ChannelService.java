@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.skplanet.sascm.object.ChannelBO;
 import com.skplanet.sascm.object.CampaignChannelBO;
+import com.skplanet.sascm.object.ChannelAlimiBO;
 
 /**
  * ChannelService
@@ -145,6 +146,21 @@ public interface ChannelService {
 	 * @throws Exception
 	 */
 	public int setChannelLms(Map<String, Object> param) throws Exception;
+	////////////////////////////////////////////////////////////
+	/**
+	 * MOBILE-ALIMI 채널 정보 삭제: KANG-20190328: add by Kiea Seok Kang
+	 * 
+	 * @param map
+	 * @return
+	 */
+	public int delChannelMobileAlimi(Map<String, Object> param) throws Exception;
+	/**
+	 * MOBILE-ALIMI 채널 정보 검색: KANG-20190328: add by Kiea Seok Kang
+	 * 
+	 * @param map
+	 * @return
+	 */
+	public ChannelAlimiBO getChannelMobileAlimi(Map<String, Object> param) throws Exception;
 	/**
 	 * MOBILE-ALIMI 채널 정보 저장: KANG-20190328: add by Kiea Seok Kang
 	 * 

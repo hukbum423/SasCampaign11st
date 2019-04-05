@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.skplanet.sascm.common.dao.AbstractDAO;
 import com.skplanet.sascm.dao.ChannelDAO;
 import com.skplanet.sascm.object.CampaignChannelBO;
+import com.skplanet.sascm.object.ChannelAlimiBO;
 import com.skplanet.sascm.object.ChannelBO;
 
 /**
@@ -212,6 +213,29 @@ public class ChannelDAOImpl extends AbstractDAO implements ChannelDAO {
 	@Override
 	public int setChannelLms(Map<String, Object> param) throws SQLException {
 		return (int) update("Channel.setChannelLms", param);
+	}
+	///////////////////////////////////////////
+	/**
+	 * MOBILE-ALIMI 채널 정보 삭제: KANG-20190328: add by Kiea Seok Kang
+	 * 
+	 * @param param
+	 * @return
+	 * @throws SQLException
+	 */
+	@Override
+	public int delChannelMobileAlimi(Map<String, Object> param) {
+		return (int) delete("Channel.delChannelMobileAlimi", param);
+	}
+	/**
+	 * MOBILE-ALIMI 채널 정보 검색: KANG-20190328: add by Kiea Seok Kang
+	 * 
+	 * @param param
+	 * @return
+	 * @throws SQLException
+	 */
+	@Override
+	public ChannelAlimiBO getChannelMobileAlimi(Map<String, Object> param) {
+		return (ChannelAlimiBO) selectOne("Channel.getChannelMobileAlimi", param);
 	}
 	/**
 	 * MOBILE-ALIMI 채널 정보 저장: KANG-20190328: add by Kiea Seok Kang
