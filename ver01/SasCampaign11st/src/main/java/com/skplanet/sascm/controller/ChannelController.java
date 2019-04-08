@@ -1201,11 +1201,11 @@ public class ChannelController {
 					objReturn.add("arrCpn", subArr);
 				}
 				break;
-			case "Block_Sub_Test":
+			case "Block_Sub_Text":
 				if (Flag.flag) {
 					JsonArray subArr = new JsonArray();
 					JsonObject subObj = new JsonObject();
-					subObj.addProperty("annText", payload.getAsJsonObject().get("test1").getAsString());
+					subObj.addProperty("annText", payload.getAsJsonObject().get("text1").getAsString());
 					subObj.addProperty("annFixed", payload.getAsJsonObject().get("align").getAsString());
 					subArr.add(subObj);
 					objReturn.add("arrAnn", subArr);
