@@ -28,6 +28,10 @@ import org.springframework.web.servlet.view.json.MappingJacksonJsonView;
 import com.google.common.collect.Lists;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 import com.skplanet.sascm.object.CampaignChannelBO;
 import com.skplanet.sascm.object.CampaignInfoBO;
@@ -1048,7 +1052,7 @@ public class ChannelController {
 	 */
 	@RequestMapping("getChannelMobileAlimi.do")
 	public void getChannelMobileAlimi(HttpServletRequest request, HttpServletResponse response, ModelMap modelMap, HttpSession session) throws Exception {
-		String CELLID = Common.nvl(request.getParameter("cellId"), "");
+		String CELLID = Common.nvl(request.getParameter("cellId"), "25");
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("CELLID", CELLID);
@@ -1058,13 +1062,13 @@ public class ChannelController {
 		log.info("map       : " + map);
 		log.info("=============================================");
 
-		if (Flag.flag) this.channelService.delChannelMobileAlimi(map);
+		//if (Flag.flag) this.channelService.delChannelMobileAlimi(map);   // KANG-20190406: imsi
 		ChannelAlimiBO alimi = this.channelService.getChannelMobileAlimi(map);
 		if (alimi == null) {
 			// if not exists, then create default data
 			log.info("ChannelAlimi: NULL -> create default data..");
 			UsmUserBO user = (UsmUserBO) session.getAttribute("ACCOUNT");
-			String jsonContent = "{"
+			String jsonDummyAlimi = "{"
 					+ "\"alimiShow\":\"N\","
 					+ "\"alimiText\":\"\","
 					+ "\"alimiType\":\"001\","
@@ -1077,8 +1081,9 @@ public class ChannelController {
 					+ "\"ftrMblUrl\":\"\","
 					+ "\"ftrWebUrl\":\"\""
 					+ "}";
-			String composits = getBlockContent(jsonContent.replace("\\\"", "\""));
-			// log.info("composites: " + composits);
+			String jsonDummyBlock = this.getBlockContent(jsonDummyAlimi.replace("\\\"", "\""));  // alimi -> Block
+			//jsonDummyBlock = "{}";
+			log.info("composites: " + jsonDummyBlock);
 
 			map.put("CELLID", CELLID);
 			map.put("CAMPAIGNCODE", "");
@@ -1088,7 +1093,7 @@ public class ChannelController {
 			map.put("TALK_MSG_DISP_YN", "N");   // <- show/hide, important
 			map.put("TALK_MSG_SUMMARY", "");
 			map.put("TALK_MSG_TMPLT_NO", "001");
-			map.put("TALK_BLCK_CONT", composits.replace("\"", "\\\""));
+			map.put("TALK_BLCK_CONT", jsonDummyBlock.replace("\"", "\\\""));   // for inserting to oracle table
 			map.put("MOBILE_SEND_PREFER_CD", "");
 			map.put("MOBILE_PERSON_MSG_YN", "N");
 			map.put("useIndi", "N");
@@ -1097,20 +1102,121 @@ public class ChannelController {
 			
 			// KANG-20190328: save alimi data
 			if (Flag.flag) {
-				this.channelService.setChannelMobileAlimi(map);
+				this.channelService.setChannelMobileAlimi(map);   // for inserting to oracle table
 			}
-			alimi = this.channelService.getChannelMobileAlimi(map);
+			alimi = this.channelService.getChannelMobileAlimi(map);  // select dummy record
 		}
 		
-		String talkBlckCont = alimi.getTalkBlckCont().replace("\\\"", "\"");
-		alimi.setTalkBlckCont(talkBlckCont);
-		log.info("ChannelAlimi: " +  this.gson.toJson(alimi));
-		log.info("talkBlckCont(JSON): " +  talkBlckCont);
+		// JOB
+		String jsonAlimi = getJsonAlimi(alimi);    // get jsonDummyAlimi(not exist) or jsonAlimi(exist)
+		jsonAlimi = jsonAlimi.replace("\\\"", "\"");
+		log.info("jsonAlimi: " +  jsonAlimi);
 		
-		// modelMap.addAttribute("alimi", alimi); // -> jsp
-		map.put("alimi", alimi);
+		map.put("alimi", jsonAlimi);
 
 		jsonView.render(map, request, response);
+	}
+	
+	private String getJsonAlimi(ChannelAlimiBO alimi) {
+		JsonObject objReturn = new JsonObject();        // target
+		objReturn.addProperty("alimiShow", Common.nvl(alimi.getTalkMsgDispYn(), "N"));
+		objReturn.addProperty("alimiText", Common.nvl(alimi.getTalkMsgSummary(), ""));
+		objReturn.addProperty("alimiType", Common.nvl(alimi.getTalkMsgTmpltNo(), ""));
+		
+		JsonParser parser = new JsonParser();
+		JsonArray arrRoot = parser.parse(Common.nvl(alimi.getTalkBlckCont(), "{}").replace("\\\"", "\"")).getAsJsonArray();
+		for (JsonElement element : arrRoot) {
+			//if (Flag.flag) System.out.println(">>>>> " + element);
+			String id = element.getAsJsonObject().get("id").getAsString();
+			JsonElement payload = element.getAsJsonObject().get("payload");
+			switch (id) {
+			case "Block_Top_Cap":
+				if (Flag.flag) {
+					objReturn.addProperty("title1", Common.nvl(payload.getAsJsonObject().get("text1").getAsString(), ""));
+					objReturn.addProperty("advText", Common.nvl(payload.getAsJsonObject().get("sub_text1").getAsString(), ""));
+				}
+				break;
+			case "Block_Bold_Text":
+				if (Flag.flag) {
+					objReturn.addProperty("title2", Common.nvl(payload.getAsJsonObject().get("text1").getAsString(), ""));
+					objReturn.addProperty("title3", Common.nvl(payload.getAsJsonObject().get("sub_text1").getAsString(), ""));
+				}
+				break;
+			case "Block_Btn_View":
+				if (Flag.flag) {
+					objReturn.addProperty("ftrText", Common.nvl(payload.getAsJsonObject().get("text1").getAsString(), ""));
+					objReturn.addProperty("ftrMblUrl", Common.nvl(payload.getAsJsonObject().get("linkUrl1").getAsJsonObject().get("mobile").getAsString(), ""));
+					objReturn.addProperty("ftrWebUrl", Common.nvl(payload.getAsJsonObject().get("linkUrl1").getAsJsonObject().get("web").getAsString(), ""));
+				}
+				break;
+			case "Block_Img_500":
+				if (Flag.flag) {
+					JsonArray subArr = new JsonArray();
+					for (JsonElement subElement : payload.getAsJsonArray()) {
+						JsonObject subObj = new JsonObject();
+						subObj.addProperty("imgUrl", Common.nvl(subElement.getAsJsonObject().get("imgUrl1").getAsString(), ""));
+						subArr.add(subObj);
+					}
+					objReturn.add("arrImg", subArr);
+				}
+				break;
+			case "Block_Img_240":
+				if (Flag.flag) {
+					JsonArray subArr = new JsonArray();
+					JsonObject subObj = new JsonObject();
+					subObj.addProperty("imgUrl", payload.getAsJsonObject().get("imgUrl1").getAsString());
+					subArr.add(subObj);
+					objReturn.add("arrImg", subArr);
+				}
+				break;
+			case "Block_Product_Price":
+				if (Flag.flag) {
+					JsonArray subArr = new JsonArray();
+					for (JsonElement subElement : payload.getAsJsonArray()) {
+						JsonObject subObj = new JsonObject();
+						subObj.addProperty("prdUrl", subElement.getAsJsonObject().get("imgUrl1").getAsString());
+						subObj.addProperty("prdName", subElement.getAsJsonObject().get("text1").getAsString());
+						subObj.addProperty("prdPrice", subElement.getAsJsonObject().get("price1").getAsString());
+						subObj.addProperty("prdUnit", subElement.getAsJsonObject().get("priceUnit1").getAsString());
+						subObj.addProperty("prdMblUrl", subElement.getAsJsonObject().get("linkUrl1").getAsJsonObject().get("mobile").getAsString());
+						subObj.addProperty("prdWebUrl", subElement.getAsJsonObject().get("linkUrl1").getAsJsonObject().get("web").getAsString());
+						subArr.add(subObj);
+					}
+					objReturn.add("arrPrd", subArr);
+				}
+				break;
+			case "Block_Coupon_Text":
+				if (Flag.flag) {
+					JsonArray subArr = new JsonArray();
+					for (JsonElement subElement : payload.getAsJsonArray()) {
+						JsonObject subObj = new JsonObject();
+						subObj.addProperty("cpnNumber", subElement.getAsJsonObject().get("couponNo").getAsString());
+						subObj.addProperty("cpnText1", subElement.getAsJsonObject().get("couponText").getAsString());
+						subObj.addProperty("cpnText2", subElement.getAsJsonObject().get("title1").getAsString());
+						subObj.addProperty("cpnText3", subElement.getAsJsonObject().get("sub_text1").getAsString());
+						subObj.addProperty("cpnText4", subElement.getAsJsonObject().get("sub_text2").getAsString());
+						subObj.addProperty("cpnVisible", subElement.getAsJsonObject().get("isDisplayBtn").getAsBoolean() ? "show" : "hide");
+						subArr.add(subObj);
+					}
+					objReturn.add("arrCpn", subArr);
+				}
+				break;
+			case "Block_Sub_Test":
+				if (Flag.flag) {
+					JsonArray subArr = new JsonArray();
+					JsonObject subObj = new JsonObject();
+					subObj.addProperty("annText", payload.getAsJsonObject().get("test1").getAsString());
+					subObj.addProperty("annFixed", payload.getAsJsonObject().get("align").getAsString());
+					subArr.add(subObj);
+					objReturn.add("arrAnn", subArr);
+				}
+				break;
+			default:
+				if (Flag.flag) System.out.println(">>>>> switch(id) has a default value.... id=" + id);
+				break;
+			}
+		}
+		return objReturn.toString();
 	}
 	
 	/**
@@ -1163,7 +1269,7 @@ public class ChannelController {
 			map.put("TALK_MSG_SUMMARY", root.path("alimiText").asText());
 			map.put("TALK_MSG_TMPLT_NO", root.path("alimiType").asText());
 			
-			String jsonBlckCont = getBlockContent(json);
+			String jsonBlckCont = this.getBlockContent(json);
 			//map.put("JSON_CONTENT", jsonBlckCont);
 			map.put("TALK_BLCK_CONT", jsonBlckCont.replace("\"", "\\\"").replace("'", "\\'"));
 		}
@@ -1448,7 +1554,7 @@ public class ChannelController {
 			if (flag) {
 				ret = new GsonBuilder().setPrettyPrinting().create().toJson(composites);
 				System.out.println("----- composites main -----");
-				System.out.println(">>>>> composites: " + composites);
+				// System.out.println(">>>>> composites: " + composites);
 				System.out.println(">>>>> ret: " + ret);
 			}
 		}

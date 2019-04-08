@@ -676,6 +676,7 @@
      WHERE 1=1
        AND CELLID     = #{CELLID}
   </delete>
+
   <!-- 채널정보 검색(MOBILE-ALIMI): KANG-20190328: add by Kiea Seok Kang -->
   <select id="Channel.getChannelMobileAlimi" parameterType="Map" resultMap="ChannelAlimiBO">
       SELECT /* Channel.getChannelMobileAlimi */

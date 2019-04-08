@@ -26,7 +26,7 @@ import skt.tmall.talk.dto.type.BlockSubTextAlignType;
 import skt.tmall.talk.dto.type.BlockTopCap;
 import skt.tmall.talk.service.PushTalkSendService;
 
-public class Type1JsonTestMain {
+public class TypeToJsonTestMain {
 
 	private static boolean flag = true;
 	
@@ -38,15 +38,15 @@ public class Type1JsonTestMain {
 	
 	public static void main(String[] args) throws Exception {
 		if (flag) test01();
-		if (flag) try { Thread.sleep(5000); } catch (InterruptedException e) {}
+		if (flag) try { Thread.sleep(1000); } catch (InterruptedException e) {}
 		if (flag) test02();
-		if (flag) try { Thread.sleep(5000); } catch (InterruptedException e) {}
+		if (flag) try { Thread.sleep(1000); } catch (InterruptedException e) {}
 		if (flag) test03();
-		if (flag) try { Thread.sleep(5000); } catch (InterruptedException e) {}
+		if (flag) try { Thread.sleep(1000); } catch (InterruptedException e) {}
 		if (flag) test04();
-		if (flag) try { Thread.sleep(5000); } catch (InterruptedException e) {}
+		if (flag) try { Thread.sleep(1000); } catch (InterruptedException e) {}
 		if (flag) test05();
-		if (flag) try { Thread.sleep(5000); } catch (InterruptedException e) {}
+		if (flag) try { Thread.sleep(1000); } catch (InterruptedException e) {}
 		if (flag) test06();
 	}
 	
@@ -103,7 +103,7 @@ public class Type1JsonTestMain {
 			}
 		}
 		
-		if (flag) {
+		if (!flag) {
 			// environment
 			System.setProperty("server.type", "real");
 			
@@ -233,7 +233,7 @@ public class Type1JsonTestMain {
 			}
 		}
 		
-		if (flag) {
+		if (!flag) {
 			// environment
 			System.setProperty("server.type", "real");
 			
@@ -368,7 +368,7 @@ public class Type1JsonTestMain {
 			}
 		}
 		
-		if (flag) {
+		if (!flag) {
 			// environment
 			System.setProperty("server.type", "real");
 			
@@ -476,7 +476,7 @@ public class Type1JsonTestMain {
 			}
 		}
 		
-		if (flag) {
+		if (!flag) {
 			// environment
 			System.setProperty("server.type", "real");
 			
@@ -599,7 +599,7 @@ public class Type1JsonTestMain {
 			}
 		}
 		
-		if (flag) {
+		if (!flag) {
 			// environment
 			System.setProperty("server.type", "real");
 			
@@ -725,7 +725,7 @@ public class Type1JsonTestMain {
 			}
 		}
 		
-		if (flag) {
+		if (!flag) {
 			// environment
 			System.setProperty("server.type", "real");
 			
