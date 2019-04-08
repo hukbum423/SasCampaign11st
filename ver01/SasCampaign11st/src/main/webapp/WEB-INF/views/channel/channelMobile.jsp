@@ -60,7 +60,8 @@
 
 	// this window resize
 	//window.resizeTo(1180,910);
-	window.resizeTo(1180,1100);  // KANG-20190323: resize of the popup
+	window.resizeTo(1180,1010);  // KANG-20190323: resize of the popup
+	//window.resizeTo(1180,1110);  // KANG-20190323: resize of the popup
 
 	// document.ready
 	$(document).ready(function() {
@@ -2107,7 +2108,7 @@
 			}
 			rowHtml += "  </td>";
 			rowHtml += "  <td colspan='3'>";
-			rowHtml += "    <input type='text' id='type1_imgUrl" + index + "' class='imgUrl' onblur=\"javascript:fn_img1_inputBlur(" + index + ",'imgUrl',this.value);\" style='width:700px;' value='" + value.imgUrl + "' maxlength='100' placeholder='http://' />";
+			rowHtml += "    <input type='text' id='type1_imgUrl" + index + "' class='imgUrl' onblur=\"javascript:fn_img1_inputBlur(" + index + ",'imgUrl',this.value);\" style='width:700px;' value='" + value.imgUrl + "' maxlength='100' placeholder='500*500 사이즈 이미지 경로 입력' />";
 			rowHtml += "    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <button type='button' id='type1_imgUrl" + index +"' class='btn btn-success btn-sm' onclick=\"fn_pre_view_img('type1_imgUrl" + index +"');\"><i class='fa fa-eye' aria-hidden='true'></i> 미리보기</button>";
 			rowHtml += "  </td>";
 			rowHtml += "</tr>";
@@ -2193,7 +2194,7 @@
 			}
 			rowHtml += "  </td>";
 			rowHtml += "  <td colspan='3'>";
-			rowHtml += "    <input type='text' id='type2_imgUrl" + index + "' class='imgUrl' onblur=\"javascript:fn_img2_inputBlur(" + index + ",'imgUrl',this.value);\" style='width:700px;' value='" + value.imgUrl + "' maxlength='100' placeholder='http://' />";
+			rowHtml += "    <input type='text' id='type2_imgUrl" + index + "' class='imgUrl' onblur=\"javascript:fn_img2_inputBlur(" + index + ",'imgUrl',this.value);\" style='width:700px;' value='" + value.imgUrl + "' maxlength='100' placeholder='500*240 사이즈 이미지 경로 입력' />";
 			rowHtml += "    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <button type='button' id='type2_imgUrl" + index +"' class='btn btn-success btn-sm' onclick=\"fn_pre_view_img('type2_imgUrl" + index +"');\"><i class='fa fa-eye' aria-hidden='true'></i> 미리보기</button>";
 			rowHtml += "  </td>";
 			rowHtml += "</tr>";
@@ -2267,7 +2268,7 @@
 			rowHtml += "  </td>";
 			rowHtml += "  <td class='info'>이미지 URL</td>";
 			rowHtml += "  <td colspan='2'>";
-			rowHtml += "    <input type='text' id='type2_prdUrl" + index + "' class='prdUrl' onblur=\"javascript:fn_prd2_inputBlur(" + index + ",'prdUrl',this.value);\" style='width:600px;' value='" + value.prdUrl + "' maxlength='100' placeholder='http://' />";
+			rowHtml += "    <input type='text' id='type2_prdUrl" + index + "' class='prdUrl' onblur=\"javascript:fn_prd2_inputBlur(" + index + ",'prdUrl',this.value);\" style='width:600px;' value='" + value.prdUrl + "' maxlength='100' placeholder='188*188 사이즈 이미지 경로 입력' />";
 			rowHtml += "    &nbsp;&nbsp;&nbsp; <button type='button' id='type2_prdUrl" + index +"' class='btn btn-success btn-sm' onclick=\"fn_pre_view_img('type2_prdUrl" + index +"');\"><i class='fa fa-eye' aria-hidden='true'></i> 미리보기</button>";
 			rowHtml += "  </td>";
 			rowHtml += "</tr>";
@@ -2299,13 +2300,13 @@
 			rowHtml += "<tr>";
 			rowHtml += "  <td class='info'>보기(Mobile URL)</td>";
 			rowHtml += "  <td colspan='2'>";
-			rowHtml += "    <input type='text' id='type2_prdMblUrl" + index + "' class='prdMblUrl' onblur=\"javascript:fn_prd2_inputBlur(" + index + ",'prdMblUrl',this.value);\" style='width:700px;' value='" + value.prdMblUrl + "' maxlength='100' placeholder='http://' />";
+			rowHtml += "    <input type='text' id='type2_prdMblUrl" + index + "' class='prdMblUrl' onblur=\"javascript:fn_prd2_inputBlur(" + index + ",'prdMblUrl',this.value);\" style='width:700px;' value='" + value.prdMblUrl + "' maxlength='256' placeholder='http://' />";
 			rowHtml += "  </td>";
 			rowHtml += "</tr>";
 			rowHtml += "<tr>";
 			rowHtml += "  <td class='info'>보기(Web URL)</td>";
 			rowHtml += "  <td colspan='2'>";
-			rowHtml += "    <input type='text' id='type2_prdWebUrl" + index + "' class='prdWebUrl' onblur=\"javascript:fn_prd2_inputBlur(" + index + ",'prdWebUrl',this.value);\" style='width:700px;' value='" + value.prdWebUrl + "' maxlength='100' placeholder='http://' readonly />";
+			rowHtml += "    <input type='text' id='type2_prdWebUrl" + index + "' class='prdWebUrl' onblur=\"javascript:fn_prd2_inputBlur(" + index + ",'prdWebUrl',this.value);\" style='width:700px;' value='" + value.prdWebUrl + "' maxlength='256' placeholder='http://' readonly />";
 			rowHtml += "  </td>";
 			rowHtml += "</tr>";
 			$("#prd2_table > tbody:last").append(rowHtml);
@@ -2389,7 +2390,7 @@
 			}
 			rowHtml += "  </td>";
 			rowHtml += "  <td colspan='3'>";
-			rowHtml += "    <input type='text' id='type3_imgUrl" + index + "' class='imgUrl' onblur=\"javascript:fn_img3_inputBlur(" + index + ",'imgUrl',this.value);\" style='width:700px;' value='" + value.imgUrl + "' maxlength='100' placeholder='http://' />";
+			rowHtml += "    <input type='text' id='type3_imgUrl" + index + "' class='imgUrl' onblur=\"javascript:fn_img3_inputBlur(" + index + ",'imgUrl',this.value);\" style='width:700px;' value='" + value.imgUrl + "' maxlength='100' placeholder='500*240 사이즈 이미지 경로 입력' />";
 			rowHtml += "    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <button type='button' id='type3_imgUrl" + index +"' class='btn btn-success btn-sm' onclick=\"fn_pre_view_img('type3_imgUrl" + index +"');\"><i class='fa fa-eye' aria-hidden='true'></i> 미리보기</button>";
 			rowHtml += "  </td>";
 			rowHtml += "</tr>";
@@ -2680,7 +2681,7 @@
 			rowHtml += "  </td>";
 			rowHtml += "  <td class='info'>이미지 URL</td>";
 			rowHtml += "  <td colspan='2'>";
-			rowHtml += "    <input type='text' id='type5_prdUrl" + index + "' class='prdUrl' onblur=\"javascript:fn_prd5_inputBlur(" + index + ",'prdUrl',this.value);\" style='width:600px;' value='" + value.prdUrl + "' maxlength='100' placeholder='http://' />";
+			rowHtml += "    <input type='text' id='type5_prdUrl" + index + "' class='prdUrl' onblur=\"javascript:fn_prd5_inputBlur(" + index + ",'prdUrl',this.value);\" style='width:600px;' value='" + value.prdUrl + "' maxlength='100' placeholder='188*188 사이즈 이미지 경로 입력' />";
 			rowHtml += "    &nbsp;&nbsp;&nbsp; <button type='button' class='btn btn-success btn-sm' onclick=\"fn_pre_view_img('type5_prdUrl" + index +"');\"><i class='fa fa-eye' aria-hidden='true'></i> 미리보기</button>";
 			rowHtml += "  </td>";
 			rowHtml += "</tr>";
@@ -2712,13 +2713,13 @@
 			rowHtml += "<tr>";
 			rowHtml += "  <td class='info'>보기(Mobile URL)</td>";
 			rowHtml += "  <td colspan='2'>";
-			rowHtml += "    <input type='text' id='type5_prdMblUrl" + index + "' class='prdMblUrl' onblur=\"javascript:fn_prd5_inputBlur(" + index + ",'prdMblUrl',this.value);\" style='width:700px;' value='" + value.prdMblUrl + "' maxlength='100' placeholder='http://' />";
+			rowHtml += "    <input type='text' id='type5_prdMblUrl" + index + "' class='prdMblUrl' onblur=\"javascript:fn_prd5_inputBlur(" + index + ",'prdMblUrl',this.value);\" style='width:700px;' value='" + value.prdMblUrl + "' maxlength='256' placeholder='http://' />";
 			rowHtml += "  </td>";
 			rowHtml += "</tr>";
 			rowHtml += "<tr>";
 			rowHtml += "  <td class='info'>보기(Web URL)</td>";
 			rowHtml += "  <td colspan='2'>";
-			rowHtml += "    <input type='text' id='type5_prdWebUrl" + index + "' class='prdWebUrl' onblur=\"javascript:fn_prd5_inputBlur(" + index + ",'prdWebUrl',this.value);\" style='width:700px;' value='" + value.prdWebUrl + "' maxlength='100' placeholder='http://' readonly />";
+			rowHtml += "    <input type='text' id='type5_prdWebUrl" + index + "' class='prdWebUrl' onblur=\"javascript:fn_prd5_inputBlur(" + index + ",'prdWebUrl',this.value);\" style='width:700px;' value='" + value.prdWebUrl + "' maxlength='256' placeholder='http://' readonly />";
 			rowHtml += "  </td>";
 			rowHtml += "</tr>";
 			$("#prd5_table > tbody:last").append(rowHtml);
@@ -3238,10 +3239,10 @@
 											<col width="55%" />
 										</colgroup>
 										<tr>
-											<td class="info">제목 1</td>
+											<td class="info">소타이틀</td>
 											<td colspan="3"><input type="text" id="type1_title1"
 												class="type1" style="width: 700px;" name="title1" value=""
-												maxlength="6" /></td>
+												maxlength="6" placeholder='(문자수 최대 6)' /></td>
 										</tr>
 										<tr>
 											<td class="info">광고 표시 문구</td>
@@ -3250,16 +3251,16 @@
 												maxlength="100" readonly /></td>
 										</tr>
 										<tr>
-											<td class="info">제목 2</td>
+											<td class="info">메인문구</td>
 											<td colspan="3"><input type="text" id="type1_title2"
 												class="type1" style="width: 700px;" name="title2" value=""
-												maxlength="12" /></td>
+												maxlength="12" placeholder='(문자수 최대 12)' /></td>
 										</tr>
 										<tr>
-											<td class="info">제목 3 (선택입력)</td>
+											<td class="info">서브문구 (선택입력)</td>
 											<td colspan="3"><input type="text" id="type1_title3"
 												class="type1" style="width: 700px;" name="title3" value=""
-												maxlength="14" /></td>
+												maxlength="14" placeholder='(문자수 최대 14) '/></td>
 										</tr>
 									</table>
 								</div>
@@ -3307,20 +3308,20 @@
 											<td class="info" colspan="2">하단 문구</td>
 											<td colspan="2"><input type="text" id="type1_ftrText"
 												class="type1" style="width: 700px;" name="ftrText" value=""
-												maxlength="6" /></td>
+												maxlength="6" placeholder='(문자수 최대 6)' /></td>
 										</tr>
 										<tr>
 											<td class="info" rowspan="2">상세보기</td>
 											<td class="info">Mobile URL</td>
 											<td colspan="2"><input type="text" id="type1_ftrMblUrl"
 												class="type1" style="width: 700px;" name="ftrMblUrl"
-												value="" maxlength="100" placeholder='http://' /></td>
+												value="" maxlength="256" placeholder='http://' /></td>
 										</tr>
 										<tr>
 											<td class="info">Web URL</td>
 											<td colspan="2"><input type="text" id="type1_ftrWebUrl"
 												class="type1" style="width: 700px;" name="ftrWebUrl"
-												value="" maxlength="100" placeholder='http://' readonly /></td>
+												value="" maxlength="256" placeholder='http://' readonly /></td>
 										</tr>
 									</table>
 								</div>
@@ -3343,10 +3344,10 @@
 											<col width="55%" />
 										</colgroup>
 										<tr>
-											<td class="info">제목 1</td>
+											<td class="info">소타이틀</td>
 											<td colspan="3"><input type="text" id="type2_title1"
 												class="type2" style="width: 700px;" name="title1" value=""
-												maxlength="6" /></td>
+												maxlength="6" placeholder='(문자수 최대 6)' /></td>
 										</tr>
 										<tr>
 											<td class="info">광고 표시 문구</td>
@@ -3355,16 +3356,16 @@
 												maxlength="100" readonly /></td>
 										</tr>
 										<tr>
-											<td class="info">제목 2</td>
+											<td class="info">메인문구</td>
 											<td colspan="3"><input type="text" id="type2_title2"
 												class="type2" style="width: 700px;" name="title2" value=""
-												maxlength="12" /></td>
+												maxlength="12" placeholder='(문자수 최대 12)' /></td>
 										</tr>
 										<tr>
-											<td class="info">제목 3 (선택입력)</td>
+											<td class="info">서브문구 (선택입력)</td>
 											<td colspan="3"><input type="text" id="type2_title3"
 												class="type2" style="width: 700px;" name="title3" value=""
-												maxlength="14" /></td>
+												maxlength="14" placeholder='(문자수 최대 14)' /></td>
 										</tr>
 									</table>
 								</div>
@@ -3373,10 +3374,12 @@
 								<div>
 									<h6>
 										* 이미지내용(Images)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+										<!--
 										<button id="img2_addItem" type="button"
 											class="btn btn-primary"
 											style="height: 20px; width: 50px; padding: 2px; font-size: 12px;"
 											title="이미지는 최대 1개까지 등록 가능합니다.">항목추가</button>
+										-->
 									</h6>
 								</div>
 								<div>
@@ -3439,20 +3442,20 @@
 											<td class="info" colspan="2">하단 문구</td>
 											<td colspan="2"><input type="text" id="type2_ftrText"
 												class="type2" style="width: 700px;" name="ftrText" value=""
-												maxlength="6" /></td>
+												maxlength="6" placeholder='(문자수 최대 6)' /></td>
 										</tr>
 										<tr>
 											<td class="info" rowspan="2">상세보기</td>
 											<td class="info">Mobile URL</td>
 											<td colspan="2"><input type="text" id="type2_ftrMblUrl"
 												class="type2" style="width: 700px;" name="ftrMblUrl"
-												value="" maxlength="100" placeholder='http://' /></td>
+												value="" maxlength="256" placeholder='http://' /></td>
 										</tr>
 										<tr>
 											<td class="info">Web URL</td>
 											<td colspan="2"><input type="text" id="type2_ftrWebUrl"
 												class="type2" style="width: 700px;" name="ftrWebUrl"
-												value="" maxlength="100" placeholder='http://' readonly /></td>
+												value="" maxlength="256" placeholder='http://' readonly /></td>
 										</tr>
 									</table>
 								</div>
@@ -3475,10 +3478,10 @@
 											<col width="55%" />
 										</colgroup>
 										<tr>
-											<td class="info">제목 1</td>
+											<td class="info">소타이틀</td>
 											<td colspan="3"><input type="text" id="type3_title1"
 												class="type3" style="width: 700px;" name="title1" value=""
-												maxlength="6" /></td>
+												maxlength="6" placeholder='(문자수 최대 6)' /></td>
 										</tr>
 										<tr>
 											<td class="info">광고 표시 문구</td>
@@ -3487,16 +3490,16 @@
 												maxlength="100" readonly /></td>
 										</tr>
 										<tr>
-											<td class="info">제목 2</td>
+											<td class="info">메인문구</td>
 											<td colspan="3"><input type="text" id="type3_title2"
 												class="type3" style="width: 700px;" name="title2" value=""
-												maxlength="12" /></td>
+												maxlength="12" placeholder='(문자수 최대 12)' /></td>
 										</tr>
 										<tr>
-											<td class="info">제목 3 (선택입력)</td>
+											<td class="info">서브문구 (선택입력)</td>
 											<td colspan="3"><input type="text" id="type3_title3"
 												class="type3" style="width: 700px;" name="title3" value=""
-												maxlength="14" /></td>
+												maxlength="14" placeholder='(문자수 최대 14)' /></td>
 										</tr>
 									</table>
 								</div>
@@ -3505,9 +3508,12 @@
 								<div>
 									<h6>
 										* 이미지내용(Images)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+										<!--
 										<button id="img3_addItem" type="button"
 											class="btn btn-primary"
-											style="height: 20px; width: 50px; padding: 2px; font-size: 12px;">항목추가</button>
+											style="height: 20px; width: 50px; padding: 2px; font-size: 12px;"
+											title="이미지는 최대 5개까지 등록 가능합니다.">항목추가</button>
+										-->
 									</h6>
 									<div></div>
 									<table id="img3_table"
@@ -3568,20 +3574,20 @@
 											<td class="info" colspan="2">하단 문구</td>
 											<td colspan="2"><input type="text" id="type3_ftrText"
 												class="type3" style="width: 700px;" name="ftrText" value=""
-												maxlength="6" /></td>
+												maxlength="6" placeholder='(문자수 최대 6)' /></td>
 										</tr>
 										<tr>
 											<td class="info" rowspan="2">상세보기</td>
 											<td class="info">Mobile URL</td>
 											<td colspan="2"><input type="text" id="type3_ftrMblUrl"
 												class="type3" style="width: 700px;" name="ftrMblUrl"
-												value="" maxlength="100" placeholder='http://' /></td>
+												value="" maxlength="256" placeholder='http://' /></td>
 										</tr>
 										<tr>
 											<td class="info">Web URL</td>
 											<td colspan="2"><input type="text" id="type3_ftrWebUrl"
 												class="type3" style="width: 700px;" name="ftrWebUrl"
-												value="" maxlength="100" placeholder='http://' readonly /></td>
+												value="" maxlength="256" placeholder='http://' readonly /></td>
 										</tr>
 									</table>
 								</div>
@@ -3604,10 +3610,10 @@
 											<col width="55%" />
 										</colgroup>
 										<tr>
-											<td class="info">제목 1</td>
+											<td class="info">소타이틀</td>
 											<td colspan="3"><input type="text" id="type4_title1"
 												class="type4" style="width: 700px;" name="title1" value=""
-												maxlength="6" /></td>
+												maxlength="6" placeholder='(문자수 최대 6)' /></td>
 										</tr>
 										<tr>
 											<td class="info">광고 표시 문구</td>
@@ -3616,16 +3622,16 @@
 												maxlength="100" readonly /></td>
 										</tr>
 										<tr>
-											<td class="info">제목 2</td>
+											<td class="info">메인문구</td>
 											<td colspan="3"><input type="text" id="type4_title2"
 												class="type4" style="width: 700px;" name="title2" value=""
-												maxlength="12" /></td>
+												maxlength="12" placeholder='(문자수 최대 12)' /></td>
 										</tr>
 										<tr>
-											<td class="info">제목 3 (선택입력)</td>
+											<td class="info">서브문구 (선택입력)</td>
 											<td colspan="3"><input type="text" id="type4_title3"
 												class="type4" style="width: 700px;" name="title3" value=""
-												maxlength="14" /></td>
+												maxlength="14" placeholder='(문자수 최대 14)' /></td>
 										</tr>
 									</table>
 								</div>
@@ -3634,9 +3640,12 @@
 								<div>
 									<h6>
 										* 안내내용(Announce)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+										<!--
 										<button id="ann4_addItem" type="button"
 											class="btn btn-primary"
-											style="height: 20px; width: 50px; padding: 2px; font-size: 12px;">항목추가</button>
+											style="height: 20px; width: 50px; padding: 2px; font-size: 12px;"
+											title="이미지는 최대 5개까지 등록 가능합니다.">항목추가</button>
+										-->
 									</h6>
 								</div>
 								<div>
@@ -3673,20 +3682,20 @@
 											<td class="info" colspan="2">하단 문구</td>
 											<td colspan="2"><input type="text" id="type4_ftrText"
 												class="type4" style="width: 700px;" name="ftrText" value=""
-												maxlength="6" /></td>
+												maxlength="6" placeholder='(문자수 최대 6)' /></td>
 										</tr>
 										<tr>
 											<td class="info" rowspan="2">상세보기</td>
 											<td class="info">Mobile URL</td>
 											<td colspan="2"><input type="text" id="type4_ftrMblUrl"
 												class="type4" style="width: 700px;" name="ftrMblUrl"
-												value="" maxlength="100" placeholder='http://' /></td>
+												value="" maxlength="256" placeholder='http://' /></td>
 										</tr>
 										<tr>
 											<td class="info">Web URL</td>
 											<td colspan="2"><input type="text" id="type4_ftrWebUrl"
 												class="type4" style="width: 700px;" name="ftrWebUrl"
-												value="" maxlength="100" placeholder='http://' readonly /></td>
+												value="" maxlength="256" placeholder='http://' readonly /></td>
 										</tr>
 									</table>
 								</div>
@@ -3709,10 +3718,10 @@
 											<col width="55%" />
 										</colgroup>
 										<tr>
-											<td class="info">제목 1</td>
+											<td class="info">소타이틀</td>
 											<td colspan="3"><input type="text" id="type5_title1"
 												class="type5" style="width: 700px;" name="title1" value=""
-												maxlength="6" /></td>
+												maxlength="6" placeholder='(문자수 최대 6)' /></td>
 										</tr>
 										<tr>
 											<td class="info">광고 표시 문구</td>
@@ -3721,16 +3730,16 @@
 												maxlength="100" readonly /></td>
 										</tr>
 										<tr>
-											<td class="info">제목 2</td>
+											<td class="info">메인문구</td>
 											<td colspan="3"><input type="text" id="type5_title2"
 												class="type5" style="width: 700px;" name="title2" value=""
-												maxlength="12" /></td>
+												maxlength="12" placeholder='(문자수 최대 12)' /></td>
 										</tr>
 										<tr>
-											<td class="info">제목 3 (선택입력)</td>
+											<td class="info">서브문구 (선택입력)</td>
 											<td colspan="3"><input type="text" id="type5_title3"
 												class="type5" style="width: 700px;" name="title3" value=""
-												maxlength="14" /></td>
+												maxlength="14" placeholder='(문자수 최대 14)' /></td>
 										</tr>
 									</table>
 								</div>
@@ -3778,20 +3787,20 @@
 											<td class="info" colspan="2">하단 문구</td>
 											<td colspan="2"><input type="text" id="type5_ftrText"
 												class="type5" style="width: 700px;" name="ftrText" value=""
-												maxlength="6" /></td>
+												maxlength="6" placeholder='(문자수 최대 6)' /></td>
 										</tr>
 										<tr>
 											<td class="info" rowspan="2">상세보기</td>
 											<td class="info">Mobile URL</td>
 											<td colspan="2"><input type="text" id="type5_ftrMblUrl"
 												class="type5" style="width: 700px;" name="ftrMblUrl"
-												value="" maxlength="100" placeholder='http://' /></td>
+												value="" maxlength="256" placeholder='http://' /></td>
 										</tr>
 										<tr>
 											<td class="info">Web URL</td>
 											<td colspan="2"><input type="text" id="type5_ftrWebUrl"
 												class="type5" style="width: 700px;" name="ftrWebUrl"
-												value="" maxlength="100" placeholder='http://' readonly /></td>
+												value="" maxlength="256" placeholder='http://' readonly /></td>
 										</tr>
 									</table>
 								</div>
@@ -3814,10 +3823,10 @@
 											<col width="55%" />
 										</colgroup>
 										<tr>
-											<td class="info">제목 1</td>
+											<td class="info">소타이틀</td>
 											<td colspan="3"><input type="text" id="type6_title1"
 												class="type6" style="width: 700px;" name="title1" value=""
-												maxlength="6" /></td>
+												maxlength="6" placeholder='(문자수 최대 6)' /></td>
 										</tr>
 										<tr>
 											<td class="info">광고 표시 문구</td>
@@ -3826,16 +3835,16 @@
 												maxlength="100" readonly /></td>
 										</tr>
 										<tr>
-											<td class="info">제목 2</td>
+											<td class="info">메인문구</td>
 											<td colspan="3"><input type="text" id="type6_title2"
 												class="type6" style="width: 700px;" name="title2" value=""
-												maxlength="12" /></td>
+												maxlength="12" placeholder='(문자수 최대 12)' /></td>
 										</tr>
 										<tr>
-											<td class="info">제목 3 (선택입력)</td>
+											<td class="info">서브문구 (선택입력)</td>
 											<td colspan="3"><input type="text" id="type6_title3"
 												class="type6" style="width: 700px;" name="title3" value=""
-												maxlength="14" /></td>
+												maxlength="14" placeholder='(문자수 최대 14)' /></td>
 										</tr>
 									</table>
 								</div>
@@ -3883,32 +3892,34 @@
 											<td class="info" colspan="2">하단 문구</td>
 											<td colspan="2"><input type="text" id="type6_ftrText"
 												class="type6" style="width: 700px;" name="ftrText" value=""
-												maxlength="6" /></td>
+												maxlength="6" placeholder='(문자수 최대 6)' /></td>
 										</tr>
 										<tr>
 											<td class="info" rowspan="2">상세보기</td>
 											<td class="info">Mobile URL</td>
 											<td colspan="2"><input type="text" id="type6_ftrMblUrl"
 												class="type6" style="width: 700px;" name="ftrMblUrl"
-												value="" maxlength="100" placeholder='http://' /></td>
+												value="" maxlength="256" placeholder='http://' /></td>
 										</tr>
 										<tr>
 											<td class="info">Web URL</td>
 											<td colspan="2"><input type="text" id="type6_ftrWebUrl"
 												class="type6" style="width: 700px;" name="ftrWebUrl"
-												value="" maxlength="100" placeholder='http://' readonly /></td>
+												value="" maxlength="256" placeholder='http://' readonly /></td>
 										</tr>
 									</table>
 								</div>
 							</div>
 						</div>
 					</div>
-
-
-
-
-
 				</div>
+
+
+
+
+
+
+
 
 				<div id="sysbtn" class="col-md-12"
 					style="text-align: right; margin: 10px 10px 0px 0px;">
@@ -3924,6 +3935,13 @@
 						<i class="fa fa-times" aria-hidden="true"></i> 닫기
 					</button>
 				</div>
+				<p/><p/><p/>
+
+
+
+
+
+
 
 				<div id="wrapA"
 					style="position: fixed; display: none; left: 25%; top: 100px; width: 563px; background-color: #ffffff;">
@@ -3962,6 +3980,9 @@
 					</section>
 				</div>
 
+
+
+
 			</form>
 		</div>
 	</div>
@@ -3970,4 +3991,6 @@
 
 <div style="visibility: hidden; background-color: #e00; height: 10px;"></div>
 <!-- visibility: hidden/visible -->
+
+
 
