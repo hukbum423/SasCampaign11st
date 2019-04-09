@@ -21,13 +21,13 @@
 function fn_search() {
 	
 	jQuery.ajax({
-		    url           : '${staticPATH }/getCampaignContentList.do',
-		    dataType      : "JSON",
-		    scriptCharset : "UTF-8",
-		    type          : "POST",
-		    data          : { 
-                selectPageNo  : $("#selectPageNo").val()
-		    },
+		url           : '${staticPATH }/getCampaignContentList.do',
+		dataType      : "JSON",
+		scriptCharset : "UTF-8",
+		type          : "POST",
+		data          : { 
+			selectPageNo  : $("#selectPageNo").val()
+		},
 		        success: function(result, option) {
 		          if(option=="success"){
 		            var list = result.CampaignContentList;
@@ -837,7 +837,7 @@ function fn_pageMove(selectPageNo)
                     <iframe id="channelAddFrame" name="channelAddFrame" style="width:100%;display:none;" frameborder="0" framespacing="0" marginheight="0" marginwidth="0" vspace="0"></iframe>
                   </div>
                </div>
-               
+	              
 -->
 <!--          </div> -->
        </div>        
