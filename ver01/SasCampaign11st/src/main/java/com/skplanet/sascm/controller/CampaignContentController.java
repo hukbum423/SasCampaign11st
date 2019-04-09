@@ -80,6 +80,7 @@ public class CampaignContentController {
 
 	/**
 	 * 고객 세그먼트 컨텐츠 매핑 관리
+	 * TODO: KANG-20190409: reference for pagination by Seok Kiea Kang
 	 *
 	 * @param request
 	 * @param response
@@ -100,7 +101,7 @@ public class CampaignContentController {
 		int pageRange = 10;
 		int rowRange = 5;
 		int selectPage = Integer.parseInt(selectPageNo);
-		int rowTotalCnt = Integer.parseInt(campaignContentService.getCampaignContentListCnt(map));
+		int rowTotalCnt = Integer.parseInt(this.campaignContentService.getCampaignContentListCnt(map));
 		int pageStart = ((selectPage - 1) / pageRange) * pageRange + 1;
 		int totalPage = rowTotalCnt / rowRange + ((rowTotalCnt % rowRange > 0) ? 1 : 0);
 		int pageEnd = (totalPage <= (pageStart + pageRange - 1)) ? totalPage : (pageStart + pageRange - 1);
@@ -111,10 +112,9 @@ public class CampaignContentController {
 		map.put("searchRangeStart", searchRangeStart);
 		map.put("searchRangeEnd", searchRangeEnd);
 
-		List<CampaignContentBO> list = campaignContentService.getCampaignContentList(map);
+		List<CampaignContentBO> list = this.campaignContentService.getCampaignContentList(map);
 
 		map.put("CampaignContentList", list);
-
 		map.put("rowTotalCnt", rowTotalCnt);
 		map.put("pageRange", pageRange);
 		map.put("rowRange", rowRange);

@@ -2775,7 +2775,7 @@
 			rowHtml += "  </td>";
 			rowHtml += "</tr>";
 			rowHtml += "<tr>";
-			rowHtml += "  <td class='info'>쿠폰</td>";
+			rowHtml += "  <td class='info'>쿠폰명</td>";
 			rowHtml += "  <td colspan='2'>";
 			rowHtml += "    <input type='text' id='type6_cpnText2" + index + "' class='cpnText2' onblur=\"javascript:fn_cpn6_inputBlur(" + index + ",'cpnText2',this.value);\" style='width:700px;' value='" + value.cpnText2 + "' maxlength='100' placeholder='' />";
 			rowHtml += "  </td>";
@@ -3162,7 +3162,7 @@
 										</td>
 									</tr>
 									<tr>
-										<td class="info">알림톡 방문록 텍스트</td>
+										<td class="info">알림톡 방목록 텍스트</td>
 										<td class="tbtd_content" colspan="3"><input
 											id='alimiText' type="text" style="width: 700px;"
 											name="alimiText" value="" maxlength="100" /></td>
