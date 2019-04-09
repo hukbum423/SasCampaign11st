@@ -874,7 +874,7 @@
 					$('#type2_prdPrice' + index).val("").attr('readonly',false);
 					$('#type2_prdUnit' + index).val("").attr('readonly',false);
 					$('#type2_prdMblUrl' + index).val("").attr('readonly',false);
-					$('#type2_prdWebUrl' + index).val("").attr('readonly',true);
+					$('#type2_prdWebUrl' + index).val("").attr('readonly',false);
 				});
 				// button(항목추가 / 미리보기) disabled
 				$('#img2_addItem').removeAttr('disabled');  // 항목추가
@@ -920,7 +920,7 @@
 					$('#type5_prdPrice' + index).val("").attr('readonly',false);
 					$('#type5_prdUnit' + index).val("").attr('readonly',false);
 					$('#type5_prdMblUrl' + index).val("").attr('readonly',false);
-					$('#type5_prdWebUrl' + index).val("").attr('readonly',true);
+					$('#type5_prdWebUrl' + index).val("").attr('readonly',false);
 				});
 				// button(항목추가 / 미리보기) disabled
 				$('#prd5_addItem').attr('disabled', false);  // 항목추가
@@ -947,7 +947,7 @@
 		}
 		$('#' + type + '_ftrText').val("").attr('readonly',false);
 		$('#' + type + '_ftrMblUrl').val("").attr('readonly',false);
-		//$('#' + type + '_ftrWebUrl').val("").attr('readonly',false);
+		$('#' + type + '_ftrWebUrl').val("").attr('readonly',false);
 	}
 	function fn_editableAlimi() {     // not be used
 		fn_editableAlimi_master();
@@ -1046,7 +1046,7 @@
 					$('#type2_prdPrice' + index).val(value.prdPrice).attr('readonly',false);
 					$('#type2_prdUnit' + index).val(value.prdUnit).attr('readonly',false);
 					$('#type2_prdMblUrl' + index).val(value.prdMblUrl).attr('readonly',false);
-					$('#type2_prdWebUrl' + index).val(value.prdWebUrl).attr('readonly',true);
+					$('#type2_prdWebUrl' + index).val(value.prdWebUrl).attr('readonly',false);
 				});
 				// button(항목추가 / 미리보기) disabled
 				$('#img2_addItem').removeAttr('disabled');  // 항목추가
@@ -1092,7 +1092,7 @@
 					$('#type5_prdPrice' + index).val(value.prdPrice).attr('readonly',false);
 					$('#type5_prdUnit' + index).val(value.prdUnit).attr('readonly',false);
 					$('#type5_prdMblUrl' + index).val(value.prdMblUrl).attr('readonly',false);
-					$('#type5_prdWebUrl' + index).val(value.prdWebUrl).attr('readonly',true);
+					$('#type5_prdWebUrl' + index).val(value.prdWebUrl).attr('readonly',false);
 				});
 				// button(항목추가 / 미리보기) disabled
 				$('#prd5_addItem').attr('disabled', false);  // 항목추가
@@ -1119,7 +1119,7 @@
 		}
 		$('#' + type + '_ftrText').val(footer.ftrText).attr('readonly',false);
 		$('#' + type + '_ftrMblUrl').val(footer.ftrMblUrl).attr('readonly',false);
-		$('#' + type + '_ftrWebUrl').val(footer.ftrWebUrl).attr('readonly',true);
+		$('#' + type + '_ftrWebUrl').val(footer.ftrWebUrl).attr('readonly',false);
 	}
 	function fn_dataAlimi() {
 		fn_dataAlimi_base();
@@ -1432,13 +1432,7 @@
 		}
 		footer["ftrMblUrl"] = $('#type1_ftrMblUrl').val();
 		// footer.ftrWebUrl
-		/*
-		if (isEmpty($('#type1_ftrWebUrl').val())) {
-			$('#type1_ftrWebUrl').focus();
-			return false;
-		}
-		*/
-		if (fn_checkQuotationMark($('#type1_ftrWebUrl').val())) {
+		if (isEmpty($('#type1_ftrWebUrl').val()) || fn_checkQuotationMark($('#type1_ftrWebUrl').val())) {
 			$('#type1_ftrWebUrl').focus();
 			return false;
 		}
@@ -1509,7 +1503,7 @@
 			if (idx == "" && (isEmpty(value["prdMblUrl"]) || fn_checkQuotationMark(value["prdMblUrl"]))) {
 				idx = "type2_prdMblUrl" + index;
 			}
-			if (idx == "" && fn_checkQuotationMark(value["prdWebUrl"])) {
+			if (idx == "" && (isEmpty(value["prdWebUrl"]) || fn_checkQuotationMark(value["prdWebUrl"]))) {
 				idx = "type2_prdWebUrl" + index;
 			}
 		});
@@ -1531,13 +1525,7 @@
 		}
 		footer["ftrMblUrl"] = $('#type2_ftrMblUrl').val();
 		// footer.ftrWebUrl
-		/*
-		if (isEmpty($('#type2_ftrWebUrl').val())) {
-			$('#type2_ftrWebUrl').focus();
-			return false;
-		}
-		*/
-		if (fn_checkQuotationMark($('#type2_ftrWebUrl').val())) {
+		if (isEmpty($('#type2_ftrWebUrl').val()) || fn_checkQuotationMark($('#type2_ftrWebUrl').val())) {
 			$('#type2_ftrWebUrl').focus();
 			return false;
 		}
@@ -1627,13 +1615,7 @@
 		}
 		footer["ftrMblUrl"] = $('#type3_ftrMblUrl').val();
 		// footer.ftrWebUrl
-		/*
-		if (isEmpty($('#type3_ftrWebUrl').val())) {
-			$('#type3_ftrWebUrl').focus();
-			return false;
-		}
-		*/
-		if (fn_checkQuotationMark($('#type3_ftrWebUrl').val())) {
+		if (isEmpty($('#type3_ftrWebUrl').val()) || fn_checkQuotationMark($('#type3_ftrWebUrl').val())) {
 			$('#type3_ftrWebUrl').focus();
 			return false;
 		}
@@ -1702,13 +1684,7 @@
 		}
 		footer["ftrMblUrl"] = $('#type4_ftrMblUrl').val();
 		// footer.ftrWebUrl
-		/*
-		if (isEmpty($('#type4_ftrWebUrl').val())) {
-			$('#type4_ftrWebUrl').focus();
-			return false;
-		}
-		*/
-		if (fn_checkQuotationMark($('#type4_ftrWebUrl').val())) {
+		if (isEmpty($('#type4_ftrWebUrl').val()) || fn_checkQuotationMark($('#type4_ftrWebUrl').val())) {
 			$('#type4_ftrWebUrl').focus();
 			return false;
 		}
@@ -1770,7 +1746,7 @@
 			if (idx == "" && (isEmpty(value["prdMblUrl"]) || fn_checkQuotationMark(value["prdMblUrl"]))) {
 				idx = "type5_prdMblUrl" + index;
 			}
-			if (idx == "" && fn_checkQuotationMark(value["prdWebUrl"])) {
+			if (idx == "" && (isEmpty(value["prdWebUrl"]) || fn_checkQuotationMark(value["prdWebUrl"]))) {
 				idx = "type5_prdWebUrl" + index;
 			}
 		});
@@ -1792,13 +1768,7 @@
 		}
 		footer["ftrMblUrl"] = $('#type5_ftrMblUrl').val();
 		// footer.ftrWebUrl
-		/*
-		if (isEmpty($('#type5_ftrWebUrl').val())) {
-			$('#type5_ftrWebUrl').focus();
-			return false;
-		}
-		*/
-		if (fn_checkQuotationMark($('#type5_ftrWebUrl').val())) {
+		if (isEmpty($('#type5_ftrWebUrl').val()) || fn_checkQuotationMark($('#type5_ftrWebUrl').val())) {
 			$('#type5_ftrWebUrl').focus();
 			return false;
 		}
@@ -1879,13 +1849,7 @@
 		}
 		footer["ftrMblUrl"] = $('#type6_ftrMblUrl').val();
 		// footer.ftrWebUrl
-		/*
-		if (isEmpty($('#type6_ftrWebUrl').val())) {
-			$('#type6_ftrWebUrl').focus();
-			return false;
-		}
-		*/
-		if (fn_checkQuotationMark($('#type6_ftrWebUrl').val())) {
+		if (isEmpty($('#type6_ftrWebUrl').val()) || fn_checkQuotationMark($('#type6_ftrWebUrl').val())) {
 			$('#type6_ftrWebUrl').focus();
 			return false;
 		}
@@ -2306,7 +2270,7 @@
 			rowHtml += "<tr>";
 			rowHtml += "  <td class='info'>보기(Web URL)</td>";
 			rowHtml += "  <td colspan='2'>";
-			rowHtml += "    <input type='text' id='type2_prdWebUrl" + index + "' class='prdWebUrl' onblur=\"javascript:fn_prd2_inputBlur(" + index + ",'prdWebUrl',this.value);\" style='width:700px;' value='" + value.prdWebUrl + "' maxlength='256' placeholder='http://' readonly />";
+			rowHtml += "    <input type='text' id='type2_prdWebUrl" + index + "' class='prdWebUrl' onblur=\"javascript:fn_prd2_inputBlur(" + index + ",'prdWebUrl',this.value);\" style='width:700px;' value='" + value.prdWebUrl + "' maxlength='256' placeholder='http://' />";
 			rowHtml += "  </td>";
 			rowHtml += "</tr>";
 			$("#prd2_table > tbody:last").append(rowHtml);
@@ -2719,7 +2683,7 @@
 			rowHtml += "<tr>";
 			rowHtml += "  <td class='info'>보기(Web URL)</td>";
 			rowHtml += "  <td colspan='2'>";
-			rowHtml += "    <input type='text' id='type5_prdWebUrl" + index + "' class='prdWebUrl' onblur=\"javascript:fn_prd5_inputBlur(" + index + ",'prdWebUrl',this.value);\" style='width:700px;' value='" + value.prdWebUrl + "' maxlength='256' placeholder='http://' readonly />";
+			rowHtml += "    <input type='text' id='type5_prdWebUrl" + index + "' class='prdWebUrl' onblur=\"javascript:fn_prd5_inputBlur(" + index + ",'prdWebUrl',this.value);\" style='width:700px;' value='" + value.prdWebUrl + "' maxlength='256' placeholder='http://' />";
 			rowHtml += "  </td>";
 			rowHtml += "</tr>";
 			$("#prd5_table > tbody:last").append(rowHtml);
@@ -3321,7 +3285,7 @@
 											<td class="info">Web URL</td>
 											<td colspan="2"><input type="text" id="type1_ftrWebUrl"
 												class="type1" style="width: 700px;" name="ftrWebUrl"
-												value="" maxlength="256" placeholder='http://' readonly /></td>
+												value="" maxlength="256" placeholder='http://' /></td>
 										</tr>
 									</table>
 								</div>
@@ -3455,7 +3419,7 @@
 											<td class="info">Web URL</td>
 											<td colspan="2"><input type="text" id="type2_ftrWebUrl"
 												class="type2" style="width: 700px;" name="ftrWebUrl"
-												value="" maxlength="256" placeholder='http://' readonly /></td>
+												value="" maxlength="256" placeholder='http://' /></td>
 										</tr>
 									</table>
 								</div>
@@ -3587,7 +3551,7 @@
 											<td class="info">Web URL</td>
 											<td colspan="2"><input type="text" id="type3_ftrWebUrl"
 												class="type3" style="width: 700px;" name="ftrWebUrl"
-												value="" maxlength="256" placeholder='http://' readonly /></td>
+												value="" maxlength="256" placeholder='http://' /></td>
 										</tr>
 									</table>
 								</div>
@@ -3695,7 +3659,7 @@
 											<td class="info">Web URL</td>
 											<td colspan="2"><input type="text" id="type4_ftrWebUrl"
 												class="type4" style="width: 700px;" name="ftrWebUrl"
-												value="" maxlength="256" placeholder='http://' readonly /></td>
+												value="" maxlength="256" placeholder='http://' /></td>
 										</tr>
 									</table>
 								</div>
@@ -3800,7 +3764,7 @@
 											<td class="info">Web URL</td>
 											<td colspan="2"><input type="text" id="type5_ftrWebUrl"
 												class="type5" style="width: 700px;" name="ftrWebUrl"
-												value="" maxlength="256" placeholder='http://' readonly /></td>
+												value="" maxlength="256" placeholder='http://' /></td>
 										</tr>
 									</table>
 								</div>
@@ -3905,7 +3869,7 @@
 											<td class="info">Web URL</td>
 											<td colspan="2"><input type="text" id="type6_ftrWebUrl"
 												class="type6" style="width: 700px;" name="ftrWebUrl"
-												value="" maxlength="256" placeholder='http://' readonly /></td>
+												value="" maxlength="256" placeholder='http://' /></td>
 										</tr>
 									</table>
 								</div>
