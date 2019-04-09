@@ -2264,7 +2264,7 @@
 			rowHtml += "<tr>";
 			rowHtml += "  <td class='info'>보기(Mobile URL)</td>";
 			rowHtml += "  <td colspan='2'>";
-			rowHtml += "    <input type='text' id='type2_prdMblUrl" + index + "' class='prdMblUrl' onblur=\"javascript:fn_prd2_inputBlur(" + index + ",'prdMblUrl',this.value);\" style='width:700px;' value='" + value.prdMblUrl + "' maxlength='256' placeholder='모바일 URL 입력' />";
+			rowHtml += "    <input type='text' id='type2_prdMblUrl" + index + "' class='prdMblUrl' onblur=\"javascript:fn_prd2_inputBlur(" + index + ",'prdMblUrl',this.value);\" style='width:700px;' value='" + value.prdMblUrl + "' maxlength='256' placeholder='http://' />";
 			rowHtml += "  </td>";
 			rowHtml += "</tr>";
 			rowHtml += "<tr>";
@@ -2677,7 +2677,7 @@
 			rowHtml += "<tr>";
 			rowHtml += "  <td class='info'>보기(Mobile URL)</td>";
 			rowHtml += "  <td colspan='2'>";
-			rowHtml += "    <input type='text' id='type5_prdMblUrl" + index + "' class='prdMblUrl' onblur=\"javascript:fn_prd5_inputBlur(" + index + ",'prdMblUrl',this.value);\" style='width:700px;' value='" + value.prdMblUrl + "' maxlength='256' placeholder='모바일 URL 입력' />";
+			rowHtml += "    <input type='text' id='type5_prdMblUrl" + index + "' class='prdMblUrl' onblur=\"javascript:fn_prd5_inputBlur(" + index + ",'prdMblUrl',this.value);\" style='width:700px;' value='" + value.prdMblUrl + "' maxlength='256' placeholder='http://' />";
 			rowHtml += "  </td>";
 			rowHtml += "</tr>";
 			rowHtml += "<tr>";
@@ -3279,7 +3279,7 @@
 											<td class="info">Mobile URL</td>
 											<td colspan="2"><input type="text" id="type1_ftrMblUrl"
 												class="type1" style="width: 700px;" name="ftrMblUrl"
-												value="" maxlength="256" placeholder='모바일 URL 입력' /></td>
+												value="" maxlength="256" placeholder='http://' /></td>
 										</tr>
 										<tr>
 											<td class="info">Web URL</td>
@@ -3413,7 +3413,7 @@
 											<td class="info">Mobile URL</td>
 											<td colspan="2"><input type="text" id="type2_ftrMblUrl"
 												class="type2" style="width: 700px;" name="ftrMblUrl"
-												value="" maxlength="256" placeholder='모바일 URL 입력' /></td>
+												value="" maxlength="256" placeholder='http://' /></td>
 										</tr>
 										<tr>
 											<td class="info">Web URL</td>
@@ -3545,7 +3545,7 @@
 											<td class="info">Mobile URL</td>
 											<td colspan="2"><input type="text" id="type3_ftrMblUrl"
 												class="type3" style="width: 700px;" name="ftrMblUrl"
-												value="" maxlength="256" placeholder='모바일 URL 입력' /></td>
+												value="" maxlength="256" placeholder='http://' /></td>
 										</tr>
 										<tr>
 											<td class="info">Web URL</td>
@@ -3653,7 +3653,7 @@
 											<td class="info">Mobile URL</td>
 											<td colspan="2"><input type="text" id="type4_ftrMblUrl"
 												class="type4" style="width: 700px;" name="ftrMblUrl"
-												value="" maxlength="256" placeholder='모바일 URL 입력' /></td>
+												value="" maxlength="256" placeholder='http://' /></td>
 										</tr>
 										<tr>
 											<td class="info">Web URL</td>
@@ -3758,7 +3758,7 @@
 											<td class="info">Mobile URL</td>
 											<td colspan="2"><input type="text" id="type5_ftrMblUrl"
 												class="type5" style="width: 700px;" name="ftrMblUrl"
-												value="" maxlength="256" placeholder='모바일 URL 입력' /></td>
+												value="" maxlength="256" placeholder='http://' /></td>
 										</tr>
 										<tr>
 											<td class="info">Web URL</td>
@@ -3863,7 +3863,7 @@
 											<td class="info">Mobile URL</td>
 											<td colspan="2"><input type="text" id="type6_ftrMblUrl"
 												class="type6" style="width: 700px;" name="ftrMblUrl"
-												value="" maxlength="256" placeholder='모바일 URL 입력' /></td>
+												value="" maxlength="256" placeholder='http://' /></td>
 										</tr>
 										<tr>
 											<td class="info">Web URL</td>
