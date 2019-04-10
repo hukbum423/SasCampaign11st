@@ -17,6 +17,8 @@
 <script src="${staticPATH }/js/jquery_1.9.2/jquery-ui-1.9.2.custom.js"></script>
 <!-- END PAGE LEVEL  STYLES -->
 
+
+
 <!-- START SCRIPT -->
 <script>
 	var setting = {
@@ -211,7 +213,7 @@
 	}
 	
 	/* 조회 */
-	function fn_search() {
+	function fn_search() {       // KANG-20190410: analyzing for pagination
 		//${staticServerType }
 		jQuery.ajax({
 			url           : '${staticPATH }/campaignList.do?serverType=${staticServerType }',
@@ -219,13 +221,16 @@
 			scriptCharset : "UTF-8",
 			async         : true,
 			type          : "POST",
-			data          : {treeValue : $("#TREE_VALUE").val()},
+			data          : {
+				treeValue     : $("#TREE_VALUE").val(),
+				selectPageNo  : $("#selectPageNo").val()
+			},
 			success: function(result, option) {
-				if (option=="success"){
+				if (option == "success"){
 					var list = result.CampaignList;
 					$("#campaignList > tbody tr").remove();
 					var txt ="";
-					if (list.length>0){
+					if (list.length > 0){
 						$.each(list, function(key){
 							var data = list[key];
 							txt = "<tr>";
@@ -237,6 +242,10 @@
 							txt += "</tr>";
 							$("#campaignList > tbody:last").append(txt);
 						});
+						//페이징 처리 시작!!
+						var page = pagingNavi(result.selectPage, result.pageRange, result.pageStart, result.pageEnd, result.totalPage);
+						$("#paging_layer").html(page);
+						//페이징 처리 종료
 					} else {
 						txt += "<tr><td align=\"center\" class=\"listtd\" colspn=\"\9\">데이터가 없습니다.</td></tr>";
 						$("#campaignList > tbody:last").append(txt);
@@ -291,6 +300,28 @@
 			var campaign_id = $("#CAMPAIGNID").val();
 			window.open("${staticPATH }/schedule/schedule.do?CampaignId="+campaign_id, "schedulePop", "width=1100, height=600, status=1");
 		});
+		$('#chkParent').click(function() {
+			if (true) console.log("KANG.chkParent.click(): ")
+			var isChecked = $(this).prop('checked');
+			$('#scheduleListTable tr:has(td)').find('input[type="checkbox"]').prop('checked', isChecked);
+			//fn_toggleScheduleAllSelect();
+		});
+		// TODO KANG-20190410: for later job           NOT USE
+		$('#scheduleListTable > tbody tr:has(td)').find('input[type="checkbox"]').click(function() {
+			if (true) console.log("KANG.scheduleListTable.tbody.tr.td.click(): ")
+			var isChecked = $(this).prop('checked');
+			var isHeaderChecked = $('#chkParent').prop('checked');
+			if (isChecked == false && isHeaderChecked)
+				$('#chkParent').prop('checked', isChecked);
+			else {
+				$('#scheduleListTable > tbody tr:has(td)').find('input[type="checkbox"]').each(function() {
+					if ($(this).prop('checked') == false)
+						isChecked = false;
+				});
+				$('#chkParent').prop('checked', isChecked);
+			}
+		});
+
 	});
 	
 	//채널 추가
@@ -361,7 +392,8 @@
 		fn_searchScheduleList(campaignid);
 	}
 	
-	function fn_campaignInfoAll(campaignid){
+	// 캠페인에 대한 정보를 모두 불러온다.
+	function fn_campaignInfoAll(campaignid){    // KANG-20190410: analyzing
 		jQuery.ajax({
 			url           : '${staticPATH }/getCampaignInfoAll.do',
 			dataType      : "JSON",
@@ -370,15 +402,18 @@
 			type          : "POST",
 			data          : {campaignid   : campaignid},
 			beforeSend:function(){
-					wrapWindowByMask();
+				wrapWindowByMask();
 			},
 			success: function(result, option) {
-				if (option=="success"){
-					if (result.batchDtCheck == "ERROR"){
+				if (option == "success") {
+					if (true) console.log("KANG-fn_campaignInfoAll: result.runScheduleCnt=" + result.runScheduleCnt);
+					if (true) console.log("KANG-fn_campaignInfoAll: result.batchDtCheck=" + result.batchDtCheck);
+					if (true) console.log("KANG-fn_campaignInfoAll: result.scheduleBo.rsrv_gubun_code_name=" + result.scheduleBo.rsrv_gubun_code_name);
+					if (result.batchDtCheck == "ERROR") {
 						alert("데이터 전송 방식이 Batch일 경우 \n\n캠페인 시작일을 내일부터 지정 할 수 있습니다.")
 						return "ERROR";
 					} else {
-						/* 캠페인 요약/속성 정보 ##################################### */
+						/* 캠페인 요약/속성 정보 START ##################################### */
 						$('#summary').css('display', '');
 						$('#CAMPAIGNNAME').html(result.bo.campaignname);
 						$('#CAMPAIGNCODE').html(result.bo.campaigncode);
@@ -399,7 +434,7 @@
 						console.log("result.bo.camp_status_cd : " + result.bo.camp_status_cd);
 						console.log("result.runScheduleCnt : " + result.runScheduleCnt);
 						if (result.bo.camp_status_cd == "START" && parseInt(result.runScheduleCnt) > 0){
-							$("#campaignStopDiv").show();
+							$("#campaignStopDiv").show();   // [캠페인 중지]
 						} else {
 							$("#campaignStopDiv").hide();
 						}
@@ -474,12 +509,17 @@
 							$("#viewMultiDiv").show();
 							$("#scheduleAddTr").hide();
 						}
+						if (!true) {   // KANG-20190410: to rm
+							$("#scheduleDel").show();
+							$("#scheduleEdit").show();
+							$("#scheduleAdd").show();
+						}
 						result.boSummary.campaigntype
 						$('#CAMPAIGNGUBUN').text(tmpGubun);
 						$('#CAMPAIGNTYPE').text(tmpType);
 						$('#SENDDATETYPE').text(result.boSummary.senddatetype);
-						/* 캠페인 요약/속성 정보 ##################################### /// */
-						/* 캠페인 오퍼 정보 ##################################### */
+						/* 캠페인 요약/속성 정보 END ##################################### /// */
+						/* 캠페인 오퍼 정보 START ##################################### */
 						var list = result.offer_list;
 						//console.log("offer_list : " + result.offer_list);
 						//console.log("offerUseChk : " + result.offerUseChk);
@@ -513,8 +553,8 @@
 						});
 						txt += "</table>";
 						$("#offerList").html(txt);
-						/* 캠페인 오퍼 정보 ##################################### /// */
-						/* 캠페인 채널 정보 ##################################### */
+						/* 캠페인 오퍼 정보 END ##################################### /// */
+						/* 캠페인 채널 정보 START ##################################### */
 						var list = result.channel_list;
 						var txt ="";
 						txt += "<table class='table table-striped table-hover table-condensed table-bordered' width='100%' border='0' cellpadding='0' cellspacing='0'>";
@@ -619,8 +659,8 @@
 						}
 						txt += "</table>";
 						$("#search_channel").html(txt);
-						/* 캠페인 채널 정보 ##################################### /// */
-						/* 캠페인 일정 정보 ##################################### */
+						/* 캠페인 채널 정보 END ##################################### /// */
+						/* 캠페인 일정 정보 START ##################################### */
 						if (result.scheduleBo.rsrv_gubun_code_name == null || result.scheduleBo.rsrv_gubun_code_name == "null"){
 							$("#scheduleTable").hide();
 							$("#scheduleListDiv").hide();
@@ -674,9 +714,9 @@
 								if (result.scheduleBo.rsrv_gubun_code != '05'){
 									scheduleRsrvDate += result.scheduleBo.rsrv_start_dt + " ~ " + result.scheduleBo.rsrv_end_dt;
 								}
-								//console.log(scheduleScheduler);
-								//console.log(scheduleScheduler.length);
-								$("#scheduleScheduler").text((scheduleScheduler == "" || scheduleScheduler == null || scheduleScheduler == "null")?"":scheduleScheduler);
+								if (true) console.log("KANG-fn_campaignInfoAll: scheduleScheduler.length = " + scheduleScheduler.length);
+								if (true) console.log("KANG-fn_campaignInfoAll: ", scheduleScheduler);
+								$("#scheduleScheduler").text((scheduleScheduler == "" || scheduleScheduler == null || scheduleScheduler == "null") ? "" : scheduleScheduler);
 								$("#scheduleRsrvDate").text((scheduleRsrvDate == "null ~ null" || scheduleRsrvDate == " ~ ")?"":scheduleRsrvDate);
 								$("#camp_term_cd").val(result.scheduleBo.camp_term_cd);
 								$("#camp_end_dt").val(result.scheduleBo.camp_end_dt);
@@ -692,7 +732,7 @@
 						} else {
 							$("#multiSaveBtn").hide();
 						}
-						/* 캠페인 일정 정보 ##################################### /// */
+						/* 캠페인 일정 정보 END ##################################### /// */
 						return "SUCC";
 					}
 				} else {
@@ -708,8 +748,8 @@
 		});
 	}
 	
+	//켐패인 속성 조회
 	function fn_property(campaignid){
-		//켐패인 속성 조회
 		jQuery.ajax({
 			url           : '${staticPATH }/getCampaignInfo.do',
 			dataType      : "JSON",
@@ -787,8 +827,8 @@
 		});
 	}
 	
-	function fn_offer(campaignid){
 	//켐패인 오퍼 리스트  조회
+	function fn_offer(campaignid){
 		jQuery.ajax({
 			url           : '${staticPATH }/getOfferInfoList.do',
 			dataType      : "JSON",
@@ -1128,7 +1168,8 @@
 	}
 	
 	/* 조회 */
-	function fn_searchSchedule() {
+	function fn_searchSchedule() {   // KANG-20190410: analyzing
+		if (true) console.log("KANG-fn_searchSchedule: " + $("#scheduleCampaignId").val() + ", " + $("#scheduleCAMPAIGNCODE").val());  // KANG-20190410
 		jQuery.ajax({
 			url           : '${staticPATH }/getScheduleList.do',
 			dataType      : "JSON",
@@ -1142,12 +1183,12 @@
 				SEARCH_TYPE     : $("#SEARCH_TYPE").val()
 			},
 			success: function(result, option) {
-				if (option=="success"){
+				if (option == "success"){
 					var list = result.ScheduleList;
 					$("#LIST_LENGTH").val(list.length);
 					$("#scheduleListTable > tbody tr").remove();
 					var txt ="";
-					if (list.length>0){
+					if (list.length > 0){
 						$.each(list, function(key){
 							var data = list[key];
 							txt += "<tr>";
@@ -1210,7 +1251,7 @@
 							*/
 						}
 					}
-					txt += "</table>";
+					//txt += "</table>";
 					$("#scheduleListTable > tbody:last").append(txt);
 					//페이징 처리 시작!!
 					var page = "";
@@ -1247,7 +1288,7 @@
 	};
 	
 	// 일정 조회
-	function fn_searchScheduleList(campaignid){
+	function fn_searchScheduleList(campaignid){   // KANG-20190410: analyzing, by campaignId
 		jQuery.ajax({
 			url           : '${staticPATH }/schedule/scheduleList.do',
 			dataType      : "JSON",
@@ -1338,13 +1379,44 @@
 		fn_searchScheduleList($("#scheduleCampaignId").val());
 	}
 	
-	/* 선택 삭제 */
+	/* schedule 선택 삭제 */
 	function fn_delete(){
 		if ($("input:checkbox[name='CHK_DATE']:checked").length == 0){
 			alert("삭제할 일정을 선택하세요");
 			return;
 		}
 		if (!confirm($("input:checkbox[name='CHK_DATE']:checked").length + "건을 삭제 하시겠습니까?")){
+			return;
+		}
+		
+		if (!true) { // KANG-20190410: to rm
+			/*
+			$("#formSchedule").serialize()
+				TO_DATE=
+				&TO_DATE_P1=
+				&TO_DATE_P2=
+				&CAMPAIGNCODE=CAMP718
+				&CampaignId=718
+				&selectPageNo=
+				&LIST_LENGTH=15
+				&camp_term_cd=01
+				&camp_end_dt=2018-01-01
+				&channel_priority_yn=Y
+				&minDispDt=
+				&SEARCH_TYPE=%EC%A0%84%EC%B2%B4
+				&RSRV_DT=
+				&RSRV_HOUR=8
+				&RSRV_MINUTE=0
+				&CHK_DATE=2018-01-09+16%3A10
+				&CHK_DATE=2018-01-11+22%3A00
+				&CHK_DATE=2018-01-17+14%3A00
+				&CHK_DATE=2018-01-21+10%3A55
+				&CHK_DATE=2018-01-21+15%3A38
+				&CHK_DATE=2018-01-23+16%3A03
+				&CHK_DATE=2018-01-23+18%3A45
+				&CHK_DATE=2018-01-23+22%3A09
+			*/
+			console.log("KANG.fn_delete(): " + $("#formSchedule").serialize());
 			return;
 		}
 		jQuery.ajax({
@@ -1461,6 +1533,66 @@
 		}
 	}
 	
+	// KANG-20190410: multi selection toggler                  NOT USE
+	// 일정목록에서 전부를 선택하거나 선택을 취소하거나
+	var FLG_CHK_DATE = 'SET';   // toggle SET/UNSET
+	function fn_toggleScheduleAllSelect() {
+		if (true) console.log("KANG.fn_toggleScheduleAllSelect: start  " + FLG_CHK_DATE);
+		return;
+		
+		switch (FLG_CHK_DATE) {
+		case "SET":
+			if (true) {
+				$('#scheduleListTable > tbody > tr').each(function(idx) {
+					var rsrv_dt = $(this).find("td:eq(2)").text();
+					var $tdCheckBox = $(this).find('input[type=checkbox]');
+					if ($tdCheckBox.length) {
+						var isChecked = $tdCheckBox.prop('checked');
+						var isDisabled = $tdCheckBox.prop('disabled');
+						if (!true) console.log("KANG.fn_toggleScheduleAllSelect: (" + idx + ") RSRV_DT = " + rsrv_dt + ", isDisabled = " + isDisabled + ", isChecked = " + isChecked);
+						if (isDisabled == false && isChecked == false) {
+							$(this).find('input[type=checkbox]').attr('checked', true);
+							//$(this).find('input[type=checkbox]').attr('checked', 'checked');
+						}
+					}
+				});
+				FLG_CHK_DATE = 'UNSET';
+			}
+			break;
+		case "UNSET":
+			if (true) {
+				$('#scheduleListTable > tbody > tr').each(function(idx) {
+					var rsrv_dt = $(this).find("td:eq(2)").text();
+					var $tdCheckBox = $(this).find('input[type=checkbox]');
+					if ($tdCheckBox.length) {
+						var isChecked = $tdCheckBox.prop('checked');
+						var isDisabled = $tdCheckBox.prop('disabled');
+						if (!true) console.log("KANG.fn_toggleScheduleAllSelect: (" + idx + ") RSRV_DT = " + rsrv_dt + ", isDisabled = " + isDisabled + ", isChecked = " + isChecked);
+						if (isDisabled == false && isChecked == true) {
+							$(this).find('input[type=checkbox]').attr('checked', false);
+							//$(this).find('input[type=checkbox]').removeAttr('checked');
+						}
+					}
+				});
+				FLG_CHK_DATE = 'SET';
+			}
+			break;
+		}
+		
+		if (true) {
+			$('#scheduleListTable > tbody > tr').each(function(idx) {
+				var rsrv_dt = $(this).find("td:eq(2)").text();
+				var $tdCheckBox = $(this).find('input[type=checkbox]');
+				if ($tdCheckBox.length) {
+					var isChecked = $tdCheckBox.prop('checked');
+					var isDisabled = $tdCheckBox.prop('disabled');
+					if (true) console.log("KANG.fn_toggleScheduleAllSelect: result (" + idx + ") RSRV_DT = " + rsrv_dt + ", isDisabled = " + isDisabled + ", isChecked = " + isChecked);
+				}
+			});
+		}
+	}
+
+	// campaign stop
 	function campaignStop(){
 		if (confirm("캠페인을 중지하시겠습니까?"))  {
 			jQuery.ajax({
@@ -1489,6 +1621,14 @@
 		}
 	}
 	
+	/* 페이지 이동 */
+	function fn_pageMove(selectPageNo)
+	{
+		$("#selectPageNo").val(selectPageNo);
+		fn_search();
+	}
+
+	// test
 	function _test_channelMobile() {
 		if (!true) {
 			alert("_test_channelMobile()");
@@ -1502,6 +1642,9 @@
 	}
 </script>
 <!-- END SCRIPT -->
+
+
+
 
 
 <!--PAGE CONTENT -->
@@ -1567,6 +1710,7 @@
 							<tbody></tbody>
 						</table>
 						<div id="search_layer"></div>
+						<nav><ul class="pager" id="paging_layer"></ul></nav>
 					</div>
 				</div>
 			</form>
@@ -1797,7 +1941,6 @@
 							<input type="hidden" id="scheduleCampaignId" name="CampaignId" value="${bo.campaignid}" />
 							<input type="hidden" id="selectPageNo" name="selectPageNo"  value="${selectPageNo}" />
 							<input type="hidden" id="LIST_LENGTH" name="LIST_LENGTH"  value="0" />
-
 							<input type="hidden" id="camp_term_cd" name="camp_term_cd"  value="" />
 							<input type="hidden" id="camp_end_dt" name="camp_end_dt"  value="" />
 							<input type="hidden" id="channel_priority_yn" name="channel_priority_yn"  value="" />
@@ -1888,7 +2031,13 @@
 									<thead>
 									<tr class="info">
 										<th style="text-align:center;" >No</th>
-										<th style="text-align:center;">선택</th>
+										<th style="text-align:center;">
+											<input type='checkbox' id="chkParent" style='margin:-13px 5px -5px 0px;' />
+											<!--
+											선택
+											<button type='button' onclick='javascript:fn_toggleScheduleAllSelect();' class='btn btn-primary' style='background-color:#aaa; height:15px;width:15px;padding:0px; font-size:10px;'>A</button>
+											-->
+										</th>
 										<th style="text-align:center;">실행예정일시</th>
 										<th style="text-align:center;">실행시작일시</th>
 										<th style="text-align:center;">실행종료일시</th>

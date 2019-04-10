@@ -172,6 +172,10 @@ public class CampaignInfoDAOImpl extends AbstractDAO implements CampaignInfoDAO 
 	 * @return
 	 * @throws Exception
 	 */
+	@Override
+	public String getCampaignListCnt(Map<String, Object> param) throws SQLException {
+		return (String)selectOne("CampaignInfo.getCampaignListCnt", param);
+	}
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<CampaignListBO> getCampaignList(Map<String, Object> param) throws SQLException {

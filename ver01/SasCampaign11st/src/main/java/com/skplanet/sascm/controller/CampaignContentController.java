@@ -38,6 +38,7 @@ import com.skplanet.sascm.service.CommCodeService;
 import com.skplanet.sascm.service.OfferService;
 import com.skplanet.sascm.service.VariableService;
 import com.skplanet.sascm.util.Common;
+import com.skplanet.sascm.util.Flag;
 
 @Controller
 public class CampaignContentController {
@@ -98,29 +99,42 @@ public class CampaignContentController {
 			selectPageNo = "1";
 		}
 
+		int selectPage = Integer.parseInt(selectPageNo);
 		int pageRange = 10;
 		int rowRange = 5;
-		int selectPage = Integer.parseInt(selectPageNo);
 		int rowTotalCnt = Integer.parseInt(this.campaignContentService.getCampaignContentListCnt(map));
-		int pageStart = ((selectPage - 1) / pageRange) * pageRange + 1;
 		int totalPage = rowTotalCnt / rowRange + ((rowTotalCnt % rowRange > 0) ? 1 : 0);
+		int pageStart = ((selectPage - 1) / pageRange) * pageRange + 1;
 		int pageEnd = (totalPage <= (pageStart + pageRange - 1)) ? totalPage : (pageStart + pageRange - 1);
 
 		int searchRangeStart = (rowRange * (selectPage - 1)) + 1;
 		int searchRangeEnd = rowRange * selectPage;
-
 		map.put("searchRangeStart", searchRangeStart);
 		map.put("searchRangeEnd", searchRangeEnd);
+		if (Flag.flag) {
+			log.info("=============================================");
+			log.info("selectPage       : " + selectPage);
+			log.info("pageRange        : " + pageRange);
+			log.info("rowRange         : " + rowRange);
+			log.info("rowTotalCnt      : " + rowTotalCnt);
+			log.info("totalPage        : " + totalPage);
+			log.info("pageStart        : " + pageStart);
+			log.info("pageEnd          : " + pageEnd);
+			log.info("searchRangeStart : " + searchRangeStart);
+			log.info("searchRangeEnd   : " + searchRangeEnd);
+			log.info("=============================================");
+		}
 
+		// 캠페인 정보 목록 조회
 		List<CampaignContentBO> list = this.campaignContentService.getCampaignContentList(map);
 
 		map.put("CampaignContentList", list);
-		map.put("rowTotalCnt", rowTotalCnt);
+		map.put("selectPage", selectPage);
 		map.put("pageRange", pageRange);
 		map.put("rowRange", rowRange);
-		map.put("selectPage", selectPage);
-		map.put("pageStart", pageStart);
+		map.put("rowTotalCnt", rowTotalCnt);
 		map.put("totalPage", totalPage);
+		map.put("pageStart", pageStart);
 		map.put("pageEnd", pageEnd);
 
 		jsonView.render(map, request, response);

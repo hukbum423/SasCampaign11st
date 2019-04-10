@@ -136,6 +136,7 @@ public interface CampaignInfoDAO {
 	 * @return
 	 * @throws Exception
 	 */
+	public String getCampaignListCnt(Map<String, Object> param) throws SQLException;
 	public List<CampaignListBO> getCampaignList(Map<String, Object> param) throws SQLException;
 	
     public List<CampaignListBO> getCICampaignProperyList(Map<String, Object> param) throws SQLException;

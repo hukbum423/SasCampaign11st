@@ -133,6 +133,7 @@ public interface CampaignInfoService {
 	 * @return
 	 * @throws Exception
 	 */
+	public String getCampaignListCnt(Map<String, Object> param) throws Exception;
 	public List<CampaignListBO> getCampaignList(Map<String, Object> param) throws Exception;
 
 	public List<CampaignListBO> getCICampaignProperyList(Map<String, Object> param) throws Exception;

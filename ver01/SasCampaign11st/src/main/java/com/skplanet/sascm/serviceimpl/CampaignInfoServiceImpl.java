@@ -179,6 +179,11 @@ public class CampaignInfoServiceImpl implements CampaignInfoService {
 	 * @throws Exception
 	 */
 	@Override
+	public String getCampaignListCnt(Map<String, Object> param) throws Exception {
+		return this.campaignInfoDAO.getCampaignListCnt(param);
+	}
+
+	@Override
 	public List<CampaignListBO> getCampaignList(Map<String, Object> param) throws Exception {
 		return this.campaignInfoDAO.getCampaignList(param);
 	}

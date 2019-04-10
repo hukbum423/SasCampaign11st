@@ -19,7 +19,7 @@
 		fn_search();
 	});
 
-	function fn_search() {
+	function fn_search() {  // TODO KANG-20190410: main fn_search
 		jQuery.ajax({
 			url           : '${staticPATH }/getCampaignContentList.do',
 			dataType      : "JSON",
@@ -77,7 +77,7 @@
 	};
 
 	//상세조회
-	 function fn_getDetailList(offerContentId,offerContentNm,offerContentDesc) {
+	function fn_getDetailList(offerContentId,offerContentNm,offerContentDesc) {
 		$("#OFFER_CONTENT_ID").val(offerContentId);
 		$("#OFFER_CONTENT_NM").val(offerContentNm);
 		$("#OFFER_CONTENT_DESC").val(offerContentDesc);

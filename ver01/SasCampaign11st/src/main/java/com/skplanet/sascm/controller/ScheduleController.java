@@ -37,6 +37,7 @@ import com.skplanet.sascm.service.OfferService;
 import com.skplanet.sascm.service.ScheduleService;
 import com.skplanet.sascm.service.TestTargetService;
 import com.skplanet.sascm.util.Common;
+import com.skplanet.sascm.util.Flag;
 
 @Controller
 public class ScheduleController {
@@ -662,6 +663,8 @@ public class ScheduleController {
 
 	/**
 	 * 캠페인 일정 목록 조회
+	 * 
+	 * KANG-20190410: analyzing
 	 *
 	 * @param request
 	 * @param response
@@ -691,43 +694,44 @@ public class ScheduleController {
 			selectPageNo = "1";
 		}
 
-		int pageRange = 10;
-		int rowRange = 1000;
+		// KANG-20190410: for understanding of pagination
 		int selectPage = Integer.parseInt(selectPageNo);
-		int rowTotalCnt = Integer.parseInt(scheduleService.getScheduleListCnt(map));
-		int pageStart = ((selectPage - 1) / pageRange) * pageRange + 1;
+		int pageRange = 10;     // page block
+		int rowRange = 1000;    // row block
+		int rowTotalCnt = Integer.parseInt(this.scheduleService.getScheduleListCnt(map));
 		int totalPage = rowTotalCnt / rowRange + ((rowTotalCnt % rowRange > 0) ? 1 : 0);
+		int pageStart = ((selectPage - 1) / pageRange) * pageRange + 1;
 		int pageEnd = (totalPage <= (pageStart + pageRange - 1)) ? totalPage : (pageStart + pageRange - 1);
 
-		int searchRangeStart = (rowRange * (selectPage - 1)) + 1;
-		int searchRangeEnd = rowRange * selectPage;
-
-		log.info("=============================================");
-		log.info("rowTotalCnt      : " + rowTotalCnt);
-		log.info("pageRange        : " + pageRange);
-		log.info("rowRange         : " + rowRange);
-		log.info("selectPage       : " + selectPage);
-		log.info("pageStart        : " + pageStart);
-		log.info("totalPage        : " + totalPage);
-		log.info("pageEnd          : " + pageEnd);
-		log.info("searchRangeStart : " + searchRangeStart);
-		log.info("searchRangeEnd   : " + searchRangeEnd);
-		log.info("=============================================");
-
+		//int searchRangeStart = (rowRange * (selectPage - 1)) + 1;   // num >=  #{searchRangeStart} 
+		int searchRangeStart = (rowRange * (selectPage - 1));   // num >  #{searchRangeStart}
+		int searchRangeEnd   = rowRange * selectPage;           // num <=  #{searchRangeEnd}
 		map.put("searchRangeStart", searchRangeStart);
 		map.put("searchRangeEnd", searchRangeEnd);
+		if (Flag.flag) {
+			log.info("=============================================");
+			log.info("selectPage       : " + selectPage);
+			log.info("pageRange        : " + pageRange);
+			log.info("rowRange         : " + rowRange);
+			log.info("rowTotalCnt      : " + rowTotalCnt);
+			log.info("totalPage        : " + totalPage);
+			log.info("pageStart        : " + pageStart);
+			log.info("pageEnd          : " + pageEnd);
+			log.info("searchRangeStart : " + searchRangeStart);
+			log.info("searchRangeEnd   : " + searchRangeEnd);
+			log.info("=============================================");
+		}
 
-		//일정 목록 조회
-		List<CampaignRunScheduleBO> list = scheduleService.getScheduleList(map);
+		// 일정 목록 조회
+		List<CampaignRunScheduleBO> list = this.scheduleService.getScheduleList(map);
 
 		map.put("ScheduleList", list);
-
-		map.put("rowTotalCnt", rowTotalCnt);
+		map.put("selectPage", selectPage);
 		map.put("pageRange", pageRange);
 		map.put("rowRange", rowRange);
-		map.put("selectPage", selectPage);
-		map.put("pageStart", pageStart);
+		map.put("rowTotalCnt", rowTotalCnt);
 		map.put("totalPage", totalPage);
+		map.put("pageStart", pageStart);
 		map.put("pageEnd", pageEnd);
 
 		jsonView.render(map, request, response);

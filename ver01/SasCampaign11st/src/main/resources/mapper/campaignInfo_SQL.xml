@@ -607,32 +607,72 @@
       CAMPAIGN_FOLDER_TXT
     ORDER BY
       CAMPAIGN_FOLDER_TXT
-
   </select>
-  <select id="CampaignInfo.getCampaignList" parameterType="Map" resultMap="CampaignListBO">
-     SELECT CAMPAIGN_NM campaignnm,
-              CAMPAIGN_DESC campaign_desc,
-              CAMPAIGN_CD campaigncd,
-              CAMPAIGN_SK campaignid,
-              CAMPAIGN_OWNER_NM campaign_owner_nm,
-              RUN_DTTM run_dttm
-         FROM CI_CAMPAIGN
-         WHERE TO_CHAR(CAMPAIGN_FOLDER_TXT)  LIKE '%'||#{treeValue}||'%' AND DELETED_FLG ='N'
-          <if test='serverType == "PRD"'>
-            <![CDATA[ AND CAMPAIGN_SK >= 10000 ]]>
-          </if>
-          <if test='serverType == "STG"'>
-            <![CDATA[ AND CAMPAIGN_SK < 10000 ]]>
-          </if>
-          <if test='serverType == "DEV"'>
-            <![CDATA[ AND CAMPAIGN_SK < 10000 ]]>
-          </if>
-         ORDER BY CAMPAIGN_SK DESC
-  </select>
+	<!-- KANG-20190410: 목록 건수 -->
+	<select id="CampaignInfo.getCampaignListCnt" parameterType="Map" resultType="String">
+		SELECT /* Schedule.getScheduleListCnt */
+			COUNT(0)	CNT
+		FROM
+			CI_CAMPAIGN
+		WHERE 1=1
+			AND TO_CHAR(CAMPAIGN_FOLDER_TXT) LIKE '%'||#{treeValue}||'%' AND DELETED_FLG ='N'
+			<if test='serverType == "PRD"'>
+				<![CDATA[ AND CAMPAIGN_SK >= 10000 ]]>
+			</if>
+			<if test='serverType == "STG"'>
+				<![CDATA[ AND CAMPAIGN_SK < 10000 ]]>
+			</if>
+			<if test='serverType == "DEV"'>
+				<![CDATA[ AND CAMPAIGN_SK < 10000 ]]>
+			</if>
+		ORDER BY
+			CAMPAIGN_SK DESC
+	</select>
+	<!-- KANG-20190410: 목록 -->
+	<select id="CampaignInfo.getCampaignList" parameterType="Map" resultMap="CampaignListBO">
+		SELECT /* Schedule.getScheduleList */
+			a.*
+		FROM (
+			SELECT
+				a.*
+				, ROWNUM num
+			FROM (
+				SELECT
+					CAMPAIGN_NM           campaignnm
+					, CAMPAIGN_DESC       campaign_desc
+					, CAMPAIGN_CD         campaigncd
+					, CAMPAIGN_SK         campaignid
+					, CAMPAIGN_OWNER_NM   campaign_owner_nm
+					, RUN_DTTM            run_dttm
+				FROM
+					CI_CAMPAIGN
+				WHERE 1=1
+					AND TO_CHAR(CAMPAIGN_FOLDER_TXT)  LIKE '%'||#{treeValue}||'%' AND DELETED_FLG ='N'
+					<if test='serverType == "PRD"'>
+						<![CDATA[ AND CAMPAIGN_SK >= 10000 ]]>
+					</if>
+					<if test='serverType == "STG"'>
+						<![CDATA[ AND CAMPAIGN_SK < 10000 ]]>
+					</if>
+					<if test='serverType == "DEV"'>
+						<![CDATA[ AND CAMPAIGN_SK < 10000 ]]>
+					</if>
+				ORDER BY
+					CAMPAIGN_SK DESC
+			)a
+		)a
+		<![CDATA[
+		WHERE 1=1
+			AND num >  #{searchRangeStart}
+			AND num <=  #{searchRangeEnd}
+		ORDER BY
+			num
+		]]>
+	</select>
 
   <select id="CampaignInfo.getCICampaignProperty" parameterType="Map" resultMap="CampaignInfoBO">
-
-       SELECT  CMPGN_ID                     AS CAMPAIGNID
+       SELECT
+           CMPGN_ID                         AS CAMPAIGNID
            , MAX(CMPGN_NM)                  AS CAMPAIGNNAME                    /* 캠페인명     */
            , MAX(CMPGN_CD)                  AS CAMPAIGNCODE                    /* 캠페인코드     */
            , MAX(CAMPAIGN_PERIOD)           AS CAMPAIGN_PERIOD                 /* 1. 캠페인기간 ( 그룹1 : 특정일자 및 시간  ,  그룹2 : 전송일로부터의 일수   )*/
