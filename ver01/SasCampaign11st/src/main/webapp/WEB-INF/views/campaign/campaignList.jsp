@@ -366,6 +366,7 @@
 	}
 	
 	function fn_getCampaignDtl(campaignid) {
+		if (true) console.log("KANG.fn_getCampaignDtl: campaignid = " + campaignid);
 		$("#optionDiv").hide();
 		var reTurnDivView = fn_campaignInfoAll(campaignid);
 		if (reTurnDivView == "ERROR"){
@@ -400,7 +401,9 @@
 			scriptCharset : "UTF-8",
 			async         : true,
 			type          : "POST",
-			data          : {campaignid   : campaignid},
+			data          : {
+				campaignid   : campaignid
+			},
 			beforeSend:function(){
 				wrapWindowByMask();
 			},
@@ -756,7 +759,9 @@
 			scriptCharset : "UTF-8",
 			async         : true,
 			type          : "POST",
-			data          : {campaignid   : campaignid},
+			data          : {
+				campaignid   : campaignid
+			},
 			success: function(result, option) {
 				if (option=="success"){
 					$('#summary').css('display', '');
@@ -835,7 +840,9 @@
 			scriptCharset : "UTF-8",
 			async         : true,
 			type          : "POST",
-			data          : {campaignid   : campaignid},
+			data          : {
+				campaignid   : campaignid
+			},
 			success: function(result, option) {
 				if (option=="success"){
 					var list = result.offer_list;
@@ -893,7 +900,9 @@
 			scriptCharset : "UTF-8",
 			async         : true,
 			type          : "POST",
-			data          : {campaignid   : campaignid},
+			data          : {
+				campaignid   : campaignid
+			},
 			success: function(result, option) {
 				if (option=="success"){
 					//$('#channel').css('display', '');
@@ -1179,7 +1188,7 @@
 			data          : { 
 				CampaignId      : $("#scheduleCampaignId").val(),
 				CAMPAIGNCODE    : $("#scheduleCAMPAIGNCODE").val(),
-				selectPageNo    : $("#selectPageNo").val(),
+				selectPageNo2   : $("#selectPageNo2").val(),
 				SEARCH_TYPE     : $("#SEARCH_TYPE").val()
 			},
 			success: function(result, option) {
@@ -1256,22 +1265,22 @@
 					//페이징 처리 시작!!
 					var page = "";
 					//이전페이지 만들기
-					if ( result.selectPage > result.pageRange){
-						page +="<a href=\"javascript:fn_pageMove("+ (Number(result.pageStart) - Number(result.pageRange)) +" );\" ><img src=\"<c:url value='/img/btn_left.gif'/>\" width='13px;' height='13px;' /></a>&nbsp;";
+					if ( result.selectPage2 > result.pageRange){
+						page +="<a href=\"javascript:fn_pageMove2("+ (Number(result.pageStart) - Number(result.pageRange)) +" );\" ><img src=\"<c:url value='/img/btn_left.gif'/>\" width='13px;' height='13px;' /></a>&nbsp;";
 					}
 					//페이지 숫자
 					for(var i=result.pageStart;  i<=result.pageEnd; i++){
-						if (result.selectPage == i)  {
+						if (result.selectPage2 == i)  {
 							page +="<strong>" + i + "</strong>";
 						} else {
-							page +="<a href=\"javascript:fn_pageMove("+i+");\">" + i + "</a>";
+							page +="<a href=\"javascript:fn_pageMove2("+i+");\">" + i + "</a>";
 						};
 					};
 					//다음페이지 만들기
 					if (result.totalPage != result.pageEnd ) {
-						page +="&nbsp;<a href=\"javascript:fn_pageMove("+ (Number(result.pageStart) + Number(result.pageRange)) +" );\" ><img src=\"<c:url value='/img/btn_right.gif'/>\" width='13px;' height='13px;' /></a>";
+						page +="&nbsp;<a href=\"javascript:fn_pageMove2("+ (Number(result.pageStart) + Number(result.pageRange)) +" );\" ><img src=\"<c:url value='/img/btn_right.gif'/>\" width='13px;' height='13px;' /></a>";
 					}
-					$("#paging_layer").html(page);
+					$("#paging_layer2").html(page);
 					//페이징 처리 종료
 				} else {
 					alert("에러가 발생하였습니다.");
@@ -1628,6 +1637,12 @@
 		fn_search();
 	}
 
+	function fn_pageMove2(selectPageNo)
+	{
+		$("#selectPageNo2").val(selectPageNo);
+		fn_search();
+	}
+
 	// test
 	function _test_channelMobile() {
 		if (!true) {
@@ -1669,7 +1684,7 @@
 				<input type="hidden" id="CELLID" name="CELLID" value="" />
 				<input type="hidden" id="OFFERID" name="OFFERID" value="" />
 				<!-- List -->
-				<div class="col-md-3" style="height:320px">
+				<div class="col-md-3" style="height:380px">
 					<button type="button" class="btn btn-warning btn-xs" id="expandAllBtn" onclick="return false;" style="margin-bottom:3px;" >
 						<i class="fa fa-plus" aria-hidden="true"></i> 모두열기
 					</button>
@@ -1698,7 +1713,7 @@
 						</thead>
 						<tbody></tbody>
 					</table>
-					<div id="table" style="overflow-x: hidden; overflow-y: auto; width:100%; height:311px;margin-top:0px;">
+					<div id="table" style="overflow-x: hidden; overflow-y: auto; width:100%; height:371px;margin-top:0px;">
 						<table id="campaignList" class="table table-striped table-hover table-condensed" width="100%" border="0" cellpadding="0" cellspacing="0">
 							<colgroup>
 								<col width="13%"/>
@@ -1939,7 +1954,7 @@
 							<input type="hidden" id="TO_DATE_P2" name="TO_DATE_P2" value="" />
 							<input type="hidden" id="scheduleCAMPAIGNCODE" name="CAMPAIGNCODE" value="${bo.campaigncode}" />
 							<input type="hidden" id="scheduleCampaignId" name="CampaignId" value="${bo.campaignid}" />
-							<input type="hidden" id="selectPageNo" name="selectPageNo"  value="${selectPageNo}" />
+							<input type="hidden" id="selectPageNo2" name="selectPageNo2"  value="${selectPageNo2}" />
 							<input type="hidden" id="LIST_LENGTH" name="LIST_LENGTH"  value="0" />
 							<input type="hidden" id="camp_term_cd" name="camp_term_cd"  value="" />
 							<input type="hidden" id="camp_end_dt" name="camp_end_dt"  value="" />
@@ -2050,8 +2065,8 @@
 									<tbody></tbody>
 								</table>
 							</div>
-							<!-- <div id="search_layer_schedule"></div> -->
-							<!-- <div id="paging_layer" class="s_paging"></div> -->
+							<div id="search_layer_schedule"></div>
+							<div id="paging_layer2" class="s_paging" style="display:none;"></div>
 							<!-- /List -->
 							<table border="0" cellpadding="0" cellspacing="0"><tr><td height="20"></td></table>
 						</form>

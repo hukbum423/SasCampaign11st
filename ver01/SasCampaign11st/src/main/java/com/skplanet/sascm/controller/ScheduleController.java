@@ -680,7 +680,7 @@ public class ScheduleController {
 		log.info("=============================================");
 		log.info("CampaignId        : " + request.getParameter("CampaignId"));
 		log.info("CAMPAIGNCODE      : " + request.getParameter("CAMPAIGNCODE"));
-		log.info("selectPageNo      : " + request.getParameter("selectPageNo"));
+		log.info("selectPageNo2     : " + request.getParameter("selectPageNo2"));
 		log.info("SEARCH_TYPE       : " + request.getParameter("SEARCH_TYPE"));
 		log.info("=============================================");
 
@@ -689,28 +689,28 @@ public class ScheduleController {
 		map.put("SEARCH_TYPE", Common.nvl(request.getParameter("SEARCH_TYPE"), ""));
 
 		//paging
-		String selectPageNo = (String) request.getParameter("selectPageNo");
-		if (selectPageNo == null || selectPageNo.equals("")) {
-			selectPageNo = "1";
+		String selectPageNo2 = (String) request.getParameter("selectPageNo2");
+		if (selectPageNo2 == null || selectPageNo2.equals("")) {
+			selectPageNo2 = "1";
 		}
 
 		// KANG-20190410: for understanding of pagination
-		int selectPage = Integer.parseInt(selectPageNo);
+		int selectPage2 = Integer.parseInt(selectPageNo2);
 		int pageRange = 10;     // page block
 		int rowRange = 1000;    // row block
 		int rowTotalCnt = Integer.parseInt(this.scheduleService.getScheduleListCnt(map));
 		int totalPage = rowTotalCnt / rowRange + ((rowTotalCnt % rowRange > 0) ? 1 : 0);
-		int pageStart = ((selectPage - 1) / pageRange) * pageRange + 1;
+		int pageStart = ((selectPage2 - 1) / pageRange) * pageRange + 1;
 		int pageEnd = (totalPage <= (pageStart + pageRange - 1)) ? totalPage : (pageStart + pageRange - 1);
 
 		//int searchRangeStart = (rowRange * (selectPage - 1)) + 1;   // num >=  #{searchRangeStart} 
-		int searchRangeStart = (rowRange * (selectPage - 1));   // num >  #{searchRangeStart}
-		int searchRangeEnd   = rowRange * selectPage;           // num <=  #{searchRangeEnd}
+		int searchRangeStart = (rowRange * (selectPage2 - 1));   // num >  #{searchRangeStart}
+		int searchRangeEnd   = rowRange * selectPage2;           // num <=  #{searchRangeEnd}
 		map.put("searchRangeStart", searchRangeStart);
 		map.put("searchRangeEnd", searchRangeEnd);
 		if (Flag.flag) {
 			log.info("=============================================");
-			log.info("selectPage       : " + selectPage);
+			log.info("selectPage2      : " + selectPage2);
 			log.info("pageRange        : " + pageRange);
 			log.info("rowRange         : " + rowRange);
 			log.info("rowTotalCnt      : " + rowTotalCnt);
@@ -726,7 +726,7 @@ public class ScheduleController {
 		List<CampaignRunScheduleBO> list = this.scheduleService.getScheduleList(map);
 
 		map.put("ScheduleList", list);
-		map.put("selectPage", selectPage);
+		map.put("selectPage2", selectPage2);
 		map.put("pageRange", pageRange);
 		map.put("rowRange", rowRange);
 		map.put("rowTotalCnt", rowTotalCnt);
