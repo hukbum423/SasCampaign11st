@@ -480,7 +480,6 @@ public class CampaignController {
 							System.out.println("########## CheckCopyCouponNo.checkCouponNo Start");
 							CheckCopyCouponNo.checkCouponNo(request.getParameter("campaignid"), campaignOfferBo.getCellid(), dbconnUrl, dbconnUser, dbconnPass, dbconnBoUrl, dbconnBoUser, dbconnBoPass, Integer.parseInt(campaignOfferBo.getOfferid()));
 						} catch (Exception e) {
-							// TODO: handle exception+
 							log.debug("CheckCopyCouponNo.checkCouponNo ERROR !!!! ");
 							e.printStackTrace();
 						}
@@ -548,10 +547,14 @@ public class CampaignController {
 		String campaignId = request.getParameter("campaignid");
 		String cellId = request.getParameter("cellid");
 		int offerId = Integer.parseInt(request.getParameter("offerid"));
+		
 		try {// 443: campaign_sk // 1580 : rund id = cell_package_sk
-			CheckCopyCouponNo.checkCouponNo(campaignId, cellId, dbconnUrl, dbconnUser, dbconnPass, dbconnBoUrl, dbconnBoUser, dbconnBoPass, offerId);
+			CheckCopyCouponNo.checkCouponNo(
+					campaignId, cellId
+					, this.dbconnUrl, this.dbconnUser, this.dbconnPass
+					, this.dbconnBoUrl, this.dbconnBoUser, this.dbconnBoPass
+					, offerId);
 		} catch (Exception e) {
-			// TODO: handle exception
 			log.debug("CheckCopyCouponNo.checkCouponNo ERROR !!!! ");
 			e.printStackTrace();
 		}

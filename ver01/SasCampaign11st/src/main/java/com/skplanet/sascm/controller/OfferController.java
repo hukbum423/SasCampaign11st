@@ -254,7 +254,6 @@ public class OfferController {
 			try {// 443: campaign_sk // 1580 : rund id = cell_package_sk
 				CheckCopyCouponNo.checkCouponNo(request.getParameter("CampaignId"), request.getParameter("CELL_PACKAGE_SK"), dbconnUrl, dbconnUser, dbconnPass, dbconnBoUrl, dbconnBoUser, dbconnBoPass, Integer.parseInt(tmpOfferId));
 			} catch (Exception e) {
-				// TODO: handle exception
 				log.debug("CheckCopyCouponNo.checkCouponNo ERROR !!!! ");
 				e.printStackTrace();
 			}
