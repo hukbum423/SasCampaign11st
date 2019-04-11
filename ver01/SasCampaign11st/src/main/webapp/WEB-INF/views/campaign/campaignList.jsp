@@ -516,6 +516,7 @@
 							$("#scheduleDel").show();
 							$("#scheduleEdit").show();
 							$("#scheduleAdd").show();
+							$("#viewMultiDiv").hide();
 						}
 						result.boSummary.campaigntype
 						$('#CAMPAIGNGUBUN').text(tmpGubun);
@@ -1178,7 +1179,7 @@
 	
 	/* 조회 */
 	function fn_searchSchedule() {   // KANG-20190410: analyzing
-		if (true) console.log("KANG-fn_searchSchedule: " + $("#scheduleCampaignId").val() + ", " + $("#scheduleCAMPAIGNCODE").val());  // KANG-20190410
+		if (true) console.log("KANG-fn_searchSchedule: " + $("#scheduleCampaignId").val() + ", " + $("#scheduleCAMPAIGNCODE").val());
 		jQuery.ajax({
 			url           : '${staticPATH }/getScheduleList.do',
 			dataType      : "JSON",
@@ -1282,6 +1283,7 @@
 					}
 					$("#paging_layer2").html(page);
 					//페이징 처리 종료
+					if (true) $('#chkParent').removeAttr('checked');
 				} else {
 					alert("에러가 발생하였습니다.");
 				}

@@ -429,8 +429,9 @@ public class CampaignController {
 	// 캠페인 클릭시 요약/속성/오퍼/채널/일정 항목 전체
 	@RequestMapping("/getCampaignInfoAll.do")
 	public void getCampaignInfoAll(HttpServletRequest request, HttpServletResponse response, ModelMap modelMap, HttpSession session) throws Exception {
-		UsmUserBO user = (UsmUserBO) session.getAttribute("ACCOUNT");
 		Map<String, Object> map = new HashMap<String, Object>();
+
+		UsmUserBO user = (UsmUserBO) session.getAttribute("ACCOUNT");
 		map.put("CAMPAIGNID", Common.nvl(request.getParameter("campaignid"), ""));
 		List<CampaignListBO> boPropertyList = this.campaignInfoService.getCICampaignProperyList(map);
 
