@@ -328,33 +328,39 @@ String.prototype.cut2 = function(len) {
 	return str;
 }
 
-
-function pagingNavi(selectPage, pageRange, pageStart, pageEnd, totalPage){
-  var page = "";
-  
-  //이전페이지 만들기
-  if( selectPage > pageRange){
-    /* page +="<a href=\"javascript:fn_pageMove("+ (Number(result.pageStart) - Number(result.pageRange)) +" );\" ><img src=\"<c:url value='/img/btn_left.gif'/>\" width='13px;' height='13px;' /></a>&nbsp;"; */
-    page +="<li><a href=\"javascript:fn_pageMove("+ (Number(pageStart) - Number(pageRange)) +" );\" aria-label='Previous'><span aria-hidden='true'>&laquo;</span></a></li>";
-  }
-  
-  //페이지 숫자
-  for(var i=pageStart;  i<=pageEnd; i++){
-    var tmpActive = "";
-    if(selectPage == i)  { 
-      tmpActive = "style='background-color:#EEEEEE'"
-    }
-    
-    page += "<li ><a href=\"javascript:fn_pageMove("+i+");\" "+tmpActive+">"+i+"</a></li>";
-  };
-  
-      //다음페이지 만들기
-  if(totalPage != pageEnd ) {
-    /* page +="&nbsp;<a href=\"javascript:fn_pageMove("+ (Number(result.pageStart) + Number(result.pageRange)) +" );\" ><img src=\"<c:url value='/img/btn_right.gif'/>\" width='13px;' height='13px;' /></a>"; */
-    page +="<li><a href=\"javascript:fn_pageMove("+ (Number(pageStart) + Number(pageRange)) +" );\" aria-label='Next'><span aria-hidden='true'>&raquo;</span></a></li>";
-  }
-  
-  return page;
+// KANG-20190411: for pagination
+function pagingNavi(selectPage, pageRange, pageStart, pageEnd, totalPage, pageMove){
+	if (true) {
+		var msg = " => ";
+		msg += "selectPage=" + selectPage;
+		msg += ", pageRange=" + pageRange;
+		msg += ", pageStart=" + pageStart;
+		msg += ", pageEnd=" + pageEnd;
+		msg += ", totalPage=" + totalPage;
+		msg += ", pageMove=" + pageMove;
+		console.log("KANG.pagingMavi:" + msg);
+	}
+	var page = "";
+	//이전페이지 만들기
+	if (selectPage > pageRange) {
+		// page +="<a href=\"javascript:fn_pageMove("+ (Number(result.pageStart) - Number(result.pageRange)) +" );\" ><img src=\"<c:url value='/img/btn_left.gif'/>\" width='13px;' height='13px;' /></a>&nbsp;";
+		page += "<li><a href=\"javascript:" + pageMove + "(" + (Number(pageStart) - Number(pageRange)) + ");\" aria-label='Previous'><span aria-hidden='true'>&laquo;</span></a></li>";
+	}
+	//페이지 숫자
+	for (var i = pageStart; i <= pageEnd; i++) {
+		var tmpActive = "";
+		if(selectPage == i)	{ 
+			tmpActive = "style='background-color:#EEEEEE'";
+		}
+		
+		page += "<li ><a href=\"javascript:" + pageMove + "(" + i + ");\" " + tmpActive + ">" + i + "</a></li>";
+	}
+	//다음페이지 만들기
+	if (totalPage != pageEnd) {
+		// page +="&nbsp;<a href=\"javascript:fn_pageMove("+ (Number(result.pageStart) + Number(result.pageRange)) +" );\" ><img src=\"<c:url value='/img/btn_right.gif'/>\" width='13px;' height='13px;' /></a>";
+		page += "<li><a href=\"javascript:" + pageMove + "(" + (Number(pageStart) + Number(pageRange)) + ");\" aria-label='Next'><span aria-hidden='true'>&raquo;</span></a></li>";
+	}
+	return page;
 }
 
 function nvl(str, defaultVal) {

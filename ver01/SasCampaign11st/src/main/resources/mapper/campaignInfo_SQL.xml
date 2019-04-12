@@ -189,61 +189,63 @@
        AND A.CAMPAIGN_SK = #{CAMPAIGNID}
   </select>
 
-  <select id="CampaignInfo.getCampaignInfoSummary" parameterType="Map"  resultMap="CampaignInfoBO">
-     SELECT  CMPGN_ID                       AS CAMPAIGNID
-           , MAX(CMPGN_NM)                  AS CAMPAIGNNAME
-           , MAX(CMPGN_CD)                  AS CAMPAIGNCODE
-           , MAX(CAMPAIGN_GUBUN)            AS CAMPAIGNGUBUN
-           , MAX(CAMPAIGN_DETAIL)                        AS CAMPAIGN_DETAIL
-           , MAX(CAMPAIGN_OFFER_COST_GUBUN)   AS CAMPAIGN_OFFER_COST_GUBUN
-           , MAX(CAMPAIGN_TYPE)             AS CAMPAIGNTYPE
-           , MAX(SENDDATE_TYPE)             AS SENDDATETYPE
-       FROM (
-            SELECT  A.CAMPAIGN_SK                                                      AS CMPGN_ID                       /* 캠페인ID     */
-                  , A.CAMPAIGN_NM                                                      AS CMPGN_NM                       /* 캠페인명     */
-                  , A.CAMPAIGN_CD                                                      AS CMPGN_CD                       /* 캠페인코드     */
-                  , CASE WHEN UPPER(B.CHAR_UDF_NM) = '1. 데이터 전송방식' THEN
-                              B.CHAR_UDF_VAL
-                         ELSE NULL
-                    END                                                                AS SENDDATE_TYPE                  /* 데이터 전송방식 */
-                  , CASE WHEN UPPER(B.CHAR_UDF_NM) = '1. 캠페인 구분' THEN
-                              B.CHAR_UDF_VAL
-                         ELSE NULL
-                    END                                                                AS CAMPAIGN_GUBUN                  /* 캠페인 구분 */
-                  , CASE WHEN UPPER(B.CHAR_UDF_NM) IN ( '내부 상세', '외부 상세' ) THEN
-                              B.CHAR_UDF_VAL
-                         ELSE NULL
-                    END                                                                AS CAMPAIGN_DETAIL                  /* 캠페인 상세 */
-                  , CASE WHEN UPPER(B.CHAR_EXT_COLUMN_NM) = 'CAMPAIGN_OFFER_COST_GUBUN' THEN
-                              B.CHAR_UDF_VAL
-                         ELSE NULL
-                    END                                                                AS CAMPAIGN_OFFER_COST_GUBUN    /* 캠페인 목적 */
-                  , CASE WHEN UPPER(B.CHAR_EXT_COLUMN_NM) = 'CAMPAIGN_TYPE' THEN
-                              B.CHAR_UDF_VAL
-                         ELSE NULL
-                    END                                                                AS CAMPAIGN_TYPE                   /* 캠페인 종류 */
-
-                  , A.CAMPAIGN_DESC                                                 AS CMPGN_DESC                          /* 캠페인설명   */
-                  , A.LAST_MODIFIED_BY_USER_NM                                   AS REQ_EMP_ID                           /* 마자막 캠페인 실행자       */
-              FROM CI_CAMPAIGN                  A
-                   LEFT JOIN
-                   CI_CAMP_PAGE_CHAR_UDF        B
-                ON A.CAMPAIGN_SK = B.CAMPAIGN_SK
-                   LEFT JOIN
-                   CI_CAMP_PAGE_NUM_UDF         C
-                ON A.CAMPAIGN_SK = C.CAMPAIGN_SK
-                   LEFT JOIN
-                   CI_CAMP_PAGE_DATE_UDF        D
-                ON A.CAMPAIGN_SK = D.CAMPAIGN_SK
-                   LEFT JOIN
-                   CI_MARKETING_CELL            F
-                ON A.CAMPAIGN_SK = F.CAMPAIGN_SK
-             WHERE A.CAMPAIGN_SK = #{CAMPAIGNID}
-
-          )
-      GROUP BY  CMPGN_ID
-
-  </select>
+	<select id="CampaignInfo.getCampaignInfoSummary" parameterType="Map"  resultMap="CampaignInfoBO">
+		SELECT
+			CMPGN_ID                         AS CAMPAIGNID
+			, MAX(CMPGN_NM)                  AS CAMPAIGNNAME
+			, MAX(CMPGN_CD)                  AS CAMPAIGNCODE
+			, MAX(CAMPAIGN_GUBUN)            AS CAMPAIGNGUBUN
+			, MAX(CAMPAIGN_DETAIL)           AS CAMPAIGN_DETAIL
+			, MAX(CAMPAIGN_OFFER_COST_GUBUN) AS CAMPAIGN_OFFER_COST_GUBUN
+			, MAX(CAMPAIGN_TYPE)             AS CAMPAIGNTYPE
+			, MAX(SENDDATE_TYPE)             AS SENDDATETYPE
+		FROM (
+			SELECT
+				A.CAMPAIGN_SK                                                        AS CMPGN_ID                       /* 캠페인ID     */
+				, A.CAMPAIGN_NM                                                      AS CMPGN_NM                       /* 캠페인명     */
+				, A.CAMPAIGN_CD                                                      AS CMPGN_CD                       /* 캠페인코드     */
+				, CASE WHEN UPPER(B.CHAR_UDF_NM) = '1. 데이터 전송방식' THEN
+				            B.CHAR_UDF_VAL
+				       ELSE NULL
+				  END                                                                AS SENDDATE_TYPE                  /* 데이터 전송방식 */
+				, CASE WHEN UPPER(B.CHAR_UDF_NM) = '1. 캠페인 구분' THEN
+				            B.CHAR_UDF_VAL
+				       ELSE NULL
+				  END                                                                AS CAMPAIGN_GUBUN                  /* 캠페인 구분 */
+				, CASE WHEN UPPER(B.CHAR_UDF_NM) IN ( '내부 상세', '외부 상세' ) THEN
+				            B.CHAR_UDF_VAL
+				       ELSE NULL
+				  END                                                                AS CAMPAIGN_DETAIL                 /* 캠페인 상세 */
+				, CASE WHEN UPPER(B.CHAR_EXT_COLUMN_NM) = 'CAMPAIGN_OFFER_COST_GUBUN' THEN
+				            B.CHAR_UDF_VAL
+				       ELSE NULL
+				  END                                                                AS CAMPAIGN_OFFER_COST_GUBUN       /* 캠페인 목적 */
+				, CASE WHEN UPPER(B.CHAR_EXT_COLUMN_NM) = 'CAMPAIGN_TYPE' THEN
+				            B.CHAR_UDF_VAL
+				       ELSE NULL
+				  END                                                                AS CAMPAIGN_TYPE                   /* 캠페인 종류 */
+				, A.CAMPAIGN_DESC                                                    AS CMPGN_DESC                      /* 캠페인설명   */
+				, A.LAST_MODIFIED_BY_USER_NM                                         AS REQ_EMP_ID                      /* 마자막 캠페인 실행자  */
+			FROM
+				CI_CAMPAIGN                      A
+					LEFT JOIN
+					CI_CAMP_PAGE_CHAR_UDF        B
+				ON A.CAMPAIGN_SK = B.CAMPAIGN_SK
+					LEFT JOIN
+					CI_CAMP_PAGE_NUM_UDF         C
+				ON A.CAMPAIGN_SK = C.CAMPAIGN_SK
+					LEFT JOIN
+					CI_CAMP_PAGE_DATE_UDF        D
+				ON A.CAMPAIGN_SK = D.CAMPAIGN_SK
+					LEFT JOIN
+					CI_MARKETING_CELL            F
+				ON A.CAMPAIGN_SK = F.CAMPAIGN_SK
+			WHERE 1=1
+				AND A.CAMPAIGN_SK = #{CAMPAIGNID}
+		)
+		GROUP BY
+			CMPGN_ID
+	</select>
 
 
   <!-- 캠페인 정보 저장 -->
@@ -610,7 +612,7 @@
   </select>
 	<!-- KANG-20190410: 목록 건수 -->
 	<select id="CampaignInfo.getCampaignListCnt" parameterType="Map" resultType="String">
-		SELECT /* Schedule.getScheduleListCnt */
+		SELECT /* CampaignInfo.getCampaignListCnt */
 			COUNT(0)	CNT
 		FROM
 			CI_CAMPAIGN
@@ -630,7 +632,7 @@
 	</select>
 	<!-- KANG-20190410: 목록 -->
 	<select id="CampaignInfo.getCampaignList" parameterType="Map" resultMap="CampaignListBO">
-		SELECT /* Schedule.getScheduleList */
+		SELECT /* CampaignInfo.getCampaignListCnt */
 			a.*
 		FROM (
 			SELECT

@@ -160,7 +160,7 @@ public class ScheduleController {
 
 		map.put("CAMPAIGNID", Common.nvl(request.getParameter("CampaignId"), ""));
 
-		CampaignRunResvBO bo = scheduleService.getScheduleDetail(map);
+		CampaignRunResvBO bo = this.scheduleService.getScheduleDetail(map);
 
 		modelMap.addAttribute("user", user);
 		modelMap.addAttribute("bo", bo);
@@ -697,7 +697,7 @@ public class ScheduleController {
 		// KANG-20190410: for understanding of pagination
 		int selectPage2 = Integer.parseInt(selectPageNo2);
 		int pageRange = 10;     // page block
-		int rowRange = 1000;    // row block
+		int rowRange = 10;    // row block  origin: 1000
 		int rowTotalCnt = Integer.parseInt(this.scheduleService.getScheduleListCnt(map));
 		int totalPage = rowTotalCnt / rowRange + ((rowTotalCnt % rowRange > 0) ? 1 : 0);
 		int pageStart = ((selectPage2 - 1) / pageRange) * pageRange + 1;

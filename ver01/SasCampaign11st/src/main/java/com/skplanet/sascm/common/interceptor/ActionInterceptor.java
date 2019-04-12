@@ -49,8 +49,7 @@ public class ActionInterceptor extends HandlerInterceptorAdapter {
 	private static final String CMM_CODE = "USER000099";
 
 	@Override
-	public boolean preHandle(HttpServletRequest request,
-			HttpServletResponse response, Object handler) throws Exception {
+	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 		if (log.isDebugEnabled()) {
 			log.debug("KANG-20190308 ====================================== ActionInterceptor START  ======================================");
 			log.debug("KANG-20190308 Request URI \t:  " + request.getRequestURI());
@@ -73,30 +72,30 @@ public class ActionInterceptor extends HandlerInterceptorAdapter {
 			if (Flag.flag) System.out.println("KANG-20190308: >>>>> session is null!!!");
 		} else if (session.getAttribute("ACCOUNT") != null) {
 			//userId = sessionVo.getUserId();
-			if(sessionVo.getUserType().indexOf(CMM_CODE) == -1){
+			if (sessionVo.getUserType().indexOf(CMM_CODE) == -1) {
 				this.sessionService.removeMuzSession(request);
 				throw new ModelAndViewDefiningException(new ModelAndView("redirect:/autherror.do"));
 			}
-			if(url.indexOf("/login.do") > -1) {
+			if (url.indexOf("/login.do") > -1) {
 				new ModelAndView("redirect:/main.do");
 			}
-
 		} else {
-			if(url.indexOf("/login.do") > -1) {
+			// no authentication
+			if (url.indexOf("/login.do") > -1) {
 				return true;
-			}else if(url.indexOf("/ajax_login_proc.do") > -1) {
+			} else if (url.indexOf("/ajax_login_proc.do") > -1) {
 				return true;
-			}else if(url.indexOf("/loginReload.do") > -1) {
+			} else if (url.indexOf("/loginReload.do") > -1) {
 				return true;
-			}else if(url.indexOf("/autherror.do") > -1) {
+			} else if (url.indexOf("/autherror.do") > -1) {
 				return true;
-			}else if(url.indexOf("/notice/getNoticeList.do") > -1) {
+			} else if (url.indexOf("/notice/getNoticeList.do") > -1) {
 				return true;
-			}else if(url.indexOf("/callCopyCoupon.do") > -1) {
+			} else if (url.indexOf("/callCopyCoupon.do") > -1) {
 				return true;
-			}else if(url.indexOf("/kang.do") > -1) {
+			} else if (url.indexOf("/kang.do") > -1) {
 				return true;
-			}else{
+			} else {
 				throw new ModelAndViewDefiningException(new ModelAndView("redirect:/login.do?url="+url));
 			}
 		}
@@ -105,9 +104,7 @@ public class ActionInterceptor extends HandlerInterceptorAdapter {
 	}
 
 	@Override
-	public void postHandle(HttpServletRequest request,
-			HttpServletResponse response, Object handler,
-			ModelAndView modelAndView) throws Exception {
+	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
 		if (log.isDebugEnabled()) {
 			log.debug("KANG-20190308 ====================================== ActionInterceptor END ======================================\n");
 		}

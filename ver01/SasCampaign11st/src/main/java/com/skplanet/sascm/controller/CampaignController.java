@@ -429,8 +429,9 @@ public class CampaignController {
 	// 캠페인 클릭시 요약/속성/오퍼/채널/일정 항목 전체
 	@RequestMapping("/getCampaignInfoAll.do")
 	public void getCampaignInfoAll(HttpServletRequest request, HttpServletResponse response, ModelMap modelMap, HttpSession session) throws Exception {
-		UsmUserBO user = (UsmUserBO) session.getAttribute("ACCOUNT");
 		Map<String, Object> map = new HashMap<String, Object>();
+
+		UsmUserBO user = (UsmUserBO) session.getAttribute("ACCOUNT");
 		map.put("CAMPAIGNID", Common.nvl(request.getParameter("campaignid"), ""));
 		List<CampaignListBO> boPropertyList = this.campaignInfoService.getCICampaignProperyList(map);
 
@@ -479,7 +480,6 @@ public class CampaignController {
 							System.out.println("########## CheckCopyCouponNo.checkCouponNo Start");
 							CheckCopyCouponNo.checkCouponNo(request.getParameter("campaignid"), campaignOfferBo.getCellid(), dbconnUrl, dbconnUser, dbconnPass, dbconnBoUrl, dbconnBoUser, dbconnBoPass, Integer.parseInt(campaignOfferBo.getOfferid()));
 						} catch (Exception e) {
-							// TODO: handle exception+
 							log.debug("CheckCopyCouponNo.checkCouponNo ERROR !!!! ");
 							e.printStackTrace();
 						}
@@ -535,6 +535,8 @@ public class CampaignController {
 	}
 
 	/**
+	 * KANG-20190411: analyzing
+	 * this method is called by SAS
 	 *
 	 * @param request
 	 * @param response
@@ -543,14 +545,18 @@ public class CampaignController {
 	 * @throws Exception
 	 */
 	@RequestMapping("/callCopyCoupon.do")
-	public void sasCallCoupCoupon(HttpServletRequest request, HttpServletResponse response, ModelMap modelMap, HttpSession session) throws Exception {
+	public void sasCallCopyCoupon(HttpServletRequest request, HttpServletResponse response, ModelMap modelMap, HttpSession session) throws Exception {
 		String campaignId = request.getParameter("campaignid");
 		String cellId = request.getParameter("cellid");
 		int offerId = Integer.parseInt(request.getParameter("offerid"));
+		
 		try {// 443: campaign_sk // 1580 : rund id = cell_package_sk
-			CheckCopyCouponNo.checkCouponNo(campaignId, cellId, dbconnUrl, dbconnUser, dbconnPass, dbconnBoUrl, dbconnBoUser, dbconnBoPass, offerId);
+			CheckCopyCouponNo.checkCouponNo(
+					campaignId, cellId
+					, this.dbconnUrl,   this.dbconnUser,   this.dbconnPass
+					, this.dbconnBoUrl, this.dbconnBoUser, this.dbconnBoPass
+					, offerId);
 		} catch (Exception e) {
-			// TODO: handle exception
 			log.debug("CheckCopyCouponNo.checkCouponNo ERROR !!!! ");
 			e.printStackTrace();
 		}

@@ -34,25 +34,21 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public MemberVO getMemberView(MemberVO memberVo) throws Exception {
-		// TODO Auto-generated method stub
 		return (MemberVO) memberDao.getMemberView(memberVo);
 	}
 
 	@Override
 	public MemberVO ajaxUserType(MemberVO memberVo) throws Exception {
-		// TODO Auto-generated method stub
 		return (MemberVO) memberDao.ajaxUserType(memberVo);
 	}
 
 	@Override
 	public void updateMemberUserType(MemberVO memberVo) throws Exception {
-		// TODO Auto-generated method stub
 		memberDao.updateMemberUserType(memberVo);
 	}
 
 	@Override
 	public MemberVO getMemberTotalCnt() throws Exception {
-		// TODO Auto-generated method stub
 		return memberDao.getMemberTotalCnt();
 	}
 

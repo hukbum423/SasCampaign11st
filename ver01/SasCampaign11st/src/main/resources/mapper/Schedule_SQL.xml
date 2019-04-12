@@ -1,8 +1,8 @@
-﻿<?xml version="1.0" encoding="UTF-8" ?> 
+﻿<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="Schedule">
-  
+
     <resultMap type="com.skplanet.sascm.object.CampaignRunResvBO" id="CampaignRunResvBO">
       <result property="campaigncode"          column="campaigncode"        />
       <result property="campaignid"            column="campaignid"          />
@@ -42,12 +42,12 @@
       <result property="schedulePlayCnt"       column="schedulePlayCnt"     />
       <result property="rsrv_gubun_code_name"  column="rsrv_gubun_code_name"/>
       <result property="rsrv_everytime"        column="rsrv_everytime"      />
-      
+
       <result property="multistep_cistudio_yn"        column="multistep_cistudio_yn"      />
-      
+
     </resultMap>
- 
- 
+
+
     <resultMap type="com.skplanet.sascm.object.CampaignRunScheduleBO" id="CampaignRunScheduleBO">
       <result property="num"             column="num"                />
       <result property="campaigncode"    column="campaigncode"       />
@@ -64,7 +64,7 @@
       <result property="update_id"       column="update_id"          />
       <result property="update_nm"       column="update_nm"          />
       <result property="update_dt"       column="update_dt"          />
-    </resultMap> 
+    </resultMap>
   <!-- 플로차트 실행일정 조회 -->
   <select id="Schedule.getScheduleDetail" parameterType="Map"  resultMap="CampaignRunResvBO">
     SELECT A.*
@@ -107,20 +107,20 @@
                 ,TO_CHAR(D.CAMP_END_DT, 'YYYY-MM-DD') camp_end_dt
         FROM CI_CAMPAIGN             A
             ,cm_campaign_dtl      D
-       WHERE 1=1 
+       WHERE 1=1
       AND A.CAMPAIGN_SK = #{CAMPAIGNID}
          AND A.CAMPAIGN_SK = D.CAMPAIGNID
     )A
     ,cm_campaign_run_resv B
     WHERE A.CAMPAIGNCODE = B.CAMPAIGNCODE(+)
   </select>
-  
+
   <select id="Schedule.getRunScheduleCnt" parameterType="Map" resultType="java.lang.Integer">
-    SELECT 
-      COUNT(*) 
-    FROM 
+    SELECT
+      COUNT(*)
+    FROM
       CM_CAMPAIGN_RUN_SCHEDULE
-    WHERE 
+    WHERE
       CAMPAIGNCODE = #{CAMPAIGNCODE}
       AND RUN_SUCCESS_YN IS NULL
       AND RUN_START_DT IS NOT NULL
@@ -134,7 +134,7 @@
   <select id="Schedule.getCampaignValiChk01" parameterType="Map" resultType="String">
     SELECT CASE WHEN COUNT(0) = 0 THEN 'Y' ELSE 'N' END
       FROM (
-        SELECT 
+        SELECT
             CASE WHEN M.AUDIENCE_CD = 'PCID' AND (NVL(C.OFFER_TYPE_CD,'ZZ') != 'ZZ' OR NVL(D.CHANNEL_CD,'TOAST') != 'TOAST') THEN 'N' ELSE 'Y' END VALI
           FROM cm_campaign_dtl M
             ,CI_CELL_PACKAGE A
@@ -148,8 +148,8 @@
      )
      WHERE VALI = 'N'
   </select>
-  
-  
+
+
 
 
 
@@ -161,32 +161,32 @@
       FROM cm_campaign_dtl A
      WHERE CAMPAIGNCODE = #{CAMPAIGNCODE}
   </select>
-  
-  
+
+
   <!-- 일정 저장전 유효성 체크3 (오퍼 템플릿 쿠폰복사여부가 'N'일 경우에는 캠페인 기간이 쿠폰발급기간에 포함 되야한다) -->
   <select id="Schedule.getCampaignValiChk03" parameterType="Map" resultType="String">
     SELECT CASE WHEN CAMP_TERM_CD = '02' THEN  'Y'
-                WHEN     CAMP_TERM_CD = '01' 
-                     AND TO_CHAR(CAMP_BGN_DT, 'YYYY-MM-DD') BETWEEN #{ISS_CN_BGN_DT} AND #{ISS_CN_END_DT} 
+                WHEN     CAMP_TERM_CD = '01'
+                     AND TO_CHAR(CAMP_BGN_DT, 'YYYY-MM-DD') BETWEEN #{ISS_CN_BGN_DT} AND #{ISS_CN_END_DT}
                      AND TO_CHAR(CAMP_END_DT, 'YYYY-MM-DD') BETWEEN #{ISS_CN_BGN_DT} AND #{ISS_CN_END_DT} THEN 'Y'
            ELSE 'N' END VALI
       FROM cm_campaign_dtl A
      WHERE CAMPAIGNCODE = #{CAMPAIGNCODE}
   </select>
-  
-  
+
+
   <!-- 일정 저장전 유효성 체크4 (캠페인 가긴 타입이 FROM~TO일경우 채널 노출일이 캠페인 기간에 포함되는지 체크) -->
   <!-- LMS관련 사항 수정 (2018.5.3) -->
   <select id="Schedule.getCampaignValiChk04" parameterType="Map" resultType="String">
     SELECT CASE WHEN COUNT(0) = 0 THEN 'Y' ELSE 'N' END VALI
     FROM(
-      SELECT 
+      SELECT
          CASE WHEN A.CAMP_TERM_CD = '02' THEN 'Y'
               WHEN B.CHANNEL_CD   = 'TOAST' THEN 'Y'
-              WHEN TO_CHAR(B.SMS_DISP_DT,    'YYYY-MM-DD') BETWEEN TO_CHAR(A.CAMP_BGN_DT, 'YYYY-MM-DD') AND TO_CHAR(A.CAMP_END_DT, 'YYYY-MM-DD') THEN 'Y' 
-              WHEN TO_CHAR(B.EMAIL_DISP_DT,  'YYYY-MM-DD') BETWEEN TO_CHAR(A.CAMP_BGN_DT, 'YYYY-MM-DD') AND TO_CHAR(A.CAMP_END_DT, 'YYYY-MM-DD') THEN 'Y' 
+              WHEN TO_CHAR(B.SMS_DISP_DT,    'YYYY-MM-DD') BETWEEN TO_CHAR(A.CAMP_BGN_DT, 'YYYY-MM-DD') AND TO_CHAR(A.CAMP_END_DT, 'YYYY-MM-DD') THEN 'Y'
+              WHEN TO_CHAR(B.EMAIL_DISP_DT,  'YYYY-MM-DD') BETWEEN TO_CHAR(A.CAMP_BGN_DT, 'YYYY-MM-DD') AND TO_CHAR(A.CAMP_END_DT, 'YYYY-MM-DD') THEN 'Y'
               WHEN TO_CHAR(B.MOBILE_DISP_DT, 'YYYY-MM-DD') BETWEEN TO_CHAR(A.CAMP_BGN_DT, 'YYYY-MM-DD') AND TO_CHAR(A.CAMP_END_DT, 'YYYY-MM-DD') THEN 'Y'
-              WHEN TO_CHAR(B.LMS_DISP_DT, 'YYYY-MM-DD') BETWEEN TO_CHAR(A.CAMP_BGN_DT, 'YYYY-MM-DD') AND TO_CHAR(A.CAMP_END_DT, 'YYYY-MM-DD') THEN 'Y' 
+              WHEN TO_CHAR(B.LMS_DISP_DT, 'YYYY-MM-DD') BETWEEN TO_CHAR(A.CAMP_BGN_DT, 'YYYY-MM-DD') AND TO_CHAR(A.CAMP_END_DT, 'YYYY-MM-DD') THEN 'Y'
         ELSE 'N' END VALI
        FROM cm_campaign_dtl A
            ,cm_campaign_channel B
@@ -204,22 +204,22 @@
         AND A.MANUAL_TRANS_YN  IN ( 'N')
         AND B.CHANNEL_CD   IN ('LMS')
     )
-    WHERE VALI = 'N'    
+    WHERE VALI = 'N'
   </select>
-  
-  
+
+
   <!-- 해당캠페인의 플로차트 갯수를 구한다 (1이 아니면 진행불가임) -->
   <select id="Schedule.getFlowChartCnt" parameterType="Map" resultType="String">
-    SELECT 
-              CASE WHEN COUNT(0) = 0 THEN 'E' 
+    SELECT
+              CASE WHEN COUNT(0) = 0 THEN 'E'
                    WHEN COUNT(0) = 1 THEN 'Y'
                    WHEN COUNT(0) > 1 THEN 'N'
-              END CHART_CNT 
+              END CHART_CNT
       FROM CI_CAMPAIGN  A
      WHERE A.CAMPAIGN_SK  = #{CAMPAIGNID}
   </select>
-  
-  
+
+
 
 
 
@@ -232,80 +232,80 @@
                             )
        AND CAMPAIGNCODE = #{CAMPAIGNCODE}
   </delete>
-  
-  
+
+
   <!-- 해당캠페인의 가비지 데이터를 삭제한다(캠페인채널) -->
   <delete id="Schedule.deleteGarbageData2" parameterType="Map">
     DELETE FROM CM_CAMPAIGN_CHANNEL
      WHERE CELLID NOT IN (
-                SELECT CELLID FROM CI_CeLL_PACKAGE  
+                SELECT CELLID FROM CI_CeLL_PACKAGE
                 WHERE CAMPAIGN_SK = #{CAMPAIGNID}
                 )
        AND CAMPAIGNCODE = #{CAMPAIGNCODE}
   </delete>
-  
-  
+
+
   <!-- 더미오퍼값 캠페인 오퍼테이블에 저장 -->
   <update id="Schedule.setCampaignDummyOffer" parameterType="Map">
       MERGE INTO cm_campaign_offer A
-      USING ( 
+      USING (
 
-          SELECT DISTINCT 
+          SELECT DISTINCT
                  T3.CAMPAIGN_CD                            AS      CAMPAIGNCODE
                , T3.MARKETING_CELL_SK                   AS      CELLID
                , T3.OFFER_SYS_CD
-               , T2.OFFER_TYPE_CD 
+               , T2.OFFER_TYPE_CD
                , T2.OFFER_ID                                   AS      OFFERID
-             FROM ( 
-                  SELECT CAMPAIGN_SK 
-                       , CAMPAIGN_CD  
-                       , CAMPAIGN_NM  
-                       , MARKETING_CELL_SK  
-                       , MARKETING_CELL_NM 
-                       , MARKETING_CELL_CD 
+             FROM (
+                  SELECT CAMPAIGN_SK
+                       , CAMPAIGN_CD
+                       , CAMPAIGN_NM
+                       , MARKETING_CELL_SK
+                       , MARKETING_CELL_NM
+                       , MARKETING_CELL_CD
                        , MAX(COMMUNICATION_SK)       AS      COMMUNICATION_SK
                        , MAX(OFFER_SYS_CD)              AS      OFFER_SYS_CD
                        , MAX(OFFER_CONTENT_ID)        AS      OFFER_CONTENT_ID
                        , MAX(OFFER_CONTENT_NM)       AS      OFFER_CONTENT_NM
-                    FROM ( 
-                         SELECT DISTINCT 
-                                T6.CAMPAIGN_SK 
-                              , T6.CAMPAIGN_CD 
+                    FROM (
+                         SELECT DISTINCT
+                                T6.CAMPAIGN_SK
+                              , T6.CAMPAIGN_CD
                               , T6.CAMPAIGN_NM
-                              , T6.MARKETING_CELL_SK 
-                              , T6.MARKETING_CELL_NM 
-                              , T6.MARKETING_CELL_CD 
-                              , T6.COMMUNICATION_SK  
+                              , T6.MARKETING_CELL_SK
+                              , T6.MARKETING_CELL_NM
+                              , T6.MARKETING_CELL_CD
+                              , T6.COMMUNICATION_SK
                               , CASE WHEN UPPER(T5.CHAR_EXT_COLUMN_NM) = 'OFFER_SYS_CD' THEN T5.CHAR_UDF_VAL
                                      ELSE NULL
-                                END AS OFFER_SYS_CD  
+                                END AS OFFER_SYS_CD
                               , CASE WHEN UPPER(T7.NUM_EXT_COLUMN_NM) = 'OFFER_CONTENT_ID' THEN T7.NUM_UDF_VAL
                                      ELSE NULL
-                                END AS OFFER_CONTENT_ID  
+                                END AS OFFER_CONTENT_ID
                               , CASE WHEN UPPER(T5.CHAR_EXT_COLUMN_NM) = 'OFFER_CONTENT_NM' THEN T5.CHAR_UDF_VAL
                                      ELSE NULL
-                                END AS OFFER_CONTENT_NM  
+                                END AS OFFER_CONTENT_NM
                            FROM CI_CELL_PACKAGE T6
-                           LEFT JOIN CI_COMMUNICATION_CHAR_UDF T5 
+                           LEFT JOIN CI_COMMUNICATION_CHAR_UDF T5
                              ON T6.COMMUNICATION_SK = T5.COMMUNICATION_SK
-                           LEFT JOIN CI_COMMUNICATION_NUM_UDF T7 
+                           LEFT JOIN CI_COMMUNICATION_NUM_UDF T7
                              ON T6.COMMUNICATION_SK = T7.COMMUNICATION_SK
                                       WHERE T6.CAMPAIGN_SK = #{CAMPAIGNID}
                             AND T5.COMMUNICATION_SK IN ( SELECT COMMUNICATION_SK
                                                            FROM CI_COMMUNICATION
-                                                          WHERE DELETED_FLG = 'N' ) 
+                                                          WHERE DELETED_FLG = 'N' )
                                AND ( T6.CONTROL_GROUP_TYPE_CD IS NULL OR T6.CONTROL_GROUP_TYPE_CD IN ('_CH','_CL') )
-                         ) 
+                         )
                          GROUP BY CAMPAIGN_SK, CAMPAIGN_CD, CAMPAIGN_NM
-                                       , MARKETING_CELL_SK, MARKETING_CELL_NM, MARKETING_CELL_CD 
-             )  T3 
-             LEFT JOIN CM_CAMPAIGN_CONTENTS_OFFERLIST T2 
+                                       , MARKETING_CELL_SK, MARKETING_CELL_NM, MARKETING_CELL_CD
+             )  T3
+             LEFT JOIN CM_CAMPAIGN_CONTENTS_OFFERLIST T2
                ON T3.OFFER_CONTENT_ID = T2.OFFER_CONTENT_ID
-             LEFT JOIN CM_CAMPAIGN_OFFER T1 
+             LEFT JOIN CM_CAMPAIGN_OFFER T1
                ON T3.MARKETING_CELL_SK = T1.CELLID
-             AND T2.OFFER_ID = T1.OFFERID 
-             AND T3.OFFER_CONTENT_ID = T1.OFFER_CONTENT_ID 
-             LEFT JOIN CM_CAMPAIGN_DTL T4 
+             AND T2.OFFER_ID = T1.OFFERID
+             AND T3.OFFER_CONTENT_ID = T1.OFFER_CONTENT_ID
+             LEFT JOIN CM_CAMPAIGN_DTL T4
                ON T3.CAMPAIGN_SK  = T4.CAMPAIGNID
 
         ) B
@@ -348,7 +348,7 @@
   <select id="Schedule.getCampaignOfferCnt" parameterType="Map" resultType="String">
     SELECT CASE WHEN OFFER_CNT = CELL_OFFER_CNT THEN 'Y' ELSE 'N' END CNT
       FROM
-      ( 
+      (
         SELECT COUNT(0) OFFER_CNT
           FROM CM_CAMPAIGN_OFFER
          WHERE CELLID IN
@@ -357,64 +357,64 @@
          WHERE CAMPAIGN_SK = #{CAMPAIGNID} )
          ORDER BY CREATE_DT DESC
       ) T1 ,
-      ( 
+      (
         SELECT COUNT(T2.OFFER_ID) AS CELL_OFFER_CNT
-             FROM ( 
-                  SELECT CAMPAIGN_SK 
-                       , CAMPAIGN_CD  
-                       , CAMPAIGN_NM  
-                       , MARKETING_CELL_SK  
-                       , MARKETING_CELL_NM 
-                       , MARKETING_CELL_CD 
+             FROM (
+                  SELECT CAMPAIGN_SK
+                       , CAMPAIGN_CD
+                       , CAMPAIGN_NM
+                       , MARKETING_CELL_SK
+                       , MARKETING_CELL_NM
+                       , MARKETING_CELL_CD
                        , MAX(COMMUNICATION_SK)       AS      COMMUNICATION_SK
                        , MAX(OFFER_SYS_CD)              AS      OFFER_SYS_CD
                        , MAX(OFFER_CONTENT_ID)        AS      OFFER_CONTENT_ID
                        , MAX(OFFER_CONTENT_NM)       AS      OFFER_CONTENT_NM
-                    FROM ( 
-                         SELECT DISTINCT 
-                                T6.CAMPAIGN_SK 
-                              , T6.CAMPAIGN_CD 
+                    FROM (
+                         SELECT DISTINCT
+                                T6.CAMPAIGN_SK
+                              , T6.CAMPAIGN_CD
                               , T6.CAMPAIGN_NM
-                              , T6.MARKETING_CELL_SK 
-                              , T6.MARKETING_CELL_NM 
-                              , T6.MARKETING_CELL_CD 
-                              , T6.COMMUNICATION_SK  
+                              , T6.MARKETING_CELL_SK
+                              , T6.MARKETING_CELL_NM
+                              , T6.MARKETING_CELL_CD
+                              , T6.COMMUNICATION_SK
                               , CASE WHEN UPPER(T5.CHAR_EXT_COLUMN_NM) = 'OFFER_SYS_CD' THEN T5.CHAR_UDF_VAL
                                      ELSE NULL
-                                END AS OFFER_SYS_CD  
+                                END AS OFFER_SYS_CD
                               , CASE WHEN UPPER(T7.NUM_EXT_COLUMN_NM) = 'OFFER_CONTENT_ID' THEN T7.NUM_UDF_VAL
                                      ELSE NULL
-                                END AS OFFER_CONTENT_ID  
+                                END AS OFFER_CONTENT_ID
                               , CASE WHEN UPPER(T5.CHAR_EXT_COLUMN_NM) = 'OFFER_CONTENT_NM' THEN T5.CHAR_UDF_VAL
                                      ELSE NULL
-                                END AS OFFER_CONTENT_NM  
+                                END AS OFFER_CONTENT_NM
                            FROM CI_CELL_PACKAGE T6
-                           LEFT JOIN CI_COMMUNICATION_CHAR_UDF T5 
+                           LEFT JOIN CI_COMMUNICATION_CHAR_UDF T5
                              ON T6.COMMUNICATION_SK = T5.COMMUNICATION_SK
-                           LEFT JOIN CI_COMMUNICATION_NUM_UDF T7 
+                           LEFT JOIN CI_COMMUNICATION_NUM_UDF T7
                              ON T6.COMMUNICATION_SK = T7.COMMUNICATION_SK
                                       WHERE T6.CAMPAIGN_SK = #{CAMPAIGNID}
                             AND T5.COMMUNICATION_SK IN ( SELECT COMMUNICATION_SK
                                                            FROM CI_COMMUNICATION
-                                                          WHERE DELETED_FLG = 'N' ) 
+                                                          WHERE DELETED_FLG = 'N' )
                             AND ( T6.CONTROL_GROUP_TYPE_CD IS NULL OR T6.CONTROL_GROUP_TYPE_CD IN ('_CH','_CL') )
-                         ) 
+                         )
                          GROUP BY CAMPAIGN_SK, CAMPAIGN_CD, CAMPAIGN_NM
-                                       , MARKETING_CELL_SK, MARKETING_CELL_NM, MARKETING_CELL_CD 
-             )  T3 
-             LEFT JOIN CM_CAMPAIGN_CONTENTS_OFFERLIST T2 
+                                       , MARKETING_CELL_SK, MARKETING_CELL_NM, MARKETING_CELL_CD
+             )  T3
+             LEFT JOIN CM_CAMPAIGN_CONTENTS_OFFERLIST T2
                ON T3.OFFER_CONTENT_ID = T2.OFFER_CONTENT_ID
-             LEFT JOIN CM_CAMPAIGN_OFFER T1 
+             LEFT JOIN CM_CAMPAIGN_OFFER T1
                ON T3.MARKETING_CELL_SK = T1.CELLID
-             AND T2.OFFER_ID = T1.OFFERID 
-             AND T3.OFFER_CONTENT_ID = T1.OFFER_CONTENT_ID 
-             LEFT JOIN CM_CAMPAIGN_DTL T4 
+             AND T2.OFFER_ID = T1.OFFERID
+             AND T3.OFFER_CONTENT_ID = T1.OFFER_CONTENT_ID
+             LEFT JOIN CM_CAMPAIGN_DTL T4
                ON T3.CAMPAIGN_SK  = T4.CAMPAIGNID
 
 
       ) T2
-  
-  </select> 
+
+  </select>
 
 
   <!-- 해당캠페인의 플로차트가 수정중인지 여부 체크 -->
@@ -422,7 +422,7 @@
     SELECT CASE WHEN COUNT(0) = 0 THEN 'N' ELSE 'Y' END CHK
       FROM CI_CELL_PACKAGE
      WHERE CAMPAIGN_SK = #{CAMPAIGNID}
-  </select> 
+  </select>
 
   <!-- 캠페인 실행 예약 등록 -->
   <update id="Schedule.setCampaignRunResv" parameterType="Map" >
@@ -491,7 +491,7 @@
 
   <!-- 캠페인 실행 일정 등록 01 : 매일 -->
   <update id="Schedule.setCampaignRunSchedule01" parameterType="Map" >
-  <![CDATA[ 
+  <![CDATA[
       MERGE INTO cm_campaign_run_schedule A
       USING (
             SELECT
@@ -529,7 +529,7 @@
 
   <!-- 캠페인 실행 일정 등록 02 : 매주 -->
   <update id="Schedule.setCampaignRunSchedule02" parameterType="Map" >
-  <![CDATA[ 
+  <![CDATA[
       MERGE INTO cm_campaign_run_schedule A
       USING (
         SELECT
@@ -571,7 +571,7 @@
 
   <!-- 캠페인 실행 일정 등록 03 : 매월 -->
   <update id="Schedule.setCampaignRunSchedule03" parameterType="Map" >
-  <![CDATA[ 
+  <![CDATA[
       MERGE INTO cm_campaign_run_schedule A
       USING (
             SELECT
@@ -586,7 +586,7 @@
                         FROM (SELECT TO_DATE(#{RSRV_START_DT}, 'YYYY-MM-DD') DAY FROM DUAL)
                        CONNECT BY LEVEL <= TO_DATE(#{RSRV_END_DT}, 'YYYY-MM-DD') - TO_DATE(#{RSRV_START_DT}, 'YYYY-MM-DD') +1
                      )
-                   WHERE TO_CHAR(TO_DATE(DAY, 'YYYY-MM-DD'), 'DD') = LPAD(#{RSRV_DAY},2,'0') 
+                   WHERE TO_CHAR(TO_DATE(DAY, 'YYYY-MM-DD'), 'DD') = LPAD(#{RSRV_DAY},2,'0')
                )A
        )B
       ON (     A.CAMPAIGNCODE = B.CAMPAIGNCODE
@@ -613,7 +613,7 @@
 
   <!-- 캠페인 실행 일정 등록 04 : 매월 말일 -->
   <update id="Schedule.setCampaignRunSchedule04" parameterType="Map" >
-  <![CDATA[ 
+  <![CDATA[
       MERGE INTO cm_campaign_run_schedule A
       USING (
             SELECT
@@ -657,12 +657,12 @@
   <update id="Schedule.setCampaignRunSchedule05" parameterType="Map" >
     MERGE INTO cm_campaign_run_schedule A
     USING (
-        <foreach collection="array" item="RUN_RESV_LIST" separator=" UNION ALL " index="index" > 
-      SELECT 
+        <foreach collection="array" item="RUN_RESV_LIST" separator=" UNION ALL " index="index" >
+      SELECT
              TRIM(#{CAMPAIGNCODE}) CAMPAIGNCODE
             ,TO_DATE('${array[index]}', 'YYYY-MM-DD HH24:MI') RSRV_DT
                 ,TRIM(#{CREATE_ID}) CREATE_ID
-                ,SYSDATE    
+                ,SYSDATE
       FROM DUAL
       </foreach>
     ) B
@@ -683,19 +683,19 @@
               ,B.RSRV_DT
               ,TRIM(#{CREATE_ID})
               ,SYSDATE
-      )       
+      )
   </update>
 
   <!-- 캠페인 실행 일정 등록 06 : 지정시간 -->
   <update id="Schedule.setCampaignRunSchedule06" parameterType="Map" >
     MERGE INTO cm_campaign_run_schedule A
     USING (
-        <foreach collection="array" item="RUN_RESV_LIST" separator=" UNION ALL " index="index" > 
-      SELECT 
+        <foreach collection="array" item="RUN_RESV_LIST" separator=" UNION ALL " index="index" >
+      SELECT
              TRIM(#{CAMPAIGNCODE}) CAMPAIGNCODE
             ,TO_DATE('${array[index]}', 'YYYY-MM-DD HH24:MI') RSRV_DT
                 ,TRIM(#{CREATE_ID}) CREATE_ID
-                ,SYSDATE    
+                ,SYSDATE
       FROM DUAL
       </foreach>
     ) B
@@ -716,7 +716,7 @@
               ,B.RSRV_DT
               ,TRIM(#{CREATE_ID})
               ,SYSDATE
-      )       
+      )
   </update>
 
   <!-- 기존스케쥴 삭제 -->
@@ -725,7 +725,7 @@
      WHERE CAMPAIGNCODE = TRIM(#{CAMPAIGNCODE})
        AND RUN_START_DT IS NULL
   </delete>
-  
+
 
   <!-- 기존스케쥴 시작 -->
   <update id="Schedule.setCampaignStart" parameterType="Map" >
@@ -735,7 +735,7 @@
             ,UPDATE_DT      = SYSDATE
      WHERE CAMPAIGNCODE   = TRIM(#{CAMPAIGNCODE})
   </update>
-  
+
 
   <!-- 기존스케쥴 취소 -->
   <update id="Schedule.setCampaignCancel" parameterType="Map" >
@@ -749,14 +749,14 @@
   <!-- 플로차트 이름가져오기 -->
 
   <select id="Schedule.getFlowchartName" parameterType="Map" resultType="String">
-  <![CDATA[ 
-    SELECT t5.PATH||DECODE(lvl, 1, '', '/')   FILENAME 
+  <![CDATA[
+    SELECT t5.PATH||DECODE(lvl, 1, '', '/')   FILENAME
       FROM UA_CAMPAIGN  T4
           ,(
-            SELECT FOLDERID, SUBSTR(SYS_CONNECT_BY_PATH(NAME, '/'), 15) AS PATH, level lvl 
-              FROM UA_FOLDER START WITH FOLDERID = 2 CONNECT BY PRIOR FOLDERID = PARENTFOLDERID 
-           ) T5 
-     WHERE T3.CAMPAIGNID   = T4.CAMPAIGNID 
+            SELECT FOLDERID, SUBSTR(SYS_CONNECT_BY_PATH(NAME, '/'), 15) AS PATH, level lvl
+              FROM UA_FOLDER START WITH FOLDERID = 2 CONNECT BY PRIOR FOLDERID = PARENTFOLDERID
+           ) T5
+     WHERE T3.CAMPAIGNID   = T4.CAMPAIGNID
        AND T4.FOLDERID     = T5.FOLDERID
        AND T3.CAMPAIGNID   = TRIM(#{CAMPAIGNID})
        AND T3.TEMPFLAG     = 0
@@ -764,60 +764,71 @@
   </select>
 
 
-  <!-- 일정목록 조회 -->
-  <select id="Schedule.getScheduleList" parameterType="Map" resultMap="CampaignRunScheduleBO">
-    SELECT a.* FROM (   /* Schedule.getScheduleList */
-      SELECT a.*
-            ,ROWNUM num
-      FROM( 
-        SELECT 
-           A.CAMPAIGNCODE               campaigncode
-          ,TO_CHAR(A.RSRV_DT       , 'YYYY-MM-DD HH24:MI') rsrv_dt
-          ,TO_CHAR(A.RUN_START_DT  , 'YYYY-MM-DD HH24:MI') run_start_dt
-          ,TO_CHAR(A.RUN_END_DT    , 'YYYY-MM-DD HH24:MI') run_end_dt
-          ,A.RUNID                      runid
-          ,NVL(A.RUN_STATUS, '실행전')  run_status
-          ,A.RUN_SUCCESS_YN             run_success_yn
-          ,A.CREATE_ID                  create_id
-          ,(SELECT USER_NAME FROM CM_USER WHERE ID = A.CREATE_ID) create_nm
-          ,TO_CHAR(A.CREATE_DT, 'YYYY-MM-DD HH24:MI:SS')                  create_dt
-          ,A.UPDATE_ID                  update_id
-          ,(SELECT USER_NAME FROM CM_USER WHERE ID = A.UPDATE_ID) update_nm
-          ,TO_CHAR(A.UPDATE_DT, 'YYYY-MM-DD HH24:MI:SS')                  update_dt
-          ,ROWNUM              row_num        
-        FROM cm_campaign_run_schedule A
-         WHERE CAMPAIGNCODE = (SELECT CAMPAIGN_CD FROM CI_CAMPAIGN WHERE CAMPAIGN_SK = TRIM(#{CAMPAIGNID}))
-         <if test='SEARCH_TYPE == "NULL"'>
-            AND A.RUN_START_DT IS NULL
-         </if>
-         <if test='SEARCH_TYPE == "NOTNULL"'>
-            AND A.RUN_START_DT IS NOT NULL
-         </if>
-         ORDER BY RSRV_DT ASC 
-      )a
-    )a
-    <![CDATA[ 
-      WHERE num >  #{searchRangeStart}
-        AND num <=  #{searchRangeEnd}
-      ORDER BY num
-      ]]>    
-  </select>
+	<!-- 일정목록 건수 조회 -->
+	<!--
+	ORG:  AND CAMPAIGNCODE = (SELECT CAMPAIGNCODE FROM CI_CAMPAIGN WHERE CAMPAIGN_SK = TRIM(#{CAMPAIGNID}))
+	-->
+	<select id="Schedule.getScheduleListCnt" parameterType="Map" resultType="String">
+		SELECT  /* Schedule.getScheduleListCnt */
+			COUNT(0) CNT
+		FROM
+			cm_campaign_run_schedule A
+		WHERE 1=1
+			AND CAMPAIGNCODE = (SELECT CAMPAIGN_CD FROM CI_CAMPAIGN WHERE CAMPAIGN_SK = TRIM(#{CAMPAIGNID}))
+			<if test='SEARCH_TYPE == "NULL"'>
+				AND A.RUN_START_DT IS NULL
+			</if>
+			<if test='SEARCH_TYPE == "NOTNULL"'>
+				AND A.RUN_START_DT IS NOT NULL
+			</if>
+	</select>
 
-
-  <!-- 일정목록 조회 -->
-  <select id="Schedule.getScheduleListCnt" parameterType="Map" resultType="String">
-    SELECT COUNT(0) CNT
-    FROM cm_campaign_run_schedule A
-     WHERE CAMPAIGNCODE = (SELECT CAMPAIGNCODE FROM CI_CAMPAIGN WHERE CAMPAIGN_SK = TRIM(#{CAMPAIGNID}))
-     <if test='SEARCH_TYPE == "NULL"'>
-        AND A.RUN_START_DT IS NULL
-     </if>
-     <if test='SEARCH_TYPE == "NOTNULL"'>
-        AND A.RUN_START_DT IS NOT NULL
-     </if>
-     ORDER BY RSRV_DT ASC 
-     
-  </select>
+	<!-- 일정목록 조회 KANG-20190411 -->
+	<select id="Schedule.getScheduleList" parameterType="Map" resultMap="CampaignRunScheduleBO">
+		SELECT  /* Schedule.getScheduleList */
+			a.*
+		FROM (
+			SELECT
+				a.*
+				, ROWNUM num
+			FROM(
+				SELECT
+					 A.CAMPAIGNCODE                                           campaigncode
+					, TO_CHAR(A.RSRV_DT       , 'YYYY-MM-DD HH24:MI')         rsrv_dt
+					, TO_CHAR(A.RUN_START_DT  , 'YYYY-MM-DD HH24:MI')         run_start_dt
+					, TO_CHAR(A.RUN_END_DT    , 'YYYY-MM-DD HH24:MI')         run_end_dt
+					, A.RUNID                                                 runid
+					, NVL(A.RUN_STATUS, '실행전')                               run_status
+					, A.RUN_SUCCESS_YN                                        run_success_yn
+					, A.CREATE_ID                                             create_id
+					, (SELECT USER_NAME FROM CM_USER WHERE ID = A.CREATE_ID)  create_nm
+					, TO_CHAR(A.CREATE_DT, 'YYYY-MM-DD HH24:MI:SS')           create_dt
+					, A.UPDATE_ID                                             update_id
+					, (SELECT USER_NAME FROM CM_USER WHERE ID = A.UPDATE_ID)  update_nm
+					, TO_CHAR(A.UPDATE_DT, 'YYYY-MM-DD HH24:MI:SS')           update_dt
+					, ROWNUM                                                  row_num
+				FROM
+					cm_campaign_run_schedule A
+				WHERE 1=1
+					AND CAMPAIGNCODE = (SELECT CAMPAIGN_CD FROM CI_CAMPAIGN WHERE CAMPAIGN_SK = TRIM(#{CAMPAIGNID}))
+					<if test='SEARCH_TYPE == "NULL"'>
+						AND A.RUN_START_DT IS NULL
+					</if>
+					<if test='SEARCH_TYPE == "NOTNULL"'>
+						AND A.RUN_START_DT IS NOT NULL
+					</if>
+				ORDER BY
+					RSRV_DT ASC
+			)a
+		)a
+		<![CDATA[
+		WHERE 1=1
+			AND num > #{searchRangeStart}
+			AND num <=  #{searchRangeEnd}
+		ORDER BY
+			num
+		]]>
+	</select>
 
 
   <!-- 실행된 일정이 전체 실패인지 체크 -->
@@ -825,22 +836,22 @@
     SELECT CASE WHEN COUNT(0) > 0 THEN 'N' ELSE 'Y' END ALL_FAIL
         FROM cm_campaign_run_schedule A
      WHERE CAMPAIGNCODE = TRIM(#{CAMPAIGNCODE})
-       AND NVL(RUN_SUCCESS_YN, 'Y') = 'Y' 
+       AND NVL(RUN_SUCCESS_YN, 'Y') = 'Y'
   </select>
-  
+
 
   <!-- 일정목록 선택 삭제 -->
   <delete id="Schedule.deleteScheduleList" parameterType="Map" >
     DELETE FROM cm_campaign_run_schedule
      WHERE CAMPAIGNCODE = TRIM(#{CAMPAIGNCODE})
-       AND TO_CHAR(RSRV_DT,'YYYY-MM-DD HH24:MI') 
+       AND TO_CHAR(RSRV_DT,'YYYY-MM-DD HH24:MI')
        IN (
        <foreach collection="array"  separator="," index="index" >
         '${array[index]}'
        </foreach>
        )
   </delete>
-  
+
 
   <!-- 일정목록 건별 등록 -->
   <update id="Schedule.setScheduleList" parameterType="Map" >
@@ -871,8 +882,8 @@
 
   <!-- 캠페인 테스트 실행 채널 입력 -->
   <update id="Schedule.setCampaignTestChannel" parameterType="Map" >
-    INSERT ALL 
-    <foreach collection="array"  item="CELL_CHANNEL" separator=" " index="index" > 
+    INSERT ALL
+    <foreach collection="array"  item="CELL_CHANNEL" separator=" " index="index" >
      INTO cm_campaign_test_channel
      (
        CAMPAIGNCODE
@@ -886,20 +897,20 @@
       ,TRANS_CNT
       ,CREATE_ID
       ,CREATE_DT
-    ) 
+    )
     VALUES (
        TRIM(#{CAMPAIGNCODE})
       ,TO_DATE(TRIM(#{RUN_DT}), 'YYYY-MM-DD HH24:MI:SS')
       ,(SELECT CELLID     FROM cm_campaign_channel WHERE CHANNEL_CD || '#@#' || CELLID = '${array[index]}')
       ,(SELECT CHANNEL_CD FROM cm_campaign_channel WHERE CHANNEL_CD || '#@#' || CELLID = '${array[index]}')
-      ,TRIM(#{CAMPAIGNCODE}) || '_' || TO_CHAR(TO_DATE(TRIM(#{RUN_DT}), 'YYYY-MM-DD HH24:MI:SS'), 'YYYYMMDDHH24MISS') || '_' || (SELECT CELLID     FROM cm_campaign_channel WHERE CHANNEL_CD || '#@#' || CELLID = '${array[index]}')  
+      ,TRIM(#{CAMPAIGNCODE}) || '_' || TO_CHAR(TO_DATE(TRIM(#{RUN_DT}), 'YYYY-MM-DD HH24:MI:SS'), 'YYYYMMDDHH24MISS') || '_' || (SELECT CELLID     FROM cm_campaign_channel WHERE CHANNEL_CD || '#@#' || CELLID = '${array[index]}')
       ,'TWAIT'
       ,NULL
       ,NULL
       ,NULL
       ,TRIM(#{CREATE_ID})
       ,SYSDATE
-    ) 
+    )
     </foreach>
     SELECT * FROM DUAL
   </update>
@@ -907,8 +918,8 @@
 
   <!-- 캠페인 테스트 실행 대상 입력 -->
   <update id="Schedule.setCampaignTestTarget" parameterType="Map" >
-    INSERT ALL 
-    <foreach collection="array"  item="TEST_MEM_ID" separator=" " index="index" > 
+    INSERT ALL
+    <foreach collection="array"  item="TEST_MEM_ID" separator=" " index="index" >
      INTO cm_campaign_test_target
      (
        CAMPAIGNCODE
@@ -916,14 +927,14 @@
       ,MEM_ID
       ,CREATE_ID
       ,CREATE_DT
-    ) 
+    )
     VALUES (
        TRIM(#{CAMPAIGNCODE})
       ,TO_DATE(TRIM(#{RUN_DT}), 'YYYY-MM-DD HH24:MI:SS')
       ,'${array[index]}'
       ,TRIM(#{CREATE_ID})
       ,SYSDATE
-    ) 
+    )
     </foreach>
     SELECT * FROM DUAL
   </update>
@@ -937,20 +948,20 @@
       ,RUN_DT
       ,CREATE_ID
       ,CREATE_DT
-    ) 
+    )
     VALUES (
        TRIM(#{CAMPAIGNCODE})
       ,TO_DATE(TRIM(#{RUN_DT}), 'YYYY-MM-DD HH24:MI:SS')
       ,TRIM(#{CREATE_ID})
       ,SYSDATE
-    ) 
+    )
   </update>
 
   <!-- DEVICEID 가 대상수준일 때 오퍼를 사용하거나 모바일 알리미 이외 채널 사용 불가 -->
   <select id="Schedule.getCampaignValiChk10" parameterType="Map" resultType="String">
     SELECT CASE WHEN COUNT(0) = 0 THEN 'Y' ELSE 'N' END
       FROM (
-        SELECT 
+        SELECT
             CASE WHEN M.AUDIENCE_CD = 'DEVICE_ID' AND (NVL(C.OFFER_TYPE_CD,'ZZ') != 'ZZ' OR NVL(D.CHANNEL_CD,'MOBILE') != 'MOBILE') THEN 'N' ELSE 'Y' END VALI
           FROM cm_campaign_dtl M
             , CI_CAMPAIGN A
@@ -963,33 +974,33 @@
      )
      WHERE VALI = 'N'
   </select>
-  
-  <!-- 캠페인 전송방식이 Batch 일경우 채널정보에 발송시간 데이터가 없을 경우 에러 처리 --> 
+
+  <!-- 캠페인 전송방식이 Batch 일경우 채널정보에 발송시간 데이터가 없을 경우 에러 처리 -->
   <select id="Schedule.getCampaignValiChk11" parameterType="Map" resultType="String">
-      SELECT CASE WHEN SMS_DISP_TIME IS NULL AND EMAIL_DISP_TIME IS NULL AND MOBILE_DISP_TIME IS NULL THEN 'Y' 
-                  ELSE 
+      SELECT CASE WHEN SMS_DISP_TIME IS NULL AND EMAIL_DISP_TIME IS NULL AND MOBILE_DISP_TIME IS NULL THEN 'Y'
+                  ELSE
                   ( CASE WHEN SMS_DISP_TIME    = 'N' THEN 'SMS'    END || CASE WHEN SMS_DISP_TIME = 'N' AND ( EMAIL_DISP_TIME  = 'N' OR MOBILE_DISP_TIME = 'N' ) THEN ',' END ||
                     CASE WHEN EMAIL_DISP_TIME  = 'N' THEN 'EMAIL'  END || CASE WHEN EMAIL_DISP_TIME  = 'N' AND MOBILE_DISP_TIME = 'N' THEN ',' END ||
                     CASE WHEN MOBILE_DISP_TIME = 'N' THEN 'MOBILE' END ) END MSG
-                                    
-            FROM (            
-                
+
+            FROM (
+
                 SELECT A.CAMPAIGNCODE
-                      ,A.MANUAL_TRANS_YN MANUAL_TRANS_YN  
-                      ,MAX(CASE WHEN A.MANUAL_TRANS_YN = 'N' AND B.CHANNEL_CD = 'SMS' AND SMS_DISP_TIME IS NULL THEN 'N' ELSE '' END) SMS_DISP_TIME                      
-                      ,MAX(CASE WHEN A.MANUAL_TRANS_YN = 'N' AND B.CHANNEL_CD = 'EMAIL' AND EMAIL_DISP_TIME  IS NULL THEN 'N' ELSE '' END) EMAIL_DISP_TIME                      
-                      ,MAX(CASE WHEN A.MANUAL_TRANS_YN = 'N' AND B.CHANNEL_CD = 'MOBILE' AND MOBILE_DISP_TIME IS NULL THEN 'N' ELSE '' END) MOBILE_DISP_TIME                                     
-                      
+                      ,A.MANUAL_TRANS_YN MANUAL_TRANS_YN
+                      ,MAX(CASE WHEN A.MANUAL_TRANS_YN = 'N' AND B.CHANNEL_CD = 'SMS' AND SMS_DISP_TIME IS NULL THEN 'N' ELSE '' END) SMS_DISP_TIME
+                      ,MAX(CASE WHEN A.MANUAL_TRANS_YN = 'N' AND B.CHANNEL_CD = 'EMAIL' AND EMAIL_DISP_TIME  IS NULL THEN 'N' ELSE '' END) EMAIL_DISP_TIME
+                      ,MAX(CASE WHEN A.MANUAL_TRANS_YN = 'N' AND B.CHANNEL_CD = 'MOBILE' AND MOBILE_DISP_TIME IS NULL THEN 'N' ELSE '' END) MOBILE_DISP_TIME
+
                 FROM  cm_campaign_dtl A,
                       cm_campaign_channel B
-                
+
                 WHERE A.CAMPAIGNCODE = B.CAMPAIGNCODE(+)
                 AND   A.CAMPAIGNCODE = #{CAMPAIGNCODE}
-                
+
                 GROUP BY A.CAMPAIGNCODE, A.MANUAL_TRANS_YN
-            
-            ) 
-            
+
+            )
+
   </select>
 
   <update id="Schedule.campaignStop" parameterType="Map">
@@ -1005,5 +1016,5 @@
         AND RUN_STATUS IS NOT NULL
         AND RUN_SUCCESS_YN IS NULL
         AND RSRV_DT IS NOT NULL
-  </update>  
+  </update>
 </mapper>

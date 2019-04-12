@@ -64,9 +64,7 @@ public class LoginController {
 				new ModelAndView("redirect:/main.do");
 			}
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
-
 			sessionService.removeMuzSession(request);
 		}
 		return "login";
@@ -150,7 +148,6 @@ public class LoginController {
 					sessionService.setSession(request, loginVo);
 				}
 			} catch (Exception e) {
-				// TODO: handle exception
 				logger.debug("LoginController exception");
 				e.printStackTrace();
 			}
