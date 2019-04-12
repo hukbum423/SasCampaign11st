@@ -535,6 +535,8 @@ public class CampaignController {
 	}
 
 	/**
+	 * KANG-20190411: analyzing
+	 * this method is called by SAS
 	 *
 	 * @param request
 	 * @param response
@@ -543,7 +545,7 @@ public class CampaignController {
 	 * @throws Exception
 	 */
 	@RequestMapping("/callCopyCoupon.do")
-	public void sasCallCoupCoupon(HttpServletRequest request, HttpServletResponse response, ModelMap modelMap, HttpSession session) throws Exception {
+	public void sasCallCopyCoupon(HttpServletRequest request, HttpServletResponse response, ModelMap modelMap, HttpSession session) throws Exception {
 		String campaignId = request.getParameter("campaignid");
 		String cellId = request.getParameter("cellid");
 		int offerId = Integer.parseInt(request.getParameter("offerid"));
@@ -551,7 +553,7 @@ public class CampaignController {
 		try {// 443: campaign_sk // 1580 : rund id = cell_package_sk
 			CheckCopyCouponNo.checkCouponNo(
 					campaignId, cellId
-					, this.dbconnUrl, this.dbconnUser, this.dbconnPass
+					, this.dbconnUrl,   this.dbconnUser,   this.dbconnPass
 					, this.dbconnBoUrl, this.dbconnBoUser, this.dbconnBoPass
 					, offerId);
 		} catch (Exception e) {

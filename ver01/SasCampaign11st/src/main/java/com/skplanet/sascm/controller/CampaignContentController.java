@@ -65,7 +65,7 @@ public class CampaignContentController {
 	private MappingJacksonJsonView jsonView;
 
 	/**
-	 * 
+	 *
 	 * @param request
 	 * @param modelMap
 	 * @return
@@ -81,7 +81,7 @@ public class CampaignContentController {
 
 	/**
 	 * 고객 세그먼트 컨텐츠 매핑 관리
-	 * TODO: KANG-20190409: reference for pagination by Seok Kiea Kang
+	 * TODO KANG-20190409: reference for pagination by Seok Kiea Kang
 	 *
 	 * @param request
 	 * @param response
@@ -1361,7 +1361,7 @@ public class CampaignContentController {
 
 		jsonView.render(map, request, response);
 	}
-	
+
 	/**
 	 *
 	 *
@@ -1735,6 +1735,8 @@ public class CampaignContentController {
 	}
 
 	/**
+	 * KANG-20190411: analyzing
+	 *
 	 * 오퍼 쿠폰 페이지 호출
 	 *
 	 * @param request
@@ -1749,10 +1751,9 @@ public class CampaignContentController {
 
 		//paramter
 		log.info("=============================================");
-		log.info("OFFERID      : " + request.getParameter("OFFERID"));
+		log.info("OFFERID            : " + request.getParameter("OFFERID"));
 		log.info("OFFER_TYPE_CD      : " + request.getParameter("OFFER_TYPE_CD"));
-		log.info("OFFER_CONTENT_ID      : " + request.getParameter("OFFER_CONTENT_ID"));
-
+		log.info("OFFER_CONTENT_ID   : " + request.getParameter("OFFER_CONTENT_ID"));
 		log.info("=============================================");
 
 		//오퍼(포인트, 마일리지) 정보 상세 조회
@@ -1760,8 +1761,7 @@ public class CampaignContentController {
 		map.put("OFFER_TYPE_CD", Common.nvl(request.getParameter("OFFER_TYPE_CD"), "").replace(" ", ""));
 		map.put("OFFER_CONTENT_ID", Common.nvl(request.getParameter("OFFER_CONTENT_ID"), "").replace(" ", ""));
 
-		CampaignContentOfferCuBO bo = campaignContentService.getOfferCuInfo(map);
-
+		CampaignContentOfferCuBO bo = this.campaignContentService.getOfferCuInfo(map);
 
 		modelMap.addAttribute("OFFER_CONTENT_ID", Common.nvl(request.getParameter("OFFER_CONTENT_ID"), ""));
 		modelMap.addAttribute("CELLNAME", "미지정-고객세그먼트");

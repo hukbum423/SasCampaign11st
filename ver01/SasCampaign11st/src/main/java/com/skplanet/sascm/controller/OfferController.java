@@ -123,6 +123,8 @@ public class OfferController {
 	}
 
 	/**
+	 * KANG-20190411: for analyzing
+	 * 
 	 * 오퍼 쿠폰 페이지 호출
 	 *
 	 * @param request
@@ -147,7 +149,7 @@ public class OfferController {
 		map.put("CELLID", Common.nvl(request.getParameter("CELLID"), "").replace(" ", ""));
 		map.put("OFFERID", Common.nvl(request.getParameter("OFFERID"), "").replace("\t", ""));
 
-		OfferCuBO bo = offerService.getOfferCuInfo(map);
+		OfferCuBO bo = this.offerService.getOfferCuInfo(map);
 
 		modelMap.addAttribute("CAMPAIGNID", Common.nvl(request.getParameter("CampaignId"), ""));
 		modelMap.addAttribute("bo", bo);

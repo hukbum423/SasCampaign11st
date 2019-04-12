@@ -28,6 +28,8 @@
 	var treeNodes;
 	
 	$(document).ready(function(){
+		if (true) console.log("KANG.ready: init-ajax function");
+		
 		//달력 설정
 		$("#RSRV_DT").datepicker({
 			showOn: "button",
@@ -173,12 +175,15 @@
 		$("#expandAllBtn").bind("click", {type:"expandAll"}, expandNode);
 		$("#collapseAllBtn").bind("click", {type:"collapseAll"}, expandNode);
 		
-		if ("${cal }" != "" && "${cal }" != null && "${cal }" != "null"){
-			fn_getCampaignDtl('${cal }');
+		if ("${cal}" != "" && "${cal}" != null && "${cal}" != "null"){
+			fn_getCampaignDtl('${cal}');
 		}
 	});
 	
+	// + tree click event
 	function expandNode(e) {
+		if (true) console.log("KANG.expandNode: [+] tree click event");
+		
 		var zTree = $.fn.zTree.getZTreeObj("tree"),
 		type = e.data.type,
 		nodes = zTree.getSelectedNodes();
@@ -192,15 +197,6 @@
 		}
 	}
 	
-	// Jsondata 세팅후 리턴
-	function jsonDataSet(id, name, pid){
-		var jsonData = new Object();
-		jsonData.id = id;
-		jsonData.name = name;
-		jsonData.pid = pid;
-		return jsonData;
-	}
-	
 	// 폴더 Depth 가 같을때 최종 폴더명만 다르면 true 아니면 해당 폴더 배열 위치 리턴
 	function fnChkFolderPath(splitTmpTxt, splitPrevTxt){
 		for(var i = 0 ; i < splitTmpTxt.length ; i++){
@@ -212,8 +208,35 @@
 		}
 	}
 	
-	/* 조회 */
+	// click some tree node
+	function zTreeOnClick(event, treeId, treeNode) {
+		var treeValue = treeNode.name;
+		$("#TREE_VALUE").val(treeValue);
+		$("#selectPageNo").val('1');
+		if (true) {
+			console.log("KANG.zTreeOnClick: selectPageNo  : " + $("#selectPageNo").val());
+			console.log("KANG.zTreeOnClick: event         : " + event);
+			console.log("KANG.zTreeOnClick: treeId        : " + treeId);
+			console.log("KANG.zTreeOnClick: treeNode.name : " + treeNode.name);
+			console.log("KANG.zTreeOnClick: treeNode.id   : " + treeNode.id);
+			console.log("KANG.zTreeOnClick: treeNode.pid  : " + treeNode.pid);
+			console.log("KANG.zTreeOnClick: treeValue     : " + treeValue);
+		}
+		fn_search();
+	};
+	
+	// Jsondata 세팅후 리턴
+	function jsonDataSet(id, name, pid){
+		var jsonData = new Object();
+		jsonData.id = id;
+		jsonData.name = name;
+		jsonData.pid = pid;
+		return jsonData;
+	}
+	
+	// 조회 for some campaign, and pagination
 	function fn_search() {       // KANG-20190410: analyzing for pagination
+		if (true) console.log("KANG.fn_search: 조회 for some campaign, and pagination");
 		//${staticServerType }
 		jQuery.ajax({
 			url           : '${staticPATH }/campaignList.do?serverType=${staticServerType }',
@@ -243,7 +266,7 @@
 							$("#campaignList > tbody:last").append(txt);
 						});
 						//페이징 처리 시작!!
-						var page = pagingNavi(result.selectPage, result.pageRange, result.pageStart, result.pageEnd, result.totalPage);
+						var page = _pagingNavi(result.selectPage, result.pageRange, result.pageStart, result.pageEnd, result.totalPage, "fn_pageMove");
 						$("#paging_layer").html(page);
 						//페이징 처리 종료
 					} else {
@@ -272,19 +295,10 @@
 		});
 	};
 	
-	function zTreeOnClick(event, treeId, treeNode) {
-		var treeValue = treeNode.name;
-		$("#TREE_VALUE").val(treeValue);
-		// console.log("event : " + event);
-		// console.log("treeId : " + treeId);
-		// console.log("treeNode.name : " + treeNode.name);
-		// console.log("treeNode.id : " + treeNode.id);
-		// console.log("treeNode.pid : " + treeNode.pid);
-		// console.log("treeValue : " + treeValue);
-		fn_search();
-	};
-	
+	// event functions
 	$(function(){
+		if (true) console.log("KANG.ready: event functions");
+		
 		$('#myTab a').click(function (e) {
 		});
 		$("#propertyEdit").click(function() {
@@ -307,6 +321,7 @@
 			//fn_toggleScheduleAllSelect();
 		});
 		// TODO KANG-20190410: for later job           NOT USE
+		/*
 		$('#scheduleListTable > tbody tr:has(td)').find('input[type="checkbox"]').click(function() {
 			if (true) console.log("KANG.scheduleListTable.tbody.tr.td.click(): ")
 			var isChecked = $(this).prop('checked');
@@ -321,11 +336,12 @@
 				$('#chkParent').prop('checked', isChecked);
 			}
 		});
-
+		*/
 	});
 	
-	//채널 추가
+	// 채널 추가
 	function fn_addChannel(cellid,campaignid) {
+		if (true) console.log("KANG.fn_addChannel: 채널 추가");
 		var frmChannel = document.frmChannel;
 		$("#ChannelCELLID").val(cellid);
 		$("#ChannelCampaignId").val(campaignid);
@@ -337,7 +353,7 @@
 	}
 	
 	// 채널 정보 삭제 
-	function fn_delChannel(cellid, channel_cd){
+	function fn_delChannel(cellid, channel_cd) {
 		if (!confirm("삭제 하시겠습니까?")){
 			return;
 		}
@@ -365,6 +381,7 @@
 		});
 	}
 	
+	// get details of some campaign
 	function fn_getCampaignDtl(campaignid) {
 		if (true) console.log("KANG.fn_getCampaignDtl: campaignid = " + campaignid);
 		$("#optionDiv").hide();
@@ -382,8 +399,10 @@
 		*/
 	}
 	
+	// check time for another campaign
 	function chkTime(campaignid){
-		// 캠페인 속성 조회
+		if (true) console.log("KANG.chkTime: check time for another campaign");
+		// 캠페인 요약/속성 조회
 		fn_property(campaignid);
 		// 캠페인 오퍼 조회
 		fn_offer(campaignid);
@@ -394,7 +413,8 @@
 	}
 	
 	// 캠페인에 대한 정보를 모두 불러온다.
-	function fn_campaignInfoAll(campaignid){    // KANG-20190410: analyzing
+	function fn_campaignInfoAll(campaignid) {    // KANG-20190410: analyzing. load all
+		if (true) console.log("KANG.fn_campaignInfoAll: 캠페인에 대한 정보를 모두 불러온다.");
 		jQuery.ajax({
 			url           : '${staticPATH }/getCampaignInfoAll.do',
 			dataType      : "JSON",
@@ -417,6 +437,10 @@
 						return "ERROR";
 					} else {
 						/* 캠페인 요약/속성 정보 START ##################################### */
+						if (true) {
+							console.log("KANG.fn_campaignInfoAll: 캠페인 요약/속성 정보");
+							console.log("KANG.fn_campaignInfoAll: result.bo.campaignname = " + result.bo.campaignname);
+						}
 						$('#summary').css('display', '');
 						$('#CAMPAIGNNAME').html(result.bo.campaignname);
 						$('#CAMPAIGNCODE').html(result.bo.campaigncode);
@@ -524,12 +548,16 @@
 						$('#SENDDATETYPE').text(result.boSummary.senddatetype);
 						/* 캠페인 요약/속성 정보 END ##################################### /// */
 						/* 캠페인 오퍼 정보 START ##################################### */
+						if (true) {
+							console.log("KANG.fn_campaignInfoAll: 캠페인 오퍼 정보");
+							console.log("KANG.fn_campaignInfoAll.result.offer_list : " + result.offer_list);
+							console.log("KANG.fn_campaignInfoAll.result.offerUseChk : " + result.offerUseChk);
+							console.log("KANG.fn_campaignInfoAll.result.dummyOfferChk : " + result.dummyOfferChk);
+							console.log("KANG.fn_campaignInfoAll.result.dummyOfferChk : " + result.dummyOfferChk);
+						}
 						var list = result.offer_list;
-						//console.log("offer_list : " + result.offer_list);
-						//console.log("offerUseChk : " + result.offerUseChk);
-						//console.log("dummyOfferChk : " + result.dummyOfferChk);
-						//console.log("dummyOfferChk : " + result.dummyOfferChk);
-						var txt = '<table class="table table-striped table-hover table-condensed table-bordered" >';
+						var txt;
+						txt  = '<table class="table table-striped table-hover table-condensed table-bordered" >';
 						txt += '<colgroup>';
 						txt += '<col width="30%"/>';
 						txt += '<col width="25%"/>';
@@ -559,11 +587,15 @@
 						$("#offerList").html(txt);
 						/* 캠페인 오퍼 정보 END ##################################### /// */
 						/* 캠페인 채널 정보 START ##################################### */
+						if (true) {
+							console.log("KANG.fn_campaignInfoAll: 캠페인 채널 정보");
+							console.log("KANG.fn_campaignInfoAll.result.channel_list : " + result.channel_list);
+						}
 						var list = result.channel_list;
-						var txt ="";
-						txt += "<table class='table table-striped table-hover table-condensed table-bordered' width='100%' border='0' cellpadding='0' cellspacing='0'>";
+						var txt;
+						txt  = "<table class='table table-striped table-hover table-condensed table-bordered' width='100%' border='0' cellpadding='0' cellspacing='0'>";
 						if (list.length>0) {
-							if (result.channelValiChk =="N"){
+							if (result.channelValiChk == "N"){
 								alert("대상수준이 PCID일경우에는 토스트배너만 사용이 가능합니다");
 								return;
 							} else if (result.channelValChkforMobile != "Y"){
@@ -607,31 +639,31 @@
 										txt += "title ='"+  data.lms_title+"'";
 									}
 									txt +=">";
-									if (data.channel_cd =='TOAST'){
+									if (data.channel_cd == 'TOAST'){
 										txt +=(data.toast_title).substring(0,45);
 										if ((data.toast_title).substring(0,45).length>=18){
 											txt +='...';
 										}
 									}
-									if (data.channel_cd =='SMS'){
+									if (data.channel_cd == 'SMS'){
 										txt +=(data.sms_msg).substring(0,45);
 										if ((data.sms_msg).substring(0,45).length>=18){
 											txt +='...';
 										}
 									}
-									if (data.channel_cd =='EMAIL'){
+									if (data.channel_cd == 'EMAIL'){
 										txt +=(data.email_name).substring(0,45);
 										if ((data.email_name).substring(0,45).length>=18){
 											txt +='...';
 										}
 									}
-									if (data.channel_cd =='MOBILE'){
+									if (data.channel_cd == 'MOBILE'){
 										txt +=(data.mobile_disp_title).substring(0,45);
 										if ((data.mobile_disp_title).substring(0,45).length>=18){
 											txt +='...';
 										}
 									}
-									if (data.channel_cd =='LMS'){
+									if (data.channel_cd == 'LMS'){
 										txt +=(data.lms_title).substring(0,45);
 										if ((data.lms_title).substring(0,45).length>=18){
 											txt +='...';
@@ -665,12 +697,19 @@
 						$("#search_channel").html(txt);
 						/* 캠페인 채널 정보 END ##################################### /// */
 						/* 캠페인 일정 정보 START ##################################### */
+						if (true) {
+							console.log("KANG.fn_campaignInfoAll: 캠페인 일정 정보");
+							console.log("KANG.fn_campaignInfoAll.result.scheduleBo.rsrv_gubun_code_name : " + result.scheduleBo.rsrv_gubun_code_name);
+						}
 						if (result.scheduleBo.rsrv_gubun_code_name == null || result.scheduleBo.rsrv_gubun_code_name == "null"){
 							$("#scheduleTable").hide();
 							$("#scheduleListDiv").hide();
+							$('#paging_layer2').hide();
 						} else {
 							$("#scheduleTable").show();
 							$("#scheduleListDiv").show();
+							$("#selectPageNo2").val("1");
+							$('#paging_layer2').show();
 							fn_searchSchedule();
 							if (option=="success"){
 								var scheduleScheduler = "";
@@ -743,7 +782,7 @@
 					alert("에러가 발생하였습니다.");
 				}
 			},
-			complete:function(){
+			complete:function() {
 				closeWindowByMask();
 			},
 			error: function(result, option) {
@@ -752,8 +791,9 @@
 		});
 	}
 	
-	//켐패인 속성 조회
-	function fn_property(campaignid){
+	// 켐패인 요약/속성 조회
+	function fn_property(campaignid) {
+		if (true) console.log("KANG.fn_property: 켐패인 요약/속성 조회");
 		jQuery.ajax({
 			url           : '${staticPATH }/getCampaignInfo.do',
 			dataType      : "JSON",
@@ -833,8 +873,9 @@
 		});
 	}
 	
-	//켐패인 오퍼 리스트  조회
-	function fn_offer(campaignid){
+	// 켐패인 오퍼 리스트  조회
+	function fn_offer(campaignid) {
+		if (true) console.log("KANG.fn_property: 켐패인 오퍼 리스트 조회");
 		jQuery.ajax({
 			url           : '${staticPATH }/getOfferInfoList.do',
 			dataType      : "JSON",
@@ -893,8 +934,9 @@
 		});
 	}
 	
-	//켐패인 채널 리스트  조회
-	function fn_channel(campaignid){
+	// 켐패인 채널 리스트  조회
+	function fn_channel(campaignid) {
+		if (true) console.log("KANG.fn_property: 켐패인 채널 리스트 조회");
 		jQuery.ajax({
 			url           : '${staticPATH }/getChannelInfoList.do',
 			dataType      : "JSON",
@@ -1025,14 +1067,13 @@
 		});
 	}
 	
-	/* 채널정보 상세보기(수정화면)*/
-	function fn_clickChannel(cellid, channel_cd){
+	// 채널정보 상세보기(수정화면)
+	function fn_clickChannel(cellid, channel_cd) {
+		if (true) console.log("KANG.fn_clickChannel: 채널정보 상세보기(수정화면)");
 		if (!true) {
-			var txt = "fn_clickChannel(cellid, channel_cd)\n"
+			console.log("KANG.fn_clickChannel(cellid, channel_cd)\n"
 				+ "cellid: " + cellid + "\n"
-				+ "channel_cd: " + channel_cd + "\n"
-				;
-			alert(txt);
+				+ "channel_cd: " + channel_cd + "\n");
 		}
 		
 		var frmChannel = document.frmChannel;
@@ -1060,8 +1101,9 @@
 		pop.focus();
 	}
 	
-	/* 오퍼 종류 선택시 오퍼정보 입력할수 있는 팝업창 출력 */
-	function fn_clickOffer(offer_type_cd, offer_sys_cd, cellid, offerid, campaignid){
+	// 오퍼 종류 선택시 오퍼정보 입력할수 있는 팝업창 출력
+	function fn_clickOffer(offer_type_cd, offer_sys_cd, cellid, offerid, campaignid) {
+		if (true) console.log("KANG.fn_clickOffer: 오퍼 종류 선택시 오퍼정보 입력할수 있는 팝업창 출력");
 		var type = offer_sys_cd + offer_type_cd;
 		var frm = document.form;
 		$("#CELLID").val(cellid);
@@ -1086,8 +1128,9 @@
 		}
 	}
 	
-	/* 유효성 체크 */
+	// 유효성 체크
 	function fn_validation() {
+		if (true) console.log("KANG.fn_validation: 유효성 체크");
 		if ($("#camp_term_cd").val() == "01" && Number($("#LIST_LENGTH").val()) > 0 ){
 			//모두 실패건일경우에는 등록 가능
 			jQuery.ajax({
@@ -1122,8 +1165,9 @@
 		}
 	}
 	
-	/* 일정 추가 */
-	function fn_add(){
+	// 일정 추가
+	function fn_add() {
+		if (true) console.log("KANG.fn_add: 일정 추가");
 		if ($("#camp_term_cd").val() == "01"){
 			if ( $("#RSRV_DT").val() > $("camp_end_dt").val()){
 				alert("추출일자는 캠페인 종료일("+$("camp_end_dt").val()+")보다 보다 작아야합니다");
@@ -1177,136 +1221,18 @@
 		});
 	}
 	
-	/* 조회 */
-	function fn_searchSchedule() {   // KANG-20190410: analyzing
-		if (true) console.log("KANG-fn_searchSchedule: " + $("#scheduleCampaignId").val() + ", " + $("#scheduleCAMPAIGNCODE").val());
-		jQuery.ajax({
-			url           : '${staticPATH }/getScheduleList.do',
-			dataType      : "JSON",
-			scriptCharset : "UTF-8",
-			async         : true,
-			type          : "POST",
-			data          : { 
-				CampaignId      : $("#scheduleCampaignId").val(),
-				CAMPAIGNCODE    : $("#scheduleCAMPAIGNCODE").val(),
-				selectPageNo2   : $("#selectPageNo2").val(),
-				SEARCH_TYPE     : $("#SEARCH_TYPE").val()
-			},
-			success: function(result, option) {
-				if (option == "success"){
-					var list = result.ScheduleList;
-					$("#LIST_LENGTH").val(list.length);
-					$("#scheduleListTable > tbody tr").remove();
-					var txt ="";
-					if (list.length > 0){
-						$.each(list, function(key){
-							var data = list[key];
-							txt += "<tr>";
-							txt += "<td align=\"center\" class=\"listtd\">" + data.num + "</td>";
-							if (data.run_start_dt == null){
-								txt += "<td align=\"center\" class=\"listtd\"><input type='checkbox' name='CHK_DATE' value='"+ data.rsrv_dt +"' style='margin:-13px 5px -5px 0px;' /></td>";
-							} else {
-								txt += "<td align=\"center\" class=\"listtd\"><input type='checkbox' disabled='disabled' style='margin:-13px 5px -5px 0px;' /></td>";
-							}
-							txt += "<td align=\"center\" class=\"listtd\">"+nvl(data.rsrv_dt,'')+"</td>";
-							txt += "<td align=\"center\" class=\"listtd\">"+nvl(data.run_start_dt,'')+"</td>";
-							txt += "<td align=\"center\" class=\"listtd\">"+nvl(data.run_end_dt,'')+"</td>";
-							var tmpStatVal = data.run_status;
-							if (tmpStatVal != "")
-							var tmpStatArr = tmpStatVal.split("(");
-							//console.log(tmpStatArr.length);
-							//console.dir(tmpStatArr);
-							if (tmpStatArr.length == 2){
-								txt += "<td align=\"center\" class=\"listtd\">"+nvl(tmpStatArr[0],'')+"</td>";
-								txt += "<td align=\"center\" class=\"listtd\">"+nvl(tmpStatArr[1].replace(')', ''),'')+"</td>";
-							} else {
-								txt += "<td align=\"center\" class=\"listtd\">"+nvl(tmpStatArr[0],'')+"</td>";
-								txt += "<td align=\"center\" class=\"listtd\"></td>";
-							}
-							txt += "<td align=\"center\" class=\"listtd\">"+nvl(data.create_nm,'')+"</td>";
-							txt += "<td align=\"center\" class=\"listtd\">"+nvl(data.create_dt,'')+"</td>";
-							txt += "</tr>";
-						});
-					} else {
-						txt += "<tr><td align=\"center\" class=\"listtd\" colspan=\"\9\">데이터가 없습니다.</td></tr>";
-						for(var i=1; i<result.rowRange; i++){
-							/* 
-							txt +="<tr'>";
-							txt +="<td align=\"center\" class=\"listtd\" >&nbsp;</td>";
-							txt +="<td align=\"center\" class=\"listtd\">&nbsp;</td>";
-							txt +="<td align=\"center\" class=\"listtd\">&nbsp;</td>";
-							txt +="<td align=\"center\" class=\"listtd\">&nbsp;</td>";
-							txt +="<td align=\"center\" class=\"listtd\">&nbsp;</td>";
-							txt +="<td align=\"center\" class=\"listtd\">&nbsp;</td>";
-							txt +="<td align=\"center\" class=\"listtd\">&nbsp;</td>";
-							txt +="<td align=\"center\" class=\"listtd\">&nbsp;</td>";
-							txt +="</tr>"; 
-							*/
-						}
-					}
-					//빈 row 채우기
-					if (list.length > 0 && list.length < result.rowRange ){
-						for(var i=list.length; i<result.rowRange; i++){
-							/* 
-							txt +="<tr'>";
-							txt +="<td align=\"center\" class=\"listtd\">&nbsp;</td>";
-							txt +="<td align=\"center\" class=\"listtd\">&nbsp;</td>";
-							txt +="<td align=\"center\" class=\"listtd\">&nbsp;</td>";
-							txt +="<td align=\"center\" class=\"listtd\">&nbsp;</td>";
-							txt +="<td align=\"center\" class=\"listtd\">&nbsp;</td>";
-							txt +="<td align=\"center\" class=\"listtd\">&nbsp;</td>";
-							txt +="<td align=\"center\" class=\"listtd\">&nbsp;</td>";
-							txt +="<td align=\"center\" class=\"listtd\">&nbsp;</td>";
-							txt +="</tr>"; 
-							*/
-						}
-					}
-					//txt += "</table>";
-					$("#scheduleListTable > tbody:last").append(txt);
-					//페이징 처리 시작!!
-					var page = "";
-					//이전페이지 만들기
-					if ( result.selectPage2 > result.pageRange){
-						page +="<a href=\"javascript:fn_pageMove2("+ (Number(result.pageStart) - Number(result.pageRange)) +" );\" ><img src=\"<c:url value='/img/btn_left.gif'/>\" width='13px;' height='13px;' /></a>&nbsp;";
-					}
-					//페이지 숫자
-					for(var i=result.pageStart;  i<=result.pageEnd; i++){
-						if (result.selectPage2 == i)  {
-							page +="<strong>" + i + "</strong>";
-						} else {
-							page +="<a href=\"javascript:fn_pageMove2("+i+");\">" + i + "</a>";
-						};
-					};
-					//다음페이지 만들기
-					if (result.totalPage != result.pageEnd ) {
-						page +="&nbsp;<a href=\"javascript:fn_pageMove2("+ (Number(result.pageStart) + Number(result.pageRange)) +" );\" ><img src=\"<c:url value='/img/btn_right.gif'/>\" width='13px;' height='13px;' /></a>";
-					}
-					$("#paging_layer2").html(page);
-					//페이징 처리 종료
-					if (true) $('#chkParent').removeAttr('checked');
-				} else {
-					alert("에러가 발생하였습니다.");
-				}
-			},
-			beforeSend:function(){
-			},
-			complete:function(){
-			},
-			error: function(result, option) {
-			  alert("에러가 발생하였습니다.");
-			}
-		});
-	};
-	
 	// 일정 조회
 	function fn_searchScheduleList(campaignid){   // KANG-20190410: analyzing, by campaignId
+		if (true) console.log("KANG.fn_searchScheduleList: 일정 조회");
 		jQuery.ajax({
 			url           : '${staticPATH }/schedule/scheduleList.do',
 			dataType      : "JSON",
 			scriptCharset : "UTF-8",
 			async         : true,
 			type          : "POST",
-			data          : {CampaignId   : campaignid},
+			data          : {
+				CampaignId   : campaignid
+			},
 			success: function(result, option) {
 				//console.log("result.cnt : " + result.bo.rsrv_gubun_code_name);
 				if (result.bo.rsrv_gubun_code_name == null || result.bo.rsrv_gubun_code_name == "null"){
@@ -1385,13 +1311,120 @@
 		});
 	}
 	
-	/* 조회조건 선택시 재조회 */
-	function fn_selectSearchType(){
+	// 일정 목록 조회
+	function fn_searchSchedule() {   // KANG-20190410: analyzing
+		if (true) console.log("KANG.fn_searchSchedule: 일정 목록 조회 >> " + $("#scheduleCampaignId").val() + ", " + $("#scheduleCAMPAIGNCODE").val());
+		jQuery.ajax({
+			url           : '${staticPATH }/getScheduleList.do',
+			dataType      : "JSON",
+			scriptCharset : "UTF-8",
+			async         : true,
+			type          : "POST",
+			data          : { 
+				CampaignId      : $("#scheduleCampaignId").val(),
+				CAMPAIGNCODE    : $("#scheduleCAMPAIGNCODE").val(),
+				selectPageNo2   : $("#selectPageNo2").val(),
+				SEARCH_TYPE     : $("#SEARCH_TYPE").val()
+			},
+			success: function(result, option) {
+				if (option == "success"){
+					var list = result.ScheduleList;
+					$("#LIST_LENGTH").val(list.length);
+					$("#scheduleListTable > tbody tr").remove();
+					var txt ="";
+					if (list.length > 0) {
+						$.each(list, function(key){
+							var data = list[key];
+							txt += "<tr>";
+							txt += "<td align=\"center\" class=\"listtd\">" + data.num + "</td>";
+							if (data.run_start_dt == null){
+								txt += "<td align=\"center\" class=\"listtd\"><input type='checkbox' name='CHK_DATE' value='"+ data.rsrv_dt +"' style='margin:-13px 5px -5px 0px;' /></td>";
+							} else {
+								txt += "<td align=\"center\" class=\"listtd\"><input type='checkbox' disabled='disabled' style='margin:-13px 5px -5px 0px;' /></td>";
+							}
+							txt += "<td align=\"center\" class=\"listtd\">"+nvl(data.rsrv_dt,'')+"</td>";
+							txt += "<td align=\"center\" class=\"listtd\">"+nvl(data.run_start_dt,'')+"</td>";
+							txt += "<td align=\"center\" class=\"listtd\">"+nvl(data.run_end_dt,'')+"</td>";
+							var tmpStatVal = data.run_status;
+							if (tmpStatVal != "")
+							var tmpStatArr = tmpStatVal.split("(");
+							//console.log(tmpStatArr.length);
+							//console.dir(tmpStatArr);
+							if (tmpStatArr.length == 2){
+								txt += "<td align=\"center\" class=\"listtd\">"+nvl(tmpStatArr[0],'')+"</td>";
+								txt += "<td align=\"center\" class=\"listtd\">"+nvl(tmpStatArr[1].replace(')', ''),'')+"</td>";
+							} else {
+								txt += "<td align=\"center\" class=\"listtd\">"+nvl(tmpStatArr[0],'')+"</td>";
+								txt += "<td align=\"center\" class=\"listtd\"></td>";
+							}
+							txt += "<td align=\"center\" class=\"listtd\">"+nvl(data.create_nm,'')+"</td>";
+							txt += "<td align=\"center\" class=\"listtd\">"+nvl(data.create_dt,'')+"</td>";
+							txt += "</tr>";
+						});
+					} else {
+						txt += "<tr><td align=\"center\" class=\"listtd\" colspan=\"\9\">데이터가 없습니다.</td></tr>";
+						for (var i=1; i<result.rowRange; i++) {
+							/* 
+							txt +="<tr'>";
+							txt +="<td align=\"center\" class=\"listtd\" >&nbsp;</td>";
+							txt +="<td align=\"center\" class=\"listtd\">&nbsp;</td>";
+							txt +="<td align=\"center\" class=\"listtd\">&nbsp;</td>";
+							txt +="<td align=\"center\" class=\"listtd\">&nbsp;</td>";
+							txt +="<td align=\"center\" class=\"listtd\">&nbsp;</td>";
+							txt +="<td align=\"center\" class=\"listtd\">&nbsp;</td>";
+							txt +="<td align=\"center\" class=\"listtd\">&nbsp;</td>";
+							txt +="<td align=\"center\" class=\"listtd\">&nbsp;</td>";
+							txt +="</tr>"; 
+							*/
+						}
+					}
+					//빈 row 채우기
+					if (list.length > 0 && list.length < result.rowRange) {
+						for (var i=list.length; i<result.rowRange; i++) {
+							/* 
+							txt +="<tr'>";
+							txt +="<td align=\"center\" class=\"listtd\">&nbsp;</td>";
+							txt +="<td align=\"center\" class=\"listtd\">&nbsp;</td>";
+							txt +="<td align=\"center\" class=\"listtd\">&nbsp;</td>";
+							txt +="<td align=\"center\" class=\"listtd\">&nbsp;</td>";
+							txt +="<td align=\"center\" class=\"listtd\">&nbsp;</td>";
+							txt +="<td align=\"center\" class=\"listtd\">&nbsp;</td>";
+							txt +="<td align=\"center\" class=\"listtd\">&nbsp;</td>";
+							txt +="<td align=\"center\" class=\"listtd\">&nbsp;</td>";
+							txt +="</tr>"; 
+							*/
+						}
+					}
+					//txt += "</table>";
+					$("#scheduleListTable > tbody:last").append(txt);
+					//페이징 처리 시작!!
+					var page = _pagingNavi(result.selectPage2, result.pageRange, result.pageStart, result.pageEnd, result.totalPage, "fn_pageMove2");
+					$("#paging_layer2").html(page);
+					//페이징 처리 종료
+					if (true) $('#chkParent').removeAttr('checked');
+				} else {
+					alert("에러가 발생하였습니다.");
+				}
+			},
+			beforeSend:function(){
+			},
+			complete:function(){
+			},
+			error: function(result, option) {
+			  alert("에러가 발생하였습니다.");
+			}
+		});
+	};
+	
+	// 조회조건 선택시 일정 재조회
+	function fn_selectSearchType() {
+		if (true) console.log("KANg.fn_selectSearchType: 조회조건 선택시 일정 재조회");
 		fn_searchScheduleList($("#scheduleCampaignId").val());
 	}
 	
-	/* schedule 선택 삭제 */
-	function fn_delete(){
+	// 일정 선택 삭제
+	function fn_delete() {
+		if (true) console.log("KANG.fn_delete: 일정 선택 삭제");
 		if ($("input:checkbox[name='CHK_DATE']:checked").length == 0){
 			alert("삭제할 일정을 선택하세요");
 			return;
@@ -1455,8 +1488,9 @@
 		});
 	}
 	
-	/* 전체 삭제 */
-	function fn_deleteAll(){
+	// 일정 전체 삭제
+	function fn_deleteAll() {
+		if (true) console.log("KANG.fn_deleteAll: 일정 전체 삭제");
 		if (!confirm("전체 삭제 하시겠습니까?\n(이미 실행된 일정은 삭제되지 않습니다)")){
 			return;
 		}
@@ -1485,7 +1519,9 @@
 		});
 	}
 	
-	function fn_multi_save(){
+	// 멀티 모두 저장
+	function fn_multi_save() {
+		if (true) console.log("KANG.fn_multi_save: CI Studio 에서 스케쥴링 등록을 완료");
 		if (confirm("CI Studio 에서 스케쥴링\n\n등록을 완료 했습니까?"))  {
 			jQuery.ajax({
 				//url           : '${staticPATH }/multiCistudioSave.do',
@@ -1546,6 +1582,7 @@
 	
 	// KANG-20190410: multi selection toggler                  NOT USE
 	// 일정목록에서 전부를 선택하거나 선택을 취소하거나
+	/*
 	var FLG_CHK_DATE = 'SET';   // toggle SET/UNSET
 	function fn_toggleScheduleAllSelect() {
 		if (true) console.log("KANG.fn_toggleScheduleAllSelect: start  " + FLG_CHK_DATE);
@@ -1602,9 +1639,11 @@
 			});
 		}
 	}
+	*/
 
 	// campaign stop
 	function campaignStop(){
+		if (true) console.log("KANG.campaignStop: 캠페인을 중지");
 		if (confirm("캠페인을 중지하시겠습니까?"))  {
 			jQuery.ajax({
 				url           : '${staticPATH }/campaignStop.do?CAMPAIGNCODE=' + $("#scheduleCAMPAIGNCODE").val(),
@@ -1632,17 +1671,18 @@
 		}
 	}
 	
-	/* 페이지 이동 */
-	function fn_pageMove(selectPageNo)
-	{
+	// 페이지 이동
+	function fn_pageMove(selectPageNo) {
+		if (true) console.log("KANG.fn_pageMove: selectPageNo = " + selectPageNo);
 		$("#selectPageNo").val(selectPageNo);
 		fn_search();
 	}
 
-	function fn_pageMove2(selectPageNo)
-	{
+	// 페이지 이동 2
+	function fn_pageMove2(selectPageNo) {
+		if (true) console.log("KANG.fn_pageMove2: selectPageNo = " + selectPageNo);
 		$("#selectPageNo2").val(selectPageNo);
-		fn_search();
+		fn_searchSchedule();
 	}
 
 	// test
@@ -1656,6 +1696,41 @@
 		frmChannel.method = "POST";
 		frmChannel.submit();
 		pop.focus();
+	}
+	
+	// KANG-20190411: for pagination
+	function _pagingNavi(selectPage, pageRange, pageStart, pageEnd, totalPage, pageMove){
+		if (true) {
+			var msg = " => ";
+			msg += "selectPage=" + selectPage;
+			msg += ", pageRange=" + pageRange;
+			msg += ", pageStart=" + pageStart;
+			msg += ", pageEnd=" + pageEnd;
+			msg += ", totalPage=" + totalPage;
+			msg += ", pageMove=" + pageMove;
+			console.log("KANG._pagingMavi:" + msg);
+		}
+		var page = "";
+		//이전페이지 만들기
+		if (selectPage > pageRange) {
+			// page +="<a href=\"javascript:fn_pageMove("+ (Number(result.pageStart) - Number(result.pageRange)) +" );\" ><img src=\"<c:url value='/img/btn_left.gif'/>\" width='13px;' height='13px;' /></a>&nbsp;";
+			page += "<li><a href=\"javascript:" + pageMove + "(" + (Number(pageStart) - Number(pageRange)) + ");\" aria-label='Previous'><span aria-hidden='true'>&laquo;</span></a></li>";
+		}
+		//페이지 숫자
+		for (var i = pageStart; i <= pageEnd; i++) {
+			var tmpActive = "";
+			if(selectPage == i)	{ 
+				tmpActive = "style='background-color:#EEEEEE'";
+			}
+			
+			page += "<li ><a href=\"javascript:" + pageMove + "(" + i + ");\" " + tmpActive + ">" + i + "</a></li>";
+		}
+		//다음페이지 만들기
+		if (totalPage != pageEnd) {
+			// page +="&nbsp;<a href=\"javascript:fn_pageMove("+ (Number(result.pageStart) + Number(result.pageRange)) +" );\" ><img src=\"<c:url value='/img/btn_right.gif'/>\" width='13px;' height='13px;' /></a>";
+			page += "<li><a href=\"javascript:" + pageMove + "(" + (Number(pageStart) + Number(pageRange)) + ");\" aria-label='Next'><span aria-hidden='true'>&raquo;</span></a></li>";
+		}
+		return page;
 	}
 </script>
 <!-- END SCRIPT -->
@@ -1727,7 +1802,7 @@
 							<tbody></tbody>
 						</table>
 						<div id="search_layer"></div>
-						<nav><ul class="pager" id="paging_layer"></ul></nav>
+						<nav><ul class="pager" id="paging_layer" style="display:show;"></ul></nav>
 					</div>
 				</div>
 			</form>
@@ -2032,7 +2107,7 @@
 								</table>
 							</div>
 							<!-- List -->
-							<div id="scheduleListDiv" style="overflow:scroll; width:100%; height:210px;margin-top:0px;">
+							<div id="scheduleListDiv" style="overflow:scroll; width:100%; height:350px;margin-top:0px;">
 								<table id="scheduleListTable" class="table table-striped table-hover table-condensed table-bordered" width="100%" border="0" cellpadding="0" cellspacing="0">
 									<colgroup>
 										<col width="3%"/>
@@ -2068,9 +2143,9 @@
 								</table>
 							</div>
 							<div id="search_layer_schedule"></div>
-							<div id="paging_layer2" class="s_paging" style="display:none;"></div>
+							<nav><ul class="pager" id="paging_layer2" style="display:show;"></ul></nav>
 							<!-- /List -->
-							<table border="0" cellpadding="0" cellspacing="0"><tr><td height="20"></td></table>
+							<table style="border-spacing:0px; border:0px;"><tr><td height="20"></td></table>
 						</form>
 					</div>
 				</div>

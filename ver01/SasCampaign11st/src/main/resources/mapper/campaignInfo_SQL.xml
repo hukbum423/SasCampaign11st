@@ -612,7 +612,7 @@
   </select>
 	<!-- KANG-20190410: 목록 건수 -->
 	<select id="CampaignInfo.getCampaignListCnt" parameterType="Map" resultType="String">
-		SELECT /* Schedule.getScheduleListCnt */
+		SELECT /* CampaignInfo.getCampaignListCnt */
 			COUNT(0)	CNT
 		FROM
 			CI_CAMPAIGN
@@ -632,7 +632,7 @@
 	</select>
 	<!-- KANG-20190410: 목록 -->
 	<select id="CampaignInfo.getCampaignList" parameterType="Map" resultMap="CampaignListBO">
-		SELECT /* Schedule.getScheduleList */
+		SELECT /* CampaignInfo.getCampaignListCnt */
 			a.*
 		FROM (
 			SELECT
