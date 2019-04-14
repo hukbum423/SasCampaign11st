@@ -458,8 +458,10 @@
 							$("#cmpgnDtType1").hide();
 							$("#cmpgnDtType2").show();
 						}
-						console.log("result.bo.camp_status_cd : " + result.bo.camp_status_cd);
-						console.log("result.runScheduleCnt : " + result.runScheduleCnt);
+						if (true) {
+							console.log("KANG.fn_campaignInfoAll: result.bo.camp_status_cd : " + result.bo.camp_status_cd);
+							console.log("KANG.fn_campaignInfoAll: result.runScheduleCnt : " + result.runScheduleCnt);
+						}
 						if (result.bo.camp_status_cd == "START" && parseInt(result.runScheduleCnt) > 0){
 							$("#campaignStopDiv").show();   // [캠페인 중지]
 						} else {
@@ -572,15 +574,15 @@
 							var data = list[key];
 							//console.log(data.campaignid + " / " + data.campaignname);
 							txt += "<tr>";
-							txt += "<td>"+data.cellname+"</td>";
+							txt += "<td>" + data.cellname + "</td>";
 							if (data.offer_sys_cd == 'ZZ'){
-								txt += "<td>"+data.offername+"</td>";
+								txt += "<td>" + data.offername + "</td>";
 							} else {
 								txt += "<td>";
-								txt += "<a href=\"javascript:fn_clickOffer('"+data.offer_type_cd+"', '"+data.offer_sys_cd+"' , '"+data.cellid+"' , '"+data.offerid+"', '"+data.campaignid+"')\" class=\"link\">"+data.offername +"&nbsp; </a>";
+								txt += "<a href=\"javascript:fn_clickOffer('" + data.offer_type_cd + "', '" + data.offer_sys_cd + "' , '" + data.cellid + "' , '" + data.offerid + "', '" + data.campaignid + "')\" class=\"link\">" + data.offername + "&nbsp; </a>";
 								txt += "</td>";
 							}
-							txt += "<td>"+nvl(data.disp_name, '')+"</td>";
+							txt += "<td>" + nvl(data.disp_name,'') + "</td>";
 							txt += "</tr>";
 						});
 						txt += "</table>";

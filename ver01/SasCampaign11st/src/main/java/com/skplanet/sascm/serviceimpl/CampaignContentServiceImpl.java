@@ -62,7 +62,7 @@ public class CampaignContentServiceImpl implements CampaignContentService{
 	 */
 	@Override
 	public String getOfferContentId(Map<String, Object> param) throws Exception {
-		return campaignContentDAO.getOfferContentId(param);
+		return this.campaignContentDAO.getOfferContentId(param);
 	}
 	/**
 	 * 캠페인컨텐츠 오퍼 리스트 조회

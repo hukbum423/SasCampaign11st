@@ -226,10 +226,11 @@
 	</update>
 	<!-- 컨텐츠매핑ID조회 -->
 	<select id="CampaignContent.getOfferContentId" parameterType="Map"  resultType="String">
-		SELECT
-               CONTENTS_NO.NEXTVAL as offer_content_id
-          FROM DUAL
+		SELECT  /* CampaignContent.getOfferContentId */
+			CONTENTS_NO.NEXTVAL as offer_content_id
+		FROM DUAL
 	</select>
+	
 	<select id="CampaignContent.getCampaignContentsOfferlist" parameterType="Map"  resultMap="CampaignContentBO">
          SELECT A.OFFER_CONTENT_ID offer_content_id
                ,OFFER_CONTENT_NM       campaignname

@@ -19,8 +19,9 @@ import sun.misc.BASE64Decoder;
 @SuppressWarnings("restriction")
 public class CheckCopyCouponNo {
 
-	@SuppressWarnings("finally")
+	@SuppressWarnings({"finally", "unused"})
 	public static String checkCouponNo(String sPFlowchartId, String sPRunId, String dbconnUrl, String dbconnUser, String dbconnPass, String dbconnBoUrl, String dbconnBoUser, String dbconnBoPass, int offerId) {
+		if (Flag.flag) System.out.println("----------------- CheckCopyCouponNo.checkCouponNo Start -----------------");
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 		} catch (ClassNotFoundException e) {
@@ -30,23 +31,23 @@ public class CheckCopyCouponNo {
 		//if (Flag.flag) System.out.println("argument count: " + args.length);
 		//String sPFlowchartId = args[0];
 		//String sPRunId = args[1];
-
 		int nFlowchartId = 0;
 		int nRunId = 0;
-
 		//CampaignLogWrite logwrite = new CampaignLogWrite("CheckCopyCouponNo","JAVA");
-
 		try {
-			nFlowchartId = Integer.parseInt(sPFlowchartId);
-			nRunId = Integer.parseInt(sPRunId);
+			nFlowchartId = Integer.parseInt(sPFlowchartId);   // CampaignId
+			nRunId = Integer.parseInt(sPRunId);               // CellId
 		} catch (Exception e) {
 			if (Flag.flag) System.out.println("Parameter error : " + e.getMessage());
 			//logwrite.write("ERROR","[캠페인 대상자 추출|쿠폰복사] sPFlowchartId="+sPFlowchartId+", sPRunId="+sPRunId+", Parameter Error","","Java CheckCopyCouponNo Parameter error","02");
 			//if (Flag.flag) System.exit(1);
 			return "Parameter Error";
 		}
-		if (Flag.flag) System.out.println("FlowchartId: " + nFlowchartId);
-		if (Flag.flag) System.out.println("RunId: " + nRunId);
+		if (Flag.flag) {
+			System.out.println("KANG-20190413: FlowchartId(CampaignId) = " + nFlowchartId);
+			System.out.println("KANG-20190413: RunId(CellId)           = " + nRunId);
+			System.out.println("KANG-20190413: offerId(OfferId)        = " + offerId);
+		}
 
 		//Configuration conf = null;
 
@@ -92,9 +93,7 @@ public class CheckCopyCouponNo {
 
 		try {
 			//conf = new Configuration();
-			@SuppressWarnings("unused")
 			BASE64Decoder base64Decoder = new BASE64Decoder();
-			@SuppressWarnings("unused")
 			SeedCBC seed = new SeedCBC();
 
 			sCMSDBURL = dbconnUrl;
@@ -109,37 +108,36 @@ public class CheckCopyCouponNo {
 			conOM = DriverManager.getConnection(sOMDBURL, sOMDBID, sOMDBPWD);
 
 			// 체크 및 복사할 쿠폰번호 조회
-			sSQL  = " select a.offer_sys_cd";
-			sSQL += "       ,a.offer_type_cd";
-			sSQL += "       ,a.tmpl_cupn_no";
-			sSQL += "       ,a.tmpl_cupn_no_use_yn";
-			sSQL += "       ,(select count(*) from ci_contact_history t1 where t1.cell_package_sk = b.cell_package_sk) treatmentsize";
-			sSQL += "       ,to_char(b.cell_package_sk) treatmentcode";
-			sSQL += "       ,a.cellid";
-			sSQL += "       ,a.offerid      ";
-			sSQL += "       ,case";
-			sSQL += "            when c.camp_term_cd = '01' then to_char(c.camp_bgn_dt,'YYYYMMDD')";
-			sSQL += "            else to_char(decode(c.manual_trans_yn,'T',sysdate,sysdate+1),'YYYYMMDD')";
-			sSQL += "        end camp_bgn_dt      ";
-			sSQL += "       ,case";
-			sSQL += "            when c.camp_term_cd = '01' then to_char(c.camp_end_dt,'YYYYMMDD')";
-			sSQL += "            else to_char(decode(c.manual_trans_yn,'T',sysdate,sysdate+1)+c.camp_term_day,'YYYYMMDD')";
-			sSQL += "        end camp_end_dt";
-			sSQL += " from   cm_campaign_offer a";
-			sSQL += "       ,ci_cell_package   b";
-			sSQL += "       ,cm_campaign_dtl   c";
-			sSQL += " where 1=1";
-			sSQL += "       and    a.cellid             = b.marketing_cell_sk";
-			sSQL += "       and    a.flowchartid        = b.campaign_sk";
-			sSQL += "       and    a.campaigncode       = c.campaigncode";
-			sSQL += "       and    a.flowchartid        = ?";
-			sSQL += "       and    b.marketing_cell_sk  = ?";
-			sSQL += "       and    b.cell_package_sk    = (select max(cell_package_sk) from ci_cell_package where campaign_sk =b.campaign_sk and marketing_cell_sk = b.marketing_cell_sk ) ";
-			sSQL += "       and    a.offerid            = ?";
-			sSQL += "       and    a.offer_sys_cd       = 'OM' ";
-			sSQL += "       and    a.offer_type_cd      = 'CU' ";
+			sSQL  = " select a.offer_sys_cd  \n";
+			sSQL += "       ,a.offer_type_cd \n";
+			sSQL += "       ,a.tmpl_cupn_no  \n";
+			sSQL += "       ,a.tmpl_cupn_no_use_yn \n";
+			sSQL += "       ,(select count(*) from CI_CONTACT_HISTORY t1 where t1.cell_package_sk = b.cell_package_sk) treatmentsize \n";
+			sSQL += "       ,to_char(b.cell_package_sk) treatmentcode                                                                \n";
+			sSQL += "       ,a.cellid       \n";
+			sSQL += "       ,a.offerid      \n";
+			sSQL += "       ,case           \n";
+			sSQL += "            when c.camp_term_cd = '01' then to_char(c.camp_bgn_dt,'YYYYMMDD')        \n";
+			sSQL += "            else to_char(decode(c.manual_trans_yn,'T',sysdate,sysdate+1),'YYYYMMDD') \n";
+			sSQL += "        end camp_bgn_dt      \n";
+			sSQL += "       ,case                 \n";
+			sSQL += "            when c.camp_term_cd = '01' then to_char(c.camp_end_dt,'YYYYMMDD')                        \n";
+			sSQL += "            else to_char(decode(c.manual_trans_yn,'T',sysdate,sysdate+1)+c.camp_term_day,'YYYYMMDD') \n";
+			sSQL += "        end camp_end_dt      \n";
+			sSQL += " from   CM_CAMPAIGN_OFFER a  \n";
+			sSQL += "       ,CI_CELL_PACKAGE   b  \n";
+			sSQL += "       ,CM_CAMPAIGN_DTL   c  \n";
+			sSQL += " where 1=1                   \n";
+			sSQL += "       and    a.cellid             = b.marketing_cell_sk  \n";
+			sSQL += "       and    a.flowchartid        = b.campaign_sk        \n";
+			sSQL += "       and    a.campaigncode       = c.campaigncode       \n";
+			sSQL += "       and    a.flowchartid        = ?                    \n";
+			sSQL += "       and    b.marketing_cell_sk  = ?                    \n";
+			sSQL += "       and    b.cell_package_sk    = (select max(cell_package_sk) from CI_CELL_PACKAGE where campaign_sk = b.campaign_sk and marketing_cell_sk = b.marketing_cell_sk ) \n";
+			sSQL += "       and    a.offerid            = ?                    \n";
+			sSQL += "       and    a.offer_sys_cd       = 'OM'                 \n";
+			sSQL += "       and    a.offer_type_cd      = 'CU'                 \n";
 			if (Flag.flag) System.out.println(sSQL);
-
 			pstmtCMS = conCMS.prepareStatement(sSQL);
 			pstmtCMS.setInt(1, nFlowchartId);
 			pstmtCMS.setInt(2, nRunId);
@@ -148,11 +146,10 @@ public class CheckCopyCouponNo {
 
 			rsCMS = pstmtCMS.getResultSet();
 			while (rsCMS.next()) {
-				if (Flag.flag) System.out.println("########### While START !!!");
+				if (Flag.flag) System.out.println("----------------- While START !!! -----------------");
 				CUPN_OK_YN  = "Y";
 				CUPN_STATUS = "";
 				CUPN_NO     = "";
-
 				OFFER_SYS_CD        = rsCMS.getString("OFFER_SYS_CD");
 				OFFER_TYPE_CD       = rsCMS.getString("OFFER_TYPE_CD");
 				TMPL_CUPN_NO        = rsCMS.getString("TMPL_CUPN_NO");
@@ -163,26 +160,28 @@ public class CheckCopyCouponNo {
 				OFFERID             = rsCMS.getInt("OFFERID");
 				CAMP_BGN_DT         = rsCMS.getString("CAMP_BGN_DT");
 				CAMP_END_DT         = rsCMS.getString("CAMP_END_DT");
+				if (Flag.flag) {
+					System.out.println("KANG-20190413: OFFER_SYS_CD        = " + OFFER_SYS_CD);
+					System.out.println("KANG-20190413: OFFER_TYPE_CD       = " + OFFER_TYPE_CD);
+					System.out.println("KANG-20190413: TMPL_CUPN_NO        = " + TMPL_CUPN_NO);
+					System.out.println("KANG-20190413: TMPL_CUPN_NO_USE_YN = " + TMPL_CUPN_NO_USE_YN);
+					System.out.println("KANG-20190413: TREATMENTSIZE       = " + TREATMENTSIZE);
+					System.out.println("KANG-20190413: CAMP_BGN_DT         = " + CAMP_BGN_DT);
+					System.out.println("KANG-20190413: CAMP_END_DT         = " + CAMP_END_DT);
+				}
 
-				if (Flag.flag) System.out.println("OFFER_SYS_CD=" + OFFER_SYS_CD);
-				if (Flag.flag) System.out.println("OFFER_TYPE_CD=" + OFFER_TYPE_CD);
-				if (Flag.flag) System.out.println("TMPL_CUPN_NO=" + TMPL_CUPN_NO);
-				if (Flag.flag) System.out.println("TMPL_CUPN_NO_USE_YN=" + TMPL_CUPN_NO_USE_YN);
-				if (Flag.flag) System.out.println("TREATMENTSIZE=" + TREATMENTSIZE);
-				if (Flag.flag) System.out.println("CAMP_BGN_DT=" + CAMP_BGN_DT);
-				if (Flag.flag) System.out.println("CAMP_END_DT=" + CAMP_END_DT);
-
-				sSQL  = " SELECT CUPN_NM CUPN_NM, ";
-				sSQL += "        DECODE(CUPN_ISS_STAT_CD,'03','Y','N') CUPN_APPV_YN, ";
-				sSQL += "        TO_CHAR(ISS_CN_BGN_DT,'YYYYMMDD') CUPN_BGN_DT, ";
-				sSQL += "        TO_CHAR(ISS_CN_END_DT,'YYYYMMDD') CUPN_END_DT, ";
-				sSQL += "        ISU_QTY CUPN_QTY ";
-				sSQL += " FROM   TABLE(TMALL.FN_MT_CUPN_INFO(?)) ";
+				sSQL  = " SELECT                                                  \n";
+				sSQL += "     CUPN_NM                               CUPN_NM,      \n";
+				sSQL += "     DECODE(CUPN_ISS_STAT_CD,'03','Y','N') CUPN_APPV_YN, \n";
+				sSQL += "     TO_CHAR(ISS_CN_BGN_DT,'YYYYMMDD')     CUPN_BGN_DT,  \n";
+				sSQL += "     TO_CHAR(ISS_CN_END_DT,'YYYYMMDD')     CUPN_END_DT,  \n";
+				sSQL += "     ISU_QTY                               CUPN_QTY      \n";
+				sSQL += " FROM                                                    \n";
+				sSQL += "     TABLE(TMALL.FN_MT_CUPN_INFO(?))                     \n";
 				if (Flag.flag) System.out.println(sSQL);
-
 				pstmtOM = conOM.prepareStatement(sSQL);
 				pstmtOM.setString(1, TMPL_CUPN_NO);
-				pstmtOM.execute();
+				pstmtOM.execute();                                               // KANG-20190413: occur an event on localhost
 
 				rsOM = pstmtOM.getResultSet();
 				if (rsOM.next()) {
@@ -191,59 +190,60 @@ public class CheckCopyCouponNo {
 					CUPN_BGN_DT  = rsOM.getString("CUPN_BGN_DT");
 					CUPN_END_DT  = rsOM.getString("CUPN_END_DT");
 					CUPN_QTY     = rsOM.getInt("CUPN_QTY");
-					if (Flag.flag) System.out.println("CUPN_NM=" + CUPN_NM);
-					if (Flag.flag) System.out.println("CUPN_APPV_YN=" + CUPN_APPV_YN);
-					if (Flag.flag) System.out.println("CUPN_BGN_DT=" + CUPN_BGN_DT);
-					if (Flag.flag) System.out.println("CUPN_END_DT=" + CUPN_END_DT);
-					if (Flag.flag) System.out.println("CUPN_QTY=" + CUPN_QTY);
-
-					// 쿠폰이 조회되지 않음
+					if (Flag.flag) {
+						System.out.println("KANG-20190413: CUPN_NM      = " + CUPN_NM);
+						System.out.println("KANG-20190413: CUPN_APPV_YN = " + CUPN_APPV_YN);
+						System.out.println("KANG-20190413: CUPN_BGN_DT  = " + CUPN_BGN_DT);
+						System.out.println("KANG-20190413: CUPN_END_DT  = " + CUPN_END_DT);
+						System.out.println("KANG-20190413: CUPN_QTY     = " + CUPN_QTY);
+					}
 					if (CUPN_NM.equals("")) {
+						// 쿠폰이 조회되지 않음
 						CUPN_STATUS = "Not Exists";
 						CUPN_OK_YN = "N";
 					} else {
-						// 쿠폰이 승인되지 않음
 						if (!CUPN_APPV_YN.equals("Y")) {
+							// 쿠폰이 승인되지 않음
 							CUPN_STATUS = "Not Approved";
 							CUPN_OK_YN = "N";
 						} else {
-							// 캠페인기간이 쿠폰기간을 벗어남
 							if (Integer.parseInt(CAMP_BGN_DT) < Integer.parseInt(CUPN_BGN_DT)
-										|| Integer.parseInt(CAMP_END_DT) > Integer.parseInt(CUPN_END_DT)) {
-									CUPN_STATUS = "Invalid Date";
-									CUPN_OK_YN = "N";
-								}
-							// 추출된 대상수가 남은 쿠폰 수량보다 큼
+									|| Integer.parseInt(CAMP_END_DT) > Integer.parseInt(CUPN_END_DT)) {
+								// 캠페인기간이 쿠폰기간을 벗어남
+								CUPN_STATUS = "Invalid Date";
+								CUPN_OK_YN = "N";
+							}
 							if (CUPN_QTY < TREATMENTSIZE) {
+								// 추출된 대상수가 남은 쿠폰 수량보다 큼
 								CUPN_STATUS = "Quantity Exceed";
 								CUPN_OK_YN = "N";
 							}
 						}
 					}
+					if (Flag.flag) {
+						System.out.println("KANG-20190413: CUPN_STATUS  = " + CUPN_STATUS);
+						System.out.println("KANG-20190413: CUPN_OK_YN   = " + CUPN_OK_YN);
+					}
 				}
-
-				if (Flag.flag) System.out.println("CUPN_STATUS: " + CUPN_STATUS);
-				if (Flag.flag) System.out.println("CUPN_OK_YN: " + CUPN_OK_YN);
-
 				if (pstmtOM != null) pstmtOM.close();
 				pstmtOM = null;
 				if (rsOM != null) rsOM.close();
 				rsOM = null;
 
-				// 쿠폰이 정상임
 				if (CUPN_OK_YN.equals("Y")) {
-					// 템플릿 쿠폰 번호 사용 여부 N 이면 쿠폰복사
+					// 쿠폰이 정상임
 					if (TMPL_CUPN_NO_USE_YN.equals("N")) {
-						// OM 쿠폰 복사 SP 호출
+						// 템플릿 쿠폰 번호 사용 여부 N 이면 쿠폰복사
 						if (OFFER_SYS_CD.equals("OM")) {
+							// OM 쿠폰 복사 SP 호출
 							nTMPL_CUPN_NO = new Long(TMPL_CUPN_NO);
-							cstmtOM = conOM.prepareCall("{ call TMALL.SP_MT_CUPN_COPY(?,TO_DATE(?,'YYYYMMDD'),TO_DATE(?,'YYYYMMDDHH24MISS'),?,?)}");
+							sSQL = "{ call TMALL.SP_MT_CUPN_COPY (?,TO_DATE(?,'YYYYMMDD'),TO_DATE(?,'YYYYMMDDHH24MISS'),?,?) }";
+							cstmtOM = conOM.prepareCall(sSQL);
 							cstmtOM.setLong(1, nTMPL_CUPN_NO); // 복사할 쿠폰번호
 							cstmtOM.setString(2, CAMP_BGN_DT); // 유효 시작일
-							cstmtOM.setString(3, CAMP_END_DT+"235959"); // 유효 종료일
+							cstmtOM.setString(3, CAMP_END_DT + "235959"); // 유효 종료일
 							cstmtOM.registerOutParameter(4, Types.NUMERIC); // 성공시 신규 쿠폰번호, 실패시 0 이하값
 							cstmtOM.setString(5,TMPL_CUPN_NO_USE_YN); // 쿠폰 복사 예외 여부
-
 							cstmtOM.execute();
 							nCUPN_NO = cstmtOM.getLong(4);
 
@@ -253,12 +253,13 @@ public class CheckCopyCouponNo {
 							} else {
 								CUPN_NO = nCUPN_NO.toString();
 							}
-							// OM 쿠폰 복사 SP 호출
 						} else if (OFFER_SYS_CD.equals("MM")) {
-							cstmtOM = conOM.prepareCall("{ call MERCHANT.SP_TBL_MT_CPN_COPY(?,TO_DATE(?,'YYYYMMDD'),TO_DATE(?,'YYYYMMDDHH24MISS'),?,?)}");
+							// MM 쿠폰 복사 SP 호출
+							sSQL = "{ call MERCHANT.SP_TBL_MT_CPN_COPY (?,TO_DATE(?,'YYYYMMDD'),TO_DATE(?,'YYYYMMDDHH24MISS'),?,?) }";
+							cstmtOM = conOM.prepareCall(sSQL);
 							cstmtOM.setString(1, TMPL_CUPN_NO); // 복사할 쿠폰번호
 							cstmtOM.setString(2, CAMP_BGN_DT); // 유효 시작일
-							cstmtOM.setString(3, CAMP_END_DT+"235959"); // 유효 종료일
+							cstmtOM.setString(3, CAMP_END_DT + "235959"); // 유효 종료일
 							cstmtOM.registerOutParameter(4, Types.VARCHAR); // 성공시 신규 쿠폰번호, 실패시 0 이하값
 							cstmtOM.setString(5,TMPL_CUPN_NO_USE_YN); // 쿠폰 복사 예외 여부
 
@@ -269,42 +270,51 @@ public class CheckCopyCouponNo {
 								CUPN_OK_YN = "N";
 							}
 						}
-					// 템플릿 쿠폰 번호 사용 여부 Y 이면 TMPL_CUPN_NO 그대로 사용
+						if (Flag.flag) System.out.println("KANG-20190413: sSQL = " + sSQL);
 					} else {
+						// 템플릿 쿠폰 번호 사용 여부 Y 이면 TMPL_CUPN_NO 그대로 사용
 						CUPN_NO = TMPL_CUPN_NO;
 					}
 				} // 쿠폰이 정상임 END
 
-				if (Flag.flag) System.out.println("============== COPY COUPONNO ==============");
-				if (Flag.flag) System.out.println("CUPN_STATUS: " + CUPN_STATUS);
-				if (Flag.flag) System.out.println("CUPN_OK_YN: " + CUPN_OK_YN);
-				if (Flag.flag) System.out.println("CUPN_NO: " + CUPN_NO);
+				if (Flag.flag) {
+					System.out.println("----------------- Copy CouponNo -----------------");
+					System.out.println("KANG-20190413: CUPN_STATUS = " + CUPN_STATUS);
+					System.out.println("KANG-20190413: CUPN_OK_YN  = " + CUPN_OK_YN);
+					System.out.println("KANG-20190413: CUPN_NO     = " + CUPN_NO);
+				}
 
 				if (cstmtOM != null) cstmtOM.close();
 				cstmtOM = null;
 
-				sSQL = "DELETE CM_CUPN_STAT WHERE TREATMENTCODE = ? AND OFFERID = ?";
-				if (Flag.flag) System.out.println(sSQL + " ::: " + "TREATMENTCODE : " + TREATMENTCODE + "::: OFFERID : " + OFFERID);
-
+				sSQL = "DELETE CM_CUPN_STAT WHERE TREATMENTCODE = ? AND OFFERID = ?\n";
+				if (Flag.flag) System.out.println(sSQL + "KANG-20190413: TREATMENTCODE = " + TREATMENTCODE + "\nKANG-20190413: OFFERID = " + OFFERID);
 				pstmtCMS2_del = conCMS.prepareStatement(sSQL);
 				pstmtCMS2_del.setString(1, TREATMENTCODE);
 				pstmtCMS2_del.setInt(2, OFFERID);
-
 				pstmtCMS2_del.executeUpdate();
 				if (pstmtCMS2 != null) pstmtCMS2.close();
 				pstmtCMS2 = null;
 
-				sSQL = "INSERT INTO CM_CUPN_STAT(TREATMENTCODE, CELLID, OFFERID, RUNID, CUPN_NO, CUPN_STATUS, CUPN_OK_YN)";
-				sSQL += " VALUES(?, ?, ?, ?, ?, ?, ?)";
+				sSQL =  " INSERT INTO CM_CUPN_STAT \n";
+				sSQL += " (\n";
+				sSQL += "     TREATMENTCODE\n";
+				sSQL += "    , CELLID      \n";
+				sSQL += "    , OFFERID     \n";
+				sSQL += "    , RUNID       \n";
+				sSQL += "    , CUPN_NO     \n";
+				sSQL += "    , CUPN_STATUS \n";
+				sSQL += "    , CUPN_OK_YN  \n";
+				sSQL += " )\n";
+				sSQL += " VALUES (?, ?, ?, ?, ?, ?, ?)\n";
 				if (Flag.flag) System.out.println(sSQL +
-						"::: TREATMENTCODE : " + TREATMENTCODE +
-						"::: CELLID : " + CELLID +
-						"::: OFFERID : " + OFFERID +
-						"::: nRunId : " + TREATMENTCODE +
-						"::: CUPN_NO : " + CUPN_NO +
-						"::: CUPN_STATUS : " + CUPN_STATUS +
-						"::: CUPN_OK_YN : " + CUPN_OK_YN);
-
+						"KANG-20190413: TREATMENTCODE = " + TREATMENTCODE + "\n" +
+						"KANG-20190413: CELLID        = " + CELLID + "\n" +
+						"KANG-20190413: OFFERID       = " + OFFERID + "\n" +
+						"KANG-20190413: RUNID         = " + TREATMENTCODE + "\n" +
+						"KANG-20190413: CUPN_NO       = " + CUPN_NO + "\n" +
+						"KANG-20190413: CUPN_STATUS   = " + CUPN_STATUS + "\n" +
+						"KANG-20190413: CUPN_OK_YN    = " + CUPN_OK_YN);
 				pstmtCMS2 = conCMS.prepareStatement(sSQL);
 				pstmtCMS2.setString(1, TREATMENTCODE);
 				pstmtCMS2.setInt(2, CELLID);
@@ -318,7 +328,7 @@ public class CheckCopyCouponNo {
 				pstmtCMS2 = null;
 			}
 		} catch(Exception e) {
-			if (Flag.flag) System.out.println("System Error : " + e);
+			if (Flag.flag) System.out.println("############### SYSTEM ERROR : " + e);
 			//logwrite.write("ERROR","[캠페인 대상자 추출|쿠폰복사] sPFlowchartId="+sPFlowchartId+", sPRunId="+sPRunId+", ERROR MESSAGE:"+e.getMessage(),"","Java CheckCopyCouponNo Program Error","02");
 			return "System Error";
 		} finally {
@@ -331,7 +341,6 @@ public class CheckCopyCouponNo {
 			if (pstmtOM != null)       try{ pstmtOM.close(); }       catch(Exception e){}
 			if (cstmtOM != null)       try{ cstmtOM.close(); }       catch(Exception e){}
 			if (rsOM != null)          try{ rsOM.close(); }          catch(Exception e){}
-
 			conCMS        = null;
 			pstmtCMS      = null;
 			pstmtCMS2     = null;
@@ -341,6 +350,7 @@ public class CheckCopyCouponNo {
 			pstmtOM       = null;
 			cstmtOM       = null;
 			rsOM          = null;
+			if (Flag.flag) System.out.println("----------------- CheckCopyCouponNo.checkCouponNo End -----------------");
 			return "OK";
 		}
 	}
