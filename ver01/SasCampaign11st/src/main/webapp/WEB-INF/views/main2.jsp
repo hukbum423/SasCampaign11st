@@ -39,7 +39,7 @@
 			<div class="col-lg-10" style="margin:0px 0px 0px -18px;">
 				<div class="col-md-2" style="text-align: center;">
 					<button type="button" class="btn btn_default" style="width:180px;height:45px;margin:10px 30px 15px 20px;" onclick="location.href='${staticPATH }/calendar/calendar.do';">
-						<h5><b><i class="fa fa-calendar"></i> 캠페인 달력.</b></h5>
+						<h5><b><i class="fa fa-calendar"></i> 캠페인 달력..</b></h5>
 						<!-- <span class="label label-danger">2</span> -->
 					</button>
 				</div>
