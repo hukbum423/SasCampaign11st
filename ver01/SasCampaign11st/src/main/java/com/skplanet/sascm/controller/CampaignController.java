@@ -138,7 +138,7 @@ public class CampaignController {
 		// KANG-20190410: for understanding of pagination
 		int selectPage = Integer.parseInt(selectPageNo);
 		int pageRange = 10;     // page block
-		int rowRange = 10;    // row block
+		int rowRange = 50;    // row block  KANG-20190414: 김창범 메니져의 요청에 의해서 변경이 가능함.
 		int rowTotalCnt = Integer.parseInt(this.campaignInfoService.getCampaignListCnt(map));
 		int totalPage = rowTotalCnt / rowRange + ((rowTotalCnt % rowRange > 0) ? 1 : 0);
 		int pageStart = ((selectPage - 1) / pageRange) * pageRange + 1;
