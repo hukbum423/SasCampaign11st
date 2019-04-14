@@ -1,0 +1,48 @@
+
+https://prodgate.11stcorp.com  접속
+	
+	
+박세현T 김창범M 손지성M
+IN PC: https://vdi.11stcorp.com/
+    PP94161/Ab824651
+IN SVDI: https://prodgate.11stcorp.com/
+    P9muqQE8wB -> 대장
+11CAMPb-operws01
+ssh: 박세현0712!! 1100346
+/app/sasdata/pgm/java/webapps/SASCampgign
+
+
+[계정 변경]
+su sasadm
+
+WAS : /app/sasdata/pgm/java/webapps/SASCampgign  
+log : /app/sas/config/Lev1/Web/WebAppServer/SASServer_11ST/logs
+bin : /app/sas/config/Lev1/Web/WebAppServer/SASServer_11ST/bin
+
+[WAS 실행/종료/확인]
+	cd /app/sas/config/Lev1/Web/WebAppServer/SASServer_11ST/bin
+	./tcruntime-ctl.sh status
+	./tcruntime-ctl.sh start
+	./tcruntime-ctl.sh stop
+
+[로그확인]
+	tail -f /app/sas/config/Lev1/Web/WebAppServer/SASServer_11ST/logs/catalina.out
+
+
+
+http://220.103.233.250:7980/SASCampaign/
+http://11campb-operwb:7980/SASCampaign/
+cm_work2@saspw
+
+
+* 일반적으로 WAS  를 먼저 내리고, SAS를 뒤에 내린다(SAS 올리고, 그후에 WAS 올린다)
+* WAS가 문제가 덜 발생된다 / SAS 가 상대적으로 더 많이 오류가 생김
+* 다음주에 팀장님한테 SAS 내리는 법 배우기
+* SAS 문제 생기면 캠페인 설계가 안열림
+* log는 나가려면 crrl + c 를 눌러야 나갈수 있음
+* exit 2번 클릭
+
+
+
+
+
