@@ -464,23 +464,25 @@ public class CampaignController {
 				// Offer Update 매핑화면과 싱크를 위해 항상 업데이트
 				this.campaignInfoService.updateOfferData(map);                                               // KANG-20190413: 05. CampaignInfo.updateOfferData
 
-				for (int i = 0; i < offer_list.size(); i++) {
-					CampaignOfferBO campaignOfferBo = new CampaignOfferBO();
-					campaignOfferBo = offer_list.get(i);
-					if (null != campaignOfferBo.getOffer_type_cd() && campaignOfferBo.getOffer_type_cd().equals("CU")) {
-						if (Flag.flag) {
-							log.debug("KANG-20190413: campaignid   = " + request.getParameter("campaignid"));
-							log.debug("KANG-20190413: cellid       = " + campaignOfferBo.getCellid());
-							log.debug("KANG-20190413: offerTypeCd  = " + campaignOfferBo.getOffer_type_cd());
-						}
-						try {// 443: campaign_sk // 1580 : rund id = cell_package_sk
-							CheckCopyCouponNo.checkCouponNo(request.getParameter("campaignid"), campaignOfferBo.getCellid()
-									, dbconnUrl, dbconnUser, dbconnPass
-									, dbconnBoUrl, dbconnBoUser, dbconnBoPass
-									, Integer.parseInt(campaignOfferBo.getOfferid()));
-						} catch (Exception e) {
-							log.debug("CheckCopyCouponNo.checkCouponNo ERROR !!!! ");
-							e.printStackTrace();
+				if (!Flag.flag) {  // KANG-20190414: add by Kiea
+					for (int i = 0; i < offer_list.size(); i++) {
+						CampaignOfferBO campaignOfferBo = new CampaignOfferBO();
+						campaignOfferBo = offer_list.get(i);
+						if (null != campaignOfferBo.getOffer_type_cd() && campaignOfferBo.getOffer_type_cd().equals("CU")) {
+							if (Flag.flag) {
+								log.debug("KANG-20190413: campaignid   = " + request.getParameter("campaignid"));
+								log.debug("KANG-20190413: cellid       = " + campaignOfferBo.getCellid());
+								log.debug("KANG-20190413: offerTypeCd  = " + campaignOfferBo.getOffer_type_cd());
+							}
+							try {// 443: campaign_sk // 1580 : rund id = cell_package_sk
+								CheckCopyCouponNo.checkCouponNo(request.getParameter("campaignid"), campaignOfferBo.getCellid()
+										, dbconnUrl, dbconnUser, dbconnPass
+										, dbconnBoUrl, dbconnBoUser, dbconnBoPass
+										, Integer.parseInt(campaignOfferBo.getOfferid()));
+							} catch (Exception e) {
+								log.debug("CheckCopyCouponNo.checkCouponNo ERROR !!!! ");
+								e.printStackTrace();
+							}
 						}
 					}
 				}
