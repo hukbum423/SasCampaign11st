@@ -62,11 +62,11 @@ public class OfferDAO2Impl extends Abstract2DAO implements OfferDAO2 {
         return (List<OfferCuCtgrBO>) selectList("Offer_om.getBoSubCategory", param);
     }
 
-    public Map<String, Object> copyCoupon(Map<String, Object> param) throws Exception{
-         @SuppressWarnings("unchecked")
+	@SuppressWarnings("unchecked")
+	public Map<String, Object> copyCoupon(Map<String, Object> param) throws Exception{
 		Map<String, Object> cpcoupon= (Map<String, Object>) selectOne("Offer_om.copyCoupon", param);
-         return cpcoupon;
-    }
+		return cpcoupon;
+	}
     
     public void deleteCoupon(Map<String, Object> param) throws Exception{
         delete("Offer_om.deleteCoupon", param);

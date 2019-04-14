@@ -187,7 +187,7 @@ public class CampaignContentController {
 	public void GetOfferContentId(HttpServletRequest request, HttpServletResponse response, ModelMap modelMap) throws Exception {
 		Map<String, Object> map = new HashMap<String, Object>();
 
-		int offerContentId = Integer.parseInt(campaignContentService.getOfferContentId(map));
+		int offerContentId = Integer.parseInt(this.campaignContentService.getOfferContentId(map));
 
 		map.put("offerContentId", offerContentId);
 

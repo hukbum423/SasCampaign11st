@@ -35,6 +35,7 @@ import com.skplanet.sascm.service.CommCodeService;
 import com.skplanet.sascm.service.OfferService;
 import com.skplanet.sascm.util.CheckCopyCouponNo;
 import com.skplanet.sascm.util.Common;
+import com.skplanet.sascm.util.Flag;
 
 /**
  * OfferController
@@ -512,13 +513,14 @@ public class OfferController {
 	 * @throws Exception
 	 */
 	@RequestMapping("offer/copyCoupon.do")
+	@SuppressWarnings("unused")
 	public void copyCoupon(HttpServletRequest request, HttpServletResponse response, ModelMap modelMap, HttpSession session) throws Exception {
 		Map<String, Object> map = new HashMap<String, Object>();
 
-		@SuppressWarnings("unused")
 		UsmUserBO user = (UsmUserBO) session.getAttribute("ACCOUNT");
 
 		log.info("============================================================");
+		log.info("OfferController.copyCoupon        : ");
 		//log.info("cateNo           : " + request.getParameter("cateNoVal"));
 		//log.info("arrKey           : " + arrKey);
 		log.info("============================================================");
@@ -618,25 +620,26 @@ public class OfferController {
 		while (params.hasMoreElements()){
 			String name = (String)params.nextElement();
 			if(name.indexOf("trCtgr_") == 0){
-				System.out.println(name + " : " +request.getParameter(name) + " --- " + name.indexOf("trCtgr_"));
+				if (Flag.flag) System.out.println("KANG-20190412: " + name + " : " +request.getParameter(name) + " --- " + name.indexOf("trCtgr_"));
 				String [] tmpTrCtgr = request.getParameter(name).split("_");
-				System.out.println("tmpTrCtgr[chkNo] : " + tmpTrCtgr[tmpTrCtgr.length-1]);
+				if (Flag.flag) System.out.println("KANG-20190412: " + "tmpTrCtgr[chkNo] : " + tmpTrCtgr[tmpTrCtgr.length-1]);
 				if(!p_ctgr_no_list.equals("")){
 					p_ctgr_no_list += ",";
 				}
 				p_ctgr_no_list += tmpTrCtgr[tmpTrCtgr.length-1];
 			}
 		}
+		// ####### 쿠폰 카테고리 처리
+		if (Flag.flag) System.out.println("KANG-20190412: " + map);
 
-		// ####### 쿠폰 카테고리 처리 ///
+		// 캠페인의 상태체크(START일경우에는 수정못함 처리해야함.)
+		this.offerService.copyCoupon(map);
 
-		//캠페인의 상태체크(START일경우에는 수정못함 처리해야함.)
-		offerService.copyCoupon(map);
 		map.put("p_ctgr_no_list", p_ctgr_no_list);
 		map.put("p_update_id", staticServerTypeAprvid);
-		offerService.copyCouponCtgr(map);
+		this.offerService.copyCouponCtgr(map);
 
-		System.out.println("map : " + map.get("r_cupn_no"));
+		if (Flag.flag) System.out.println("KANG-20190412: map.get('r_cupn_no') = " + ((Long)map.get("r_cupn_no")));
 
 		jsonView.render(map, request, response);
 	}

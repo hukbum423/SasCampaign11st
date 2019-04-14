@@ -2,195 +2,193 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="CampaignInfo">
-  <resultMap type="com.skplanet.sascm.object.CampaignInfoBO" id="CampaignInfoBO">
-    <result property="campaignname"        column="campaignname" />
-    <result property="campaigncode"        column="campaigncode" />
-    <result property="campaignid"          column="campaignid" />
-    <result property="camp_term_cd"        column="camp_term_cd" />
-    <result property="camp_bgn_dt"         column="camp_bgn_dt" />
-    <result property="camp_bgn_tm"         column="camp_bgn_tm" />
-    <result property="camp_bgn_dt1"        column="camp_bgn_dt1" />
-    <result property="camp_bgn_dt2"        column="camp_bgn_dt2" />
-    <result property="camp_bgn_dt3"        column="camp_bgn_dt3" />
-    <result property="camp_end_dt"         column="camp_end_dt" />
-    <result property="camp_end_tm"         column="camp_end_tm" />
-    <result property="camp_end_dt1"        column="camp_end_dt1" />
-    <result property="camp_end_dt2"        column="camp_end_dt2" />
-    <result property="camp_end_dt3"        column="camp_end_dt3" />
-    <result property="camp_term_day"       column="camp_term_day" />
-    <result property="audience_cd"         column="audience_cd" />
-    <result property="audience_nm"         column="audience_nm" />
-    <result property="manual_trans_yn"     column="manual_trans_yn" />
-    <result property="manual_trans_nm"     column="manual_trans_nm" />
-    <result property="offer_direct_yn"     column="offer_direct_yn" />
-    <result property="channel_priority_yn" column="channel_priority_yn" />
-    <result property="camp_status_cd"      column="camp_status_cd" />
-    <result property="create_id"           column="create_id" />
-    <result property="create_nm"           column="create_nm" />
-    <result property="create_dt"           column="create_dt" />
-    <result property="update_id"           column="update_id" />
-    <result property="update_nm"           column="update_nm" />
-    <result property="update_dt"           column="update_dt" />
-    <result property="channelCnt"          column="channelCnt" />
+	<resultMap type="com.skplanet.sascm.object.CampaignInfoBO" id="CampaignInfoBO">
+		<result property="campaignname"        column="campaignname" />
+		<result property="campaigncode"        column="campaigncode" />
+		<result property="campaignid"          column="campaignid" />
+		<result property="camp_term_cd"        column="camp_term_cd" />
+		<result property="camp_bgn_dt"         column="camp_bgn_dt" />
+		<result property="camp_bgn_tm"         column="camp_bgn_tm" />
+		<result property="camp_bgn_dt1"        column="camp_bgn_dt1" />
+		<result property="camp_bgn_dt2"        column="camp_bgn_dt2" />
+		<result property="camp_bgn_dt3"        column="camp_bgn_dt3" />
+		<result property="camp_end_dt"         column="camp_end_dt" />
+		<result property="camp_end_tm"         column="camp_end_tm" />
+		<result property="camp_end_dt1"        column="camp_end_dt1" />
+		<result property="camp_end_dt2"        column="camp_end_dt2" />
+		<result property="camp_end_dt3"        column="camp_end_dt3" />
+		<result property="camp_term_day"       column="camp_term_day" />
+		<result property="audience_cd"         column="audience_cd" />
+		<result property="audience_nm"         column="audience_nm" />
+		<result property="manual_trans_yn"     column="manual_trans_yn" />
+		<result property="manual_trans_nm"     column="manual_trans_nm" />
+		<result property="offer_direct_yn"     column="offer_direct_yn" />
+		<result property="channel_priority_yn" column="channel_priority_yn" />
+		<result property="camp_status_cd"      column="camp_status_cd" />
+		<result property="create_id"           column="create_id" />
+		<result property="create_nm"           column="create_nm" />
+		<result property="create_dt"           column="create_dt" />
+		<result property="update_id"           column="update_id" />
+		<result property="update_nm"           column="update_nm" />
+		<result property="update_dt"           column="update_dt" />
+		<result property="channelCnt"          column="channelCnt" />
+		<result property="campaigngubun"       column="campaigngubun" />
+		<result property="campaigntype"        column="campaigntype" />
+		<result property="senddatetype"        column="senddatetype" />
+		<result property="campaign_period"     column="campaign_period" />
+		<result property="camp_from_dt"        column="camp_from_dt" />
+		<result property="camp_to_dt"          column="camp_to_dt" />
+		<result property="camp_from_tm"        column="camp_from_tm" />
+		<result property="camp_to_tm"          column="camp_to_tm" />
+		<result property="send_day"            column="send_day" />
+		<result property="target_id"           column="target_id" />
+		<result property="offer_auto_yn"       column="offer_auto_yn" />
+		<result property="channel_batch_rank_yn"     column="channel_batch_rank_yn" />
+		<result property="campaign_detail"           column="campaign_detail" />
+		<result property="campaign_offer_cost_gubun" column="campaign_offer_cost_gubun" />
+		<result property="campaign_gubun_dtl" column="campaign_gubun_dtl" />
+	</resultMap>
 
-    <result property="campaigngubun"       column="campaigngubun" />
-    <result property="campaigntype"        column="campaigntype" />
-    <result property="senddatetype"        column="senddatetype" />
+	<resultMap type="com.skplanet.sascm.object.CampaignListBO" id="CampaignListBO">
+		<result property="campaignid"              column="campaignid" />
+		<result property="campaigncd"              column="campaigncd" />
+		<result property="campaign_status_cd"       column="campaign_status_cd" />
+		<result property="campaign_version_no"      column="campaign_version_no" />
+		<result property="current_version_flg"      column="current_version_flg" />
+		<result property="campaignnm"               column="campaignnm" />
+		<result property="campaign_desc"            column="campaign_desc" />
+		<result property="campaign_folder_txt"      column="campaign_folder_txt" />
+		<result property="campaign_owner_nm"        column="campaign_owner_nm" />
+		<result property="campaign_group_sk"        column="campaign_group_sk" />
+		<result property="deployment_version_no"    column="deployment_version_no" />
+		<result property="min_budget_offer_amt"     column="min_budget_offer_amt" />
+		<result property="max_budget_offer_amt"     column="max_budget_offer_amt" />
+		<result property="min_budget_amt"           column="min_budget_amt" />
+		<result property="max_budget_amt"           column="max_budget_amt" />
+		<result property="start_dttm"               column="start_dttm" />
+		<result property="end_dttm"                 column="end_dttm" />
+		<result property="run_dttm"                 column="run_dttm" />
+		<result property="last_modified_dttm"       column="last_modified_dttm" />
+		<result property="last_modified_by_user_nm" column="last_modified_by_user_nm" />
+		<result property="approval_dttm"            column="approval_dttm" />
+		<result property="approval_given_by_nm"     column="approval_given_by_nm" />
+		<result property="business_context_nm"      column="business_context_nm" />
+		<result property="campaign_type_cd"         column="campaign_type_cd" />
+		<result property="deleted_flg"              column="deleted_flg" />
+		<result property="processed_dttm"           column="processed_dttm" />
+		<result property="id"                       column="id" />
+		<result property="name"                     column="name" />
+		<result property="pid"                      column="pid" />
+		<result property="cnt"                      column="cnt" />
+	</resultMap>
 
-    <result property="campaign_period"     column="campaign_period" />
-    <result property="camp_from_dt"        column="camp_from_dt" />
-    <result property="camp_to_dt"          column="camp_to_dt" />
-    <result property="camp_from_tm"          column="camp_from_tm" />
-    <result property="camp_to_tm"          column="camp_to_tm" />
+	<resultMap type="com.skplanet.sascm.object.CampaignOfferBO" id="CampaignOfferBO">
+		<result property="communication_sk"    column="communication_sk" />
+		<result property="offer_content_id"    column="ffer_content_id" />
+		<result property="offer_content_nm"    column="offer_content_nm" />
+		<result property="campaignid"          column="campaignid" />
+		<result property="campaignname"        column="campaignname" />
+		<result property="campaigncode"        column="campaigncode" />
+		<result property="audience_cd"         column="audience_cd" />
+		<result property="manual_trans_yn"     column="manual_trans_yn" />
+		<result property="offer_direct_yn"     column="offer_direct_yn" />
+		<result property="channel_priority_yn" column="channel_priority_yn" />
+		<result property="camp_status_cd"      column="camp_status_cd" />
+		<result property="flowchartid"         column="flowchartid" />
+		<result property="flowchartname"       column="flowchartname" />
+		<result property="flowchartrow"        column="flowchartrow" />
+		<result property="filename"            column="filename" />
+		<result property="status"              column="status" />
+		<result property="cellid"              column="cellid" />
+		<result property="cellrow"             column="cellrow" />
+		<result property="cellname"            column="cellname" />
+		<result property="cellcode"            column="cellcode" />
+		<result property="offerlistid"         column="offerlistid" />
+		<result property="offerid"             column="offerid" />
+		<result property="offername"           column="offername" />
+		<result property="offercode1"          column="offercode1" />
+		<result property="offer_type_cd"       column="offer_type_cd" />
+		<result property="offer_sys_cd"        column="offer_sys_cd" />
+		<result property="disp_name"           column="disp_name" />
+		<result property="tmpl_cupn_no"        column="tmpl_cupn_no" />
+		<result property="tmpl_cupn_no_use_yn" column="tmpl_cupn_no_use_yn" />
+		<result property="offer_amt"           column="offer_amt" />
+		<result property="create_id"           column="create_id" />
+		<result property="create_nm"           column="create_nm" />
+		<result property="create_dt"           column="create_dt" />
+		<result property="update_id"           column="update_id" />
+		<result property="update_nm"           column="update_nm" />
+		<result property="update_dt"           column="update_dt" />
+	</resultMap>
 
-    <result property="send_day"            column="send_day" />
-    <result property="target_id"           column="target_id" />
-    <result property="offer_auto_yn"       column="offer_auto_yn" />
-    <result property="channel_batch_rank_yn"     column="channel_batch_rank_yn" />
+	<resultMap type="com.skplanet.sascm.object.CampaignRptSumSalesBO" id="CampaignRptSumSalesBO">
+		<result property="camp_bgn_dt"           column="camp_bgn_dt" />
+		<result property="sale_amt"              column="sale_amt" />
+	</resultMap>
 
-    <result property="campaign_detail"           column="campaign_detail" />
-    <result property="campaign_offer_cost_gubun" column="campaign_offer_cost_gubun" />
-    <result property="campaign_gubun_dtl" column="campaign_gubun_dtl" />
+	<resultMap type="com.skplanet.sascm.object.CampaignRptRsltCrmMonthBO" id="CampaignRptRsltCrmMonthBO">
+		<result property="std_mon"               column="std_mon" />
+		<result property="cust_goal"             column="cust_goal" />
+		<result property="amt_goal"              column="amt_goal" />
+		<result property="dis_goal"              column="dis_goal" />
+		<result property="pure_amt_goal"         column="pure_amt_goal" />
+	</resultMap>
 
-   </resultMap>
-    <resultMap type="com.skplanet.sascm.object.CampaignListBO" id="CampaignListBO">
-    <result property="campaignid"              column="campaignid" />
-    <result property="campaigncd"              column="campaigncd" />
-    <result property="campaign_status_cd"       column="campaign_status_cd" />
-    <result property="campaign_version_no"      column="campaign_version_no" />
-    <result property="current_version_flg"      column="current_version_flg" />
-    <result property="campaignnm"               column="campaignnm" />
-    <result property="campaign_desc"            column="campaign_desc" />
-    <result property="campaign_folder_txt"      column="campaign_folder_txt" />
-    <result property="campaign_owner_nm"        column="campaign_owner_nm" />
-    <result property="campaign_group_sk"        column="campaign_group_sk" />
-    <result property="deployment_version_no"    column="deployment_version_no" />
-    <result property="min_budget_offer_amt"     column="min_budget_offer_amt" />
-    <result property="max_budget_offer_amt"     column="max_budget_offer_amt" />
-    <result property="min_budget_amt"           column="min_budget_amt" />
-    <result property="max_budget_amt"           column="max_budget_amt" />
-    <result property="start_dttm"               column="start_dttm" />
-    <result property="end_dttm"                 column="end_dttm" />
-    <result property="run_dttm"                 column="run_dttm" />
-    <result property="last_modified_dttm"       column="last_modified_dttm" />
-    <result property="last_modified_by_user_nm" column="last_modified_by_user_nm" />
-    <result property="approval_dttm"            column="approval_dttm" />
-    <result property="approval_given_by_nm"     column="approval_given_by_nm" />
-    <result property="business_context_nm"      column="business_context_nm" />
-    <result property="campaign_type_cd"         column="campaign_type_cd" />
-    <result property="deleted_flg"              column="deleted_flg" />
-        <result property="processed_dttm"           column="processed_dttm" />
-        <result property="id"                       column="id" />
-        <result property="name"                     column="name" />
-        <result property="pid"                      column="pid" />
-        <result property="cnt"                      column="cnt" />
-   </resultMap>
+	<resultMap type="com.skplanet.sascm.object.CampaignRptPtCrmMonthBO" id="CampaignRptPtCrmMonthBO">
+		<result property="std_mon"           column="std_mon" />
+		<result property="pt_cust_cnt"       column="pt_cust_cnt" />
+		<result property="tot_cust_cnt"      column="tot_cust_cnt" />
+		<result property="pt_cmpn_amt"       column="pt_cmpn_amt" />
+		<result property="tot_amt"           column="tot_amt" />
+		<result property="pt_cmpn_cost"      column="pt_cmpn_cost" />
+		<result property="tot_dc_amt"        column="tot_dc_amt" />
+		<result property="pt_cost_ratio"     column="pt_cost_ratio" />
+		<result property="tot_ratio"         column="tot_ratio" />
+		<result property="pt_net_amt"        column="pt_net_amt" />
+		<result property="tot_net_amt"       column="tot_net_amt" />
+		<result property="create_dt"         column="create_dt" />
+	</resultMap>
 
-  <resultMap type="com.skplanet.sascm.object.CampaignOfferBO" id="CampaignOfferBO">
-    <result property="communication_sk"    column="communication_sk" />
-    <result property="offer_content_id"    column="ffer_content_id" />
-    <result property="offer_content_nm"    column="offer_content_nm" />
+	<!-- 캠페인 정보 조회 -->
+	<select id="CampaignInfo.getCampaignInfo" parameterType="Map"  resultMap="CampaignInfoBO">
+		SELECT DISTINCT  /* CampaignInfo.getCampaignInfo */
+			A.CAMPAIGN_NM                            campaignname
+			, A.CAMPAIGN_CD                          campaigncode
+			, A.CAMPAIGN_SK                          campaignid
+			, B.CAMP_TERM_CD                         camp_term_cd
+			, B.CAMP_BGN_DT                          camp_bgn_dt
+			, TO_CHAR(B.CAMP_BGN_DT,'YYYY-MM-DD')    camp_bgn_dt1
+			, TO_CHAR(B.CAMP_BGN_DT,'HH24')          camp_bgn_dt2
+			, TO_CHAR(B.CAMP_BGN_DT,'MI')            camp_bgn_dt3
+			, B.CAMP_END_DT                          camp_end_dt
+			, TO_CHAR(B.CAMP_END_DT,'YYYY-MM-DD')    camp_end_dt1
+			, TO_CHAR(B.CAMP_END_DT,'HH24')          camp_end_dt2
+			, TO_CHAR(B.CAMP_END_DT,'MI')            camp_end_dt3
+			, B.CAMP_TERM_DAY                        camp_term_day
+			, B.AUDIENCE_CD                          audience_cd
+			, （SELECT CODE_NAME FROM CM_CODE_DTL WHERE COMM_CODE_ID = 'C004' AND CODE_ID =  B.AUDIENCE_CD）      audience_nm
+			, B.MANUAL_TRANS_YN                      manual_trans_yn
+			, （SELECT CODE_NAME FROM CM_CODE_DTL WHERE COMM_CODE_ID = 'G003' AND CODE_ID =  B.MANUAL_TRANS_YN）  manual_trans_nm
+			, B.OFFER_DIRECT_YN                      offer_direct_yn
+			, B.CHANNEL_PRIORITY_YN                  channel_priority_yn
+			, B.CAMP_STATUS_CD                       camp_status_cd
+			, B.CREATE_ID                            create_id
+			, (SELECT USER_NAME FROM CM_USER WHERE ID = B.CREATE_ID) create_nm
+			, TO_CHAR(B.CREATE_DT, 'YYYY-MM-DD HH24:MI:SS')          create_dt
+			, B.UPDATE_ID                                            update_id
+			, (SELECT USER_NAME FROM CM_USER WHERE ID = B.UPDATE_ID) update_nm
+			, TO_CHAR(B.UPDATE_DT, 'YYYY-MM-DD HH24:MI:SS')          update_dt
+		FROM
+			CI_CAMPAIGN          A
+			, CM_CAMPAIGN_DTL    B
+		WHERE 1=1
+			AND A.CAMPAIGN_SK = B.CAMPAIGNID(+)
+			AND A.CAMPAIGN_SK = #{CAMPAIGNID}
+	</select>
 
-    <result property="campaignid"          column="campaignid" />
-    <result property="campaignname"        column="campaignname" />
-    <result property="campaigncode"        column="campaigncode" />
-    <result property="audience_cd"         column="audience_cd" />
-    <result property="manual_trans_yn"     column="manual_trans_yn" />
-    <result property="offer_direct_yn"     column="offer_direct_yn" />
-    <result property="channel_priority_yn" column="channel_priority_yn" />
-    <result property="camp_status_cd"      column="camp_status_cd" />
-    <result property="flowchartid"         column="flowchartid" />
-    <result property="flowchartname"       column="flowchartname" />
-    <result property="flowchartrow"        column="flowchartrow" />
-    <result property="filename"            column="filename" />
-    <result property="status"              column="status" />
-    <result property="cellid"              column="cellid" />
-    <result property="cellrow"             column="cellrow" />
-    <result property="cellname"            column="cellname" />
-    <result property="cellcode"            column="cellcode" />
-    <result property="offerlistid"         column="offerlistid" />
-    <result property="offerid"             column="offerid" />
-    <result property="offername"           column="offername" />
-    <result property="offercode1"          column="offercode1" />
-    <result property="offer_type_cd"       column="offer_type_cd" />
-    <result property="offer_sys_cd"        column="offer_sys_cd" />
-    <result property="disp_name"           column="disp_name" />
-    <result property="tmpl_cupn_no"        column="tmpl_cupn_no" />
-        <result property="tmpl_cupn_no_use_yn" column="tmpl_cupn_no_use_yn" />
-        <result property="offer_amt"           column="offer_amt" />
-        <result property="create_id"           column="create_id" />
-        <result property="create_nm"           column="create_nm" />
-        <result property="create_dt"           column="create_dt" />
-        <result property="update_id"           column="update_id" />
-        <result property="update_nm"           column="update_nm" />
-        <result property="update_dt"           column="update_dt" />
-   </resultMap>
-
-  <resultMap type="com.skplanet.sascm.object.CampaignRptSumSalesBO" id="CampaignRptSumSalesBO">
-    <result property="camp_bgn_dt"           column="camp_bgn_dt" />
-    <result property="sale_amt"              column="sale_amt" />
-  </resultMap>
-
-  <resultMap type="com.skplanet.sascm.object.CampaignRptRsltCrmMonthBO" id="CampaignRptRsltCrmMonthBO">
-    <result property="std_mon"               column="std_mon" />
-    <result property="cust_goal"             column="cust_goal" />
-    <result property="amt_goal"              column="amt_goal" />
-    <result property="dis_goal"              column="dis_goal" />
-    <result property="pure_amt_goal"         column="pure_amt_goal" />
-  </resultMap>
-
-  <resultMap type="com.skplanet.sascm.object.CampaignRptPtCrmMonthBO" id="CampaignRptPtCrmMonthBO">
-    <result property="std_mon"           column="std_mon" />
-    <result property="pt_cust_cnt"       column="pt_cust_cnt" />
-    <result property="tot_cust_cnt"      column="tot_cust_cnt" />
-    <result property="pt_cmpn_amt"       column="pt_cmpn_amt" />
-    <result property="tot_amt"           column="tot_amt" />
-    <result property="pt_cmpn_cost"      column="pt_cmpn_cost" />
-    <result property="tot_dc_amt"        column="tot_dc_amt" />
-    <result property="pt_cost_ratio"     column="pt_cost_ratio" />
-    <result property="tot_ratio"         column="tot_ratio" />
-    <result property="pt_net_amt"        column="pt_net_amt" />
-    <result property="tot_net_amt"       column="tot_net_amt" />
-    <result property="create_dt"         column="create_dt" />
-  </resultMap>
-
-  <!-- 캠페인 정보 조회 -->
-  <select id="CampaignInfo.getCampaignInfo" parameterType="Map"  resultMap="CampaignInfoBO">
-    SELECT DISTINCT
-       A.CAMPAIGN_NM                          campaignname
-      ,A.CAMPAIGN_CD                        campaigncode
-      ,A.CAMPAIGN_SK                      campaignid
-      ,B.CAMP_TERM_CD                     camp_term_cd
-      ,B.CAMP_BGN_DT                      camp_bgn_dt
-            ,TO_CHAR(B.CAMP_BGN_DT,'YYYY-MM-DD')    camp_bgn_dt1
-            ,TO_CHAR(B.CAMP_BGN_DT,'HH24')          camp_bgn_dt2
-            ,TO_CHAR(B.CAMP_BGN_DT,'MI')            camp_bgn_dt3
-      ,B.CAMP_END_DT                      camp_end_dt
-      ,TO_CHAR(B.CAMP_END_DT,'YYYY-MM-DD')    camp_end_dt1
-      ,TO_CHAR(B.CAMP_END_DT,'HH24')      camp_end_dt2
-      ,TO_CHAR(B.CAMP_END_DT,'MI')        camp_end_dt3
-      ,B.CAMP_TERM_DAY                    camp_term_day
-      ,B.AUDIENCE_CD                      audience_cd
-      ,（SELECT CODE_NAME FROM CM_CODE_DTL WHERE COMM_CODE_ID = 'C004' AND CODE_ID =  B.AUDIENCE_CD）  audience_nm
-      ,B.MANUAL_TRANS_YN                      manual_trans_yn
-      ,（SELECT CODE_NAME FROM CM_CODE_DTL WHERE COMM_CODE_ID = 'G003' AND CODE_ID =  B.MANUAL_TRANS_YN）  manual_trans_nm
-      ,B.OFFER_DIRECT_YN                  offer_direct_yn
-      ,B.CHANNEL_PRIORITY_YN              channel_priority_yn
-      ,B.CAMP_STATUS_CD                   camp_status_cd
-      ,B.CREATE_ID                        create_id
-      ,(SELECT USER_NAME FROM CM_USER WHERE ID = B.CREATE_ID) create_nm
-      ,TO_CHAR(B.CREATE_DT, 'YYYY-MM-DD HH24:MI:SS')  create_dt
-      ,B.UPDATE_ID                        update_id
-      ,(SELECT USER_NAME FROM CM_USER WHERE ID = B.UPDATE_ID) update_nm
-      ,TO_CHAR(B.UPDATE_DT, 'YYYY-MM-DD HH24:MI:SS')  update_dt
-    FROM CI_CAMPAIGN        A
-        ,CM_CAMPAIGN_DTL B
-     WHERE A.CAMPAIGN_SK = B.CAMPAIGNID(+)
-       AND A.CAMPAIGN_SK = #{CAMPAIGNID}
-  </select>
-
+	<!-- 캠페인 정보 Summary 조회 -->
 	<select id="CampaignInfo.getCampaignInfoSummary" parameterType="Map"  resultMap="CampaignInfoBO">
-		SELECT
+		SELECT  /* CampaignInfo.getCampaignInfoSummary */
 			CMPGN_ID                         AS CAMPAIGNID
 			, MAX(CMPGN_NM)                  AS CAMPAIGNNAME
 			, MAX(CMPGN_CD)                  AS CAMPAIGNCODE
@@ -201,45 +199,41 @@
 			, MAX(SENDDATE_TYPE)             AS SENDDATETYPE
 		FROM (
 			SELECT
-				A.CAMPAIGN_SK                                                        AS CMPGN_ID                       /* 캠페인ID     */
-				, A.CAMPAIGN_NM                                                      AS CMPGN_NM                       /* 캠페인명     */
-				, A.CAMPAIGN_CD                                                      AS CMPGN_CD                       /* 캠페인코드     */
+				A.CAMPAIGN_SK                                                          AS CMPGN_ID                       /* 캠페인ID     */
+				, A.CAMPAIGN_NM                                                        AS CMPGN_NM                       /* 캠페인명     */
+				, A.CAMPAIGN_CD                                                        AS CMPGN_CD                       /* 캠페인코드     */
 				, CASE WHEN UPPER(B.CHAR_UDF_NM) = '1. 데이터 전송방식' THEN
-				            B.CHAR_UDF_VAL
-				       ELSE NULL
-				  END                                                                AS SENDDATE_TYPE                  /* 데이터 전송방식 */
+					B.CHAR_UDF_VAL
+					ELSE NULL
+					END                                                                AS SENDDATE_TYPE                  /* 데이터 전송방식 */
 				, CASE WHEN UPPER(B.CHAR_UDF_NM) = '1. 캠페인 구분' THEN
-				            B.CHAR_UDF_VAL
-				       ELSE NULL
-				  END                                                                AS CAMPAIGN_GUBUN                  /* 캠페인 구분 */
+					B.CHAR_UDF_VAL
+					ELSE NULL
+					END                                                                AS CAMPAIGN_GUBUN                  /* 캠페인 구분 */
 				, CASE WHEN UPPER(B.CHAR_UDF_NM) IN ( '내부 상세', '외부 상세' ) THEN
-				            B.CHAR_UDF_VAL
-				       ELSE NULL
-				  END                                                                AS CAMPAIGN_DETAIL                 /* 캠페인 상세 */
+					B.CHAR_UDF_VAL
+					ELSE NULL
+					END                                                                AS CAMPAIGN_DETAIL                 /* 캠페인 상세 */
 				, CASE WHEN UPPER(B.CHAR_EXT_COLUMN_NM) = 'CAMPAIGN_OFFER_COST_GUBUN' THEN
-				            B.CHAR_UDF_VAL
-				       ELSE NULL
-				  END                                                                AS CAMPAIGN_OFFER_COST_GUBUN       /* 캠페인 목적 */
+					B.CHAR_UDF_VAL
+					ELSE NULL
+					END                                                                AS CAMPAIGN_OFFER_COST_GUBUN       /* 캠페인 목적 */
 				, CASE WHEN UPPER(B.CHAR_EXT_COLUMN_NM) = 'CAMPAIGN_TYPE' THEN
-				            B.CHAR_UDF_VAL
-				       ELSE NULL
-				  END                                                                AS CAMPAIGN_TYPE                   /* 캠페인 종류 */
-				, A.CAMPAIGN_DESC                                                    AS CMPGN_DESC                      /* 캠페인설명   */
-				, A.LAST_MODIFIED_BY_USER_NM                                         AS REQ_EMP_ID                      /* 마자막 캠페인 실행자  */
+					B.CHAR_UDF_VAL
+					ELSE NULL
+					END                                                                AS CAMPAIGN_TYPE                   /* 캠페인 종류 */
+				, A.CAMPAIGN_DESC                                                      AS CMPGN_DESC                      /* 캠페인설명   */
+				, A.LAST_MODIFIED_BY_USER_NM                                           AS REQ_EMP_ID                      /* 마자막 캠페인 실행자  */
 			FROM
-				CI_CAMPAIGN                      A
-					LEFT JOIN
-					CI_CAMP_PAGE_CHAR_UDF        B
-				ON A.CAMPAIGN_SK = B.CAMPAIGN_SK
-					LEFT JOIN
-					CI_CAMP_PAGE_NUM_UDF         C
-				ON A.CAMPAIGN_SK = C.CAMPAIGN_SK
-					LEFT JOIN
-					CI_CAMP_PAGE_DATE_UDF        D
-				ON A.CAMPAIGN_SK = D.CAMPAIGN_SK
-					LEFT JOIN
-					CI_MARKETING_CELL            F
-				ON A.CAMPAIGN_SK = F.CAMPAIGN_SK
+				CI_CAMPAIGN                            A
+				LEFT JOIN CI_CAMP_PAGE_CHAR_UDF        B
+					ON A.CAMPAIGN_SK = B.CAMPAIGN_SK
+				LEFT JOIN CI_CAMP_PAGE_NUM_UDF         C
+					ON A.CAMPAIGN_SK = C.CAMPAIGN_SK
+				LEFT JOIN CI_CAMP_PAGE_DATE_UDF        D
+					ON A.CAMPAIGN_SK = D.CAMPAIGN_SK
+				LEFT JOIN CI_MARKETING_CELL            F
+					ON A.CAMPAIGN_SK = F.CAMPAIGN_SK
 			WHERE 1=1
 				AND A.CAMPAIGN_SK = #{CAMPAIGNID}
 		)
@@ -297,102 +291,124 @@
     )
   </update>
 
+	<!-- 채널의 우선순위 수정 -->
+	<update id="CampaignInfo.setChannelPriority" parameterType="Map" >
+		UPDATE  /* CampaignInfo.setChannelPriority */
+			CM_CAMPAIGN_CHANNEL
+		SET
+			TOAST_PRIORITY_RNK    = CASE WHEN TOAST_PRIORITY_RNK  IS NOT NULL THEN #{PRIORITY_RNK} ELSE TOAST_PRIORITY_RNK  END
+			, SMS_PRIORITY_RNK    = CASE WHEN SMS_PRIORITY_RNK    IS NOT NULL THEN #{PRIORITY_RNK} ELSE SMS_PRIORITY_RNK    END
+			, EMAIL_PRIORITY_RNK  = CASE WHEN EMAIL_PRIORITY_RNK  IS NOT NULL THEN #{PRIORITY_RNK} ELSE EMAIL_PRIORITY_RNK  END
+			, MOBILE_PRIORITY_RNK = CASE WHEN MOBILE_PRIORITY_RNK IS NOT NULL THEN #{PRIORITY_RNK} ELSE MOBILE_PRIORITY_RNK END
+		WHERE 1=1
+			AND CELLID IN (
+				SELECT
+					CELL_PACKAGE_SK
+				FROM
+					CI_CELL_PACKAGE
+				WHERE 1=1
+					AND CAMPAIGN_SK = #{CAMPAIGNID}
+					AND (
+						CONTROL_GROUP_TYPE_CD IS NULL
+						OR CONTROL_GROUP_TYPE_CD IN ('_CH','_CL')
+					)
+			)
+	</update>
 
-  <!-- 채널의 우선순위 수정 -->
-  <update id="CampaignInfo.setChannelPriority" parameterType="Map" >
-      UPDATE CM_CAMPAIGN_CHANNEL
-         SET TOAST_PRIORITY_RNK  = CASE WHEN TOAST_PRIORITY_RNK  IS NOT NULL THEN #{PRIORITY_RNK} ELSE TOAST_PRIORITY_RNK  END
-            ,SMS_PRIORITY_RNK    = CASE WHEN SMS_PRIORITY_RNK    IS NOT NULL THEN #{PRIORITY_RNK} ELSE SMS_PRIORITY_RNK    END
-          ,EMAIL_PRIORITY_RNK  = CASE WHEN EMAIL_PRIORITY_RNK  IS NOT NULL THEN #{PRIORITY_RNK} ELSE EMAIL_PRIORITY_RNK  END
-          ,MOBILE_PRIORITY_RNK = CASE WHEN MOBILE_PRIORITY_RNK IS NOT NULL THEN #{PRIORITY_RNK} ELSE MOBILE_PRIORITY_RNK END
-         WHERE CELLID IN (SELECT CELL_PACKAGE_SK FROM CI_CELL_PACKAGE WHERE CAMPAIGN_SK = #{CAMPAIGNID} AND ( CONTROL_GROUP_TYPE_CD IS NULL OR CONTROL_GROUP_TYPE_CD IN ('_CH','_CL') )
- )
-  </update>
-
-
-  <!-- 캠페인 오퍼 리스트 -->
-  <select id="CampaignInfo.getCampaignOfferList" parameterType="Map" resultMap="CampaignOfferBO">
-          SELECT DISTINCT
-                 T3.CAMPAIGN_SK                            AS      CAMPAIGNID
-               , T3.CAMPAIGN_CD                            AS      CAMPAIGNCODE
-               , T3.CAMPAIGN_NM                            AS      CAMPAIGNNAME
-               , T3.MARKETING_CELL_SK                   AS      CELLID
-               , T3.MARKETING_CELL_NM                   AS      CELLNAME
-               , T3.MARKETING_CELL_CD                   AS      CELLCODE
-               , T3.COMMUNICATION_SK                    AS      COMMUNICATION_SK
-               , T3.OFFER_CONTENT_ID                    AS      OFFER_CONTENT_ID
-               , T3.OFFER_CONTENT_NM                    AS      OFFER_CONTENT_NM
-               , T3.OFFER_SYS_CD                        AS      OFFER_SYS_CD
-               , T2.OFFER_TYPE_CD                       AS      OFFER_TYPE_CD
-               , T2.OFFER_ID                                   AS      OFFERID
-               , (SELECT CODE_NAME FROM CM_CODE_DTL WHERE COMM_CODE_ID = T2.OFFER_TYPE_CD AND CODE_ID = T2.OFFER_DETAIL_CD)    AS   OFFERNAME
-               , T1.DISP_NAME                                  AS DISP_NAME
-               , T1.OFFER_AMT                                  AS OFFER_AMT
-               , T1.CREATE_ID                                  AS CREATE_ID
-               , (SELECT USER_NAME FROM CM_USER WHERE ID = T1.CREATE_ID) CREATE_NM
-               , T1.CREATE_DT                                  AS CREATE_DT
-               , T1.UPDATE_ID                                  AS UPDATE_ID
-               , (SELECT USER_NAME FROM CM_USER WHERE ID = T1.UPDATE_ID) UPDATE_NM
-               , T1.UPDATE_DT                                        UPDATE_DT
-               , T4.AUDIENCE_CD                                AS AUDIENCE_CD
-               , T4.MANUAL_TRANS_YN                            AS MANUAL_TRANS_YN
-               , T4.OFFER_DIRECT_YN                            AS OFFER_DIRECT_YN
-               , T4.CHANNEL_PRIORITY_YN                        AS CHANNEL_PRIORITY_YN
-               , T4.CAMP_STATUS_CD                             AS CAMP_STATUS_CD
-             FROM (
-                  SELECT CAMPAIGN_SK
-                       , CAMPAIGN_CD
-                       , CAMPAIGN_NM
-                       , MARKETING_CELL_SK
-                       , MARKETING_CELL_NM
-                       , MARKETING_CELL_CD
-                       , MAX(COMMUNICATION_SK)       AS      COMMUNICATION_SK
-                       , MAX(OFFER_SYS_CD)              AS      OFFER_SYS_CD
-                       , MAX(OFFER_CONTENT_ID)        AS      OFFER_CONTENT_ID
-                       , MAX(OFFER_CONTENT_NM)       AS      OFFER_CONTENT_NM
-                    FROM (
-                         SELECT DISTINCT
-                                T6.CAMPAIGN_SK
-                              , T6.CAMPAIGN_CD
-                              , T6.CAMPAIGN_NM
-                              , T6.MARKETING_CELL_SK
-                              , T6.MARKETING_CELL_NM
-                              , T6.MARKETING_CELL_CD
-                              , T6.COMMUNICATION_SK
-                              , CASE WHEN UPPER(T5.CHAR_EXT_COLUMN_NM) = 'OFFER_SYS_CD' THEN T5.CHAR_UDF_VAL
-                                     ELSE NULL
-                                END AS OFFER_SYS_CD
-                              , CASE WHEN UPPER(T7.NUM_EXT_COLUMN_NM) = 'OFFER_CONTENT_ID' THEN T7.NUM_UDF_VAL
-                                     ELSE NULL
-                                END AS OFFER_CONTENT_ID
-                              , CASE WHEN UPPER(T5.CHAR_EXT_COLUMN_NM) = 'OFFER_CONTENT_NM' THEN T5.CHAR_UDF_VAL
-                                     ELSE NULL
-                                END AS OFFER_CONTENT_NM
-                           FROM CI_CELL_PACKAGE T6
-                           LEFT JOIN CI_COMMUNICATION_CHAR_UDF T5
-                             ON T6.COMMUNICATION_SK = T5.COMMUNICATION_SK
-                           LEFT JOIN CI_COMMUNICATION_NUM_UDF T7
-                             ON T6.COMMUNICATION_SK = T7.COMMUNICATION_SK
-                                      WHERE T6.CAMPAIGN_SK = #{CAMPAIGNID}
-                            AND T5.COMMUNICATION_SK IN ( SELECT COMMUNICATION_SK
-                                                           FROM CI_COMMUNICATION
-                                                          WHERE DELETED_FLG = 'N' )
-                            AND ( T6.CONTROL_GROUP_TYPE_CD IS NULL OR T6.CONTROL_GROUP_TYPE_CD IN ('_CH','_CL') )
-                         )
-                         GROUP BY CAMPAIGN_SK, CAMPAIGN_CD, CAMPAIGN_NM
-                                       , MARKETING_CELL_SK, MARKETING_CELL_NM, MARKETING_CELL_CD
-             )  T3
-             LEFT JOIN CM_CAMPAIGN_CONTENTS_OFFERLIST T2
-               ON T3.OFFER_CONTENT_ID = T2.OFFER_CONTENT_ID
-             LEFT JOIN CM_CAMPAIGN_OFFER T1
-               ON T3.MARKETING_CELL_SK = T1.CELLID
-             AND T2.OFFER_ID = T1.OFFERID
-             AND T3.OFFER_CONTENT_ID = T1.OFFER_CONTENT_ID
-             LEFT JOIN CM_CAMPAIGN_DTL T4
-               ON T3.CAMPAIGN_SK  = T4.CAMPAIGNID
-       ORDER BY T3.OFFER_CONTENT_ID
-  </select>
-
+	<!-- 캠페인 오퍼 리스트 -->
+	<select id="CampaignInfo.getCampaignOfferList" parameterType="Map" resultMap="CampaignOfferBO">
+		SELECT DISTINCT  /* CampaignInfo.getCampaignOfferList */
+			T3.CAMPAIGN_SK                                  AS CAMPAIGNID
+			, T3.CAMPAIGN_CD                                AS CAMPAIGNCODE
+			, T3.CAMPAIGN_NM                                AS CAMPAIGNNAME
+			, T3.MARKETING_CELL_SK                          AS CELLID
+			, T3.MARKETING_CELL_NM                          AS CELLNAME
+			, T3.MARKETING_CELL_CD                          AS CELLCODE
+			, T3.COMMUNICATION_SK                           AS COMMUNICATION_SK
+			, T3.OFFER_CONTENT_ID                           AS OFFER_CONTENT_ID
+			, T3.OFFER_CONTENT_NM                           AS OFFER_CONTENT_NM
+			, T3.OFFER_SYS_CD                               AS OFFER_SYS_CD
+			, T2.OFFER_TYPE_CD                              AS OFFER_TYPE_CD
+			, T2.OFFER_ID                                   AS OFFERID
+			, (SELECT CODE_NAME FROM CM_CODE_DTL WHERE COMM_CODE_ID = T2.OFFER_TYPE_CD AND CODE_ID = T2.OFFER_DETAIL_CD)    AS OFFERNAME
+			, T1.DISP_NAME                                  AS DISP_NAME
+			, T1.OFFER_AMT                                  AS OFFER_AMT
+			, T1.CREATE_ID                                  AS CREATE_ID
+			, (SELECT USER_NAME FROM CM_USER WHERE ID = T1.CREATE_ID)         AS CREATE_NM
+			, T1.CREATE_DT                                  AS CREATE_DT
+			, T1.UPDATE_ID                                  AS UPDATE_ID
+			, (SELECT USER_NAME FROM CM_USER WHERE ID = T1.UPDATE_ID)         AS UPDATE_NM
+			, T1.UPDATE_DT                                  AS UPDATE_DT
+			, T4.AUDIENCE_CD                                AS AUDIENCE_CD
+			, T4.MANUAL_TRANS_YN                            AS MANUAL_TRANS_YN
+			, T4.OFFER_DIRECT_YN                            AS OFFER_DIRECT_YN
+			, T4.CHANNEL_PRIORITY_YN                        AS CHANNEL_PRIORITY_YN
+			, T4.CAMP_STATUS_CD                             AS CAMP_STATUS_CD
+		FROM
+			(
+				SELECT
+					CAMPAIGN_SK
+					, CAMPAIGN_CD
+					, CAMPAIGN_NM
+					, MARKETING_CELL_SK
+					, MARKETING_CELL_NM
+					, MARKETING_CELL_CD
+					, MAX(COMMUNICATION_SK)          AS      COMMUNICATION_SK
+					, MAX(OFFER_SYS_CD)              AS      OFFER_SYS_CD
+					, MAX(OFFER_CONTENT_ID)          AS      OFFER_CONTENT_ID
+					, MAX(OFFER_CONTENT_NM)          AS      OFFER_CONTENT_NM
+				FROM
+					(
+						SELECT DISTINCT
+							T6.CAMPAIGN_SK
+							, T6.CAMPAIGN_CD
+							, T6.CAMPAIGN_NM
+							, T6.MARKETING_CELL_SK
+							, T6.MARKETING_CELL_NM
+							, T6.MARKETING_CELL_CD
+							, T6.COMMUNICATION_SK
+							, CASE WHEN UPPER(T5.CHAR_EXT_COLUMN_NM) = 'OFFER_SYS_CD' THEN T5.CHAR_UDF_VAL
+								ELSE NULL
+								END AS OFFER_SYS_CD
+							, CASE WHEN UPPER(T7.NUM_EXT_COLUMN_NM) = 'OFFER_CONTENT_ID' THEN T7.NUM_UDF_VAL
+								ELSE NULL
+								END AS OFFER_CONTENT_ID
+							, CASE WHEN UPPER(T5.CHAR_EXT_COLUMN_NM) = 'OFFER_CONTENT_NM' THEN T5.CHAR_UDF_VAL
+								ELSE NULL
+								END AS OFFER_CONTENT_NM
+						FROM
+							CI_CELL_PACKAGE T6
+							LEFT JOIN CI_COMMUNICATION_CHAR_UDF T5
+								ON T6.COMMUNICATION_SK = T5.COMMUNICATION_SK
+							LEFT JOIN CI_COMMUNICATION_NUM_UDF T7
+								ON T6.COMMUNICATION_SK = T7.COMMUNICATION_SK
+						WHERE 1=1
+							AND T6.CAMPAIGN_SK = #{CAMPAIGNID}
+							AND T5.COMMUNICATION_SK IN ( SELECT COMMUNICATION_SK FROM CI_COMMUNICATION WHERE DELETED_FLG = 'N' )
+							AND (
+								T6.CONTROL_GROUP_TYPE_CD IS NULL
+								OR T6.CONTROL_GROUP_TYPE_CD IN ('_CH','_CL')
+							)
+					)
+				GROUP BY
+					CAMPAIGN_SK
+					, CAMPAIGN_CD
+					, CAMPAIGN_NM
+					, MARKETING_CELL_SK
+					, MARKETING_CELL_NM
+					, MARKETING_CELL_CD
+			)                                                  T3
+			LEFT JOIN CM_CAMPAIGN_CONTENTS_OFFERLIST           T2
+				ON T3.OFFER_CONTENT_ID = T2.OFFER_CONTENT_ID
+			LEFT JOIN CM_CAMPAIGN_OFFER                        T1
+				ON T3.MARKETING_CELL_SK = T1.CELLID
+				AND T2.OFFER_ID = T1.OFFERID
+				AND T3.OFFER_CONTENT_ID = T1.OFFER_CONTENT_ID
+			LEFT JOIN CM_CAMPAIGN_DTL                          T4
+				ON T3.CAMPAIGN_SK  = T4.CAMPAIGNID
+		ORDER BY
+			T3.OFFER_CONTENT_ID
+	</select>
 
   <!-- 대상수준이 PCID일경우 오퍼의 사용여부를 체크한다 -->
   <select id="CampaignInfo.getCampaignOfferUseChk" parameterType="Map" resultType="String">
@@ -630,9 +646,10 @@
 		ORDER BY
 			CAMPAIGN_SK DESC
 	</select>
+	
 	<!-- KANG-20190410: 목록 -->
 	<select id="CampaignInfo.getCampaignList" parameterType="Map" resultMap="CampaignListBO">
-		SELECT /* CampaignInfo.getCampaignListCnt */
+		SELECT /* CampaignInfo.getCampaignList */
 			a.*
 		FROM (
 			SELECT
@@ -672,116 +689,117 @@
 		]]>
 	</select>
 
-  <select id="CampaignInfo.getCICampaignProperty" parameterType="Map" resultMap="CampaignInfoBO">
-       SELECT
-           CMPGN_ID                         AS CAMPAIGNID
-           , MAX(CMPGN_NM)                  AS CAMPAIGNNAME                    /* 캠페인명     */
-           , MAX(CMPGN_CD)                  AS CAMPAIGNCODE                    /* 캠페인코드     */
-           , MAX(CAMPAIGN_PERIOD)           AS CAMPAIGN_PERIOD                 /* 1. 캠페인기간 ( 그룹1 : 특정일자 및 시간  ,  그룹2 : 전송일로부터의 일수   )*/
-           , MAX(CAMP_FROM_DT)              AS CAMP_FROM_DT                    /* 캠페인행사시작일자 */
-           , MAX(CAMP_TO_DT)                AS CAMP_TO_DT                      /* 캠페인행사종료일자 */
+	<!-- CI 캠페인 정보를 읽는다. -->
+	<select id="CampaignInfo.getCICampaignProperty" parameterType="Map" resultMap="CampaignInfoBO">
+		SELECT  /* CampaignInfo.getCICampaignProperty */
+			CMPGN_ID                               AS CAMPAIGNID
+			, MAX(CMPGN_NM)                        AS CAMPAIGNNAME                    /* 캠페인명     */
+			, MAX(CMPGN_CD)                        AS CAMPAIGNCODE                    /* 캠페인코드     */
+			, MAX(CAMPAIGN_PERIOD)                 AS CAMPAIGN_PERIOD                 /* 1. 캠페인기간 ( 그룹1 : 특정일자 및 시간  ,  그룹2 : 전송일로부터의 일수   )*/
+			, MAX(CAMP_FROM_DT)                    AS CAMP_FROM_DT                    /* 캠페인행사시작일자 */
+			, MAX(CAMP_TO_DT)                      AS CAMP_TO_DT                      /* 캠페인행사종료일자 */
+			, NVL(MAX(CAMP_FROM_TM), 'AM 00:00')   AS CAMP_FROM_TM                    /* 캠페인행사시작시간 */
+			, NVL(MAX(CAMP_TO_TM), 'PM 11:59')     AS CAMP_TO_TM                      /* 캠페인행사종료시간 */
+			, MAX(SEND_DAY)                        AS SEND_DAY                        /* 전송일로부터의 일수 */
+			, MAX(TARGET_ID)                       AS TARGET_ID                       /* 대상수준 */
+			, MAX(SENDDATE_TYPE)                   AS SENDDATETYPE                    /* 데이터 전송방식 */
+			, MAX(OFFER_AUTO_YN)                   AS OFFER_AUTO_YN                   /* 오퍼 자동적용여부 */
+			, MAX(CHANNEL_BATCH_RANK_YN)           AS CHANNEL_BATCH_RANK_YN           /* 채널우선순위 */
+			, MAX(CAMPAIGN_GUBUN)                  AS CAMPAIGNGUBUN                   /* 캠페인 구분 */
+			, MAX(CAMPAIGN_GUBUN_DTL)              AS CAMPAIGN_GUBUN_DTL              /* 캠페인 구분 상세  */
+			, MAX(CAMPAIGN_TYPE)                   AS CAMPAIGNTYPE                    /* 캠페인 유형 */
+			, MAX(CAMPAIGN_OFFER_COST_GUBUN)       AS CAMPAIGN_OFFER_COST_GUBUN       /* 캠페인 오퍼 비용 구분 */
+		FROM
+			(
+				SELECT
+					A.CAMPAIGN_SK                                                          AS CMPGN_ID                       /* 캠페인ID     */
+					, A.CAMPAIGN_NM                                                        AS CMPGN_NM                       /* 캠페인명     */
+					, A.CAMPAIGN_CD                                                        AS CMPGN_CD                       /* 캠페인코드     */
+					, CASE WHEN UPPER(B.CHAR_UDF_NM) LIKE '캠페인%기간%' THEN
+						B.CHAR_UDF_VAL
+						ELSE NULL
+						END                                                                AS CAMPAIGN_PERIOD                /* 1. 캠페인기간 */
+					, CASE WHEN UPPER(D.DATE_EXT_COLUMN_NM) IN (  'CAMP_FROM_DT1',  'CAMP_FROM_DT2' )  THEN
+						D.DATE_UDF_VAL
+						ELSE NULL
+						END                                                                AS CAMP_FROM_DT                   /* 캠페인행사시작일자 */
+					, CASE WHEN UPPER(D.DATE_EXT_COLUMN_NM) IN ( 'CAMP_TO_DT1',  'CAMP_TO_DT2' ) THEN
+						D.DATE_UDF_VAL
+						ELSE NULL
+						END                                                                AS CAMP_TO_DT                     /* 캠페인행사종료일자 */
+					, CASE WHEN UPPER(B.CHAR_EXT_COLUMN_NM) IN (  'CAMP_FROM_TM1',  'CAMP_FROM_TM2' ) THEN
+						B.CHAR_UDF_VAL
+						ELSE NULL
+						END                                                                AS CAMP_FROM_TM                   /* 캠페인행사시작시간 */
+					, CASE WHEN UPPER(B.CHAR_EXT_COLUMN_NM) IN ( 'CAMP_TO_TM1',  'CAMP_TO_TM2' ) THEN
+						B.CHAR_UDF_VAL
+						ELSE NULL
+						END                                                                AS CAMP_TO_TM                     /* 캠페인행사종료시간 */
+					, CASE WHEN UPPER(C.NUM_EXT_COLUMN_NM) IN ( 'SEND_DAY1', 'SEND_DAY2','SEND_DAY3' ) THEN
+						C.NUM_UDF_VAL
+						ELSE NULL
+						END                                                                AS SEND_DAY                       /* 전송일로부터의 일수 */
+					, CASE WHEN UPPER(B.CHAR_EXT_COLUMN_NM) = 'TARGET_ID' THEN
+						B.CHAR_UDF_VAL
+						ELSE NULL
+						END                                                                AS TARGET_ID                      /* 대상수준 */
+					, CASE WHEN UPPER(B.CHAR_UDF_NM) = '1. 데이터 전송방식' THEN
+						B.CHAR_UDF_VAL
+						ELSE NULL
+						END                                                                AS SENDDATE_TYPE                  /* 데이터 전송방식 */
+					, CASE WHEN UPPER(B.CHAR_EXT_COLUMN_NM) = 'OFFER_AUTO_YN' THEN
+						B.CHAR_UDF_VAL
+						ELSE NULL
+						END                                                                AS OFFER_AUTO_YN                  /* 오퍼 자동적용여부 */
+					, CASE WHEN UPPER(B.CHAR_EXT_COLUMN_NM) IN ('CHANNEL_BATCH_RANK_YN', 'CHANNEL_MANUAL_RANK_YN', 'CHANNEL_TIME_RANK_YN') THEN
+						B.CHAR_UDF_VAL
+						ELSE NULL
+						END                                                                AS CHANNEL_BATCH_RANK_YN          /* 채널우선순위 */
+					, CASE WHEN UPPER(B.CHAR_UDF_NM) = '1. 캠페인 구분' THEN
+						B.CHAR_UDF_VAL
+						ELSE NULL
+						END                                                                AS CAMPAIGN_GUBUN                 /* 캠페인 구분 */
+					, CASE WHEN UPPER(B.CHAR_UDF_NM) = '내부 상세' THEN
+						B.CHAR_UDF_VAL
+						ELSE NULL
+						END                                                                AS CAMPAIGN_GUBUN_DTL             /* 내부 상세 */
+					, CASE WHEN UPPER(B.CHAR_EXT_COLUMN_NM) = 'CAMPAIGN_TYPE' THEN
+						B.CHAR_UDF_VAL
+						ELSE NULL
+						END                                                                AS CAMPAIGN_TYPE                  /* 캠페인 유형 */
+					, CASE WHEN UPPER(B.CHAR_EXT_COLUMN_NM) = 'CAMPAIGN_OFFER_COST_GUBUN' THEN
+						B.CHAR_UDF_VAL
+						ELSE NULL
+						END                                                                AS CAMPAIGN_OFFER_COST_GUBUN      /* 캠페인 오퍼 비용 구분 */
+					, A.CAMPAIGN_DESC                                                      AS CMPGN_DESC                     /* 캠페인설명   */
+					, A.LAST_MODIFIED_BY_USER_NM                                           AS REQ_EMP_ID                     /* 마지막 캠페인 실행자 */
+				FROM
+					CI_CAMPAIGN                            A
+					LEFT JOIN CI_CAMP_PAGE_CHAR_UDF        B
+						ON A.CAMPAIGN_SK = B.CAMPAIGN_SK
+					LEFT JOIN CI_CAMP_PAGE_NUM_UDF         C
+						ON A.CAMPAIGN_SK = C.CAMPAIGN_SK
+					LEFT JOIN CI_CAMP_PAGE_DATE_UDF        D
+						ON A.CAMPAIGN_SK = D.CAMPAIGN_SK
+					LEFT JOIN CI_MARKETING_CELL            F
+						ON A.CAMPAIGN_SK = F.CAMPAIGN_SK
+				WHERE 1=1
+					AND A.CAMPAIGN_SK = #{CAMPAIGNID}
+			)
+		GROUP BY
+			CMPGN_ID
+	</select>
 
-           , NVL(MAX(CAMP_FROM_TM), 'AM 00:00')              AS CAMP_FROM_TM                    /* 캠페인행사시작시간 */
-           , NVL(MAX(CAMP_TO_TM), 'PM 11:59')                AS CAMP_TO_TM                      /* 캠페인행사종료시간 */
-
-           , MAX(SEND_DAY)                  AS SEND_DAY                        /* 전송일로부터의 일수 */
-           , MAX(TARGET_ID)                 AS TARGET_ID                       /* 대상수준 */
-           , MAX(SENDDATE_TYPE)             AS SENDDATETYPE                    /* 데이터 전송방식 */
-           , MAX(OFFER_AUTO_YN)             AS OFFER_AUTO_YN                   /* 오퍼 자동적용여부 */
-           , MAX(CHANNEL_BATCH_RANK_YN)     AS CHANNEL_BATCH_RANK_YN           /* 채널우선순위 */
-           , MAX(CAMPAIGN_GUBUN)            AS CAMPAIGNGUBUN                   /* 캠페인 구분 */
-           , MAX(CAMPAIGN_GUBUN_DTL)        AS CAMPAIGN_GUBUN_DTL                   /* 캠페인 구분 상세  */
-           , MAX(CAMPAIGN_TYPE)             AS CAMPAIGNTYPE                    /* 캠페인 유형 */
-           , MAX(CAMPAIGN_OFFER_COST_GUBUN)             AS CAMPAIGN_OFFER_COST_GUBUN                    /* 캠페인 오퍼 비용 구분 */
-       FROM (
-            SELECT  A.CAMPAIGN_SK                                                      AS CMPGN_ID                       /* 캠페인ID     */
-                  , A.CAMPAIGN_NM                                                      AS CMPGN_NM                       /* 캠페인명     */
-                  , A.CAMPAIGN_CD                                                      AS CMPGN_CD                       /* 캠페인코드     */
-                  , CASE WHEN UPPER(B.CHAR_UDF_NM) LIKE '캠페인%기간%' THEN
-                              B.CHAR_UDF_VAL
-                         ELSE NULL
-                    END                                                                AS CAMPAIGN_PERIOD                /* 1. 캠페인기간 */
-                  , CASE WHEN UPPER(D.DATE_EXT_COLUMN_NM) IN (  'CAMP_FROM_DT1',  'CAMP_FROM_DT2' )  THEN
-                              D.DATE_UDF_VAL
-                         ELSE NULL
-                    END                                                                AS CAMP_FROM_DT                   /* 캠페인행사시작일자 */
-                  , CASE WHEN UPPER(D.DATE_EXT_COLUMN_NM) IN ( 'CAMP_TO_DT1',  'CAMP_TO_DT2' ) THEN
-                              D.DATE_UDF_VAL
-                         ELSE NULL
-                    END                                                                AS CAMP_TO_DT                     /* 캠페인행사종료일자 */
-                  , CASE WHEN UPPER(B.CHAR_EXT_COLUMN_NM) IN (  'CAMP_FROM_TM1',  'CAMP_FROM_TM2' ) THEN
-                              B.CHAR_UDF_VAL
-                         ELSE NULL
-                    END                                                                AS CAMP_FROM_TM                   /* 캠페인행사시작시간 */
-                  , CASE WHEN UPPER(B.CHAR_EXT_COLUMN_NM) IN ( 'CAMP_TO_TM1',  'CAMP_TO_TM2' ) THEN
-                              B.CHAR_UDF_VAL
-                         ELSE NULL
-                    END                                                                AS CAMP_TO_TM                     /* 캠페인행사종료시간 */
-                  , CASE WHEN UPPER(C.NUM_EXT_COLUMN_NM) IN ( 'SEND_DAY1', 'SEND_DAY2','SEND_DAY3' ) THEN
-                              C.NUM_UDF_VAL
-                         ELSE NULL
-                    END                                                                AS SEND_DAY                       /* 전송일로부터의 일수 */
-                  , CASE WHEN UPPER(B.CHAR_EXT_COLUMN_NM) = 'TARGET_ID' THEN
-                              B.CHAR_UDF_VAL
-                         ELSE NULL
-                    END                                                                AS TARGET_ID                      /* 대상수준 */
-                  , CASE WHEN UPPER(B.CHAR_UDF_NM) = '1. 데이터 전송방식' THEN
-                              B.CHAR_UDF_VAL
-                         ELSE NULL
-                    END                                                                AS SENDDATE_TYPE                  /* 데이터 전송방식 */
-                  , CASE WHEN UPPER(B.CHAR_EXT_COLUMN_NM) = 'OFFER_AUTO_YN' THEN
-                              B.CHAR_UDF_VAL
-                         ELSE NULL
-                    END                                                                AS OFFER_AUTO_YN                  /* 오퍼 자동적용여부 */
-                  , CASE WHEN UPPER(B.CHAR_EXT_COLUMN_NM) IN ('CHANNEL_BATCH_RANK_YN', 'CHANNEL_MANUAL_RANK_YN', 'CHANNEL_TIME_RANK_YN') THEN
-                              B.CHAR_UDF_VAL
-                         ELSE NULL
-                    END                                                                AS CHANNEL_BATCH_RANK_YN          /* 채널우선순위 */
-                  , CASE WHEN UPPER(B.CHAR_UDF_NM) = '1. 캠페인 구분' THEN
-                              B.CHAR_UDF_VAL
-                         ELSE NULL
-                    END                                                                AS CAMPAIGN_GUBUN                  /* 캠페인 구분 */
-                  , CASE WHEN UPPER(B.CHAR_UDF_NM) = '내부 상세' THEN
-                              B.CHAR_UDF_VAL
-                         ELSE NULL
-                    END                                                                AS CAMPAIGN_GUBUN_DTL                  /* 내부 상세 */
-                  , CASE WHEN UPPER(B.CHAR_EXT_COLUMN_NM) = 'CAMPAIGN_TYPE' THEN
-                              B.CHAR_UDF_VAL
-                         ELSE NULL
-                    END                                                                AS CAMPAIGN_TYPE                   /* 캠페인 유형 */
-                  , CASE WHEN UPPER(B.CHAR_EXT_COLUMN_NM) = 'CAMPAIGN_OFFER_COST_GUBUN' THEN
-                              B.CHAR_UDF_VAL
-                         ELSE NULL
-                    END                                                                AS CAMPAIGN_OFFER_COST_GUBUN       /* 캠페인 오퍼 비용 구분 */
-
-                  , A.CAMPAIGN_DESC                                                 AS CMPGN_DESC                          /* 캠페인설명   */
-                  , A.LAST_MODIFIED_BY_USER_NM                                   AS REQ_EMP_ID                           /* 마지막 캠페인 실행자       */
-              FROM CI_CAMPAIGN                  A
-                   LEFT JOIN
-                   CI_CAMP_PAGE_CHAR_UDF        B
-                ON A.CAMPAIGN_SK = B.CAMPAIGN_SK
-                   LEFT JOIN
-                   CI_CAMP_PAGE_NUM_UDF         C
-                ON A.CAMPAIGN_SK = C.CAMPAIGN_SK
-                   LEFT JOIN
-                   CI_CAMP_PAGE_DATE_UDF        D
-                ON A.CAMPAIGN_SK = D.CAMPAIGN_SK
-                   LEFT JOIN
-                   CI_MARKETING_CELL            F
-                ON A.CAMPAIGN_SK = F.CAMPAIGN_SK
-             WHERE A.CAMPAIGN_SK = #{CAMPAIGNID}
-
-          )
-      GROUP BY  CMPGN_ID
-  </select>
-
-  <select id="CampaignInfo.getCICampaignProperyList" parameterType="Map" resultMap="CampaignListBO">
-    SELECT CAMPAIGNID FROM
-      CM_CAMPAIGN_DTL
-    WHERE
-      CAMPAIGNCODE LIKE 'CAMP%'
-      AND CAMPAIGNID = #{CAMPAIGNID}
-  </select>
+	<!-- CM 캠페인의 갯수를 확인한다. -->
+	<select id="CampaignInfo.getCICampaignProperyList" parameterType="Map" resultMap="CampaignListBO">
+		SELECT  /* CampaignInfo.getCICampaignProperyList */
+			CAMPAIGNID
+		FROM
+			CM_CAMPAIGN_DTL
+		WHERE 1=1
+			AND CAMPAIGNCODE LIKE 'CAMP%'
+			AND CAMPAIGNID = #{CAMPAIGNID}
+	</select>
 
   <insert id="CampaignInfo.insertOfferData" parameterType="Map">
       MERGE INTO cm_campaign_offer A
