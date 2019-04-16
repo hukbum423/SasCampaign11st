@@ -464,7 +464,7 @@ public class CampaignController {
 				// Offer Update 매핑화면과 싱크를 위해 항상 업데이트
 				this.campaignInfoService.updateOfferData(map);                                               // KANG-20190413: 05. CampaignInfo.updateOfferData
 
-				if (!Flag.flag) {  // KANG-20190414: add by Kiea
+				if (Flag.flag) {  // KANG-20190414: add by Kiea
 					for (int i = 0; i < offer_list.size(); i++) {
 						CampaignOfferBO campaignOfferBo = new CampaignOfferBO();
 						campaignOfferBo = offer_list.get(i);
