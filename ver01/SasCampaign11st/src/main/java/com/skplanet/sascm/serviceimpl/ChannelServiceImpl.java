@@ -275,4 +275,12 @@ public class ChannelServiceImpl implements ChannelService {
 	public int setChannelMobileAlimi(Map<String, Object> param) throws Exception {
 		return this.channelDAO.setChannelMobileAlimi(param);
 	}
+	@Override
+	public int insertChannelMobileAlimi(Map<String, Object> param) throws Exception {
+		return this.channelDAO.insertChannelMobileAlimi(param);
+	}
+	@Override
+	public int updateChannelMobileAlimi(Map<String, Object> param) throws Exception {
+		return this.channelDAO.updateChannelMobileAlimi(param);
+	}
 }

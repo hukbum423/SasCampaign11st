@@ -670,83 +670,150 @@
     )
   </update>
 
-  <!-- 채널정보 삭제(MOBILE-ALIMI): KANG-20190328: add by Kiea Seok Kang -->
-  <delete id="Channel.delChannelMobileAlimi" parameterType="Map">
-    DELETE CM_CAMPAIGN_CHANNEL_JS /* Channel.delChannelMobileAlimi */
-     WHERE 1=1
-       AND CELLID     = #{CELLID}
-  </delete>
 
-  <!-- 채널정보 검색(MOBILE-ALIMI): KANG-20190328: add by Kiea Seok Kang -->
-  <select id="Channel.getChannelMobileAlimi" parameterType="Map" resultMap="ChannelAlimiBO">
-      SELECT /* Channel.getChannelMobileAlimi */
-             CELLID                      cellId
-             , CAMPAIGNCODE              campaignCode
-             , CAMPAIGNID                campaignId
-             , CHANNEL_CD                channelCd
-             , APP_KD_CD                 appKdCd
-             , TALK_MSG_DISP_YN          talkMsgDispYn
-             , TALK_MSG_SUMMARY          talkMsgSummary
-             , TALK_MSG_TMPLT_NO         talkMsgTmpltNo
-             , TALK_BLCK_CONT            talkBlckCont
-             , MOBILE_SEND_PREFER_CD     mobileSendPreferCd
-             , MOBILE_PERSON_MSG_YN      mobilePersonMsgYn
-        FROM
-            CM_CAMPAIGN_CHANNEL_JS
-      WHERE 1=1
-        AND CELLID  = #{CELLID}
-  </select>
 
-  <!-- 채널정보 저장(MOBILE-ALIMI): KANG-20190328: add by Kiea Seok Kang -->
-  <update id="Channel.setChannelMobileAlimi" parameterType="Map" >
-    MERGE INTO CM_CAMPAIGN_CHANNEL_JS   /* Channel.setChannelMobileAlimi */
-    USING DUAL
-    ON (    CELLID     = #{CELLID}
-        AND CHANNEL_CD = #{CHANNEL_CD}
-       )
-    WHEN MATCHED THEN
-        UPDATE SET CAMPAIGNCODE           = TRIM(#{CAMPAIGNCODE})
-                  ,CAMPAIGNID             = TRIM(#{CAMPAIGNID})
-                  ,APP_KD_CD              = TRIM(#{MOBILE_APP_KD_CD})
-                  ,TALK_MSG_DISP_YN       = #{TALK_MSG_DISP_YN}
-                  ,TALK_MSG_SUMMARY       = #{TALK_MSG_SUMMARY}
-                  ,TALK_MSG_TMPLT_NO      = #{TALK_MSG_TMPLT_NO}
-                  ,TALK_BLCK_CONT         = #{TALK_BLCK_CONT}
-                  ,MOBILE_SEND_PREFER_CD  = #{MOBILE_SEND_PREFER_CD}
-                  ,MOBILE_PERSON_MSG_YN   = #{useIndi}
-                  ,UPDATE_DT              = SYSDATE
-                  ,UPDATE_ID              = TRIM(#{UPDATE_ID})
-    WHEN NOT MATCHED THEN
-        INSERT (
-                 CELLID
-                ,CAMPAIGNCODE
-                ,CAMPAIGNID
-                ,CHANNEL_CD
-                ,APP_KD_CD
-                ,TALK_MSG_DISP_YN
-                ,TALK_MSG_SUMMARY
-                ,TALK_MSG_TMPLT_NO
-                ,TALK_BLCK_CONT
-                ,MOBILE_SEND_PREFER_CD
-                ,MOBILE_PERSON_MSG_YN
-                ,CREATE_DT
-                ,CREATE_ID
-        )
-        VALUES (
-                 TRIM(#{CELLID})
-                ,TRIM(#{CAMPAIGNCODE})
-                ,TRIM(#{CAMPAIGNID})
-                ,TRIM(#{CHANNEL_CD})
-                ,TRIM(#{MOBILE_APP_KD_CD})
-                ,TRIM(#{TALK_MSG_DISP_YN})
-                ,TRIM(#{TALK_MSG_SUMMARY})
-                ,TRIM(#{TALK_MSG_TMPLT_NO})
-                ,TRIM(#{TALK_BLCK_CONT})
-                ,TRIM(#{MOBILE_SEND_PREFER_CD})
-                ,TRIM(#{useIndi})
-                ,SYSDATE
-                ,TRIM(#{CREATE_ID})
-        )
-  </update>
+
+
+
+	<!-- 채널정보 삭제(MOBILE-ALIMI): KANG-20190328: add by Kiea Seok Kang -->
+	<delete id="Channel.delChannelMobileAlimi" parameterType="Map">
+		DELETE  /* Channel.delChannelMobileAlimi */
+			CM_CAMPAIGN_CHANNEL_JS
+		WHERE 1=1
+			AND CELLID     = #{CELLID}
+	</delete>
+
+	<!-- 채널정보 검색(MOBILE-ALIMI): KANG-20190328: add by Kiea Seok Kang -->
+	<select id="Channel.getChannelMobileAlimi" parameterType="Map" resultMap="ChannelAlimiBO">
+		SELECT  /* Channel.getChannelMobileAlimi */
+			CELLID                      cellId
+			, CAMPAIGNCODE              campaignCode
+			, CAMPAIGNID                campaignId
+			, CHANNEL_CD                channelCd
+			, APP_KD_CD                 appKdCd
+			, TALK_MSG_DISP_YN          talkMsgDispYn
+			, TALK_MSG_SUMMARY          talkMsgSummary
+			, TALK_MSG_TMPLT_NO         talkMsgTmpltNo
+			, TALK_BLCK_CONT            talkBlckCont
+			, MOBILE_SEND_PREFER_CD     mobileSendPreferCd
+			, MOBILE_PERSON_MSG_YN      mobilePersonMsgYn
+		FROM
+			CM_CAMPAIGN_CHANNEL_JS
+		WHERE 1=1
+			AND CELLID  = #{CELLID}
+	</select>
+
+	<!-- 채널정보 저장(MOBILE-ALIMI): KANG-20190328: merge by Kiea Seok Kang. if CLOB value is more than 1000 chars on MERGE, then occur an event of error exception. so separate insert and update -->
+	<update id="Channel.setChannelMobileAlimi" parameterType="Map" >
+		MERGE INTO  /* Channel.setChannelMobileAlimi */
+			CM_CAMPAIGN_CHANNEL_JS
+		USING DUAL
+		ON ( 1=1
+			AND CELLID     = #{CELLID}
+			AND CHANNEL_CD = #{CHANNEL_CD}
+		)
+		WHEN MATCHED THEN
+			UPDATE SET 
+				CAMPAIGNCODE             = TRIM(#{CAMPAIGNCODE})
+				, CAMPAIGNID             = TRIM(#{CAMPAIGNID})
+				, APP_KD_CD              = TRIM(#{MOBILE_APP_KD_CD})
+				, TALK_MSG_DISP_YN       = #{TALK_MSG_DISP_YN}
+				, TALK_MSG_SUMMARY       = #{TALK_MSG_SUMMARY}
+				, TALK_MSG_TMPLT_NO      = #{TALK_MSG_TMPLT_NO}
+				, MOBILE_SEND_PREFER_CD  = #{MOBILE_SEND_PREFER_CD}
+				, MOBILE_PERSON_MSG_YN   = #{useIndi}
+				, UPDATE_DT              = SYSDATE
+				, UPDATE_ID              = TRIM(#{UPDATE_ID})
+				, TALK_BLCK_CONT         = #{TALK_BLCK_CONT:CLOB}
+		WHEN NOT MATCHED THEN
+			INSERT (
+				CELLID
+				, CAMPAIGNCODE
+				, CAMPAIGNID
+				, CHANNEL_CD
+				, APP_KD_CD
+				, TALK_MSG_DISP_YN
+				, TALK_MSG_SUMMARY
+				, TALK_MSG_TMPLT_NO
+				, MOBILE_SEND_PREFER_CD
+				, MOBILE_PERSON_MSG_YN
+				, CREATE_DT
+				, CREATE_ID
+				, TALK_BLCK_CONT
+			)
+			VALUES (
+				TRIM(#{CELLID})
+				, TRIM(#{CAMPAIGNCODE})
+				, TRIM(#{CAMPAIGNID})
+				, TRIM(#{CHANNEL_CD})
+				, TRIM(#{MOBILE_APP_KD_CD})
+				, TRIM(#{TALK_MSG_DISP_YN})
+				, TRIM(#{TALK_MSG_SUMMARY})
+				, TRIM(#{TALK_MSG_TMPLT_NO})
+				, TRIM(#{MOBILE_SEND_PREFER_CD})
+				, TRIM(#{useIndi})
+				, SYSDATE
+				, TRIM(#{CREATE_ID})
+				, TRIM(#{TALK_BLCK_CONT:CLOB})
+			)
+	</update>
+
+	<!-- 채널정보 저장(MOBILE-ALIMI): KANG-20190417: insert by Kiea Seok Kang -->
+	<insert id="Channel.insertChannelMobileAlimi" parameterType="Map" >
+		INSERT INTO
+			CM_CAMPAIGN_CHANNEL_JS
+		(
+			CELLID
+			, CAMPAIGNCODE
+			, CAMPAIGNID
+			, CHANNEL_CD
+			, APP_KD_CD
+			, TALK_MSG_DISP_YN
+			, TALK_MSG_SUMMARY
+			, TALK_MSG_TMPLT_NO
+			, MOBILE_SEND_PREFER_CD
+			, MOBILE_PERSON_MSG_YN
+			, CREATE_DT
+			, CREATE_ID
+			, TALK_BLCK_CONT
+		)
+		VALUES
+		(
+			TRIM(#{CELLID})
+			, TRIM(#{CAMPAIGNCODE})
+			, TRIM(#{CAMPAIGNID})
+			, TRIM(#{CHANNEL_CD})
+			, TRIM(#{MOBILE_APP_KD_CD})
+			, TRIM(#{TALK_MSG_DISP_YN})
+			, TRIM(#{TALK_MSG_SUMMARY})
+			, TRIM(#{TALK_MSG_TMPLT_NO})
+			, TRIM(#{MOBILE_SEND_PREFER_CD})
+			, TRIM(#{useIndi})
+			, SYSDATE
+			, TRIM(#{CREATE_ID})
+			, #{TALK_BLCK_CONT:CLOB}
+		)
+	</insert>
+
+	<!-- 채널정보 저장(MOBILE-ALIMI): KANG-20190417: update by Kiea Seok Kang -->
+	<update id="Channel.updateChannelMobileAlimi" parameterType="Map" >
+		UPDATE 
+			CM_CAMPAIGN_CHANNEL_JS
+		SET
+			CAMPAIGNCODE             = TRIM(#{CAMPAIGNCODE})
+			, CAMPAIGNID             = TRIM(#{CAMPAIGNID})
+			, APP_KD_CD              = TRIM(#{MOBILE_APP_KD_CD})
+			, TALK_MSG_DISP_YN       = #{TALK_MSG_DISP_YN}
+			, TALK_MSG_SUMMARY       = #{TALK_MSG_SUMMARY}
+			, TALK_MSG_TMPLT_NO      = #{TALK_MSG_TMPLT_NO}
+			, MOBILE_SEND_PREFER_CD  = #{MOBILE_SEND_PREFER_CD}
+			, MOBILE_PERSON_MSG_YN   = #{useIndi}
+			, UPDATE_DT              = SYSDATE
+			, UPDATE_ID              = TRIM(#{UPDATE_ID})
+			, TALK_BLCK_CONT         = #{TALK_BLCK_CONT:CLOB}
+		WHERE 1=1
+			AND CELLID     = #{CELLID}
+			AND CHANNEL_CD = #{CHANNEL_CD}
+	</update>
 
 </mapper>

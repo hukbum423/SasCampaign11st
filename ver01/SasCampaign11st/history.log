@@ -120,10 +120,19 @@ UI 상 이슈 정리
 
 2019.04.16 
 
-    37. 타입2, 타입5에서 상품을 4개 이상 등록하려고 하면 알럿창에 에러가 뜨면서 저장이 안됨
-    
-
-
+	37. 타입2, 타입5에서 상품을 4개 이상 등록하려고 하면 알럿창에 에러가 뜨면서 저장이 안됨                           <-- complete
+		[ 적용 소스 ]
+		ver01/SasCampaign11st/src/main/java/com/skplanet/sascm/dao/ChannelDAO.java
+		ver01/SasCampaign11st/src/main/java/com/skplanet/sascm/daoimpl/ChannelDAOImpl.java
+		ver01/SasCampaign11st/src/main/java/com/skplanet/sascm/service/ChannelService.java
+		ver01/SasCampaign11st/src/main/java/com/skplanet/sascm/serviceimpl/ChannelServiceImpl.java
+		ver01/SasCampaign11st/src/main/java/com/skplanet/sascm/controller/ChannelController.java
+		
+		ver01/SasCampaign11st/src/main/resources/mapper/channel_SQL.xml
+		ver01/SasCampaign11st/src/main/resources/mapper/CampaignContent_SQL.xml
+		
+		ver01/SasCampaign11st/src/main/webapp/WEB-INF/views/channel/channelMobile.jsp
+		ver01/SasCampaign11st/src/main/webapp/WEB-INF/views/common/_footer.jsp
 
 
 

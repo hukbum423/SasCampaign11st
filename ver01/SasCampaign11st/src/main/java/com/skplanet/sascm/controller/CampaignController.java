@@ -35,6 +35,7 @@ import com.skplanet.sascm.service.ScheduleService;
 import com.skplanet.sascm.util.CheckCopyCouponNo;
 import com.skplanet.sascm.util.Common;
 import com.skplanet.sascm.util.Flag;
+
 @Controller
 public class CampaignController {
 

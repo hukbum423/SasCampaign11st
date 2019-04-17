@@ -253,24 +253,23 @@
 	<insert id="CampaignContent.setCampaignContentsOffer" parameterType="Map" >
 		INSERT INTO CM_CAMPAIGN_CONTENTS_OFFERLIST
 		(
-		 OFFER_CONTENT_ID
-        ,OFFER_TYPE_CD
-        ,OFFER_DETAIL_CD
-        ,DISP_NAME
-        ,OFFER_ID
-        ,CREATE_ID
-        ,CREATE_DT
-
+			OFFER_CONTENT_ID
+			, OFFER_TYPE_CD
+			, OFFER_DETAIL_CD
+			, DISP_NAME
+			, OFFER_ID
+			, CREATE_ID
+			, CREATE_DT
 		)
 		VALUES
 		(
-		 TRIM(#{OFFER_CONTENT_ID})
-		,TRIM(#{OFFER_TYPE_CD})
-		,TRIM(#{OFFER_DETAIL_CD})
-		,TRIM(#{DISP_NAME})
-		,OFFERLIST_NO.NEXTVAL
-		,TRIM(#{CREATE_ID})
-		,SYSDATE
+			TRIM(#{OFFER_CONTENT_ID})
+			, TRIM(#{OFFER_TYPE_CD})
+			, TRIM(#{OFFER_DETAIL_CD})
+			, TRIM(#{DISP_NAME})
+			, OFFERLIST_NO.NEXTVAL
+			, TRIM(#{CREATE_ID})
+			, SYSDATE
 		)
 	</insert>
 	<!-- 캠페인 채널 정보 삭제 -->

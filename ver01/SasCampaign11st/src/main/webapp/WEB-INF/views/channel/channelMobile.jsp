@@ -3162,7 +3162,7 @@
 										</td>
 									</tr>
 									<tr>
-										<td class="info">알림톡 방목록 텍스트</td>
+										<td class="info">알림톡 방문록 텍스트</td>
 										<td class="tbtd_content" colspan="3"><input
 											id='alimiText' type="text" style="width: 700px;"
 											name="alimiText" value="" maxlength="100" /></td>

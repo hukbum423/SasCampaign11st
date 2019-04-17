@@ -168,4 +168,6 @@ public interface ChannelService {
 	 * @throws Exception
 	 */
 	public int setChannelMobileAlimi(Map<String, Object> param) throws Exception;
+	public int insertChannelMobileAlimi(Map<String, Object> param) throws Exception;
+	public int updateChannelMobileAlimi(Map<String, Object> param) throws Exception;
 }

@@ -191,4 +191,6 @@ public interface ChannelDAO {
 	 * @throws SQLException
 	 */
 	public int setChannelMobileAlimi(Map<String, Object> param) throws SQLException;
+	public int insertChannelMobileAlimi(Map<String, Object> param) throws SQLException;
+	public int updateChannelMobileAlimi(Map<String, Object> param) throws SQLException;
 }

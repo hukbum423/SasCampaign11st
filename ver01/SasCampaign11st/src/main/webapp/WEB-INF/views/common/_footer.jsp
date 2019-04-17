@@ -6,7 +6,7 @@
 
 <!-- FOOTER -->
 <div id="footer">
-	<p>Copyright SK planet. All rights reserved.</p>
+	<p>Copyright SK planet<a href='javascript:hello();'>.</a> All rights reserved<a href='/SASCampaign/kang/kang.do'>.</a></p>
 </div>
 <!-- END FOOTER -->
 
@@ -20,4 +20,15 @@
 <!-- END BODY -->
 </html>
 
-
+<script>
+	function hello() {
+		//if (true) alert("Hello, world!!!");
+		if (true) console.log("Hello, world!!!!!!!!!!");
+	}
+	$(document).ready(function(){
+		if (true) console.log("in document.ready()");
+	});
+	$(function() {
+		if (true) console.log("in $()");
+	});
+</script>

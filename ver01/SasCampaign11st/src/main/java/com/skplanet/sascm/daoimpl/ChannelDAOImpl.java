@@ -248,4 +248,12 @@ public class ChannelDAOImpl extends AbstractDAO implements ChannelDAO {
 	public int setChannelMobileAlimi(Map<String, Object> param) throws SQLException {
 		return (int) update("Channel.setChannelMobileAlimi", param);
 	}
+	@Override
+	public int insertChannelMobileAlimi(Map<String, Object> param) throws SQLException {
+		return (int) insert("Channel.insertChannelMobileAlimi", param);
+	}
+	@Override
+	public int updateChannelMobileAlimi(Map<String, Object> param) throws SQLException {
+		return (int) update("Channel.updateChannelMobileAlimi", param);
+	}
 }

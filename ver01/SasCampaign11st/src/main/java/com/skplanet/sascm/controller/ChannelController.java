@@ -1316,11 +1316,45 @@ public class ChannelController {
 				if (Flag.flag) {
 					
 					// data covert from pc to block
-					this.channelService.setChannelMobileAlimi(map);
+					// this.channelService.setChannelMobileAlimi(map);
+					ChannelAlimiBO alimi = this.channelService.getChannelMobileAlimi(map);
+					if (alimi == null) {
+						this.channelService.insertChannelMobileAlimi(map);
+					} else {
+						this.channelService.updateChannelMobileAlimi(map);
+					}
 				}
 			}
 		}
 
+		if (!Flag.flag) {
+			// TODO KANG-20190416: test for CLOB
+			String cellId = (String) map.get("CELLID");  // CELLID
+			String channelCd = (String) map.get("CHANNEL_CD"); // CHANNEL_CD
+			String talkBlckCont = (String) map.get("TALK_BLCK_CONT"); // TALK_BLCK_CONT
+			
+			StringBuffer sb = new StringBuffer();
+			for (int i=0; i < 70000; i++) {
+				sb.append("1234567890");
+			}
+			
+			map.put("CELLID", "1004");
+			map.put("CHANNEL_CD", "MOBILE");
+			map.put("TALK_BLCK_CONT", sb.toString());
+			
+			ChannelAlimiBO alimi = this.channelService.getChannelMobileAlimi(map);
+			if (alimi == null) {
+				this.channelService.insertChannelMobileAlimi(map);
+			} else {
+				this.channelService.updateChannelMobileAlimi(map);
+			}
+
+			// restore
+			map.put("CELLID", cellId);
+			map.put("CHANNEL_CD", channelCd);
+			map.put("TALK_BLCK_CONT", talkBlckCont);
+		}
+		
 		//캠페인 상태 리턴
 		map.put("CMP_STATUS", CMP_STATUS);
 
