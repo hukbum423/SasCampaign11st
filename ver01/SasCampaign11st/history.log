@@ -96,16 +96,16 @@ UI 상 이슈 정리
 2019.04.10
 
 	30. 캠페인 리스트 > 하단: 일정탭 : 멀티셀렉트 기능 구현                                                   <-- complete
-	
+
 	31. 캠페인 리스트의 pagination 기능 구현                                                             <-- complete
-	
+
 	32. 캠페인 쿠폰 복사기능 구현                                                                        <-- complete
 
 
-  
+
 2019.04.11
 
-	33. CI 일정 부분 페이지네이션 작업 요청 : 한번에 최대 10개까지 일정 노출, 한 화면에 10개 단위 페이지 나오게 개발      <-- complete 
+	33. CI 일정 부분 페이지네이션 작업 요청 : 한번에 최대 10개까지 일정 노출, 한 화면에 10개 단위 페이지 나오게 개발      <-- complete
 
 
 	34. CI 리스트 목록에서 하위 카테고리 이동시 해당 페이지 내용에 맞는 페이지네이션 싱크 수정                         <-- complete
@@ -113,12 +113,12 @@ UI 상 이슈 정리
 
 	35. 캠페인 리스트 화면에서 캠페인 항목을 선택했을 시에 쿠폰이 자동으로 추가 생성이 되는 로직을 제거                   <-- complete
 		com.skplanet.sascm.controller.CampaignController.java : 467
-		
+
 
 	36. 캠페인 리스트 화면에서 목록읭 갯수를 100으로 변경                                                     <-- complete
 		com.skplanet.sascm.controller.CampaignController.java : 141
 
-2019.04.16 
+2019.04.16
 
 	37. 타입2, 타입5에서 상품을 4개 이상 등록하려고 하면 알럿창에 에러가 뜨면서 저장이 안됨                           <-- complete
 		[ 적용 소스 ]
@@ -127,16 +127,42 @@ UI 상 이슈 정리
 		ver01/SasCampaign11st/src/main/java/com/skplanet/sascm/service/ChannelService.java
 		ver01/SasCampaign11st/src/main/java/com/skplanet/sascm/serviceimpl/ChannelServiceImpl.java
 		ver01/SasCampaign11st/src/main/java/com/skplanet/sascm/controller/ChannelController.java
-		
+
 		ver01/SasCampaign11st/src/main/resources/mapper/channel_SQL.xml
 		ver01/SasCampaign11st/src/main/resources/mapper/CampaignContent_SQL.xml
-		
+
 		ver01/SasCampaign11st/src/main/webapp/WEB-INF/views/channel/channelMobile.jsp
 		ver01/SasCampaign11st/src/main/webapp/WEB-INF/views/common/_footer.jsp
 
 
+2019.04.25
+
+	38. 포인트 기능 추가                                                                              <-- complete
+		[ 적용 방법 ] 공통코드관리에서 아래와 같이 작업을 한다.
+			1. C002 오퍼종류: PN -> 'Y' : 포인트 항목을 살린다.
+			2. PN   포인트                공통코드 추가
+			3. 포인트의 상세항목들을 아래와 같이 추가
+				PN1 포인트1
+				PN2 포인트2
+				PN3 포인트3
+				PN4 포인트4
+				PN5 포인트5
+
+		[ 관련 테이블 ]
+			CM_CAMPAIGN_OFFER
+			CM_CAMPAIGN_CONTENTS
+			CM_CAMPAIGN_CONTENTS_OFFERLIST
 
 
+	39. 타입1~타입6 제목1, 제목2, 제목3  글자수 한도 변경                                                   <-- complete
+		ㄴ 제목1 : 문자수 최대 8 / 제목2 : 문자수 최대 16 / 제목3 : 문자수 최대 20
+
+
+	40. 타입-4 > 안내내용 > 문구 글자수를 최대 한글 36자(띄어쓰기포함) 까지로 한도 변경                            <-- complete
+		39, 40 --> WEB-INF/views/channel/channelMobile.jsp
+
+
+	41. 알리미 테스트 발송 개발 지원
 
 
 
