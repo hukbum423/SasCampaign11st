@@ -329,7 +329,7 @@ String.prototype.cut2 = function(len) {
 }
 
 // KANG-20190411: for pagination
-function pagingNavi(selectPage, pageRange, pageStart, pageEnd, totalPage, pageMove){
+function pagingNavi(selectPage, pageRange, pageStart, pageEnd, totalPage){
 	if (true) {
 		var msg = " => ";
 		msg += "selectPage=" + selectPage;
@@ -337,14 +337,13 @@ function pagingNavi(selectPage, pageRange, pageStart, pageEnd, totalPage, pageMo
 		msg += ", pageStart=" + pageStart;
 		msg += ", pageEnd=" + pageEnd;
 		msg += ", totalPage=" + totalPage;
-		msg += ", pageMove=" + pageMove;
+		//msg += ", pageMove=" + pageMove;
 		console.log("KANG.pagingMavi:" + msg);
 	}
 	var page = "";
 	//이전페이지 만들기
 	if (selectPage > pageRange) {
-		// page +="<a href=\"javascript:fn_pageMove("+ (Number(result.pageStart) - Number(result.pageRange)) +" );\" ><img src=\"<c:url value='/img/btn_left.gif'/>\" width='13px;' height='13px;' /></a>&nbsp;";
-		page += "<li><a href=\"javascript:" + pageMove + "(" + (Number(pageStart) - Number(pageRange)) + ");\" aria-label='Previous'><span aria-hidden='true'>&laquo;</span></a></li>";
+		page +="<a href=\"javascript:fn_pageMove("+ (Number(result.pageStart) - Number(result.pageRange)) +" );\" ><img src=\"<c:url value='/img/btn_left.gif'/>\" width='13px;' height='13px;' /></a>&nbsp;";
 	}
 	//페이지 숫자
 	for (var i = pageStart; i <= pageEnd; i++) {
@@ -353,15 +352,15 @@ function pagingNavi(selectPage, pageRange, pageStart, pageEnd, totalPage, pageMo
 			tmpActive = "style='background-color:#EEEEEE'";
 		}
 		
-		page += "<li ><a href=\"javascript:" + pageMove + "(" + i + ");\" " + tmpActive + ">" + i + "</a></li>";
+		page += "<li ><a href=\"javascript:fn_pageMove(" + i + ");\" " + tmpActive + ">" + i + "</a></li>";
 	}
 	//다음페이지 만들기
 	if (totalPage != pageEnd) {
-		// page +="&nbsp;<a href=\"javascript:fn_pageMove("+ (Number(result.pageStart) + Number(result.pageRange)) +" );\" ><img src=\"<c:url value='/img/btn_right.gif'/>\" width='13px;' height='13px;' /></a>";
-		page += "<li><a href=\"javascript:" + pageMove + "(" + (Number(pageStart) + Number(pageRange)) + ");\" aria-label='Next'><span aria-hidden='true'>&raquo;</span></a></li>";
+		page +="&nbsp;<a href=\"javascript:fn_pageMove("+ (Number(result.pageStart) + Number(result.pageRange)) +" );\" ><img src=\"<c:url value='/img/btn_right.gif'/>\" width='13px;' height='13px;' /></a>";
 	}
 	return page;
 }
+
 
 function nvl(str, defaultVal) {
   var defaultValue = "";

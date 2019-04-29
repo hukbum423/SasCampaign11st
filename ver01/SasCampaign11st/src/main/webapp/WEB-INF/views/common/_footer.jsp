@@ -6,7 +6,10 @@
 
 <!-- FOOTER -->
 <div id="footer">
+	<!--
 	<p>Copyright SK planet<a href='javascript:hello();'>.</a> All rights reserved<a href='/SASCampaign/kang/kang.do'>.</a></p>
+	-->
+	<p>Copyright SK planet. All rights reserved.</p>
 </div>
 <!-- END FOOTER -->
 

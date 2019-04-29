@@ -2552,7 +2552,7 @@
 			rowHtml += "  </td>";
 			rowHtml += "  <td class='info'>문구</td>";
 			rowHtml += "  <td colspan='2'>";
-			rowHtml += "    <input type='text' id='type4_annText" + index + "' class='annText' onblur=\"javascript:fn_ann4_inputBlur(" + index + ",'annText',this.value);\" style='width:700px;' value='" + value.annText + "' maxlength='24' placeholder='(문자수 최대 24)' />";
+			rowHtml += "    <input type='text' id='type4_annText" + index + "' class='annText' onblur=\"javascript:fn_ann4_inputBlur(" + index + ",'annText',this.value);\" style='width:700px;' value='" + value.annText + "' maxlength='36' placeholder='(문자수 최대 36, 띄어쓰기포함)' />";
 			rowHtml += "  </td>";
 			rowHtml += "</tr>";
 			rowHtml += "<tr>";
@@ -2841,6 +2841,71 @@
 
 
 
+<script>
+	// 알리미 테스트 발송
+	function fn_alimiTestSend() {
+		if (true) console.log("KANG.fn_alimiTestSend: 알리미 테스트 발송");
+		
+		if (true) {
+			var alimiShow = $('input[name=alimiShow]:checked').val();
+			if (true) console.log("fn_get_alimi_json(): " + alimiShow);  // hide/show
+			if (alimiShow == "hide") {
+				alert("'(신)알리미 등록창'에서 '알림톡 노출'을 선택하고 자료를 입력하세요.");
+				document.getElementById("nav-tabs-new").click();  // (신)알리미로 이동
+				return;
+			}
+		}
+
+		if (true) {
+			var json = fn_get_alimi_json();
+			if (!true) console.log("> " + json);
+			if (json == false) {
+				return false;
+			}
+			var txtTest = "(테스트)";
+			$('#IOS_MSG').val(txtTest + $('#MOBILE_DISP_TITLE').val() + "\n" + $('#MOBILE_CONTENT').val());
+			$('#AND_TOP_MSG').val(txtTest + $('#MOBILE_DISP_TITLE').val());
+			$('#AND_BTM_MSG').val(txtTest + $('#MOBILE_CONTENT').val());
+			$('#DETAIL_URL').val("detail url(?)");
+			$('#BANNER_URL').val("banner url(?)");
+			$('#TALK_SUMMARY_MSG').val(txtTest + $('#alimiText').val());
+			$('#ALIMI_MESSAGE').val(json);
+		}
+
+		var pop = window.open('', 'POP_ALIMITESTSEND', 'top=50,left=80, location=no,status=no,toolbar=no,scrollbars=yes');
+
+		var frmAlimiTestSend = document.frmAlimiTestSend;
+		frmAlimiTestSend.target = "POP_ALIMITESTSEND";
+		frmAlimiTestSend.action = "${staticPATH }/channel/channelAlimiTestSend.do";
+		frmAlimiTestSend.method = "POST";
+		frmAlimiTestSend.submit();
+		pop.focus();
+	}
+	
+</script>
+
+<form name="frmAlimiTestSend" id="frmAlimiTestSend">
+	<input type="hidden" id="SERVER_TYPE" name="SERVER_TYPE" value="real" />
+	<input type="hidden" id="TALK_MSG_TEMP_NO" name="TALK_MSG_TEMP_NO" value="001" />
+	<input type="hidden" id="TALK_DISP_YN" name="TALK_DISP_YN" value="Y" />
+	<input type="hidden" id="IOS_MSG" name="IOS_MSG" value="" />
+	<input type="hidden" id="AND_TOP_MSG" name="AND_TOP_MSG" value="" />
+	<input type="hidden" id="AND_BTM_MSG" name="AND_BTM_MSG" value="" />
+	<input type="hidden" id="DETAIL_URL" name="DETAIL_URL" value="" />
+	<input type="hidden" id="BANNER_URL" name="BANNER_URL" value="" />
+	<input type="hidden" id="ETC_DATA" name="ETC_DATA" value="{'CAMPAIGNCODE':'CAMP00000'}" />
+	<input type="hidden" id="TALK_SUMMARY_MSG" name="TALK_SUMMARY_MSG" value="" />
+	<input type="hidden" id="ALIMI_MESSAGE" name="ALIMI_MESSAGE" value="" />
+	<input type="hidden" id="SEND_DATETIME" name="SEND_DATETIME" value="즉시" />
+</form>
+
+
+
+
+
+
+
+
 
 
 
@@ -2867,11 +2932,8 @@
 					id="ALIMI_PARAMS" name="ALIMI_PARAMS" value="" />
 				<!-- Nav tabs -->
 				<ul class="nav nav-tabs">
-					<li class="nav-item"><a id="nav-tabs-old"
-						class="nav-link active" data-toggle="tab" href="#oldAlimi">(구)알리미등록창</a>
-					</li>
-					<li class="nav-item"><a id="nav-tabs-new" class="nav-link"
-						data-toggle="tab" href="#newAlimi">(신)알리미등록창</a></li>
+					<li class="nav-item"><a id="nav-tabs-old" class="nav-link active" data-toggle="tab" href="#oldAlimi">(구)알리미등록창</a> </li>
+					<li class="nav-item"><a id="nav-tabs-new" class="nav-link" data-toggle="tab" href="#newAlimi">(신)알리미등록창</a></li>
 				</ul>
 
 				<!-- Tab panes -->
@@ -3162,7 +3224,7 @@
 										</td>
 									</tr>
 									<tr>
-										<td class="info">알림톡 방문록 텍스트</td>
+										<td class="info">알림톡 방목록 텍스트</td>
 										<td class="tbtd_content" colspan="3"><input
 											id='alimiText' type="text" style="width: 700px;"
 											name="alimiText" value="" maxlength="100" /></td>
@@ -3206,7 +3268,7 @@
 											<td class="info">소타이틀</td>
 											<td colspan="3"><input type="text" id="type1_title1"
 												class="type1" style="width: 700px;" name="title1" value=""
-												maxlength="6" placeholder='(문자수 최대 6)' /></td>
+												maxlength="8" placeholder='(문자수 최대 8)' /></td>
 										</tr>
 										<tr>
 											<td class="info">광고 표시 문구</td>
@@ -3218,13 +3280,13 @@
 											<td class="info">메인문구</td>
 											<td colspan="3"><input type="text" id="type1_title2"
 												class="type1" style="width: 700px;" name="title2" value=""
-												maxlength="12" placeholder='(문자수 최대 12)' /></td>
+												maxlength="16" placeholder='(문자수 최대 16)' /></td>
 										</tr>
 										<tr>
 											<td class="info">서브문구 (선택입력)</td>
 											<td colspan="3"><input type="text" id="type1_title3"
 												class="type1" style="width: 700px;" name="title3" value=""
-												maxlength="14" placeholder='(문자수 최대 14) '/></td>
+												maxlength="20" placeholder='(문자수 최대 20) '/></td>
 										</tr>
 									</table>
 								</div>
@@ -3311,7 +3373,7 @@
 											<td class="info">소타이틀</td>
 											<td colspan="3"><input type="text" id="type2_title1"
 												class="type2" style="width: 700px;" name="title1" value=""
-												maxlength="6" placeholder='(문자수 최대 6)' /></td>
+												maxlength="8" placeholder='(문자수 최대 8)' /></td>
 										</tr>
 										<tr>
 											<td class="info">광고 표시 문구</td>
@@ -3323,13 +3385,13 @@
 											<td class="info">메인문구</td>
 											<td colspan="3"><input type="text" id="type2_title2"
 												class="type2" style="width: 700px;" name="title2" value=""
-												maxlength="12" placeholder='(문자수 최대 12)' /></td>
+												maxlength="16" placeholder='(문자수 최대 16)' /></td>
 										</tr>
 										<tr>
 											<td class="info">서브문구 (선택입력)</td>
 											<td colspan="3"><input type="text" id="type2_title3"
 												class="type2" style="width: 700px;" name="title3" value=""
-												maxlength="14" placeholder='(문자수 최대 14)' /></td>
+												maxlength="20" placeholder='(문자수 최대 20)' /></td>
 										</tr>
 									</table>
 								</div>
@@ -3445,7 +3507,7 @@
 											<td class="info">소타이틀</td>
 											<td colspan="3"><input type="text" id="type3_title1"
 												class="type3" style="width: 700px;" name="title1" value=""
-												maxlength="6" placeholder='(문자수 최대 6)' /></td>
+												maxlength="8" placeholder='(문자수 최대 8)' /></td>
 										</tr>
 										<tr>
 											<td class="info">광고 표시 문구</td>
@@ -3457,13 +3519,13 @@
 											<td class="info">메인문구</td>
 											<td colspan="3"><input type="text" id="type3_title2"
 												class="type3" style="width: 700px;" name="title2" value=""
-												maxlength="12" placeholder='(문자수 최대 12)' /></td>
+												maxlength="16" placeholder='(문자수 최대 16)' /></td>
 										</tr>
 										<tr>
 											<td class="info">서브문구 (선택입력)</td>
 											<td colspan="3"><input type="text" id="type3_title3"
 												class="type3" style="width: 700px;" name="title3" value=""
-												maxlength="14" placeholder='(문자수 최대 14)' /></td>
+												maxlength="20" placeholder='(문자수 최대 20)' /></td>
 										</tr>
 									</table>
 								</div>
@@ -3577,7 +3639,7 @@
 											<td class="info">소타이틀</td>
 											<td colspan="3"><input type="text" id="type4_title1"
 												class="type4" style="width: 700px;" name="title1" value=""
-												maxlength="6" placeholder='(문자수 최대 6)' /></td>
+												maxlength="8" placeholder='(문자수 최대 8)' /></td>
 										</tr>
 										<tr>
 											<td class="info">광고 표시 문구</td>
@@ -3589,13 +3651,13 @@
 											<td class="info">메인문구</td>
 											<td colspan="3"><input type="text" id="type4_title2"
 												class="type4" style="width: 700px;" name="title2" value=""
-												maxlength="12" placeholder='(문자수 최대 12)' /></td>
+												maxlength="16" placeholder='(문자수 최대 16)' /></td>
 										</tr>
 										<tr>
 											<td class="info">서브문구 (선택입력)</td>
 											<td colspan="3"><input type="text" id="type4_title3"
 												class="type4" style="width: 700px;" name="title3" value=""
-												maxlength="14" placeholder='(문자수 최대 14)' /></td>
+												maxlength="20" placeholder='(문자수 최대 20)' /></td>
 										</tr>
 									</table>
 								</div>
@@ -3685,7 +3747,7 @@
 											<td class="info">소타이틀</td>
 											<td colspan="3"><input type="text" id="type5_title1"
 												class="type5" style="width: 700px;" name="title1" value=""
-												maxlength="6" placeholder='(문자수 최대 6)' /></td>
+												maxlength="8" placeholder='(문자수 최대 8)' /></td>
 										</tr>
 										<tr>
 											<td class="info">광고 표시 문구</td>
@@ -3697,13 +3759,13 @@
 											<td class="info">메인문구</td>
 											<td colspan="3"><input type="text" id="type5_title2"
 												class="type5" style="width: 700px;" name="title2" value=""
-												maxlength="12" placeholder='(문자수 최대 12)' /></td>
+												maxlength="16" placeholder='(문자수 최대 16)' /></td>
 										</tr>
 										<tr>
 											<td class="info">서브문구 (선택입력)</td>
 											<td colspan="3"><input type="text" id="type5_title3"
 												class="type5" style="width: 700px;" name="title3" value=""
-												maxlength="14" placeholder='(문자수 최대 14)' /></td>
+												maxlength="20" placeholder='(문자수 최대 20)' /></td>
 										</tr>
 									</table>
 								</div>
@@ -3790,7 +3852,7 @@
 											<td class="info">소타이틀</td>
 											<td colspan="3"><input type="text" id="type6_title1"
 												class="type6" style="width: 700px;" name="title1" value=""
-												maxlength="6" placeholder='(문자수 최대 6)' /></td>
+												maxlength="8" placeholder='(문자수 최대 8)' /></td>
 										</tr>
 										<tr>
 											<td class="info">광고 표시 문구</td>
@@ -3802,13 +3864,13 @@
 											<td class="info">메인문구</td>
 											<td colspan="3"><input type="text" id="type6_title2"
 												class="type6" style="width: 700px;" name="title2" value=""
-												maxlength="12" placeholder='(문자수 최대 12)' /></td>
+												maxlength="16" placeholder='(문자수 최대 16)' /></td>
 										</tr>
 										<tr>
 											<td class="info">서브문구 (선택입력)</td>
 											<td colspan="3"><input type="text" id="type6_title3"
 												class="type6" style="width: 700px;" name="title3" value=""
-												maxlength="14" placeholder='(문자수 최대 14)' /></td>
+												maxlength="20" placeholder='(문자수 최대 20)' /></td>
 										</tr>
 									</table>
 								</div>
@@ -3888,16 +3950,11 @@
 				<div id="sysbtn" class="col-md-12"
 					style="text-align: right; margin: 10px 10px 0px 0px;">
 					<!--
-							<button type="button" class="btn btn-success btn-sm" onclick="fn_pre_view();"><i class="fa fa-eye" aria-hidden="true"></i> 미리보기 </button>
-							-->
-					<button type="button" class="btn btn-danger btn-sm"
-						onclick="fn_save();">
-						<i class="fa fa-floppy-o" aria-hidden="true"></i> 저장
-					</button>
-					<button type="button" class="btn btn-default btn-sm"
-						onclick="fn_close();">
-						<i class="fa fa-times" aria-hidden="true"></i> 닫기
-					</button>
+					<button type="button" class="btn btn-success btn-sm" onclick="fn_pre_view();"><i class="fa fa-eye" aria-hidden="true"></i> 미리보기 </button>
+					-->
+					<button type="button" id='alimiTestSend' class="btn btn-success btn-sm" onclick="fn_alimiTestSend();"><i class="fa fa-eye" aria-hidden="true"></i> 알리미 테스트 발송 </button>
+					<button type="button" class="btn btn-danger btn-sm" onclick="fn_save();"> <i class="fa fa-floppy-o" aria-hidden="true"></i> 저장 </button>
+					<button type="button" class="btn btn-default btn-sm" onclick="fn_close();"> <i class="fa fa-times" aria-hidden="true"></i> 닫기 </button>
 				</div>
 				<p/><p/><p/>
 

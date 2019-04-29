@@ -23,7 +23,7 @@
 		SELECT
 			 ROWNUM        	 num       
 			,A.MEM_ID        mem_id    
-			,B.MEM_NO        mem_no      
+			,trim(to_char(B.MEM_NO,'9999999999')) mem_no
 			,(SELECT PCID FROM DM_D_PCID_TARGET WHERE RCT_MAP_RNK = 1 AND MEM_NO = B.MEM_NO) 
 				|| '(' || (SELECT COUNT(0) FROM DM_D_PCID_TARGET WHERE MEM_NO = B.MEM_NO) ||')' pcid      
 			,B.MEM_NM        name      

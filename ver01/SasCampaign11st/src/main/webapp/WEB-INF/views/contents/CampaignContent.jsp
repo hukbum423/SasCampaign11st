@@ -15,11 +15,12 @@
 
 <script>
 	/* ready */
-	$(document).ready(function(){
+	$(document).ready(function() {
+		if (true) console.log("CampaignContent.jsp: document.ready();");
 		fn_search();
 	});
 
-	function fn_search() {  // TODO KANG-20190410: main fn_search
+	function fn_search() {  // TODO KANG-20190410: main fn_search 상단리스트
 		jQuery.ajax({
 			url           : '${staticPATH }/getCampaignContentList.do',
 			dataType      : "JSON",
@@ -63,7 +64,7 @@
 					txt += "</table>";
 					$("#search_layer").html(txt);
 					//페이징 처리 시작!!
-					var page = pagingNavi(result.selectPage, result.pageRange, result.pageStart, result.pageEnd, result.totalPage);
+					var page = pagingNavi2(result.selectPage, result.pageRange, result.pageStart, result.pageEnd, result.totalPage, "fn_pageMove");
 					$("#paging_layer").html(page);
 					//페이징 처리 종료
 				} else {
@@ -153,8 +154,8 @@
 		});
 	}
 
+	//켐패인 채널 리스트 조회
 	function fn_channelAjaxCall(offerContentId){
-		//켐패인 채널 리스트  조회
 		jQuery.ajax({
 			url           : '${staticPATH }/getContentChannelInfoList.do',
 			dataType      : "JSON",
@@ -189,6 +190,7 @@
 						*/
 						$.each(list, function(key){
 							var data = list[key];
+							if (true) console.log("CampaignContent.jsp: fn_channelAjaxCall(): date.channel_nm = " + data.channel_nm + ", data.channel_cd = " + data.channel_cd, data);
 							txt += "<tr>";
 							if (data.cellname != old_cellname2){
 								txt += "<td align=\"left\" class=\"listtd\"rowspan="+data.cellrow+">"+data.cellname+"</td>";
@@ -554,6 +556,45 @@
 			alert("오퍼 정보가 유효하지 않습니다.");
 		}
 	};
+
+
+
+	//KANG-20190425: for pagination
+	function pagingNavi2(selectPage, pageRange, pageStart, pageEnd, totalPage, pageMove){
+		if (true) {
+			var msg = " => ";
+			msg += "selectPage=" + selectPage;
+			msg += ", pageRange=" + pageRange;
+			msg += ", pageStart=" + pageStart;
+			msg += ", pageEnd=" + pageEnd;
+			msg += ", totalPage=" + totalPage;
+			msg += ", pageMove=" + pageMove;
+			console.log("KANG.pagingMavi2:" + msg);
+		}
+		var page = "";
+		//이전페이지 만들기
+		if (selectPage > pageRange) {
+			// page +="<a href=\"javascript:fn_pageMove("+ (Number(result.pageStart) - Number(result.pageRange)) +" );\" ><img src=\"<c:url value='/img/btn_left.gif'/>\" width='13px;' height='13px;' /></a>&nbsp;";
+			page += "<li><a href=\"javascript:" + pageMove + "(" + (Number(pageStart) - Number(pageRange)) + ");\" aria-label='Previous'><span aria-hidden='true'>&laquo;</span></a></li>";
+		}
+		//페이지 숫자
+		for (var i = pageStart; i <= pageEnd; i++) {
+			var tmpActive = "";
+			if(selectPage == i)	{
+				tmpActive = "style='background-color:#EEEEEE'";
+			}
+
+			// page += "<li ><a href=\"javascript:fn_pageMove(" + i + ");\" " + tmpActive + ">" + i + "</a></li>";
+			page += "<li ><a href=\"javascript:" + pageMove + "(" + i + ");\" " + tmpActive + ">" + i + "</a></li>";
+		}
+		//다음페이지 만들기
+		if (totalPage != pageEnd) {
+			// page +="&nbsp;<a href=\"javascript:fn_pageMove("+ (Number(result.pageStart) + Number(result.pageRange)) +" );\" ><img src=\"<c:url value='/img/btn_right.gif'/>\" width='13px;' height='13px;' /></a>";
+			page += "<li><a href=\"javascript:" + pageMove + "(" + (Number(pageStart) + Number(pageRange)) + ");\" aria-label='Next'><span aria-hidden='true'>&raquo;</span></a></li>";
+		}
+		return page;
+	}
+
 
 	/* 페이지 이동 */
 	function fn_pageMove(selectPageNo)
