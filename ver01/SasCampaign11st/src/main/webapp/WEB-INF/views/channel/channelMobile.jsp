@@ -2866,8 +2866,8 @@
 			$('#IOS_MSG').val(txtTest + $('#MOBILE_DISP_TITLE').val() + "\n" + $('#MOBILE_CONTENT').val());
 			$('#AND_TOP_MSG').val(txtTest + $('#MOBILE_DISP_TITLE').val());
 			$('#AND_BTM_MSG').val(txtTest + $('#MOBILE_CONTENT').val());
-			$('#DETAIL_URL').val("detail url(?)");
-			$('#BANNER_URL').val("banner url(?)");
+			$('#DETAIL_URL').val($('#MOBILE_LNK_PAGE_URL').val());
+			$('#BANNER_URL').val($('#BNNR_IMG_URL').val());
 			$('#TALK_SUMMARY_MSG').val(txtTest + $('#alimiText').val());
 			$('#ALIMI_MESSAGE').val(json);
 		}
