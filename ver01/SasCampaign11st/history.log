@@ -163,11 +163,43 @@ UI 상 이슈 정리
 		39, 40 --> WEB-INF/views/channel/channelMobile.jsp
 
 
-	41. 알리미 테스트 발송 개발 지원
+	41. 알리미 테스트 발송 개발 지원                                                                     <-- complete
 
 
+2019.04.29
 
+	42. 개발소스 운영에 이관작업 (37번 소스와 같이 이관작업을 처리)                                             <-- complete
+		ver01/SasCampaign11st/src/main/java/com/skplanet/sascm/controller/ChannelController.java
+		
+		ver01/SasCampaign11st/src/main/webapp/WEB-INF/views/contents/CampaignContent.jsp
+		ver01/SasCampaign11st/src/main/webapp/WEB-INF/views/commCode/commCodeList.jsp
+		ver01/SasCampaign11st/src/main/webapp/WEB-INF/views/channel/channelAlimiTestSend.jsp
+		ver01/SasCampaign11st/src/main/webapp/WEB-INF/views/channel/channelMobile.jsp
+		
+		ver01/SasCampaign11st/src/main/webapp/js/common/common.js
+		
+		ver01/SasCampaign11st/src/main/resources/mapper/testTarget_SQL.xml
+		ver01/SasCampaign11st/src/main/resources/mapper/commCode_SQL.xml
 
+		[ 적용 소스 ]
+		ver01/SasCampaign11st/src/main/resources/mapper/CampaignContent_SQL.xml
+		ver01/SasCampaign11st/src/main/resources/mapper/channel_SQL.xml
+		ver01/SasCampaign11st/src/main/resources/mapper/commCode_SQL.xml
+		ver01/SasCampaign11st/src/main/resources/mapper/testTarget_SQL.xml
+
+		ver01/SasCampaign11st/src/main/java/com/skplanet/sascm/dao/ChannelDAO.java
+		ver01/SasCampaign11st/src/main/java/com/skplanet/sascm/daoimpl/ChannelDAOImpl.java
+		ver01/SasCampaign11st/src/main/java/com/skplanet/sascm/service/ChannelService.java
+		ver01/SasCampaign11st/src/main/java/com/skplanet/sascm/serviceimpl/ChannelServiceImpl.java
+		ver01/SasCampaign11st/src/main/java/com/skplanet/sascm/controller/ChannelController.java
+
+		ver01/SasCampaign11st/src/main/webapp/WEB-INF/views/channel/channelAlimiTestSend.jsp
+		ver01/SasCampaign11st/src/main/webapp/WEB-INF/views/channel/channelMobile.jsp
+		ver01/SasCampaign11st/src/main/webapp/WEB-INF/views/commCode/commCodeList.jsp
+		ver01/SasCampaign11st/src/main/webapp/WEB-INF/views/common/_footer.jsp
+		ver01/SasCampaign11st/src/main/webapp/WEB-INF/views/contents/CampaignContent.jsp
+
+		ver01/SasCampaign11st/src/main/webapp/js/common/common.js
 
 
 
