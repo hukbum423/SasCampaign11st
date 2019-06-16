@@ -1,0 +1,701 @@
+2019-06-03 23:09:47,533 DEBUG [com.skplanet.sascm.common.interceptor.ActionInterceptor] KANG-20190308 ====================================== ActionInterceptor START  ======================================
+2019-06-03 23:09:47,533 DEBUG [com.skplanet.sascm.common.interceptor.ActionInterceptor] KANG-20190308 Request URI 	:  /SASCampaign/getCampaignInfoAll.do
+2019-06-03 23:09:47,533 DEBUG [com.skplanet.sascm.common.logger.LoggerAspect] KANG-20190312: LoggerAspect... Controller  	:  com.skplanet.sascm.controller.CampaignController.getCampaignInfoAll()
+2019-06-03 23:09:47,533 DEBUG [com.skplanet.sascm.common.logger.LoggerAspect] KANG-20190312: LoggerAspect... DAO  		:  com.skplanet.sascm.dao.CampaignInfoDAO.getCICampaignProperyList()
+2019-06-03 23:09:47,533 DEBUG [com.skplanet.sascm.common.dao.AbstractDAO] 	 QueryId  	:  CampaignInfo.getCICampaignProperyList, sqlSessionTemplate = org.mybatis.spring.SqlSessionTemplate@6a418b5c
+2019-06-03 23:09:47,534  INFO BO SQL         :  SELECT  /* CampaignInfo.getCICampaignProperyList */
+			CAMPAIGNID
+		FROM
+			CM_CAMPAIGN_DTL
+		WHERE 1=1
+			AND CAMPAIGNCODE LIKE 'CAMP%'
+			AND CAMPAIGNID = '666'
+2019-06-03 23:09:47,535  INFO [jdbc.resultsettable] |-----------|
+2019-06-03 23:09:47,535  INFO [jdbc.resultsettable] |CAMPAIGNID |
+2019-06-03 23:09:47,535  INFO [jdbc.resultsettable] |-----------|
+2019-06-03 23:09:47,535  INFO [jdbc.resultsettable] |666        |
+2019-06-03 23:09:47,535  INFO [jdbc.resultsettable] |-----------|
+2019-06-03 23:09:47,535 DEBUG [com.skplanet.sascm.common.logger.LoggerAspect] KANG-20190312: LoggerAspect... DAO  		:  com.skplanet.sascm.dao.CampaignInfoDAO.getCampaignInfo()
+2019-06-03 23:09:47,535 DEBUG [com.skplanet.sascm.common.dao.AbstractDAO] 	 QueryId  	:  CampaignInfo.getCampaignInfo, sqlSessionTemplate = org.mybatis.spring.SqlSessionTemplate@6a418b5c
+2019-06-03 23:09:47,536  INFO BO SQL         :  SELECT DISTINCT  /* CampaignInfo.getCampaignInfo */
+			A.CAMPAIGN_NM                            campaignname
+			, A.CAMPAIGN_CD                          campaigncode
+			, A.CAMPAIGN_SK                          campaignid
+			, B.CAMP_TERM_CD                         camp_term_cd
+			, B.CAMP_BGN_DT                          camp_bgn_dt
+			, TO_CHAR(B.CAMP_BGN_DT,'YYYY-MM-DD')    camp_bgn_dt1
+			, TO_CHAR(B.CAMP_BGN_DT,'HH24')          camp_bgn_dt2
+			, TO_CHAR(B.CAMP_BGN_DT,'MI')            camp_bgn_dt3
+			, B.CAMP_END_DT                          camp_end_dt
+			, TO_CHAR(B.CAMP_END_DT,'YYYY-MM-DD')    camp_end_dt1
+			, TO_CHAR(B.CAMP_END_DT,'HH24')          camp_end_dt2
+			, TO_CHAR(B.CAMP_END_DT,'MI')            camp_end_dt3
+			, B.CAMP_TERM_DAY                        camp_term_day
+			, B.AUDIENCE_CD                          audience_cd
+			, （SELECT CODE_NAME FROM CM_CODE_DTL WHERE COMM_CODE_ID = 'C004' AND CODE_ID =  B.AUDIENCE_CD）      audience_nm
+			, B.MANUAL_TRANS_YN                      manual_trans_yn
+			, （SELECT CODE_NAME FROM CM_CODE_DTL WHERE COMM_CODE_ID = 'G003' AND CODE_ID =  B.MANUAL_TRANS_YN）  manual_trans_nm
+			, B.OFFER_DIRECT_YN                      offer_direct_yn
+			, B.CHANNEL_PRIORITY_YN                  channel_priority_yn
+			, B.CAMP_STATUS_CD                       camp_status_cd
+			, B.CREATE_ID                            create_id
+			, (SELECT USER_NAME FROM CM_USER WHERE ID = B.CREATE_ID) create_nm
+			, TO_CHAR(B.CREATE_DT, 'YYYY-MM-DD HH24:MI:SS')          create_dt
+			, B.UPDATE_ID                                            update_id
+			, (SELECT USER_NAME FROM CM_USER WHERE ID = B.UPDATE_ID) update_nm
+			, TO_CHAR(B.UPDATE_DT, 'YYYY-MM-DD HH24:MI:SS')          update_dt
+		FROM
+			CI_CAMPAIGN          A
+			, CM_CAMPAIGN_DTL    B
+		WHERE 1=1
+			AND A.CAMPAIGN_SK = B.CAMPAIGNID(+)
+			AND A.CAMPAIGN_SK = '666'
+2019-06-03 23:09:47,542  INFO [jdbc.resultsettable] |-------------|-------------|-----------|-------------|----------------------|-------------|-------------|-------------|----------------------|-------------|-------------|-------------|--------------|------------|------------|----------------|----------------|----------------|--------------------|---------------|----------|------------------|--------------------|----------|-----------------|--------------------|
+2019-06-03 23:09:47,543  INFO [jdbc.resultsettable] |CAMPAIGNNAME |CAMPAIGNCODE |CAMPAIGNID |CAMP_TERM_CD |CAMP_BGN_DT           |CAMP_BGN_DT1 |CAMP_BGN_DT2 |CAMP_BGN_DT3 |CAMP_END_DT           |CAMP_END_DT1 |CAMP_END_DT2 |CAMP_END_DT3 |CAMP_TERM_DAY |AUDIENCE_CD |AUDIENCE_NM |MANUAL_TRANS_YN |MANUAL_TRANS_NM |OFFER_DIRECT_YN |CHANNEL_PRIORITY_YN |CAMP_STATUS_CD |CREATE_ID |CREATE_NM         |CREATE_DT           |UPDATE_ID |UPDATE_NM        |UPDATE_DT           |
+2019-06-03 23:09:47,543  INFO [jdbc.resultsettable] |-------------|-------------|-----------|-------------|----------------------|-------------|-------------|-------------|----------------------|-------------|-------------|-------------|--------------|------------|------------|----------------|----------------|----------------|--------------------|---------------|----------|------------------|--------------------|----------|-----------------|--------------------|
+2019-06-03 23:09:47,543  INFO [jdbc.resultsettable] |AB테스트_OCB오퍼  |CAMP666      |666        |01           |2017-12-23 10:00:00.0 |2017-12-23   |10           |00           |2017-12-24 15:00:59.0 |2017-12-24   |15           |00           |[null]        |MEM_NO      |회원번호        |Y               |Manual          |Y               |N                   |EDIT           |4         |Campaign Manager1 |2017-12-22 00:00:00 |2         |Campaign Worker2 |2019-06-03 21:47:55 |
+2019-06-03 23:09:47,543  INFO [jdbc.resultsettable] |-------------|-------------|-----------|-------------|----------------------|-------------|-------------|-------------|----------------------|-------------|-------------|-------------|--------------|------------|------------|----------------|----------------|----------------|--------------------|---------------|----------|------------------|--------------------|----------|-----------------|--------------------|
+2019-06-03 23:09:47,543 DEBUG [com.skplanet.sascm.common.logger.LoggerAspect] KANG-20190312: LoggerAspect... DAO  		:  com.skplanet.sascm.dao.CampaignInfoDAO.getCampaignInfoSummary()
+2019-06-03 23:09:47,543 DEBUG [com.skplanet.sascm.common.dao.AbstractDAO] 	 QueryId  	:  CampaignInfo.getCampaignInfoSummary, sqlSessionTemplate = org.mybatis.spring.SqlSessionTemplate@6a418b5c
+2019-06-03 23:09:47,544  INFO BO SQL         :  SELECT  /* CampaignInfo.getCampaignInfoSummary */
+			CMPGN_ID                         AS CAMPAIGNID
+			, MAX(CMPGN_NM)                  AS CAMPAIGNNAME
+			, MAX(CMPGN_CD)                  AS CAMPAIGNCODE
+			, MAX(CAMPAIGN_GUBUN)            AS CAMPAIGNGUBUN
+			, MAX(CAMPAIGN_DETAIL)           AS CAMPAIGN_DETAIL
+			, MAX(CAMPAIGN_OFFER_COST_GUBUN) AS CAMPAIGN_OFFER_COST_GUBUN
+			, MAX(CAMPAIGN_TYPE)             AS CAMPAIGNTYPE
+			, MAX(SENDDATE_TYPE)             AS SENDDATETYPE
+		FROM (
+			SELECT
+				A.CAMPAIGN_SK                                                          AS CMPGN_ID                       /* 캠페인ID     */
+				, A.CAMPAIGN_NM                                                        AS CMPGN_NM                       /* 캠페인명     */
+				, A.CAMPAIGN_CD                                                        AS CMPGN_CD                       /* 캠페인코드     */
+				, CASE WHEN UPPER(B.CHAR_UDF_NM) = '1. 데이터 전송방식' THEN
+					B.CHAR_UDF_VAL
+					ELSE NULL
+					END                                                                AS SENDDATE_TYPE                  /* 데이터 전송방식 */
+				, CASE WHEN UPPER(B.CHAR_UDF_NM) = '1. 캠페인 구분' THEN
+					B.CHAR_UDF_VAL
+					ELSE NULL
+					END                                                                AS CAMPAIGN_GUBUN                  /* 캠페인 구분 */
+				, CASE WHEN UPPER(B.CHAR_UDF_NM) IN ( '내부 상세', '외부 상세' ) THEN
+					B.CHAR_UDF_VAL
+					ELSE NULL
+					END                                                                AS CAMPAIGN_DETAIL                 /* 캠페인 상세 */
+				, CASE WHEN UPPER(B.CHAR_EXT_COLUMN_NM) = 'CAMPAIGN_OFFER_COST_GUBUN' THEN
+					B.CHAR_UDF_VAL
+					ELSE NULL
+					END                                                                AS CAMPAIGN_OFFER_COST_GUBUN       /* 캠페인 목적 */
+				, CASE WHEN UPPER(B.CHAR_EXT_COLUMN_NM) = 'CAMPAIGN_TYPE' THEN
+					B.CHAR_UDF_VAL
+					ELSE NULL
+					END                                                                AS CAMPAIGN_TYPE                   /* 캠페인 종류 */
+				, A.CAMPAIGN_DESC                                                      AS CMPGN_DESC                      /* 캠페인설명   */
+				, A.LAST_MODIFIED_BY_USER_NM                                           AS REQ_EMP_ID                      /* 마자막 캠페인 실행자  */
+			FROM
+				CI_CAMPAIGN                            A
+				LEFT JOIN CI_CAMP_PAGE_CHAR_UDF        B
+					ON A.CAMPAIGN_SK = B.CAMPAIGN_SK
+				LEFT JOIN CI_CAMP_PAGE_NUM_UDF         C
+					ON A.CAMPAIGN_SK = C.CAMPAIGN_SK
+				LEFT JOIN CI_CAMP_PAGE_DATE_UDF        D
+					ON A.CAMPAIGN_SK = D.CAMPAIGN_SK
+				LEFT JOIN CI_MARKETING_CELL            F
+					ON A.CAMPAIGN_SK = F.CAMPAIGN_SK
+			WHERE 1=1
+				AND A.CAMPAIGN_SK = '666'
+		)
+		GROUP BY
+			CMPGN_ID
+2019-06-03 23:09:47,564  INFO [jdbc.resultsettable] |-----------|-------------|-------------|--------------|----------------|--------------------------|-------------|-------------|
+2019-06-03 23:09:47,564  INFO [jdbc.resultsettable] |CAMPAIGNID |CAMPAIGNNAME |CAMPAIGNCODE |CAMPAIGNGUBUN |CAMPAIGN_DETAIL |CAMPAIGN_OFFER_COST_GUBUN |CAMPAIGNTYPE |SENDDATETYPE |
+2019-06-03 23:09:47,564  INFO [jdbc.resultsettable] |-----------|-------------|-------------|--------------|----------------|--------------------------|-------------|-------------|
+2019-06-03 23:09:47,564  INFO [jdbc.resultsettable] |666        |AB테스트_OCB오퍼  |CAMP666      |1             |11              |1                         |2            |Manual       |
+2019-06-03 23:09:47,564  INFO [jdbc.resultsettable] |-----------|-------------|-------------|--------------|----------------|--------------------------|-------------|-------------|
+2019-06-03 23:09:47,565 DEBUG [com.skplanet.sascm.common.logger.LoggerAspect] KANG-20190312: LoggerAspect... DAO  		:  com.skplanet.sascm.dao.CampaignInfoDAO.getCampaignOfferList()
+2019-06-03 23:09:47,565 DEBUG [com.skplanet.sascm.common.dao.AbstractDAO] 	 QueryId  	:  CampaignInfo.getCampaignOfferList, sqlSessionTemplate = org.mybatis.spring.SqlSessionTemplate@6a418b5c
+2019-06-03 23:09:47,566  INFO BO SQL         :  SELECT DISTINCT  /* CampaignInfo.getCampaignOfferList */
+			T3.CAMPAIGN_SK                                  AS CAMPAIGNID
+			, T3.CAMPAIGN_CD                                AS CAMPAIGNCODE
+			, T3.CAMPAIGN_NM                                AS CAMPAIGNNAME
+			, T3.MARKETING_CELL_SK                          AS CELLID
+			, T3.MARKETING_CELL_NM                          AS CELLNAME
+			, T3.MARKETING_CELL_CD                          AS CELLCODE
+			, T3.COMMUNICATION_SK                           AS COMMUNICATION_SK
+			, T3.OFFER_CONTENT_ID                           AS OFFER_CONTENT_ID
+			, T3.OFFER_CONTENT_NM                           AS OFFER_CONTENT_NM
+			, T3.OFFER_SYS_CD                               AS OFFER_SYS_CD
+			, T2.OFFER_TYPE_CD                              AS OFFER_TYPE_CD
+			, T2.OFFER_ID                                   AS OFFERID
+			, (SELECT CODE_NAME FROM CM_CODE_DTL WHERE COMM_CODE_ID = T2.OFFER_TYPE_CD AND CODE_ID = T2.OFFER_DETAIL_CD)    AS OFFERNAME
+			, T1.DISP_NAME                                  AS DISP_NAME
+			, T1.OFFER_AMT                                  AS OFFER_AMT
+			, T1.CREATE_ID                                  AS CREATE_ID
+			, (SELECT USER_NAME FROM CM_USER WHERE ID = T1.CREATE_ID)         AS CREATE_NM
+			, T1.CREATE_DT                                  AS CREATE_DT
+			, T1.UPDATE_ID                                  AS UPDATE_ID
+			, (SELECT USER_NAME FROM CM_USER WHERE ID = T1.UPDATE_ID)         AS UPDATE_NM
+			, T1.UPDATE_DT                                  AS UPDATE_DT
+			, T4.AUDIENCE_CD                                AS AUDIENCE_CD
+			, T4.MANUAL_TRANS_YN                            AS MANUAL_TRANS_YN
+			, T4.OFFER_DIRECT_YN                            AS OFFER_DIRECT_YN
+			, T4.CHANNEL_PRIORITY_YN                        AS CHANNEL_PRIORITY_YN
+			, T4.CAMP_STATUS_CD                             AS CAMP_STATUS_CD
+		FROM
+			(
+				SELECT
+					CAMPAIGN_SK
+					, CAMPAIGN_CD
+					, CAMPAIGN_NM
+					, MARKETING_CELL_SK
+					, MARKETING_CELL_NM
+					, MARKETING_CELL_CD
+					, MAX(COMMUNICATION_SK)          AS      COMMUNICATION_SK
+					, MAX(OFFER_SYS_CD)              AS      OFFER_SYS_CD
+					, MAX(OFFER_CONTENT_ID)          AS      OFFER_CONTENT_ID
+					, MAX(OFFER_CONTENT_NM)          AS      OFFER_CONTENT_NM
+				FROM
+					(
+						SELECT DISTINCT
+							T6.CAMPAIGN_SK
+							, T6.CAMPAIGN_CD
+							, T6.CAMPAIGN_NM
+							, T6.MARKETING_CELL_SK
+							, T6.MARKETING_CELL_NM
+							, T6.MARKETING_CELL_CD
+							, T6.COMMUNICATION_SK
+							, CASE WHEN UPPER(T5.CHAR_EXT_COLUMN_NM) = 'OFFER_SYS_CD' THEN T5.CHAR_UDF_VAL
+								ELSE NULL
+								END AS OFFER_SYS_CD
+							, CASE WHEN UPPER(T7.NUM_EXT_COLUMN_NM) = 'OFFER_CONTENT_ID' THEN T7.NUM_UDF_VAL
+								ELSE NULL
+								END AS OFFER_CONTENT_ID
+							, CASE WHEN UPPER(T5.CHAR_EXT_COLUMN_NM) = 'OFFER_CONTENT_NM' THEN T5.CHAR_UDF_VAL
+								ELSE NULL
+								END AS OFFER_CONTENT_NM
+						FROM
+							CI_CELL_PACKAGE T6
+							LEFT JOIN CI_COMMUNICATION_CHAR_UDF T5
+								ON T6.COMMUNICATION_SK = T5.COMMUNICATION_SK
+							LEFT JOIN CI_COMMUNICATION_NUM_UDF T7
+								ON T6.COMMUNICATION_SK = T7.COMMUNICATION_SK
+						WHERE 1=1
+							AND T6.CAMPAIGN_SK = '666'
+							AND T5.COMMUNICATION_SK IN ( SELECT COMMUNICATION_SK FROM CI_COMMUNICATION WHERE DELETED_FLG = 'N' )
+							AND (
+								T6.CONTROL_GROUP_TYPE_CD IS NULL
+								OR T6.CONTROL_GROUP_TYPE_CD IN ('_CH','_CL')
+							)
+					)
+				GROUP BY
+					CAMPAIGN_SK
+					, CAMPAIGN_CD
+					, CAMPAIGN_NM
+					, MARKETING_CELL_SK
+					, MARKETING_CELL_NM
+					, MARKETING_CELL_CD
+			)                                                  T3
+			LEFT JOIN CM_CAMPAIGN_CONTENTS_OFFERLIST           T2
+				ON T3.OFFER_CONTENT_ID = T2.OFFER_CONTENT_ID
+			LEFT JOIN CM_CAMPAIGN_OFFER                        T1
+				ON T3.MARKETING_CELL_SK = T1.CELLID
+				AND T2.OFFER_ID = T1.OFFERID
+				AND T3.OFFER_CONTENT_ID = T1.OFFER_CONTENT_ID
+			LEFT JOIN CM_CAMPAIGN_DTL                          T4
+				ON T3.CAMPAIGN_SK  = T4.CAMPAIGNID
+		ORDER BY
+			T3.OFFER_CONTENT_ID
+2019-06-03 23:09:47,605  INFO [jdbc.resultsettable] |-----------|-------------|-------------|-------|---------|---------|-----------------|-----------------|-----------------|-------------|--------------|--------|----------|----------|----------|----------|------------------|----------------------|----------|------------------|----------------------|------------|----------------|----------------|--------------------|---------------|
+2019-06-03 23:09:47,605  INFO [jdbc.resultsettable] |CAMPAIGNID |CAMPAIGNCODE |CAMPAIGNNAME |CELLID |CELLNAME |CELLCODE |COMMUNICATION_SK |OFFER_CONTENT_ID |OFFER_CONTENT_NM |OFFER_SYS_CD |OFFER_TYPE_CD |OFFERID |OFFERNAME |DISP_NAME |OFFER_AMT |CREATE_ID |CREATE_NM         |CREATE_DT             |UPDATE_ID |UPDATE_NM         |UPDATE_DT             |AUDIENCE_CD |MANUAL_TRANS_YN |OFFER_DIRECT_YN |CHANNEL_PRIORITY_YN |CAMP_STATUS_CD |
+2019-06-03 23:09:47,605  INFO [jdbc.resultsettable] |-----------|-------------|-------------|-------|---------|---------|-----------------|-----------------|-----------------|-------------|--------------|--------|----------|----------|----------|----------|------------------|----------------------|----------|------------------|----------------------|------------|----------------|----------------|--------------------|---------------|
+2019-06-03 23:09:47,605  INFO [jdbc.resultsettable] |666        |CAMP666      |AB테스트_OCB오퍼  |1461   |실발송대상��   |CELL1130 |2197             |0                |[null]           |OM           |WO            |0       |위너오퍼      |��너오퍼      |[null]    |12345     |[null]            |2017-12-22 00:00:00.0 |4         |Campaign Manager1 |2017-12-22 00:00:00.0 |MEM_NO      |Y               |Y               |N                   |EDIT           |
+2019-06-03 23:09:47,605  INFO [jdbc.resultsettable] |666        |CAMP666      |AB테스트_OCB오퍼  |1460   |A대상군     |CELL1129 |2195             |177              |A_OCB            |OM           |OC            |166     |OCB1      |A캐시백드립니다. |10.0      |4         |Campaign Manager1 |2017-12-22 00:00:00.0 |4         |Campaign Manager1 |2019-06-03 21:47:55.0 |MEM_NO      |Y               |Y               |N                   |EDIT           |
+2019-06-03 23:09:47,605  INFO [jdbc.resultsettable] |666        |CAMP666      |AB테스트_OCB오퍼  |1458   |B대상군     |CELL1128 |2196             |178              |B_OCB            |OM           |OC            |167     |OCB1      |B캐시백드립니다. |10.0      |4         |Campaign Manager1 |2017-12-22 00:00:00.0 |4         |Campaign Manager1 |2019-06-03 21:47:55.0 |MEM_NO      |Y               |Y               |N                   |EDIT           |
+2019-06-03 23:09:47,605  INFO [jdbc.resultsettable] |-----------|-------------|-------------|-------|---------|---------|-----------------|-----------------|-----------------|-------------|--------------|--------|----------|----------|----------|----------|------------------|----------------------|----------|------------------|----------------------|------------|----------------|----------------|--------------------|---------------|
+2019-06-03 23:09:47,606 DEBUG [com.skplanet.sascm.common.logger.LoggerAspect] KANG-20190312: LoggerAspect... DAO  		:  com.skplanet.sascm.dao.CampaignInfoDAO.updateOfferData()
+2019-06-03 23:09:47,606 DEBUG [com.skplanet.sascm.common.dao.AbstractDAO] 	 QueryId  	:  CampaignInfo.updateOfferData, sqlSessionTemplate = org.mybatis.spring.SqlSessionTemplate@6a418b5c
+2019-06-03 23:09:47,607  INFO BO SQL         :  MERGE INTO cm_campaign_offer A    /* CampaignInfo.updateOfferData */
+      USING (
+
+             SELECT DISTINCT
+                    T3.CAMPAIGN_CD           CAMPAIGNCODE
+                  , T3.MARKETING_CELL_SK  CELLID
+                  , T3.OFFER_CONTENT_ID
+                  , T3.OFFER_SYS_CD
+                  , CASE WHEN T3.OFFER_CONTENT_ID =0 THEN 'WO'  ELSE T2.OFFER_TYPE_CD END AS OFFER_TYPE_CD
+                  , CASE WHEN T3.OFFER_CONTENT_ID =0 THEN 0 ELSE T2.OFFER_ID END AS OFFERID
+                  , CASE WHEN T3.OFFER_CONTENT_ID =0 THEN '위너오퍼'  ELSE T2.DISP_NAME END AS DISP_NAME
+                  , T2.CREATE_ID
+                FROM (
+                     SELECT CAMPAIGN_SK
+                          , CAMPAIGN_CD AS CAMPAIGN_CD
+                          , MARKETING_CELL_SK AS MARKETING_CELL_SK
+                          , MAX(COMMUNICATION_SK) AS COMMUNICATION_SK
+                          , MAX(OFFER_SYS_CD) AS OFFER_SYS_CD
+                          , MAX(OFFER_CONTENT_ID) AS OFFER_CONTENT_ID
+                          , MAX(OFFER_CONTENT_NM) AS OFFER_CONTENT_NM
+                       FROM (
+                            SELECT DISTINCT
+                                   T6.CAMPAIGN_SK AS CAMPAIGN_SK
+                                 , T6.CAMPAIGN_CD AS CAMPAIGN_CD
+                                 , T6.MARKETING_CELL_SK AS MARKETING_CELL_SK
+                                 , T6.COMMUNICATION_SK AS COMMUNICATION_SK
+                                 , CASE WHEN UPPER(T5.CHAR_EXT_COLUMN_NM) = 'OFFER_SYS_CD' THEN T5.CHAR_UDF_VAL
+                                        ELSE NULL
+                                   END AS OFFER_SYS_CD
+                                 , CASE WHEN UPPER(T7.NUM_EXT_COLUMN_NM) = 'OFFER_CONTENT_ID' THEN T7.NUM_UDF_VAL
+                                        ELSE NULL
+                                   END AS OFFER_CONTENT_ID
+                                 , CASE WHEN UPPER(T5.CHAR_EXT_COLUMN_NM) = 'OFFER_CONTENT_NM' THEN T5.CHAR_UDF_VAL
+                                        ELSE NULL
+                                   END AS OFFER_CONTENT_NM
+                              FROM CI_CELL_PACKAGE T6
+                              LEFT JOIN CI_COMMUNICATION_CHAR_UDF T5
+                                ON T6.COMMUNICATION_SK = T5.COMMUNICATION_SK
+                              LEFT JOIN CI_COMMUNICATION_NUM_UDF T7
+                                ON T6.COMMUNICATION_SK = T7.COMMUNICATION_SK
+                                         WHERE T6.CAMPAIGN_SK = '666'
+                               AND T5.COMMUNICATION_SK IN ( SELECT COMMUNICATION_SK
+                                                              FROM CI_COMMUNICATION
+                                                             WHERE DELETED_FLG = 'N' )
+                               AND ( T6.CONTROL_GROUP_TYPE_CD IS NULL OR T6.CONTROL_GROUP_TYPE_CD IN ('_CH','_CL') )
+                            )
+                            GROUP BY CAMPAIGN_SK, CAMPAIGN_CD, MARKETING_CELL_SK
+                )  T3
+                LEFT JOIN CM_CAMPAIGN_CONTENTS_OFFERLIST T2
+                  ON T3.OFFER_CONTENT_ID = T2.OFFER_CONTENT_ID(+)
+          ORDER BY T3.OFFER_CONTENT_ID
+
+        ) B
+      ON (     A.OFFER_CONTENT_ID  = B.OFFER_CONTENT_ID
+          AND A.OFFERID = B.OFFERID
+          AND A.OFFER_CONTENT_ID ^=0 )
+
+      WHEN MATCHED THEN
+      UPDATE SET A.CELLID        = B.CELLID
+                ,A.CAMPAIGNCODE         = B.CAMPAIGNCODE
+                ,A.FLOWCHARTID          = TO_NUMBER(SUBSTR(TRIM(B.CAMPAIGNCODE),5))
+                ,A.UPDATE_ID            = B.CREATE_ID
+                ,A.UPDATE_DT            = SYSDATE
+2019-06-03 23:09:47,629 DEBUG [com.skplanet.sascm.common.logger.LoggerAspect] KANG-20190312: LoggerAspect... DAO  		:  com.skplanet.sascm.dao.CampaignInfoDAO.getCICampaignProperty()
+2019-06-03 23:09:47,629 DEBUG [com.skplanet.sascm.common.dao.AbstractDAO] 	 QueryId  	:  CampaignInfo.getCICampaignProperty, sqlSessionTemplate = org.mybatis.spring.SqlSessionTemplate@6a418b5c
+2019-06-03 23:09:47,630  INFO BO SQL         :  SELECT  /* CampaignInfo.getCICampaignProperty */
+			CMPGN_ID                               AS CAMPAIGNID
+			, MAX(CMPGN_NM)                        AS CAMPAIGNNAME                    /* 캠페인명     */
+			, MAX(CMPGN_CD)                        AS CAMPAIGNCODE                    /* 캠페인코드     */
+			, MAX(CAMPAIGN_PERIOD)                 AS CAMPAIGN_PERIOD                 /* 1. 캠페인기간 ( 그룹1 : 특정일자 및 시간  ,  그룹2 : 전송일로부터의 일수   )*/
+			, MAX(CAMP_FROM_DT)                    AS CAMP_FROM_DT                    /* 캠페인행사시작일자 */
+			, MAX(CAMP_TO_DT)                      AS CAMP_TO_DT                      /* 캠페인행사종료일자 */
+			, NVL(MAX(CAMP_FROM_TM), 'AM 00:00')   AS CAMP_FROM_TM                    /* 캠페인행사시작시간 */
+			, NVL(MAX(CAMP_TO_TM), 'PM 11:59')     AS CAMP_TO_TM                      /* 캠페인행사종료시간 */
+			, MAX(SEND_DAY)                        AS SEND_DAY                        /* 전송일로부터의 일수 */
+			, MAX(TARGET_ID)                       AS TARGET_ID                       /* 대상수준 */
+			, MAX(SENDDATE_TYPE)                   AS SENDDATETYPE                    /* 데이터 전송방식 */
+			, MAX(OFFER_AUTO_YN)                   AS OFFER_AUTO_YN                   /* 오퍼 자동적용여부 */
+			, MAX(CHANNEL_BATCH_RANK_YN)           AS CHANNEL_BATCH_RANK_YN           /* 채널우선순위 */
+			, MAX(CAMPAIGN_GUBUN)                  AS CAMPAIGNGUBUN                   /* 캠페인 구분 */
+			, MAX(CAMPAIGN_GUBUN_DTL)              AS CAMPAIGN_GUBUN_DTL              /* 캠페인 구분 상세  */
+			, MAX(CAMPAIGN_TYPE)                   AS CAMPAIGNTYPE                    /* 캠페인 유형 */
+			, MAX(CAMPAIGN_OFFER_COST_GUBUN)       AS CAMPAIGN_OFFER_COST_GUBUN       /* 캠페인 오퍼 비용 구분 */
+		FROM
+			(
+				SELECT
+					A.CAMPAIGN_SK                                                          AS CMPGN_ID                       /* 캠페인ID     */
+					, A.CAMPAIGN_NM                                                        AS CMPGN_NM                       /* 캠페인명     */
+					, A.CAMPAIGN_CD                                                        AS CMPGN_CD                       /* 캠페인코드     */
+					, CASE WHEN UPPER(B.CHAR_UDF_NM) LIKE '캠페인%기간%' THEN
+						B.CHAR_UDF_VAL
+						ELSE NULL
+						END                                                                AS CAMPAIGN_PERIOD                /* 1. 캠페인기간 */
+					, CASE WHEN UPPER(D.DATE_EXT_COLUMN_NM) IN (  'CAMP_FROM_DT1',  'CAMP_FROM_DT2' )  THEN
+						D.DATE_UDF_VAL
+						ELSE NULL
+						END                                                                AS CAMP_FROM_DT                   /* 캠페인행사시작일자 */
+					, CASE WHEN UPPER(D.DATE_EXT_COLUMN_NM) IN ( 'CAMP_TO_DT1',  'CAMP_TO_DT2' ) THEN
+						D.DATE_UDF_VAL
+						ELSE NULL
+						END                                                                AS CAMP_TO_DT                     /* 캠페인행사종료일자 */
+					, CASE WHEN UPPER(B.CHAR_EXT_COLUMN_NM) IN (  'CAMP_FROM_TM1',  'CAMP_FROM_TM2' ) THEN
+						B.CHAR_UDF_VAL
+						ELSE NULL
+						END                                                                AS CAMP_FROM_TM                   /* 캠페인행사시작시간 */
+					, CASE WHEN UPPER(B.CHAR_EXT_COLUMN_NM) IN ( 'CAMP_TO_TM1',  'CAMP_TO_TM2' ) THEN
+						B.CHAR_UDF_VAL
+						ELSE NULL
+						END                                                                AS CAMP_TO_TM                     /* 캠페인행사종료시간 */
+					, CASE WHEN UPPER(C.NUM_EXT_COLUMN_NM) IN ( 'SEND_DAY1', 'SEND_DAY2','SEND_DAY3' ) THEN
+						C.NUM_UDF_VAL
+						ELSE NULL
+						END                                                                AS SEND_DAY                       /* 전송일로부터의 일수 */
+					, CASE WHEN UPPER(B.CHAR_EXT_COLUMN_NM) = 'TARGET_ID' THEN
+						B.CHAR_UDF_VAL
+						ELSE NULL
+						END                                                                AS TARGET_ID                      /* 대상수준 */
+					, CASE WHEN UPPER(B.CHAR_UDF_NM) = '1. 데이터 전송방식' THEN
+						B.CHAR_UDF_VAL
+						ELSE NULL
+						END                                                                AS SENDDATE_TYPE                  /* 데이터 전송방식 */
+					, CASE WHEN UPPER(B.CHAR_EXT_COLUMN_NM) = 'OFFER_AUTO_YN' THEN
+						B.CHAR_UDF_VAL
+						ELSE NULL
+						END                                                                AS OFFER_AUTO_YN                  /* 오퍼 자동적��여부 */
+					, CASE WHEN UPPER(B.CHAR_EXT_COLUMN_NM) IN ('CHANNEL_BATCH_RANK_YN', 'CHANNEL_MANUAL_RANK_YN', 'CHANNEL_TIME_RANK_YN') THEN
+						B.CHAR_UDF_VAL
+						ELSE NULL
+						END                                                                AS CHANNEL_BATCH_RANK_YN          /* 채널우선순위 */
+					, CASE WHEN UPPER(B.CHAR_UDF_NM) = '1. 캠페인 구분' THEN
+						B.CHAR_UDF_VAL
+						ELSE NULL
+						END                                                                AS CAMPAIGN_GUBUN                 /* 캠페인 구분 */
+					, CASE WHEN UPPER(B.CHAR_UDF_NM) = '내부 상세' THEN
+						B.CHAR_UDF_VAL
+						ELSE NULL
+						END                                                                AS CAMPAIGN_GUBUN_DTL             /* 내부 상세 */
+					, CASE WHEN UPPER(B.CHAR_EXT_COLUMN_NM) = 'CAMPAIGN_TYPE' THEN
+						B.CHAR_UDF_VAL
+						ELSE NULL
+						END                                                                AS CAMPAIGN_TYPE                  /* 캠페인 유형 */
+					, CASE WHEN UPPER(B.CHAR_EXT_COLUMN_NM) = 'CAMPAIGN_OFFER_COST_GUBUN' THEN
+						B.CHAR_UDF_VAL
+						ELSE NULL
+						END                                                                AS CAMPAIGN_OFFER_COST_GUBUN      /* 캠페인 오퍼 비용 구분 */
+					, A.CAMPAIGN_DESC                                                      AS CMPGN_DESC                     /* 캠페인설명   */
+					, A.LAST_MODIFIED_BY_USER_NM                                           AS REQ_EMP_ID                     /* 마지막 캠페인 실행자 */
+				FROM
+					CI_CAMPAIGN                            A
+					LEFT JOIN CI_CAMP_PAGE_CHAR_UDF        B
+						ON A.CAMPAIGN_SK = B.CAMPAIGN_SK
+					LEFT JOIN CI_CAMP_PAGE_NUM_UDF         C
+						ON A.CAMPAIGN_SK = C.CAMPAIGN_SK
+					LEFT JOIN CI_CAMP_PAGE_DATE_UDF        D
+						ON A.CAMPAIGN_SK = D.CAMPAIGN_SK
+					LEFT JOIN CI_MARKETING_CELL            F
+						ON A.CAMPAIGN_SK = F.CAMPAIGN_SK
+				WHERE 1=1
+					AND A.CAMPAIGN_SK = '666'
+			)
+		GROUP BY
+			CMPGN_ID
+2019-06-03 23:09:47,650  INFO [jdbc.resultsettable] |-----------|-------------|-------------|----------------|----------------------|----------------------|-------------|-----------|---------|----------|-------------|--------------|----------------------|--------------|-------------------|-------------|--------------------------|
+2019-06-03 23:09:47,651  INFO [jdbc.resultsettable] |CAMPAIGNID |CAMPAIGNNAME |CAMPAIGNCODE |CAMPAIGN_PERIOD |CAMP_FROM_DT          |CAMP_TO_DT            |CAMP_FROM_TM |CAMP_TO_TM |SEND_DAY |TARGET_ID |SENDDATETYPE |OFFER_AUTO_YN |CHANNEL_BATCH_RANK_YN |CAMPAIGNGUBUN |CAMPAIGN_GUBUN_DTL |CAMPAIGNTYPE |CAMPAIGN_OFFER_COST_GUBUN |
+2019-06-03 23:09:47,651  INFO [jdbc.resultsettable] |-----------|-------------|-------------|----------------|----------------------|----------------------|-------------|-----------|---------|----------|-------------|--------------|----------------------|--------------|-------------------|-------------|--------------------------|
+2019-06-03 23:09:47,651  INFO [jdbc.resultsettable] |666        |AB테스트_OCB오퍼  |CAMP666      |그룹1             |2017-12-23 00:00:00.0 |2017-12-24 00:00:00.0 |AM 10:00     |PM 03:00   |[null]   |MEM_NO    |Manual       |Y             |N                     |1             |11                 |2            |1                         |
+2019-06-03 23:09:47,651  INFO [jdbc.resultsettable] |-----------|-------------|-------------|----------------|----------------------|----------------------|-------------|-----------|---------|----------|-------------|--------------|----------------------|--------------|-------------------|-------------|--------------------------|
+2019-06-03 23:09:47,651 DEBUG [com.skplanet.sascm.common.logger.LoggerAspect] KANG-20190312: LoggerAspect... DAO  		:  com.skplanet.sascm.dao.CommCodeDAO.getCommCodeDtlList()
+2019-06-03 23:09:47,651 DEBUG [com.skplanet.sascm.common.dao.AbstractDAO] 	 QueryId  	:  CommCode.getCommCodeDtlList, sqlSessionTemplate = org.mybatis.spring.SqlSessionTemplate@6a418b5c
+2019-06-03 23:09:47,652  INFO BO SQL         :  SELECT  /* CommCode.getCommCodeDtlList */
+			A.* 
+		FROM (  
+			SELECT 
+				A.*
+				, ROWNUM num
+			FROM(
+				SELECT
+					CODE_ID                code_id
+					, CODE_NAME            code_name
+					, CODE_DESC            code_desc
+					, SORT_SEQ             sort_seq
+					, USE_YN               use_yn
+					, ETC1                 etc1
+					, ETC2                 etc2
+					, CREATE_ID            create_id
+					, (SELECT USER_NAME FROM CM_USER WHERE ID = A.CREATE_ID) create_nm
+					, TO_CHAR(CREATE_DT, 'YYYY-MM-DD HH24:MI:SS')            create_dt
+					, UPDATE_ID            update_id
+					, (SELECT USER_NAME FROM CM_USER WHERE ID = A.UPDATE_ID) update_nm
+					, TO_CHAR(UPDATE_DT, 'YYYY-MM-DD HH24:MI:SS')            update_dt
+					, COMM_CODE_ID         comm_code_id
+				FROM 
+					CM_CODE_DTL A
+				WHERE 1=1
+					AND COMM_CODE_ID = 'G003'
+					AND USE_YN       LIKE '%'||'Y'||'%'
+				ORDER BY 
+					SORT_SEQ, CODE_ID
+			) A
+		) A
+		ORDER BY num
+2019-06-03 23:09:47,653  INFO [jdbc.resultsettable] |--------|----------|----------|---------|-------|-------|-------|----------|----------|--------------------|----------|----------|----------|-------------|----|
+2019-06-03 23:09:47,653  INFO [jdbc.resultsettable] |CODE_ID |CODE_NAME |CODE_DESC |SORT_SEQ |USE_YN |ETC1   |ETC2   |CREATE_ID |CREATE_NM |CREATE_DT           |UPDATE_ID |UPDATE_NM |UPDATE_DT |COMM_CODE_ID |NUM |
+2019-06-03 23:09:47,653  INFO [jdbc.resultsettable] |--------|----------|----------|---------|-------|-------|-------|----------|----------|--------------------|----------|----------|----------|-------------|----|
+2019-06-03 23:09:47,653  INFO [jdbc.resultsettable] |N       |Batch     |Batch     |1        |Y      |[null] |[null] |41        |강석        |2017-11-16 18:04:45 |[null]    |[null]    |[null]    |G003         |1   |
+2019-06-03 23:09:47,653  INFO [jdbc.resultsettable] |Y       |Manual    |Manual    |2        |Y      |[null] |[null] |41        |강석        |2017-11-16 18:04:55 |[null]    |[null]    |[null]    |G003         |2   |
+2019-06-03 23:09:47,653  INFO [jdbc.resultsettable] |T       |Time      |Time      |3        |Y      |[null] |[null] |41        |강석        |2017-11-16 18:05:06 |[null]    |[null]    |[null]    |G003         |3   |
+2019-06-03 23:09:47,653  INFO [jdbc.resultsettable] |--------|----------|----------|---------|-------|-------|-------|----------|----------|--------------------|----------|----------|----------|-------------|----|
+2019-06-03 23:09:47,654 DEBUG [com.skplanet.sascm.controller.CampaignController] (0) [Senddatatype=Manual], [Comm_code_id=G003], [Code_id=N], [Code_name=Batch]
+2019-06-03 23:09:47,654 DEBUG [com.skplanet.sascm.controller.CampaignController] (1) [Senddatatype=Manual], [Comm_code_id=G003], [Code_id=Y], [Code_name=Manual]
+2019-06-03 23:09:47,654 DEBUG [com.skplanet.sascm.controller.CampaignController] (2) [Senddatatype=Manual], [Comm_code_id=G003], [Code_id=T], [Code_name=Time]
+2019-06-03 23:09:47,654 DEBUG [com.skplanet.sascm.controller.CampaignController] ##### tmpBgnTm : AM 10:00
+2019-06-03 23:09:47,654 DEBUG [com.skplanet.sascm.controller.CampaignController] ##### tmpEndtm : PM 03:00
+2019-06-03 23:09:47,654 DEBUG [com.skplanet.sascm.controller.CampaignController] tmpBgnTime[0] : 10
+2019-06-03 23:09:47,654 DEBUG [com.skplanet.sascm.controller.CampaignController] Bgn PM else
+2019-06-03 23:09:47,654 DEBUG [com.skplanet.sascm.controller.CampaignController] ################################
+2019-06-03 23:09:47,654 DEBUG [com.skplanet.sascm.controller.CampaignController] ##### intBgnTime : 10
+2019-06-03 23:09:47,654 DEBUG [com.skplanet.sascm.controller.CampaignController] ################################
+2019-06-03 23:09:47,654 DEBUG [com.skplanet.sascm.controller.CampaignController] ##### resultBgnTime : 10
+2019-06-03 23:09:47,654 DEBUG [com.skplanet.sascm.controller.CampaignController] tmpEndTime[0] : 03
+2019-06-03 23:09:47,654 DEBUG [com.skplanet.sascm.controller.CampaignController] end PM if
+2019-06-03 23:09:47,654 DEBUG [com.skplanet.sascm.controller.CampaignController] ################################
+2019-06-03 23:09:47,654 DEBUG [com.skplanet.sascm.controller.CampaignController] ##### intEndTime : 15
+2019-06-03 23:09:47,654 DEBUG [com.skplanet.sascm.controller.CampaignController] ################################
+2019-06-03 23:09:47,654 DEBUG [com.skplanet.sascm.controller.CampaignController] ##### resultEndTime : 15
+2019-06-03 23:09:47,654 DEBUG [com.skplanet.sascm.common.logger.LoggerAspect] KANG-20190312: LoggerAspect... DAO  		:  com.skplanet.sascm.dao.CampaignInfoDAO.setCampaignInfo()
+2019-06-03 23:09:47,654 DEBUG [com.skplanet.sascm.common.dao.AbstractDAO] 	 QueryId  	:  CampaignInfo.setCampaignInfo, sqlSessionTemplate = org.mybatis.spring.SqlSessionTemplate@6a418b5c
+2019-06-03 23:09:47,655  INFO BO SQL         :  MERGE INTO CM_CAMPAIGN_DTL    /* CampaignInfo.setCampaignInfo */
+    USING DUAL
+    ON (CAMPAIGNCODE = 'CAMP666')
+    WHEN MATCHED THEN
+    UPDATE SET CAMP_TERM_CD        = TRIM('01')
+              ,CAMP_BGN_DT         = CASE WHEN '01' = '01' THEN TO_DATE('2017-12-23' || LPAD('10', 2,'0') || LPAD('00', 2,'0') || '00', 'YYYY-MM-DDHH24MISS') ELSE NULL END
+              ,CAMP_END_DT         = CASE WHEN '01' = '01' THEN TO_DATE('2017-12-24' || LPAD('15', 2,'0') || LPAD('00', 2,'0') || '59', 'YYYY-MM-DDHH24MISS') ELSE NULL END
+              ,CAMP_TERM_DAY       = CASE WHEN '01' = '02' THEN '' ELSE NULL END
+              ,AUDIENCE_CD         = TRIM('MEM_NO')
+              ,MANUAL_TRANS_YN     = TRIM('Y')
+              ,OFFER_DIRECT_YN     = TRIM('Y')
+              ,CHANNEL_PRIORITY_YN = TRIM('N')
+              ,UPDATE_ID           = TRIM('2')
+              ,UPDATE_DT           = SYSDATE
+    WHEN NOT MATCHED THEN
+    INSERT (
+       CAMPAIGNCODE
+      ,CAMPAIGNID
+      ,CAMP_TERM_CD
+      ,CAMP_BGN_DT
+      ,CAMP_END_DT
+      ,CAMP_TERM_DAY
+      ,AUDIENCE_CD
+      ,MANUAL_TRANS_YN
+      ,OFFER_DIRECT_YN
+      ,CHANNEL_PRIORITY_YN
+      ,CAMP_STATUS_CD
+      ,CREATE_ID
+      ,CREATE_DT
+    )
+    VALUES (
+       TRIM('CAMP666')
+      ,TRIM('666')
+      ,TRIM('01')
+      ,CASE WHEN '01' = '01' THEN TO_DATE('2017-12-23' || LPAD('10', 2,'0') || LPAD('00', 2,'0') || '00', 'YYYY-MM-DDHH24MISS') ELSE NULL END
+      ,CASE WHEN '01' = '01' THEN TO_DATE('2017-12-24' || LPAD('15', 2,'0') || LPAD('00', 2,'0') || '59', 'YYYY-MM-DDHH24MISS') ELSE NULL END
+      ,CASE WHEN '01' = '02' THEN '' ELSE NULL END
+      ,TRIM('MEM_NO')
+      ,TRIM('Y')
+      ,TRIM('Y')
+      ,TRIM('N')
+      ,'EDIT'
+      ,TRIM('2')
+      ,SYSDATE
+    )
+2019-06-03 23:09:47,657 DEBUG [com.skplanet.sascm.common.logger.LoggerAspect] KANG-20190312: LoggerAspect... DAO  		:  com.skplanet.sascm.dao.CampaignInfoDAO.updateChannelData()
+2019-06-03 23:09:47,657 DEBUG [com.skplanet.sascm.common.dao.AbstractDAO] 	 QueryId  	:  CampaignInfo.updateChannelData, sqlSessionTemplate = org.mybatis.spring.SqlSessionTemplate@6a418b5c
+2019-06-03 23:09:47,658  INFO BO SQL         :  MERGE INTO cm_campaign_channel A   /* CampaignInfo.updateChannelData */
+      USING (
+             SELECT DISTINCT
+                    T3.CAMPAIGN_CD           CAMPAIGNCODE
+                  , T3.MARKETING_CELL_SK  CELLID
+                  , T3.OFFER_CONTENT_ID
+                  , T2.CREATE_ID
+                FROM (
+                     SELECT CAMPAIGN_SK
+                          , MAX(CAMPAIGN_CD) AS CAMPAIGN_CD
+                          , MAX(MARKETING_CELL_SK) AS MARKETING_CELL_SK
+                          , MAX(COMMUNICATION_SK) AS COMMUNICATION_SK
+                          , MAX(OFFER_CONTENT_ID) AS OFFER_CONTENT_ID
+                          , MAX(OFFER_CONTENT_NM) AS OFFER_CONTENT_NM
+                       FROM (
+                            SELECT DISTINCT
+                                   T6.CAMPAIGN_SK AS CAMPAIGN_SK
+                                 , T6.CAMPAIGN_CD AS CAMPAIGN_CD
+                                 , T6.MARKETING_CELL_SK AS MARKETING_CELL_SK
+                                 , T6.COMMUNICATION_SK AS COMMUNICATION_SK
+                                 , CASE WHEN UPPER(T5.CHAR_EXT_COLUMN_NM) = 'OFFER_SYS_CD' THEN T5.CHAR_UDF_VAL
+                                        ELSE NULL
+                                   END AS OFFER_SYS_CD
+                                 , CASE WHEN UPPER(T7.NUM_EXT_COLUMN_NM) = 'OFFER_CONTENT_ID' THEN T7.NUM_UDF_VAL
+                                        ELSE NULL
+                                   END AS OFFER_CONTENT_ID
+                                 , CASE WHEN UPPER(T5.CHAR_EXT_COLUMN_NM) = 'OFFER_CONTENT_NM' THEN T5.CHAR_UDF_VAL
+                                        ELSE NULL
+                                   END AS OFFER_CONTENT_NM
+                              FROM CI_CELL_PACKAGE T6
+                              LEFT JOIN CI_COMMUNICATION_CHAR_UDF T5
+                                ON T6.COMMUNICATION_SK = T5.COMMUNICATION_SK
+                              LEFT JOIN CI_COMMUNICATION_NUM_UDF T7
+                                ON T6.COMMUNICATION_SK = T7.COMMUNICATION_SK
+                                         WHERE T6.CAMPAIGN_SK = '666'
+                               AND T5.COMMUNICATION_SK IN ( SELECT COMMUNICATION_SK
+                                                              FROM CI_COMMUNICATION
+                                                             WHERE DELETED_FLG = 'N' )
+                               AND ( T6.CONTROL_GROUP_TYPE_CD IS NULL OR T6.CONTROL_GROUP_TYPE_CD IN ('_CH','_CL') )
+                            )
+                            GROUP BY CAMPAIGN_SK, CAMPAIGN_CD, MARKETING_CELL_SK
+                )  T3
+                LEFT JOIN CM_CAMPAIGN_CONTENTS_OFFERLIST T2
+                  ON T3.OFFER_CONTENT_ID = T2.OFFER_CONTENT_ID(+)
+          ORDER BY T3.OFFER_CONTENT_ID
+
+        ) B
+      ON (     A.OFFER_CONTENT_ID  = B.OFFER_CONTENT_ID
+            )
+
+      WHEN MATCHED THEN
+      UPDATE SET A.CELLID        = B.CELLID
+                ,A.CAMPAIGNCODE         = B.CAMPAIGNCODE
+                ,A.FLOWCHARTID          = TO_NUMBER(SUBSTR(TRIM(B.CAMPAIGNCODE),5))
+                ,A.UPDATE_ID            = B.CREATE_ID
+                ,A.UPDATE_DT            = SYSDATE
+2019-06-03 23:09:47,675 DEBUG [com.skplanet.sascm.common.logger.LoggerAspect] KANG-20190312: LoggerAspect... DAO  		:  com.skplanet.sascm.dao.ChannelDAO.getCampaignChannelList()
+2019-06-03 23:09:47,675 DEBUG [com.skplanet.sascm.common.dao.AbstractDAO] 	 QueryId  	:  Channel.getCampaignChannelList, sqlSessionTemplate = org.mybatis.spring.SqlSessionTemplate@6a418b5c
+2019-06-03 23:09:47,675  INFO BO SQL         :  SELECT      /* Channel.getCampaignChannelList */
+          distinct
+          A.CAMPAIGN_SK                         campaignid
+         ,B.MARKETING_CELL_NM                   cellname
+         ,D.CHANNEL_CD                          channel_cd
+         ,(SELECT CODE_NAME FROM CM_CODE_DTL WHERE CODE_ID = D.CHANNEL_CD AND COMM_CODE_ID = 'C011') channel_nm
+         ,D.TOAST_TITLE                         toast_title
+         ,D.SMS_MSG                             sms_msg
+         ,D.LMS_TITLE                           lms_title
+         ,D.EMAIL_NAME                          email_name
+         ,D.MOBILE_DISP_TITLE                   mobile_disp_title
+         ,C.CAMP_STATUS_CD                      camp_status_cd
+         ,B.MARKETING_CELL_SK                   cellid
+             ,COUNT(1) OVER (PARTITION BY B.COMMUNICATION_SK )      cellrow
+     FROM CI_CAMPAIGN            A
+         ,CI_CELL_PACKAGE        B
+         ,CM_CAMPAIGN_DTL        C
+         ,CM_CAMPAIGN_CHANNEL    D
+    WHERE A.CAMPAIGN_SK  = '666'
+      AND ( B.CONTROL_GROUP_TYPE_CD IS NULL OR B.CONTROL_GROUP_TYPE_CD IN ('_CH','_CL') )
+      AND A.CAMPAIGN_SK  = B.CAMPAIGN_SK
+      AND A.CAMPAIGN_SK  = C.CAMPAIGNID(+)
+      AND B.MARKETING_CELL_SK       = D.CELLID(+)
+      AND B.COMMUNICATION_OCCURRENCE_NO IN (
+        SELECT MAX(COMMUNICATION_OCCURRENCE_NO)
+        FROM CI_CELL_PACKAGE
+        WHERE CAMPAIGN_SK  = A.CAMPAIGN_SK
+          AND MARKETING_CELL_SK = B.MARKETING_CELL_SK
+      )
+    ORDER BY CELLNAME ASC
+2019-06-03 23:09:47,712  INFO [jdbc.resultsettable] |-----------|---------|-----------|-----------|------------|--------|----------|-----------|------------------|---------------|-------|--------|
+2019-06-03 23:09:47,712  INFO [jdbc.resultsettable] |CAMPAIGNID |CELLNAME |CHANNEL_CD |CHANNEL_NM |TOAST_TITLE |SMS_MSG |LMS_TITLE |EMAIL_NAME |MOBILE_DISP_TITLE |CAMP_STATUS_CD |CELLID |CELLROW |
+2019-06-03 23:09:47,712  INFO [jdbc.resultsettable] |-----------|---------|-----------|-----------|------------|--------|----------|-----------|------------------|---------------|-------|--------|
+2019-06-03 23:09:47,712  INFO [jdbc.resultsettable] |666        |A대상군     |MOBILE     |모바일 알리미    |[null]      |[null]  |[null]    |[null]     |A고객님 우리 오랫만이에요~   |EDIT           |1460   |1       |
+2019-06-03 23:09:47,712  INFO [jdbc.resultsettable] |666        |B대상군     |MOBILE     |모바일 알리미    |[null]      |[null]  |[null]    |[null]     |B고객님 우리 오랫만이에요~   |EDIT           |1458   |1       |
+2019-06-03 23:09:47,712  INFO [jdbc.resultsettable] |666        |실발송대상군   |[null]     |[null]     |[null]      |[null]  |[null]    |[null]     |[null]            |EDIT           |1461   |6       |
+2019-06-03 23:09:47,712  INFO [jdbc.resultsettable] |-----------|---------|-----------|-----------|------------|--------|----------|-----------|------------------|---------------|-------|--------|
+2019-06-03 23:09:47,712 DEBUG [com.skplanet.sascm.common.logger.LoggerAspect] KANG-20190312: LoggerAspect... DAO  		:  com.skplanet.sascm.dao.ChannelDAO.getCampaignChannelValiChk()
+2019-06-03 23:09:47,712 DEBUG [com.skplanet.sascm.common.dao.AbstractDAO] 	 QueryId  	:  Channel.getCampaignChannelValiChk, sqlSessionTemplate = org.mybatis.spring.SqlSessionTemplate@6a418b5c
+2019-06-03 23:09:47,713  INFO BO SQL         :  SELECT     /* Channel.getCampaignChannelValiChk */
+             CASE WHEN COUNT(0) = 0 THEN 'Y' ELSE 'N' END channelValiChk
+        FROM   CI_CAMPAIGN               A
+            ,CI_CELL_PACKAGE           B
+            ,CM_CAMPAIGN_CHANNEL       C
+            ,CM_CAMPAIGN_DTL           D
+      WHERE A.CAMPAIGN_SK  = '666'
+        AND ( B.CONTROL_GROUP_TYPE_CD IS NULL OR B.CONTROL_GROUP_TYPE_CD IN ('_CH','_CL') )
+        AND A.CAMPAIGN_SK  = B.CAMPAIGN_SK
+        AND A.CAMPAIGN_SK  = D.CAMPAIGNID
+        AND B.MARKETING_CELL_SK      = C.CELLID
+        AND C.CHANNEL_CD != 'TOAST'
+        AND D.AUDIENCE_CD = 'PCID'
+2019-06-03 23:09:47,714  INFO [jdbc.resultsettable] |---------------|
+2019-06-03 23:09:47,714  INFO [jdbc.resultsettable] |CHANNELVALICHK |
+2019-06-03 23:09:47,714  INFO [jdbc.resultsettable] |---------------|
+2019-06-03 23:09:47,714  INFO [jdbc.resultsettable] |Y              |
+2019-06-03 23:09:47,714  INFO [jdbc.resultsettable] |---------------|
+2019-06-03 23:09:47,714 DEBUG [com.skplanet.sascm.common.logger.LoggerAspect] KANG-20190312: LoggerAspect... DAO  		:  com.skplanet.sascm.dao.ChannelDAO.getCampaignChannelValiChkforMobile()
+2019-06-03 23:09:47,714 DEBUG [com.skplanet.sascm.common.dao.AbstractDAO] 	 QueryId  	:  Channel.getCampaignChannelValiChkforMobile, sqlSessionTemplate = org.mybatis.spring.SqlSessionTemplate@6a418b5c
+2019-06-03 23:09:47,715  INFO BO SQL         :  SELECT   /* Channel.getCampaignChannelValiChkforMobile */
+             CASE WHEN COUNT(0) = 0 THEN 'Y' ELSE 'N' END channelValiChk
+        FROM   CI_CAMPAIGN               A
+            ,CI_CELL_PACKAGE           B
+            ,CM_CAMPAIGN_CHANNEL       C
+            ,CM_CAMPAIGN_DTL           D
+      WHERE A.CAMPAIGN_SK  = '666'
+        AND ( B.CONTROL_GROUP_TYPE_CD IS NULL OR B.CONTROL_GROUP_TYPE_CD IN ('_CH','_CL') )
+        AND A.CAMPAIGN_SK  = B.CAMPAIGN_SK
+        AND A.CAMPAIGN_SK  = D.CAMPAIGNID
+        AND B.MARKETING_CELL_SK      = C.CELLID
+        AND C.CHANNEL_CD != 'MOBILE'
+        AND D.AUDIENCE_CD = 'DEVICE_ID'
+2019-06-03 23:09:47,716  INFO [jdbc.resultsettable] |---------------|
+2019-06-03 23:09:47,716  INFO [jdbc.resultsettable] |CHANNELVALICHK |
+2019-06-03 23:09:47,716  INFO [jdbc.resultsettable] |---------------|
+2019-06-03 23:09:47,716  INFO [jdbc.resultsettable] |Y              |
+2019-06-03 23:09:47,716  INFO [jdbc.resultsettable] |---------------|
+2019-06-03 23:09:47,716 DEBUG [com.skplanet.sascm.common.logger.LoggerAspect] KANG-20190312: LoggerAspect... DAO  		:  com.skplanet.sascm.dao.ScheduleDAO.getScheduleDetail()
+2019-06-03 23:09:47,716 DEBUG [com.skplanet.sascm.common.dao.AbstractDAO] 	 QueryId  	:  Schedule.getScheduleDetail, sqlSessionTemplate = org.mybatis.spring.SqlSessionTemplate@6a418b5c
+2019-06-03 23:09:47,717  INFO BO SQL         :  SELECT A.*     /* Schedule.getScheduleDetail */
+        ,TO_CHAR(TO_DATE(B.RSRV_START_DT, 'YYYYMMDD'), 'YYYY-MM-DD')    rsrv_start_dt
+        ,TO_CHAR(TO_DATE(B.RSRV_END_DT  , 'YYYYMMDD'), 'YYYY-MM-DD')    rsrv_end_dt
+        ,B.RSRV_GUBUN_CODE   rsrv_gubun_code
+        ,(SELECT CODE_NAME FROM cm_code_dtl WHERE COMM_CODE_ID = 'C014' AND USE_YN = 'Y' AND CODE_ID = b.RSRV_GUBUN_CODE ) rsrv_gubun_code_name
+        ,B.RSRV_YEAR         rsrv_year
+        ,B.RSRV_MONTH        rsrv_month
+        ,B.RSRV_DAY          rsrv_day
+        ,B.RSRV_HOUR         rsrv_hour
+        ,B.RSRV_MINUTE       rsrv_minute
+        ,B.RSRV_WEEK_DAY     rsrv_week_day
+        ,B.RSRV_TIMEHOURFROM rsrv_timehourfrom
+        ,B.RSRV_TIMEHOURTO   rsrv_timehourto
+        ,B.RSRV_TIMEMIN      rsrv_timemin
+        ,B.RSRV_EVERYTIME    rsrv_everytime
+        ,B.CREATE_ID         create_id
+        ,(SELECT USERID FROM CM_USER WHERE ID = B.CREATE_ID) create_nm
+        ,TO_CHAR(B.CREATE_DT, 'YYYY-MM-DD HH24:MI:SS')         create_dt
+        ,B.UPDATE_ID         update_id
+        ,(SELECT USERID FROM CM_USER WHERE ID = B.UPDATE_ID) update_nm
+        ,TO_CHAR(B.UPDATE_DT, 'YYYY-MM-DD HH24:MI:SS')         update_dt
+        ,(SELECT COUNT(0) FROM cm_campaign_run_schedule WHERE CAMPAIGNCODE = A.CAMPAIGNCODE) scheduleCnt
+        ,(SELECT COUNT(0) FROM cm_campaign_run_schedule WHERE CAMPAIGNCODE = A.CAMPAIGNCODE AND RUN_START_DT IS NOT NULL) schedulePlayCnt
+        ,(SELECT DISTINCT MULTISTEP_CISTUDIO_YN FROM CM_CAMPAIGN_RUN_SCHEDULE WHERE CAMPAIGNCODE = A.CAMPAIGNCODE) multistep_cistudio_yn
+        /*,A.CAMP_STATUS_CD camp_status_cd*/
+    FROM(
+        SELECT
+             A.CAMPAIGN_NM           campaignname
+            ,A.CAMPAIGN_CD           campaigncode
+            ,A.CAMPAIGN_SK           campaignid
+            ,D.CAMP_TERM_CD          camp_term_cd
+            ,D.AUDIENCE_CD           audience_cd
+            ,D.MANUAL_TRANS_YN       manual_trans_yn
+            ,D.OFFER_DIRECT_YN       offer_direct_yn
+            ,D.CHANNEL_PRIORITY_YN   channel_priority_yn
+            ,D.CAMP_STATUS_CD        camp_status_cd
+            ,TO_CHAR(D.CAMP_BGN_DT, 'YYYY-MM-DD') camp_bgn_dt
+                ,TO_CHAR(D.CAMP_END_DT, 'YYYY-MM-DD') camp_end_dt
+        FROM CI_CAMPAIGN             A
+            ,cm_campaign_dtl      D
+       WHERE 1=1
+      AND A.CAMPAIGN_SK = '666'
+         AND A.CAMPAIGN_SK = D.CAMPAIGNID
+    )A
+    ,cm_campaign_run_resv B
+    WHERE A.CAMPAIGNCODE = B.CAMPAIGNCODE(+)
+2019-06-03 23:09:47,724  INFO [jdbc.resultsettable] |-------------|-------------|-----------|-------------|------------|----------------|----------------|--------------------|---------------|------------|------------|--------------|------------|----------------|---------------------|----------|-----------|---------|----------|------------|--------------|------------------|----------------|-------------|---------------|----------|----------|----------|----------|----------|----------|------------|----------------|----------------------|
+2019-06-03 23:09:47,724  INFO [jdbc.resultsettable] |CAMPAIGNNAME |CAMPAIGNCODE |CAMPAIGNID |CAMP_TERM_CD |AUDIENCE_CD |MANUAL_TRANS_YN |OFFER_DIRECT_YN |CHANNEL_PRIORITY_YN |CAMP_STATUS_CD |CAMP_BGN_DT |CAMP_END_DT |RSRV_START_DT |RSRV_END_DT |RSRV_GUBUN_CODE |RSRV_GUBUN_CODE_NAME |RSRV_YEAR |RSRV_MONTH |RSRV_DAY |RSRV_HOUR |RSRV_MINUTE |RSRV_WEEK_DAY |RSRV_TIMEHOURFROM |RSRV_TIMEHOURTO |RSRV_TIMEMIN |RSRV_EVERYTIME |CREATE_ID |CREATE_NM |CREATE_DT |UPDATE_ID |UPDATE_NM |UPDATE_DT |SCHEDULECNT |SCHEDULEPLAYCNT |MULTISTEP_CISTUDIO_YN |
+2019-06-03 23:09:47,724  INFO [jdbc.resultsettable] |-------------|-------------|-----------|-------------|------------|----------------|----------------|--------------------|---------------|------------|------------|--------------|------------|----------------|---------------------|----------|-----------|---------|----------|------------|--------------|------------------|----------------|-------------|---------------|----------|----------|----------|----------|----------|----------|------------|----------------|----------------------|
+2019-06-03 23:09:47,724  INFO [jdbc.resultsettable] |AB테스트_OCB오퍼  |CAMP666      |666        |01           |MEM_NO      |Y               |Y               |N                   |EDIT           |2017-12-23  |2017-12-24  |[null]        |[null]      |[null]          |[null]               |[null]    |[null]     |[null]   |[null]    |[null]      |[null]        |[null]            |[null]          |[null]       |[null]         |[null]    |[null]    |[null]    |[null]    |[null]    |[null]    |0           |0               |[null]                |
+2019-06-03 23:09:47,724  INFO [jdbc.resultsettable] |-------------|-------------|-----------|-------------|------------|----------------|----------------|--------------------|---------------|------------|------------|--------------|------------|----------------|---------------------|----------|-----------|---------|----------|------------|--------------|------------------|----------------|-------------|---------------|----------|----------|----------|----------|----------|----------|------------|----------------|----------------------|
+KANG-20190413: bo.getCampaigncode() :CAMP666
+2019-06-03 23:09:47,725 DEBUG [com.skplanet.sascm.common.logger.LoggerAspect] KANG-20190312: LoggerAspect... DAO  		:  com.skplanet.sascm.dao.ScheduleDAO.getRunScheduleCnt()
+2019-06-03 23:09:47,725 DEBUG [com.skplanet.sascm.common.dao.AbstractDAO] 	 QueryId  	:  Schedule.getRunScheduleCnt, sqlSessionTemplate = org.mybatis.spring.SqlSessionTemplate@6a418b5c
+2019-06-03 23:09:47,726  INFO BO SQL         :  SELECT   /* Schedule.getRunScheduleCnt */
+      COUNT(*)
+    FROM
+      CM_CAMPAIGN_RUN_SCHEDULE
+    WHERE
+      CAMPAIGNCODE = 'CAMP666'
+      AND RUN_SUCCESS_YN IS NULL
+      AND RUN_START_DT IS NOT NULL
+      AND RUN_END_DT IS NULL
+      AND RSRV_DT IS NOT NULL
+      AND RUN_STATUS IS NOT NULL
+      AND RUNID IS NOT NULL
+2019-06-03 23:09:47,726  INFO [jdbc.resultsettable] |---------|
+2019-06-03 23:09:47,726  INFO [jdbc.resultsettable] |COUNT(*) |
+2019-06-03 23:09:47,726  INFO [jdbc.resultsettable] |---------|
+2019-06-03 23:09:47,726  INFO [jdbc.resultsettable] |0        |
+2019-06-03 23:09:47,726  INFO [jdbc.resultsettable] |---------|
+2019-06-03 23:09:47,727 DEBUG [com.skplanet.sascm.common.interceptor.ActionInterceptor] KANG-20190308 ====================================== ActionInterceptor END ======================================
+

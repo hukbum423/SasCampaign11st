@@ -121,7 +121,7 @@
 
   <!-- 캠페인 채널 리스트 -->
   <select id="Channel.getCampaignChannelList" parameterType="Map" resultMap="CampaignChannelBO">
-    SELECT
+    SELECT      /* Channel.getCampaignChannelList */
           distinct
           A.CAMPAIGN_SK                         campaignid
          ,B.MARKETING_CELL_NM                   cellname
@@ -573,7 +573,7 @@
 
   <!-- 대상수준이 PCID일경우 토스트배너 이외의 채널 사용여부를 체크한다 -->
   <select id="Channel.getCampaignChannelValiChk" parameterType="Map" resultType="String">
-      SELECT
+      SELECT     /* Channel.getCampaignChannelValiChk */
              CASE WHEN COUNT(0) = 0 THEN 'Y' ELSE 'N' END channelValiChk
         FROM   CI_CAMPAIGN               A
             ,CI_CELL_PACKAGE           B
@@ -590,8 +590,7 @@
 
   <!-- 대상수준이 DEVICEID일경우 앱 푸쉬 이외의 채널 사용여부를 체크한다 -->
   <select id="Channel.getCampaignChannelValiChkforMobile" parameterType="Map" resultType="String">
-
-     SELECT
+     SELECT   /* Channel.getCampaignChannelValiChkforMobile */
              CASE WHEN COUNT(0) = 0 THEN 'Y' ELSE 'N' END channelValiChk
         FROM   CI_CAMPAIGN               A
             ,CI_CELL_PACKAGE           B

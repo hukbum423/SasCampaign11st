@@ -16,7 +16,7 @@
 <script>
 	/* ready */
 	$(document).ready(function() {
-		if (true) console.log("CampaignContent.jsp: document.ready();");
+		if (true) console.log("/contents/CampaignContent.jsp: document.ready();");
 		fn_search();
 	});
 
@@ -533,15 +533,16 @@
 			$("iframe.offerAddFrame").width("99%");
 			*/
 		
-		} else if (type == "OMPN" || type == "OMMI" || type == "OMOC" || type == "OMDP"){//일반포인트(OMPN), 일반마일리지(OMMI), 일반OKCashBack(OMOC), 즉시할인(OMDP)
+		} else if (type == "OMPT" || type == "OMPN" || type == "OMMI" || type == "OMOC" || type == "OMDP"){//KANG-20190530: 일반11페이포인트(OMPT), 일반포인트(OMPN), 일반마일리지(OMMI), 일반OKCashBack(OMOC), 즉시할인(OMDP)
 			pop = window.open('', 'POP_OFFER', 'top=150,left=100, location=no,status=no,toolbar=no,scrollbars=yes');
-			frm.action = "${staticPATH }/contents/offerPoint.do";
+			// frm.action = "${staticPATH }/contents/offerPoint.do";
+			frm.action = "${staticPATH }/contents/offerPTPoint.do";
 			frm.target = "POP_OFFER";
 			frm.method = "POST";
 			frm.submit();
 			pop.focus();
 			/*
-			frm.action = "${staticPATH }/contents/offerPoint.do";
+			//frm.action = "${staticPATH }/contents/offerPoint.do";
 			frm.target = "offerAddFrame";
 			frm.method = "POST";
 			frm.submit();

@@ -142,8 +142,8 @@ public class LoginController {
 					session = request.getSession(true);
 					session.setAttribute("ACCOUNT", bo);
 
-					System.out.println("session name : " + bo.getName());
-					System.out.println("session id : " + bo.getId());
+					System.out.println(">>>>> session name : " + bo.getName());
+					System.out.println(">>>>> session id : " + bo.getId());
 
 					sessionService.setSession(request, loginVo);
 				}

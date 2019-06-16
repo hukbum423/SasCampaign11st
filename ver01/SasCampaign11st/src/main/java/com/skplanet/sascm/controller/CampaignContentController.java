@@ -1876,6 +1876,60 @@ public class CampaignContentController {
 	}
 
 	/**
+	 * 오퍼 11페이포인트 페이지 호출: KANG-20190530
+	 *
+	 * @param request
+	 * @param response
+	 * @param modelMap
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/contents/offerPTPoint.do")
+	public String pageOfferPTPoint(HttpServletRequest request, HttpServletResponse response, ModelMap modelMap) throws Exception {
+		Map<String, Object> map = new HashMap<String, Object>();
+
+		//paramter
+		log.info("=============================================");
+		log.info("OFFERID      : " + request.getParameter("OFFERID"));
+		log.info("OFFER_TYPE_CD      : " + request.getParameter("OFFER_TYPE_CD"));
+		log.info("OFFER_CONTENT_ID      : " + request.getParameter("OFFER_CONTENT_ID"));
+
+		log.info("=============================================");
+
+		//연결페이지 구분
+		map.put("codeId", "C030");
+		map.put("USE_YN", "Y");
+		List<UaextCodeDtlBO> offerAplyCdList = this.commCodeService.getCommCodeDtlList(map);
+
+		//연결페이지 구분
+		map.put("codeId", "C031");
+		List<UaextCodeDtlBO> prodRecomCdList = this.commCodeService.getCommCodeDtlList(map);
+
+		//오퍼(포인트, 마일리지) 정보 상세 조회
+		map.put("OFFERID", Common.nvl(request.getParameter("OFFERID"), "").replace("\t", ""));
+		map.put("OFFER_TYPE_CD", Common.nvl(request.getParameter("OFFER_TYPE_CD"), "").replace(" ", ""));
+		map.put("OFFER_CONTENT_ID", Common.nvl(request.getParameter("OFFER_CONTENT_ID"), "").replace(" ", ""));
+
+		CampaignContentOfferPnBO bo = this.campaignContentService.getOfferPnInfo(map);
+
+		modelMap.addAttribute("OFFER_CONTENT_ID", Common.nvl(request.getParameter("OFFER_CONTENT_ID"), ""));
+		modelMap.addAttribute("CELLNAME", "미지정-고객세그먼트");
+
+		modelMap.addAttribute("OFFERID", Common.nvl(request.getParameter("OFFERID"), ""));
+		modelMap.addAttribute("OFFER_TYPE_CD", Common.nvl(request.getParameter("OFFER_TYPE_CD"), ""));
+		modelMap.addAttribute("OFFER_TYPE_NM", Common.nvl(request.getParameter("OFFER_TYPE_NM"), ""));
+		modelMap.addAttribute("OFFER_SYS_CD", "OM");
+		modelMap.addAttribute("CAMP_STATUS_CD", "EDIT");
+		modelMap.addAttribute("CAMPAIGNCODE", Common.nvl(request.getParameter("OFFER_CONTENT_ID")+"5000000", ""));
+		modelMap.addAttribute("CAMPAIGNNAME", Common.nvl("미지정-캠페인("+request.getParameter("OFFER_CONTENT_NM")+")", ""));
+		modelMap.addAttribute("bo", bo);
+		modelMap.addAttribute("offerAplyCdList", offerAplyCdList);
+		modelMap.addAttribute("prodRecomCdList", prodRecomCdList);
+
+		return "contents/offerPTPoint";
+	}
+
+	/**
 	 * 오퍼정보 입력(포인트, 마일리지)
 	 *
 	 * @param request

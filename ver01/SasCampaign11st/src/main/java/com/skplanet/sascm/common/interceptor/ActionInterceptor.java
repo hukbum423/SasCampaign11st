@@ -83,7 +83,7 @@ public class ActionInterceptor extends HandlerInterceptorAdapter {
 			// no authentication
 			if (url.indexOf("/login.do") > -1) {
 				return true;
-			} else if (url.indexOf("/ajax_login_proc.do") > -1) {
+			} else if (url.indexOf("/ajax_login_proc.do") > -1) {   // controller.LoginController.loginProc()
 				return true;
 			} else if (url.indexOf("/loginReload.do") > -1) {
 				return true;
@@ -93,7 +93,7 @@ public class ActionInterceptor extends HandlerInterceptorAdapter {
 				return true;
 			} else if (url.indexOf("/callCopyCoupon.do") > -1) {
 				return true;
-			} else if (url.indexOf("/kang.do") > -1) {
+			} else if (url.indexOf("/Kang/") > -1) {
 				return true;
 			} else {
 				throw new ModelAndViewDefiningException(new ModelAndView("redirect:/login.do?url="+url));

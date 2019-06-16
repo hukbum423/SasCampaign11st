@@ -1,7 +1,7 @@
 
 https://prodgate.11stcorp.com  접속
-	
-	
+
+
 박세현T 김창범M 손지성M
 IN PC: https://vdi.11stcorp.com/
     PP94161/Ab824651
@@ -15,7 +15,7 @@ ssh: 박세현0712!! 1100346
 [계정 변경]
 su sasadm
 
-WAS : /app/sasdata/pgm/java/webapps/SASCampgign  
+WAS : /app/sasdata/pgm/java/webapps/SASCampgign
 log : /app/sas/config/Lev1/Web/WebAppServer/SASServer_11ST/logs
 bin : /app/sas/config/Lev1/Web/WebAppServer/SASServer_11ST/bin
 
@@ -44,41 +44,41 @@ cm_work2@saspw
 
 
 [sas내리고 올리기]
-	
+
 	<sasadm 계정으로>
-	
+
 	1. telnet 11CAMPb-operws01
 	2. cd /app/sas/config/Lev1
 	3. ./sas.servers.mid stop
-	
+
 	4. telnet 11CAMPb-operwb01
 	5. cd /app/sas/config/Lev1
 	6. ./sas.servers stop
-	
+
 	7. telnet 11CAMPb-operws01
 	8. cd /app/sas/config/Lev1
 	9. ./sas.servers stop
-	
-	
+
+
 	*** > sassrv 로그인 해서 sassrv 프로세스 가 정상종료하지 못한 것들이 있어서 kill
 	ps -ef | grep sassrv
 	kill -9 {프로세스id}
-	
-	
+
+
 	캠페인 서버 서비스 시작
 	<sasadm 계정으로>
 	1. telnet 11CAMPb-operws01
 	2. cd /app/sas/config/Lev1
 	3. ./sas.servers start
-	
+
 	4. telnet 11CAMPb-operwb01
 	5. cd /app/sas/config/Lev1
 	6. ./sas.servers start
-	
+
 	7. telnet 11CAMPb-operws01
 	8. cd /app/sas/config/Lev1
 	9. ./sas.servers.mid start
-	
+
 	http://11campb-operwb:7980
 	/SASStoredProcess
 	/do?_program=/CM_META/41.STP/ci_check&param=http://11campb-operwb:7980/SASCampaign/login.do

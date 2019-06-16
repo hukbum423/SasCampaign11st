@@ -464,7 +464,7 @@ public class CampaignController {
 			if (!CMP_STATUS.equals("START") && offer_list != null) {
 				// Offer Update 매핑화면과 싱크를 위해 항상 업데이트
 				this.campaignInfoService.updateOfferData(map);                                               // KANG-20190413: 05. CampaignInfo.updateOfferData
-
+				
 				if (Flag.flag) {  // KANG-20190414: add by Kiea
 					for (int i = 0; i < offer_list.size(); i++) {
 						CampaignOfferBO campaignOfferBo = new CampaignOfferBO();
@@ -593,6 +593,8 @@ public class CampaignController {
 		if (null != tmpStr1 && !tmpStr1.equals("")){
 			tmpStr1 = tmpStr1.substring(0, 10);
 		}
+		log.debug("##### tmpStr : " + tmpStr);
+		log.debug("##### tmpStr1 : " + tmpStr1);
 
 		String tmpBgnTm = boProperty.getCamp_from_tm();
 		String tmpEndtm = boProperty.getCamp_to_tm();
@@ -686,6 +688,7 @@ public class CampaignController {
 		mapProperty.put("CHANNEL_PRIORITY_YN", Common.nvl((String) boProperty.getChannel_batch_rank_yn(), ""));
 		mapProperty.put("CREATE_ID", user.getId());
 		mapProperty.put("UPDATE_ID", user.getId());
+		System.out.println(">>>>>>>>>> in chkInsertUpdate.. " + mapProperty);
 
 		// 철수전 작업사항 데이터 전송방식 Batch 일경우 캠페인 시작일을 내일부터 지정 할 수 있습니다!!
 		Date from = new Date();
@@ -706,7 +709,7 @@ public class CampaignController {
 		}
 
 		// 철수전 작업사항 데이터 전송방식 Batch 일경우 캠페인 시작일을 내일부터 지정 할 수 있습니다!!
-		this.campaignInfoService.setCampaignInfo(mapProperty);                                               // KANG-20190413: Sub-03. CampaignInfo.setCampaignInfo
+		this.campaignInfoService.setCampaignInfo(mapProperty);             // KANG-20190413: Sub-03. CampaignInfo.setCampaignInfo
 		if (chkIn.equals("insert")){
 			chkInsertOffer(mapProperty, map);
 		}

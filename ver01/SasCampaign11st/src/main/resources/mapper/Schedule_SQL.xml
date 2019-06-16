@@ -67,7 +67,7 @@
     </resultMap>
   <!-- 플로차트 실행일정 조회 -->
   <select id="Schedule.getScheduleDetail" parameterType="Map"  resultMap="CampaignRunResvBO">
-    SELECT A.*
+    SELECT A.*     /* Schedule.getScheduleDetail */
         ,TO_CHAR(TO_DATE(B.RSRV_START_DT, 'YYYYMMDD'), 'YYYY-MM-DD')    rsrv_start_dt
         ,TO_CHAR(TO_DATE(B.RSRV_END_DT  , 'YYYYMMDD'), 'YYYY-MM-DD')    rsrv_end_dt
         ,B.RSRV_GUBUN_CODE   rsrv_gubun_code
@@ -116,7 +116,7 @@
   </select>
 
   <select id="Schedule.getRunScheduleCnt" parameterType="Map" resultType="java.lang.Integer">
-    SELECT
+    SELECT   /* Schedule.getRunScheduleCnt */
       COUNT(*)
     FROM
       CM_CAMPAIGN_RUN_SCHEDULE

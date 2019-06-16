@@ -313,6 +313,50 @@ public class OfferController {
 	}
 
 	/**
+	 * 오퍼 11페이포인트 페이지 호출: KANG-20190530
+	 *
+	 * @param request
+	 * @param response
+	 * @param modelMap
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/offer/offerPTPoint.do")
+	public String pageOfferPTPoint(HttpServletRequest request, HttpServletResponse response, ModelMap modelMap) throws Exception {
+		Map<String, Object> map = new HashMap<String, Object>();
+
+		//paramter
+		log.info("=============================================");
+		log.info("CampaignId   : " + request.getParameter("CampaignId"));
+		log.info("CELLID       : " + request.getParameter("CELLID"));
+		log.info("OFFERID      : " + request.getParameter("OFFERID"));
+		log.info("=============================================");
+
+		//연결페이지 구분
+		map.put("codeId", "C030");
+		map.put("USE_YN", "Y");
+		List<UaextCodeDtlBO> offerAplyCdList = commCodeService.getCommCodeDtlList(map);
+
+		//연결페이지 구분
+		map.put("codeId", "C031");
+		List<UaextCodeDtlBO> prodRecomCdList = commCodeService.getCommCodeDtlList(map);
+
+		//오퍼(포인트, 마일리지) 정보 상세 조회
+		map.put("CAMPAIGNID", Common.nvl(request.getParameter("CampaignId"), ""));
+		map.put("CELLID", Common.nvl(request.getParameter("CELLID"), ""));
+		map.put("OFFERID", Common.nvl(request.getParameter("OFFERID"), ""));
+
+		OfferPnBO bo = offerService.getOfferPnInfo(map);
+
+		modelMap.addAttribute("CAMPAIGNID", Common.nvl(request.getParameter("CampaignId"), ""));
+		modelMap.addAttribute("bo", bo);
+		modelMap.addAttribute("offerAplyCdList", offerAplyCdList);
+		modelMap.addAttribute("prodRecomCdList", prodRecomCdList);
+
+		return "offer/offerPTPoint";
+	}
+
+	/**
 	 * 오퍼정보 입력(포인트, 마일리지)
 	 *
 	 * @param request

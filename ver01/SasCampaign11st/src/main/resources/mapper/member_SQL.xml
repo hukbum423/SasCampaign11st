@@ -7,7 +7,7 @@
 		<result property="userId" column="user_id" />
 		<result property="userType" column="user_type" />
 	</resultMap>
-<!-- 	
+<!--
 	<select id="getMemberLogin" parameterType="com.skplanet.sascm.vo.MemberVO" resultMap="LoginResultMap">
 
         <![CDATA[
@@ -34,20 +34,19 @@
 		<result property="groupid" column="groupid" />
 		<result property="userid" column="userid" />
 	</resultMap>
-	
-	
-	<select id="getMemberView" parameterType="com.skplanet.sascm.vo.MemberVO" resultMap="MemberMap">
-        <![CDATA[
-        	/* 사용자 상세 조회 member_SQL.xml getMemberView */
-            select
-                *
-            from
-                CM_USER
-            where
-            	USERID = #{userid}
-        ]]>
+
+
+	<select id="member.getMemberView" parameterType="com.skplanet.sascm.vo.MemberVO" resultMap="MemberMap">
+		<![CDATA[
+			select  /* member.getMemberView */
+				*
+			from
+				CM_USER
+			where
+				USERID = #{userid}
+		]]>
 	</select>
-<!-- 
+<!--
   <select id="getMemberList" parameterType="hashmap" resultMap="MemberMap">
         <![CDATA[
           /* 사용자 목록 조회 member_SQL.xml getMemberList */
@@ -59,7 +58,7 @@
             limit #{limitVal}, #{numPerPage}
         ]]>
   </select>
-  
+
 	<select id="ajaxUserType" parameterType="com.skplanet.sascm.vo.MemberVO" resultMap="MemberMap">
         <![CDATA[
         	/* 사용자 권한 조회 member_SQL.xml ajaxUserType */
@@ -77,13 +76,13 @@
         	/* 사용자 권한 수정 member_SQL.xml userTypeProc */
             update
             	tbl_member
-            set 
+            set
             	user_type = #{userType}
             where
             	user_id = #{userId}
         ]]>
 	</update>
-	
+
 	<select id="getMemberTotalCnt" resultMap="MemberMap">
         <![CDATA[
         	/* 사용자 전체 카운트 member_SQL.xml getMemberTotalCnt */

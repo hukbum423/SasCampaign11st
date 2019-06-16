@@ -202,10 +202,109 @@ UI 상 이슈 정리
 		ver01/SasCampaign11st/src/main/webapp/js/common/common.js
 
 
+2019.05.30
+
+	43. (신)알리미 등록창에서 이미지 URL 등록창에 공백이 있을 경우 혜택톡 미발송 처리가 되는 문제점이 있어           <-- complete: channelMobile.jsp
+		등록상의 오류를 줄이기 위한 화면개발 작업을 요청드리기 위해 메일 전달 드립니다.
+		 
+		수정 요청사항은 하기와 같으니 해당 부분도 작업일정 확인하셔서 회신 부탁드리겠습니다.
+		 
+		■ 화면개발수정요청내용 : 하기 영역 필드값에 공백이 있을 경우 알럿창 및 알럿 문구생성(“공백은 제외해 주세요”)
+		1)     이미지내용 > 이미지URL : 타입1/타입2/타입3
+		2)     하단내용 > MOBILE URL / WEB URL : 타입1/타입2/타입3/타입4/타입5/타입6
+		3)     상품내용 > MOBILE URL / WEB URL : 타입2/타입5
+		4)     상품내용 > 상품이미지 URL : 타입2/타입5
 
 
 
+2019.06.14
 
+	44. 11번가의 11페이포인트의 변경 요청 내용은,                                                      <-- complete
+
+		**기존 오퍼종류코드 PN  ==> PT  으로 변경함
+		
+		그래서 김영천 생각에는 
+		
+		1) contents영역에서 URL 주소 변경 -> 추가
+			http://11campb-operwb:7980/SASCampaign/contents/offerPoint.do
+			===>
+			http://11campb-operwb:7980/SASCampaign/contents/offePTPoint.do
+		
+		2) offer영역에서 URL 주소 변경 -> 추가
+			http://11campb-operwb:7980/SASCampaign/offer/offerPoint.do
+			===>
+			http://11campb-operwb:7980/SASCampaign/offer/offerPTPoint.do
+		
+		3) 화면영역에서 표시 수정 
+			오퍼 상세 정보  (OM PN)
+			===> 
+			오퍼 상세 정보  (OM PT)
+		
+		4) 기타
+			공통코드 영역에서 코드 값 변경은 SAS에서 담당
+
+		아래의 정보를 이용하여 작업한다.
+		
+			[ 적용 방법 ] 공통코드관리에서 아래와 같이 작업을 한다.
+				1. C002 오퍼종류: PN -> 'Y' : 포인트 항목을 살린다.
+				2. PN   포인트                공통코드 추가
+				3. 포인트의 상세항목들을 아래와 같이 추가
+					PN1 포인트1
+					PN2 포인트2
+					PN3 포인트3
+					PN4 포인트4
+					PN5 포인트5
+	
+			[ 관련 테이블 ]
+				CM_CAMPAIGN_OFFER
+				CM_CAMPAIGN_CONTENTS
+				CM_CAMPAIGN_CONTENTS_OFFERLIST
+
+		--------------------------------------------------------------------------------
+		--------------------------------------------------------------------------------
+			
+			select * from cm_code_mst where 1=1 order by sort_seq;
+			select * from cm_code_dtl where comm_code_id = 'C002' order by sort_seq;
+			
+			--------------------------------------------------------------------------------
+			
+			insert into cm_code_mst (comm_code_id, comm_code_name, code_desc, sort_seq, use_yn, create_id, create_dt) values ('PT', '11페이포인트', '11페이포인트', 44, 'Y', 42, '2019/05/30');
+			insert into cm_code_mst (comm_code_id, comm_code_name, code_desc, sort_seq, use_yn, create_id, create_dt) values ('MI', '마일리지', '마일리지', 45, 'Y', 42, '2019/05/30');
+			
+			insert into cm_code_dtl (comm_code_id, code_id, code_name, code_desc, sort_seq, use_yn, create_id, create_dt) values ('C002', 'PT', '11페이포인트', '11페이포인트', 7, 'Y', 42, '2019/05/30');
+			insert into cm_code_dtl (comm_code_id, code_id, code_name, code_desc, sort_seq, use_yn, create_id, create_dt) values ('PT', 'PT1', '11페이포인트1', '11페이포인트1', 1, 'Y', 42, '2019/05/30');
+			insert into cm_code_dtl (comm_code_id, code_id, code_name, code_desc, sort_seq, use_yn, create_id, create_dt) values ('PT', 'PT2', '11페이포인트2', '11페이포인트2', 2, 'Y', 42, '2019/05/30');
+			insert into cm_code_dtl (comm_code_id, code_id, code_name, code_desc, sort_seq, use_yn, create_id, create_dt) values ('PT', 'PT3', '11페이포인트3', '11페이포인트3', 3, 'Y', 42, '2019/05/30');
+			insert into cm_code_dtl (comm_code_id, code_id, code_name, code_desc, sort_seq, use_yn, create_id, create_dt) values ('PT', 'PT4', '11페이포인트4', '11페이포인트4', 4, 'Y', 42, '2019/05/30');
+			insert into cm_code_dtl (comm_code_id, code_id, code_name, code_desc, sort_seq, use_yn, create_id, create_dt) values ('PT', 'PT5', '11페이포인트5', '11페이포인트5', 5, 'Y', 42, '2019/05/30');
+		--------------------------------------------------------------------------------
+		--------------------------------------------------------------------------------
+		운영 적용)
+			/controller/
+				CampaignContentController.java
+				CampaignController.java
+				OfferController.java
+			
+			/mapper/
+				CampaignContent_SQL.xml
+				campaignInfo_SQL.xml
+				channel_SQL.xml
+				member_SQL.xml
+				Schedule_SQL.xml
+			
+			/views/campaign/
+				campaignList.jsp
+				
+			/views/contents/
+				CampaignContent.jsp
+				offerPTPoint.jsp
+				
+			/views/offer/
+				offerPTPoint.jsp
+		
+		--------------------------------------------------------------------------------
+		--------------------------------------------------------------------------------
+		
 
 
 

@@ -1118,9 +1118,10 @@
 				frm.method = "POST";
 				frm.submit();
 				pop.focus();
-		} else if (type == "OMPN" || type == "OMMI" || type == "OMOC" || type == "OMDP"){//일반포인트(OMPN), 일반마일리지(OMMI), 일반OKCashBack(OMOC), 즉시할인(OMDP)
+		} else if (type == "OMPT" || type == "OMPN" || type == "OMMI" || type == "OMOC" || type == "OMDP"){//KANG-20190530: 일반11페이포인트(OMPT), 일반포인트(OMPN), 일반마일리지(OMMI), 일반OKCashBack(OMOC), 즉시할인(OMDP)
 			pop = window.open('', 'POP_OFFER1', 'top=150,left=100, location=no,status=no,toolbar=no,scrollbars=yes');
-				frm.action = "${staticPATH }/offer/offerPoint.do";
+				// frm.action = "${staticPATH }/offer/offerPoint.do";
+				frm.action = "${staticPATH }/offer/offerPTPoint.do";
 				frm.target = "POP_OFFER1";
 				frm.method = "POST";
 				frm.submit();

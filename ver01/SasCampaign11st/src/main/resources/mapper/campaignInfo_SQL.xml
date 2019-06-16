@@ -242,54 +242,58 @@
 	</select>
 
 
-  <!-- 캠페인 정보 저장 -->
-  <update id="CampaignInfo.setCampaignInfo" parameterType="Map" >
-    MERGE INTO CM_CAMPAIGN_DTL
-    USING DUAL
-    ON (CAMPAIGNCODE = #{CAMPAIGNCODE})
-    WHEN MATCHED THEN
-    UPDATE SET CAMP_TERM_CD        = TRIM(#{CAMP_TERM_CD})
-              ,CAMP_BGN_DT         = CASE WHEN #{CAMP_TERM_CD} = '01' THEN TO_DATE(#{CAMP_BGN_DT1} || LPAD(#{CAMP_BGN_DT2}, 2,'0') || LPAD(#{CAMP_BGN_DT3}, 2,'0') || '00', 'YYYY-MM-DDHH24MISS') ELSE NULL END
-              ,CAMP_END_DT         = CASE WHEN #{CAMP_TERM_CD} = '01' THEN TO_DATE(#{CAMP_END_DT1} || LPAD(#{CAMP_END_DT2}, 2,'0') || LPAD(#{CAMP_END_DT3}, 2,'0') || '59', 'YYYY-MM-DDHH24MISS') ELSE NULL END
-              ,CAMP_TERM_DAY       = CASE WHEN #{CAMP_TERM_CD} = '02' THEN #{CAMP_TERM_DAY} ELSE NULL END
-              ,AUDIENCE_CD         = TRIM(#{AUDIENCE_CD})
-              ,MANUAL_TRANS_YN     = TRIM(#{MANUAL_TRANS_YN})
-              ,OFFER_DIRECT_YN     = TRIM(#{OFFER_DIRECT_YN})
-              ,CHANNEL_PRIORITY_YN = TRIM(#{CHANNEL_PRIORITY_YN})
-              ,UPDATE_ID           = TRIM(#{UPDATE_ID})
-              ,UPDATE_DT           = SYSDATE
-    WHEN NOT MATCHED THEN
-    INSERT (
-       CAMPAIGNCODE
-      ,CAMPAIGNID
-      ,CAMP_TERM_CD
-      ,CAMP_BGN_DT
-      ,CAMP_END_DT
-      ,CAMP_TERM_DAY
-      ,AUDIENCE_CD
-      ,MANUAL_TRANS_YN
-      ,OFFER_DIRECT_YN
-      ,CHANNEL_PRIORITY_YN
-      ,CAMP_STATUS_CD
-      ,CREATE_ID
-      ,CREATE_DT
-    )
-    VALUES (
-       TRIM(#{CAMPAIGNCODE})
-      ,TRIM(#{CAMPAIGNID})
-      ,TRIM(#{CAMP_TERM_CD})
-      ,CASE WHEN #{CAMP_TERM_CD} = '01' THEN TO_DATE(#{CAMP_BGN_DT1} || LPAD(#{CAMP_BGN_DT2}, 2,'0') || LPAD(#{CAMP_BGN_DT3}, 2,'0') || '00', 'YYYY-MM-DDHH24MISS') ELSE NULL END
-      ,CASE WHEN #{CAMP_TERM_CD} = '01' THEN TO_DATE(#{CAMP_END_DT1} || LPAD(#{CAMP_END_DT2}, 2,'0') || LPAD(#{CAMP_END_DT3}, 2,'0') || '59', 'YYYY-MM-DDHH24MISS') ELSE NULL END
-      ,CASE WHEN #{CAMP_TERM_CD} = '02' THEN #{CAMP_TERM_DAY} ELSE NULL END
-      ,TRIM(#{AUDIENCE_CD})
-      ,TRIM(#{MANUAL_TRANS_YN})
-      ,TRIM(#{OFFER_DIRECT_YN})
-      ,TRIM(#{CHANNEL_PRIORITY_YN})
-      ,'EDIT'
-      ,TRIM(#{CREATE_ID})
-      ,SYSDATE
-    )
-  </update>
+	<!-- 캠페인 정보 저장 -->
+	<update id="CampaignInfo.setCampaignInfo" parameterType="Map" >
+		MERGE INTO    /* CampaignInfo.setCampaignInfo */
+			CM_CAMPAIGN_DTL
+		USING DUAL
+		ON (
+			CAMPAIGNCODE = #{CAMPAIGNCODE}
+		)
+		WHEN MATCHED THEN
+			UPDATE SET 
+				CAMP_TERM_CD         = TRIM(#{CAMP_TERM_CD})
+				,CAMP_BGN_DT         = CASE WHEN #{CAMP_TERM_CD} = '01' THEN TO_DATE(#{CAMP_BGN_DT1} || LPAD(#{CAMP_BGN_DT2}, 2,'0') || LPAD(#{CAMP_BGN_DT3}, 2,'0') || '00', 'YYYY-MM-DDHH24MISS') ELSE NULL END
+				,CAMP_END_DT         = CASE WHEN #{CAMP_TERM_CD} = '01' THEN TO_DATE(#{CAMP_END_DT1} || LPAD(#{CAMP_END_DT2}, 2,'0') || LPAD(#{CAMP_END_DT3}, 2,'0') || '59', 'YYYY-MM-DDHH24MISS') ELSE NULL END
+				,CAMP_TERM_DAY       = CASE WHEN #{CAMP_TERM_CD} = '02' THEN #{CAMP_TERM_DAY} ELSE NULL END
+				,AUDIENCE_CD         = TRIM(#{AUDIENCE_CD})
+				,MANUAL_TRANS_YN     = TRIM(#{MANUAL_TRANS_YN})
+				,OFFER_DIRECT_YN     = TRIM(#{OFFER_DIRECT_YN})
+				,CHANNEL_PRIORITY_YN = TRIM(#{CHANNEL_PRIORITY_YN})
+				,UPDATE_ID           = TRIM(#{UPDATE_ID})
+				,UPDATE_DT           = SYSDATE
+		WHEN NOT MATCHED THEN
+			INSERT (
+				 CAMPAIGNCODE
+				,CAMPAIGNID
+				,CAMP_TERM_CD
+				,CAMP_BGN_DT
+				,CAMP_END_DT
+				,CAMP_TERM_DAY
+				,AUDIENCE_CD
+				,MANUAL_TRANS_YN
+				,OFFER_DIRECT_YN
+				,CHANNEL_PRIORITY_YN
+				,CAMP_STATUS_CD
+				,CREATE_ID
+				,CREATE_DT
+			)
+			VALUES (
+				 TRIM(#{CAMPAIGNCODE})
+				,TRIM(#{CAMPAIGNID})
+				,TRIM(#{CAMP_TERM_CD})
+				,CASE WHEN #{CAMP_TERM_CD} = '01' THEN TO_DATE(#{CAMP_BGN_DT1} || LPAD(#{CAMP_BGN_DT2}, 2,'0') || LPAD(#{CAMP_BGN_DT3}, 2,'0') || '00', 'YYYY-MM-DDHH24MISS') ELSE NULL END
+				,CASE WHEN #{CAMP_TERM_CD} = '01' THEN TO_DATE(#{CAMP_END_DT1} || LPAD(#{CAMP_END_DT2}, 2,'0') || LPAD(#{CAMP_END_DT3}, 2,'0') || '59', 'YYYY-MM-DDHH24MISS') ELSE NULL END
+				,CASE WHEN #{CAMP_TERM_CD} = '02' THEN #{CAMP_TERM_DAY} ELSE NULL END
+				,TRIM(#{AUDIENCE_CD})
+				,TRIM(#{MANUAL_TRANS_YN})
+				,TRIM(#{OFFER_DIRECT_YN})
+				,TRIM(#{CHANNEL_PRIORITY_YN})
+				,'EDIT'
+				,TRIM(#{CREATE_ID})
+				,SYSDATE
+			)
+	</update>
 
 	<!-- 채널의 우선순위 수정 -->
 	<update id="CampaignInfo.setChannelPriority" parameterType="Map" >
@@ -603,29 +607,29 @@
             ,LMS_DISP_TIME = NULL
          WHERE CELLID IN (SELECT CELL_PACKAGE_SK FROM CI_CELL_PACKAGE WHERE CAMPAIGN_SK = #{CAMPAIGNID} AND ( CONTROL_GROUP_TYPE_CD IS NULL OR CONTROL_GROUP_TYPE_CD IN ('_CH','_CL') )  )
   </update>
-  <select id="CampaignInfo.getCampaignFolderList" parameterType="Map" resultMap="CampaignListBO">
-
-    SELECT
-      CAMPAIGN_FOLDER_TXT
-      , NVL(LENGTH(CAMPAIGN_FOLDER_TXT)-LENGTH(REPLACE(CAMPAIGN_FOLDER_TXT, '\', '')), 0) CNT
-    FROM
-      CI_CAMPAIGN
-    WHERE
-      DELETED_FLG ='N'
-      <if test="serverType == 'PRD'">
-        <![CDATA[ AND CAMPAIGN_SK >= 10000 ]]>
-      </if>
-      <if test="serverType == 'STG'">
-        <![CDATA[ AND CAMPAIGN_SK < 10000 ]]>
-      </if>
-      <if test="serverType == 'DEV'">
-        <![CDATA[ AND CAMPAIGN_SK < 10000 ]]>
-      </if>
-    GROUP BY
-      CAMPAIGN_FOLDER_TXT
-    ORDER BY
-      CAMPAIGN_FOLDER_TXT
-  </select>
+	<!-- KANG-2019605: folder 리스트 -->
+	<select id="CampaignInfo.getCampaignFolderList" parameterType="Map" resultMap="CampaignListBO">
+		SELECT  /* CampaignInfo.getCampaignFolderList */
+			CAMPAIGN_FOLDER_TXT
+			, NVL(LENGTH(CAMPAIGN_FOLDER_TXT)-LENGTH(REPLACE(CAMPAIGN_FOLDER_TXT, '\', '')), 0) CNT
+		FROM
+			CI_CAMPAIGN
+		WHERE
+			DELETED_FLG ='N'
+			<if test="serverType == 'PRD'">
+				<![CDATA[ AND CAMPAIGN_SK >= 10000 ]]>
+			</if>
+			<if test="serverType == 'STG'">
+				<![CDATA[ AND CAMPAIGN_SK < 10000 ]]>
+			</if>
+			<if test="serverType == 'DEV'">
+				<![CDATA[ AND CAMPAIGN_SK < 60000 ]]>
+			</if>
+		GROUP BY
+			CAMPAIGN_FOLDER_TXT
+		ORDER BY
+			CAMPAIGN_FOLDER_TXT
+	</select>
 	<!-- KANG-20190410: 목록 건수 -->
 	<select id="CampaignInfo.getCampaignListCnt" parameterType="Map" resultType="String">
 		SELECT /* CampaignInfo.getCampaignListCnt */
@@ -641,7 +645,7 @@
 				<![CDATA[ AND CAMPAIGN_SK < 10000 ]]>
 			</if>
 			<if test='serverType == "DEV"'>
-				<![CDATA[ AND CAMPAIGN_SK < 10000 ]]>
+				<![CDATA[ AND CAMPAIGN_SK < 60000 ]]>
 			</if>
 		ORDER BY
 			CAMPAIGN_SK DESC
@@ -674,7 +678,7 @@
 						<![CDATA[ AND CAMPAIGN_SK < 10000 ]]>
 					</if>
 					<if test='serverType == "DEV"'>
-						<![CDATA[ AND CAMPAIGN_SK < 10000 ]]>
+						<![CDATA[ AND CAMPAIGN_SK < 60000 ]]>
 					</if>
 				ORDER BY
 					CAMPAIGN_SK DESC
@@ -890,7 +894,7 @@
   </insert>
 
   <update id="CampaignInfo.updateOfferData" parameterType="Map" >
-      MERGE INTO cm_campaign_offer A
+      MERGE INTO cm_campaign_offer A    /* CampaignInfo.updateOfferData */
       USING (
 
              SELECT DISTINCT
@@ -956,9 +960,8 @@
   </update>
 
   <update id="CampaignInfo.updateChannelData" parameterType="Map" >
-      MERGE INTO cm_campaign_channel A
+      MERGE INTO cm_campaign_channel A   /* CampaignInfo.updateChannelData */
       USING (
-
              SELECT DISTINCT
                     T3.CAMPAIGN_CD           CAMPAIGNCODE
                   , T3.MARKETING_CELL_SK  CELLID
@@ -1228,12 +1231,10 @@
         , T1.EMAIL_DISP_DT        = CASE WHEN T1.CHANNEL_CD = 'EMAIL'  AND T1.MOBILE_DISP_DT IS NOT NULL THEN T1.MOBILE_DISP_DT ELSE T2.camp_bgn_dt END
         , T1.MOBILE_DISP_DT       = CASE WHEN T1.CHANNEL_CD = 'MOBILE' AND T1.MOBILE_DISP_DT IS NOT NULL THEN T1.MOBILE_DISP_DT ELSE T2.camp_bgn_dt END
         , T1.LMS_DISP_DT          = CASE WHEN T1.CHANNEL_CD = 'LMS'    AND T1.MOBILE_DISP_DT IS NOT NULL THEN T1.MOBILE_DISP_DT ELSE T2.camp_bgn_dt END
-
         , T1.SMS_DISP_TIME          = CASE WHEN T1.CHANNEL_CD = 'SMS'      THEN  T2.T1_SMS_DISPTIME END
         , T1.EMAIL_DISP_TIME        = CASE WHEN T1.CHANNEL_CD = 'EMAIL'    THEN  T2.T2_EMAIL_DISPTIME END
         , T1.MOBILE_DISP_TIME       = CASE WHEN T1.CHANNEL_CD = 'MOBILE'   THEN  T2.T3_MOBILE_DISPTIME END
         , T1.LMS_DISP_TIME          = CASE WHEN T1.CHANNEL_CD = 'LMS'      THEN  T2.T4_LMS_DISPTIME END
-
         , T1.UPDATE_ID            = 9
         , T1.UPDATE_DT            = SYSDATE
   </update>
@@ -1241,18 +1242,18 @@
 	<!-- 목표대비 달성율 -->
 	<select id="CampaignInfo.getCampaignRptRsltCrmMonth" parameterType="Map" resultMap="CampaignRptRsltCrmMonthBO">
 	<![CDATA[
-		SELECT
-			A.CUST_GOAL AS CUST_GOAL
-			, A.AMT_GOAL AS AMT_GOAL
-			, A.DIS_GOAL AS DIS_GOAL
-			, A.PURE_AMT_GOAL AS PURE_AMT_GOAL
+		SELECT   /* CampaignInfo.getCampaignRptRsltCrmMonth */
+			A.CUST_GOAL        AS CUST_GOAL
+			, A.AMT_GOAL       AS AMT_GOAL
+			, A.DIS_GOAL       AS DIS_GOAL
+			, A.PURE_AMT_GOAL  AS PURE_AMT_GOAL
 		FROM(
 			SELECT
 				TT0.STD_MON   AS STD_MON
-				,to_char(ROUND((TT5.rspn_cust_cnt/TT0.TAGT_CUST)*100.0, 1)) AS CUST_GOAL
-				,to_char(ROUND((TT5.cmpn_sum_amt/TT0.TAGT_AMT)*100.0, 1)) AS AMT_GOAL
-				,to_char(ROUND((TT5.cmpn_sum_cost/TT0.TAGT_DIS)*100.0, 1)) AS DIS_GOAL
-				,to_char(ROUND((TT5.cmpn_net_amt/TT0.TAGT_LIFT)*100.0, 1)) AS PURE_AMT_GOAL
+				,to_char(ROUND((TT5.rspn_cust_cnt/TT0.TAGT_CUST)*100.0, 1))  AS CUST_GOAL
+				,to_char(ROUND((TT5.cmpn_sum_amt/TT0.TAGT_AMT)*100.0, 1))    AS AMT_GOAL
+				,to_char(ROUND((TT5.cmpn_sum_cost/TT0.TAGT_DIS)*100.0, 1))   AS DIS_GOAL
+				,to_char(ROUND((TT5.cmpn_net_amt/TT0.TAGT_LIFT)*100.0, 1))   AS PURE_AMT_GOAL
 			FROM TAGT_CRM_MONTHLY TT0
 				, CM_RPT_RSLT_CRM_MONTH TT5
 			WHERE
@@ -1267,8 +1268,8 @@
 	<!-- 11번가 침투율 -->
 	<select id="CampaignInfo.getCampaignRptPtCrmMonth" parameterType="Map" resultMap="CampaignRptPtCrmMonthBO">
 	<![CDATA[
-		SELECT
-			A.PT_CUST_CNT       AS PT_CUST_CNT
+		SELECT   /* CampaignInfo.getCampaignRptPtCrmMonth */
+			A.PT_CUST_CNT           AS PT_CUST_CNT
 			, A.TOT_CUST_CNT        AS TOT_CUST_CNT
 			, A.PT_CMPN_AMT         AS PT_CMPN_AMT
 			, A.TOT_AMT             AS TOT_AMT
@@ -1281,7 +1282,7 @@
 		FROM
 			(
 				SELECT
-					PT_CUST_CNT       AS PT_CUST_CNT
+					PT_CUST_CNT           AS PT_CUST_CNT
 					, TOT_CUST_CNT        AS TOT_CUST_CNT
 					, PT_CMPN_AMT         AS PT_CMPN_AMT
 					, TOT_AMT             AS TOT_AMT
@@ -1303,9 +1304,9 @@
 	<!-- 캠페인 결제 거래액 추이 -->
 	<select id="CampaignInfo.getCampaignRptSumSales" parameterType="Map" resultMap="CampaignRptSumSalesBO">
 	<![CDATA[
-		SELECT
+		SELECT   /* CampaignInfo.getCampaignRptSumSales */
 			to_char(to_date(CAMP_BGN_DT, 'YYYY-MM-DD'), 'YYYY-MM-DD')   AS CAMP_BGN_DT
-			, ROUND(SALE_AMT/1000000)                                                  AS SALE_AMT /* KANG-20190314 */
+			, ROUND(SALE_AMT/1000000)                                   AS SALE_AMT /* KANG-20190314 */
 		FROM
 			CM_RPT_SUM_SALES
 		ORDER BY 1 ASC            /* KANG-20190314 */

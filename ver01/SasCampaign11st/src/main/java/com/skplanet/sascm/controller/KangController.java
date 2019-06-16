@@ -23,7 +23,7 @@ import com.skplanet.sascm.object.CampaignListBO;
 import com.skplanet.sascm.service.KangService;
 
 @Controller
-//@RequestMapping(value = "/kang")
+@RequestMapping(value = "/Kang")
 public class KangController {
 
 	private final Log log = LogFactory.getLog(getClass());
@@ -35,13 +35,6 @@ public class KangController {
 	@Autowired
 	private MappingJacksonJsonView jsonView;
 
-	/**
-	 * 
-	 * @param locale
-	 * @param model
-	 * @return
-	 * @throws Exception
-	 */
 	@RequestMapping(value = "/kang/kangList.do", method = RequestMethod.GET)
 	public void kangList(HttpServletRequest request, HttpServletResponse response, ModelMap modelMap) throws Exception {
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -59,13 +52,13 @@ public class KangController {
 		jsonView.render(map, request, response);
 	}
 
-	@RequestMapping(value = "/kang/kang.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/kang.do", method = RequestMethod.GET)
 	public String kang(Locale locale, Model model) throws Exception {
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		String msg = this.kangService.getMessage(map);
 		
 		model.addAttribute("serverTime", "Hello 강석!!!" + msg);
-		return "kang";
+		return "kang/kang";
 	}
 }
