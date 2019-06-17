@@ -1,7 +1,6 @@
 package com.skplanet.sascm.object;
 
 public class OfferCuBO {
-
 	private String campaignid;
 	private String campaignname;
 	private String campaigncode;
@@ -40,10 +39,10 @@ public class OfferCuBO {
 	private String update_nm;
 	private String update_dt;
 	private String cell_package_sk;
-	
-    private String communication_sk;
-    private String offer_content_id;
-    private String offer_content_nm;
+
+	private String communication_sk;
+	private String offer_content_id;
+	private String offer_content_nm;
 
 	public String getCampaignid() {
 		return campaignid;
@@ -333,37 +332,35 @@ public class OfferCuBO {
 		this.camp_term_cd = camp_term_cd;
 	}
 
-    public String getCell_package_sk() {
-        return cell_package_sk;
-    }
+	public String getCell_package_sk() {
+		return cell_package_sk;
+	}
 
-    public void setCell_package_sk(String cell_package_sk) {
-        this.cell_package_sk = cell_package_sk;
-    }
+	public void setCell_package_sk(String cell_package_sk) {
+		this.cell_package_sk = cell_package_sk;
+	}
 
-    public String getCommunication_sk() {
-        return communication_sk;
-    }
+	public String getCommunication_sk() {
+		return communication_sk;
+	}
 
-    public void setCommunication_sk(String communication_sk) {
-        this.communication_sk = communication_sk;
-    }
+	public void setCommunication_sk(String communication_sk) {
+		this.communication_sk = communication_sk;
+	}
 
-    public String getOffer_content_id() {
-        return offer_content_id;
-    }
+	public String getOffer_content_id() {
+		return offer_content_id;
+	}
 
-    public void setOffer_content_id(String offer_content_id) {
-        this.offer_content_id = offer_content_id;
-    }
+	public void setOffer_content_id(String offer_content_id) {
+		this.offer_content_id = offer_content_id;
+	}
 
-    public String getOffer_content_nm() {
-        return offer_content_nm;
-    }
+	public String getOffer_content_nm() {
+		return offer_content_nm;
+	}
 
-    public void setOffer_content_nm(String offer_content_nm) {
-        this.offer_content_nm = offer_content_nm;
-    }
-
-	
+	public void setOffer_content_nm(String offer_content_nm) {
+		this.offer_content_nm = offer_content_nm;
+	}
 }

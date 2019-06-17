@@ -9,7 +9,7 @@ import com.skplanet.sascm.object.UaextCodeMstBO;
 
 /**
  * CommCodeDAO
- * 
+ *
  * @author 김일범
  * @since 2013-12-05
  * @version $Revision$
@@ -18,7 +18,7 @@ public interface CommCodeDAO {
 
 	/**
 	 * 공통코드 마스터 목록 조회
-	 * 
+	 *
 	 * @param request
 	 * @param response
 	 * @param modelMap
@@ -29,7 +29,7 @@ public interface CommCodeDAO {
 
 	/**
 	 * 공통코드 마스터 목록 건수 조회
-	 * 
+	 *
 	 * @param request
 	 * @param response
 	 * @param modelMap
@@ -40,7 +40,7 @@ public interface CommCodeDAO {
 
 	/**
 	 * 공통코드 상세 목록 조회
-	 * 
+	 *
 	 * @param request
 	 * @param response
 	 * @param modelMap
@@ -51,7 +51,7 @@ public interface CommCodeDAO {
 
 	/**
 	 * 공통코드 마스터 중복 여부 조회
-	 * 
+	 *
 	 * @param request
 	 * @param response
 	 * @param modelMap
@@ -62,7 +62,7 @@ public interface CommCodeDAO {
 
 	/**
 	 * 공통코드 상세 중복 여부 조회
-	 * 
+	 *
 	 * @param request
 	 * @param response
 	 * @param modelMap
@@ -73,7 +73,7 @@ public interface CommCodeDAO {
 
 	/**
 	 * 공통코드 마스터 등록
-	 * 
+	 *
 	 * @param request
 	 * @param response
 	 * @param modelMap
@@ -84,7 +84,7 @@ public interface CommCodeDAO {
 
 	/**
 	 * 공통코드 마스터 수정
-	 * 
+	 *
 	 * @param request
 	 * @param response
 	 * @param modelMap
@@ -95,7 +95,7 @@ public interface CommCodeDAO {
 
 	/**
 	 * 공통코드 마스터 상세 조회
-	 * 
+	 *
 	 * @param request
 	 * @param response
 	 * @param modelMap
@@ -106,7 +106,7 @@ public interface CommCodeDAO {
 
 	/**
 	 * 공통코드 상세 등록
-	 * 
+	 *
 	 * @param request
 	 * @param response
 	 * @param modelMap
@@ -117,7 +117,7 @@ public interface CommCodeDAO {
 
 	/**
 	 * 공통코드 상세 수정
-	 * 
+	 *
 	 * @param request
 	 * @param response
 	 * @param modelMap
@@ -128,7 +128,7 @@ public interface CommCodeDAO {
 
 	/**
 	 * 공통코드 상세코드 상세 조회
-	 * 
+	 *
 	 * @param request
 	 * @param response
 	 * @param modelMap

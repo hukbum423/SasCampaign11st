@@ -1,7 +1,6 @@
 package com.skplanet.sascm.object;
 
 public class CampaignRunResvBO {
-
 	private String campaigncode;
 	private String campaignid;
 	private String campaignname;
@@ -40,7 +39,7 @@ public class CampaignRunResvBO {
 	private String schedulePlayCnt;
 	private String rsrv_gubun_code_name;
 	private String rsrv_everytime;
-	
+
 	private String multistep_cistudio_yn;
 
 	public String getFlowchartname() {
@@ -347,12 +346,11 @@ public class CampaignRunResvBO {
 		this.rsrv_everytime = rsrv_everytime;
 	}
 
-    public String getMultistep_cistudio_yn() {
-        return multistep_cistudio_yn;
-    }
+	public String getMultistep_cistudio_yn() {
+		return multistep_cistudio_yn;
+	}
 
-    public void setMultistep_cistudio_yn(String multistep_cistudio_yn) {
-        this.multistep_cistudio_yn = multistep_cistudio_yn;
-    }
-	
+	public void setMultistep_cistudio_yn(String multistep_cistudio_yn) {
+		this.multistep_cistudio_yn = multistep_cistudio_yn;
+	}
 }

@@ -1,7 +1,6 @@
 package com.skplanet.sascm.object;
 
 public class CampaignRunScheduleBO {
-
 	private String num;
 	private String campaigncode;
 	private String flowchartid;
@@ -139,13 +138,11 @@ public class CampaignRunScheduleBO {
 		this.update_dt = update_dt;
 	}
 
-    public String getRow_num() {
-        return row_num;
-    }
+	public String getRow_num() {
+		return row_num;
+	}
 
-    public void setRow_num(String row_num) {
-        this.row_num = row_num;
-    }
-
-	
+	public void setRow_num(String row_num) {
+		this.row_num = row_num;
+	}
 }

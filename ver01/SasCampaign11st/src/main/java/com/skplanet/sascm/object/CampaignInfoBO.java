@@ -1,7 +1,6 @@
 package com.skplanet.sascm.object;
 
 public class CampaignInfoBO {
-
 	private String campaignname;
 	private String campaigncode;
 	private String campaignid;
@@ -31,23 +30,23 @@ public class CampaignInfoBO {
 	private String update_nm;
 	private String update_dt;
 	private String channelCnt;
-	
-    private String campaigngubun;
-    private String campaigntype;
-    private String senddatetype;
 
-    private String campaign_period;
-    private String camp_from_dt;
-    private String camp_to_dt;
-    private String send_day;
-    private String target_id;
-    private String offer_auto_yn;
-    private String channel_batch_rank_yn;
-    
-    private String campaign_detail;
-    private String campaign_offer_cost_gubun;
-    private String campaign_gubun_dtl;
-    
+	private String campaigngubun;
+	private String campaigntype;
+	private String senddatetype;
+
+	private String campaign_period;
+	private String camp_from_dt;
+	private String camp_to_dt;
+	private String send_day;
+	private String target_id;
+	private String offer_auto_yn;
+	private String channel_batch_rank_yn;
+
+	private String campaign_detail;
+	private String campaign_offer_cost_gubun;
+	private String campaign_gubun_dtl;
+
 	public String getCampaigncode() {
 		return campaigncode;
 	}
@@ -260,125 +259,123 @@ public class CampaignInfoBO {
 		this.channelCnt = channelCnt;
 	}
 
-    public String getCampaigngubun() {
-        return campaigngubun;
-    }
+	public String getCampaigngubun() {
+		return campaigngubun;
+	}
 
-    public void setCampaigngubun(String campaigngubun) {
-        this.campaigngubun = campaigngubun;
-    }
+	public void setCampaigngubun(String campaigngubun) {
+		this.campaigngubun = campaigngubun;
+	}
 
-    public String getCampaigntype() {
-        return campaigntype;
-    }
+	public String getCampaigntype() {
+		return campaigntype;
+	}
 
-    public void setCampaigntype(String campaigntype) {
-        this.campaigntype = campaigntype;
-    }
+	public void setCampaigntype(String campaigntype) {
+		this.campaigntype = campaigntype;
+	}
 
-    public String getSenddatetype() {
-        return senddatetype;
-    }
+	public String getSenddatetype() {
+		return senddatetype;
+	}
 
-    public void setSenddatetype(String senddatetype) {
-        this.senddatetype = senddatetype;
-    }
+	public void setSenddatetype(String senddatetype) {
+		this.senddatetype = senddatetype;
+	}
 
-    public String getCampaign_period() {
-        return campaign_period;
-    }
+	public String getCampaign_period() {
+		return campaign_period;
+	}
 
-    public void setCampaign_period(String campaign_period) {
-        this.campaign_period = campaign_period;
-    }
+	public void setCampaign_period(String campaign_period) {
+		this.campaign_period = campaign_period;
+	}
 
-    public String getCamp_from_dt() {
-        return camp_from_dt;
-    }
+	public String getCamp_from_dt() {
+		return camp_from_dt;
+	}
 
-    public void setCamp_from_dt(String camp_from_dt) {
-        this.camp_from_dt = camp_from_dt;
-    }
+	public void setCamp_from_dt(String camp_from_dt) {
+		this.camp_from_dt = camp_from_dt;
+	}
 
-    public String getCamp_to_dt() {
-        return camp_to_dt;
-    }
+	public String getCamp_to_dt() {
+		return camp_to_dt;
+	}
 
-    public void setCamp_to_dt(String camp_to_dt) {
-        this.camp_to_dt = camp_to_dt;
-    }
+	public void setCamp_to_dt(String camp_to_dt) {
+		this.camp_to_dt = camp_to_dt;
+	}
 
-    public String getSend_day() {
-        return send_day;
-    }
+	public String getSend_day() {
+		return send_day;
+	}
 
-    public void setSend_day(String send_day) {
-        this.send_day = send_day;
-    }
+	public void setSend_day(String send_day) {
+		this.send_day = send_day;
+	}
 
-    public String getTarget_id() {
-        return target_id;
-    }
+	public String getTarget_id() {
+		return target_id;
+	}
 
-    public void setTarget_id(String target_id) {
-        this.target_id = target_id;
-    }
+	public void setTarget_id(String target_id) {
+		this.target_id = target_id;
+	}
 
-    public String getOffer_auto_yn() {
-        return offer_auto_yn;
-    }
+	public String getOffer_auto_yn() {
+		return offer_auto_yn;
+	}
 
-    public void setOffer_auto_yn(String offer_auto_yn) {
-        this.offer_auto_yn = offer_auto_yn;
-    }
+	public void setOffer_auto_yn(String offer_auto_yn) {
+		this.offer_auto_yn = offer_auto_yn;
+	}
 
-    public String getChannel_batch_rank_yn() {
-        return channel_batch_rank_yn;
-    }
+	public String getChannel_batch_rank_yn() {
+		return channel_batch_rank_yn;
+	}
 
-    public void setChannel_batch_rank_yn(String channel_batch_rank_yn) {
-        this.channel_batch_rank_yn = channel_batch_rank_yn;
-    }
+	public void setChannel_batch_rank_yn(String channel_batch_rank_yn) {
+		this.channel_batch_rank_yn = channel_batch_rank_yn;
+	}
 
-    public String getCamp_from_tm() {
-        return camp_from_tm;
-    }
+	public String getCamp_from_tm() {
+		return camp_from_tm;
+	}
 
-    public void setCamp_from_tm(String camp_from_tm) {
-        this.camp_from_tm = camp_from_tm;
-    }
+	public void setCamp_from_tm(String camp_from_tm) {
+		this.camp_from_tm = camp_from_tm;
+	}
 
-    public String getCamp_to_tm() {
-        return camp_to_tm;
-    }
+	public String getCamp_to_tm() {
+		return camp_to_tm;
+	}
 
-    public void setCamp_to_tm(String camp_to_tm) {
-        this.camp_to_tm = camp_to_tm;
-    }
+	public void setCamp_to_tm(String camp_to_tm) {
+		this.camp_to_tm = camp_to_tm;
+	}
 
-    public String getCampaign_detail() {
-        return campaign_detail;
-    }
+	public String getCampaign_detail() {
+		return campaign_detail;
+	}
 
-    public void setCampaign_detail(String campaign_detail) {
-        this.campaign_detail = campaign_detail;
-    }
+	public void setCampaign_detail(String campaign_detail) {
+		this.campaign_detail = campaign_detail;
+	}
 
-    public String getCampaign_offer_cost_gubun() {
-        return campaign_offer_cost_gubun;
-    }
+	public String getCampaign_offer_cost_gubun() {
+		return campaign_offer_cost_gubun;
+	}
 
-    public void setCampaign_offer_cost_gubun(String campaign_offer_cost_gubun) {
-        this.campaign_offer_cost_gubun = campaign_offer_cost_gubun;
-    }
+	public void setCampaign_offer_cost_gubun(String campaign_offer_cost_gubun) {
+		this.campaign_offer_cost_gubun = campaign_offer_cost_gubun;
+	}
 
-    public String getCampaign_gubun_dtl() {
-        return campaign_gubun_dtl;
-    }
+	public String getCampaign_gubun_dtl() {
+		return campaign_gubun_dtl;
+	}
 
-    public void setCampaign_gubun_dtl(String campaign_gubun_dtl) {
-        this.campaign_gubun_dtl = campaign_gubun_dtl;
-    }
-
-    
+	public void setCampaign_gubun_dtl(String campaign_gubun_dtl) {
+		this.campaign_gubun_dtl = campaign_gubun_dtl;
+	}
 }

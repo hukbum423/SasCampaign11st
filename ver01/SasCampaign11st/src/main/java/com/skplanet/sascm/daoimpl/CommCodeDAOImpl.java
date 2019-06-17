@@ -176,5 +176,4 @@ public class CommCodeDAOImpl extends AbstractDAO implements CommCodeDAO {
 	public UaextCodeDtlBO getCommCodeDtl(Map<String, Object> param) throws SQLException {
 		return (UaextCodeDtlBO) selectOne("CommCode.getCommCodeDtl", param);
 	}
-
 }

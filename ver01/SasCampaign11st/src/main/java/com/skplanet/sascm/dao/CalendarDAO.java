@@ -24,5 +24,5 @@ public interface CalendarDAO {
 	 * @return
 	 * @throws Exception
 	 */
-    public List<CalendarBO> getCalendarList(Map<String, Object> param) throws SQLException;
+	public List<CalendarBO> getCalendarList(Map<String, Object> param) throws SQLException;
 }

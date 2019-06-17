@@ -8,7 +8,7 @@ import com.skplanet.sascm.object.UaextCampaignTesterBO;
 
 /**
  * TestTargetDAO
- * 
+ *
  * @author 김일범
  * @since 2013-12-05
  * @version $Revision$
@@ -17,7 +17,7 @@ public interface TestTargetDAO {
 
 	/**
 	 * 테스트 대상자 목록 조회
-	 * 
+	 *
 	 * @param request
 	 * @param response
 	 * @param modelMap
@@ -28,7 +28,7 @@ public interface TestTargetDAO {
 
 	/**
 	 * 테스트 대상자 ID 유효성 체크
-	 * 
+	 *
 	 * @param request
 	 * @param response
 	 * @param modelMap
@@ -39,7 +39,7 @@ public interface TestTargetDAO {
 
 	/**
 	 * 테스트 대상자 ID 중복 체크
-	 * 
+	 *
 	 * @param request
 	 * @param response
 	 * @param modelMap
@@ -50,7 +50,7 @@ public interface TestTargetDAO {
 
 	/**
 	 * 테스트 대상자 상세정보 조회
-	 * 
+	 *
 	 * @param request
 	 * @param response
 	 * @param modelMap
@@ -61,7 +61,7 @@ public interface TestTargetDAO {
 
 	/**
 	 * 테스트 대상자 PCID 목록 조회
-	 * 
+	 *
 	 * @param request
 	 * @param response
 	 * @param modelMap
@@ -72,7 +72,7 @@ public interface TestTargetDAO {
 
 	/**
 	 * 테스트 대상자 저장
-	 * 
+	 *
 	 * @param request
 	 * @param response
 	 * @param modelMap
@@ -83,7 +83,7 @@ public interface TestTargetDAO {
 
 	/**
 	 * 테스트 대상자 수정
-	 * 
+	 *
 	 * @param request
 	 * @param response
 	 * @param modelMap
@@ -94,7 +94,7 @@ public interface TestTargetDAO {
 
 	/**
 	 * 테스트 대상자 삭제
-	 * 
+	 *
 	 * @param request
 	 * @param response
 	 * @param modelMap

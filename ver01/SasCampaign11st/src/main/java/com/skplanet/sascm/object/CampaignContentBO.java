@@ -28,7 +28,7 @@ public class CampaignContentBO {
 	private String cellname;
 	private String offerid;
 	private String num;
-	
+
 	public String getOffer_content_id() {
 		return offer_content_id;
 	}
@@ -185,12 +185,10 @@ public class CampaignContentBO {
 	public void setOfferid(String offerid) {
 		this.offerid = offerid;
 	}
-    public String getNum() {
-        return num;
-    }
-    public void setNum(String num) {
-        this.num = num;
-    }
-	
-
+	public String getNum() {
+		return num;
+	}
+	public void setNum(String num) {
+		this.num = num;
+	}
 }

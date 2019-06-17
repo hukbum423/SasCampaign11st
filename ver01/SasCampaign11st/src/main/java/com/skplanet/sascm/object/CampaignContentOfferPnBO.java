@@ -36,11 +36,11 @@ public class CampaignContentOfferPnBO {
 	private String update_id;
 	private String update_nm;
 	private String update_dt;
-	
-    private String offer_aply_cd;
-    private String prod_recom_cd;
 
-    public String getOffer_content_id() {
+	private String offer_aply_cd;
+	private String prod_recom_cd;
+
+	public String getOffer_content_id() {
 		return offer_content_id;
 	}
 	public void setOffer_content_id(String offer_content_id) {
@@ -244,17 +244,16 @@ public class CampaignContentOfferPnBO {
 	public void setUpdate_dt(String update_dt) {
 		this.update_dt = update_dt;
 	}
-    public String getOffer_aply_cd() {
-        return offer_aply_cd;
-    }
-    public void setOffer_aply_cd(String offer_aply_cd) {
-        this.offer_aply_cd = offer_aply_cd;
-    }
-    public String getProd_recom_cd() {
-        return prod_recom_cd;
-    }
-    public void setProd_recom_cd(String prod_recom_cd) {
-        this.prod_recom_cd = prod_recom_cd;
-    }
-
+	public String getOffer_aply_cd() {
+		return offer_aply_cd;
+	}
+	public void setOffer_aply_cd(String offer_aply_cd) {
+		this.offer_aply_cd = offer_aply_cd;
+	}
+	public String getProd_recom_cd() {
+		return prod_recom_cd;
+	}
+	public void setProd_recom_cd(String prod_recom_cd) {
+		this.prod_recom_cd = prod_recom_cd;
+	}
 }

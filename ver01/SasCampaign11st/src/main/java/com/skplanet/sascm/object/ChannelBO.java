@@ -1,7 +1,6 @@
 package com.skplanet.sascm.object;
 
 public class ChannelBO {
-
 	private String campaignid;
 	private String campaignname;
 	private String camp_term_cd;
@@ -82,12 +81,12 @@ public class ChannelBO {
 	private String lms_priority_rnk;
 	private String lms_disp_time;
 	private String mobile_lnk_page_typ;
-    private String mobile_lnk_page_url;
-    private String mobile_send_prefer_cd;
-    private String mobile_person_msg_yn;
-    
-    private String sms_send_prefer_cd;
-	
+	private String mobile_lnk_page_url;
+	private String mobile_send_prefer_cd;
+	private String mobile_person_msg_yn;
+
+	private String sms_send_prefer_cd;
+
 	public String getCampaignid() {
 		return campaignid;
 	}
@@ -335,7 +334,7 @@ public class ChannelBO {
 	public void setSms_returncall(String sms_returncall) {
 		this.sms_returncall = sms_returncall;
 	}
-	
+
 	public String getSms_callback() {
 		return sms_callback;
 	}
@@ -395,7 +394,7 @@ public class ChannelBO {
 	public String getEmail_priority_rnk() {
 		return email_priority_rnk;
 	}
-	
+
 	public String getEmail_disp_time() {
 		return email_disp_time;
 	}
@@ -720,44 +719,43 @@ public class ChannelBO {
 		this.lms_disp_time = lms_disp_time;
 	}
 
-    public String getMobile_lnk_page_typ() {
-        return mobile_lnk_page_typ;
-    }
+	public String getMobile_lnk_page_typ() {
+		return mobile_lnk_page_typ;
+	}
 
-    public void setMobile_lnk_page_typ(String mobile_lnk_page_typ) {
-        this.mobile_lnk_page_typ = mobile_lnk_page_typ;
-    }
+	public void setMobile_lnk_page_typ(String mobile_lnk_page_typ) {
+		this.mobile_lnk_page_typ = mobile_lnk_page_typ;
+	}
 
-    public String getMobile_lnk_page_url() {
-        return mobile_lnk_page_url;
-    }
+	public String getMobile_lnk_page_url() {
+		return mobile_lnk_page_url;
+	}
 
-    public void setMobile_lnk_page_url(String mobile_lnk_page_url) {
-        this.mobile_lnk_page_url = mobile_lnk_page_url;
-    }
+	public void setMobile_lnk_page_url(String mobile_lnk_page_url) {
+		this.mobile_lnk_page_url = mobile_lnk_page_url;
+	}
 
-    public String getMobile_send_prefer_cd() {
-        return mobile_send_prefer_cd;
-    }
+	public String getMobile_send_prefer_cd() {
+		return mobile_send_prefer_cd;
+	}
 
-    public void setMobile_send_prefer_cd(String mobile_send_prefer_cd) {
-        this.mobile_send_prefer_cd = mobile_send_prefer_cd;
-    }
+	public void setMobile_send_prefer_cd(String mobile_send_prefer_cd) {
+		this.mobile_send_prefer_cd = mobile_send_prefer_cd;
+	}
 
-    public String getMobile_person_msg_yn() {
-        return mobile_person_msg_yn;
-    }
+	public String getMobile_person_msg_yn() {
+		return mobile_person_msg_yn;
+	}
 
-    public void setMobile_person_msg_yn(String mobile_person_msg_yn) {
-        this.mobile_person_msg_yn = mobile_person_msg_yn;
-    }
+	public void setMobile_person_msg_yn(String mobile_person_msg_yn) {
+		this.mobile_person_msg_yn = mobile_person_msg_yn;
+	}
 
-    public String getSms_send_prefer_cd() {
-        return sms_send_prefer_cd;
-    }
+	public String getSms_send_prefer_cd() {
+		return sms_send_prefer_cd;
+	}
 
-    public void setSms_send_prefer_cd(String sms_send_prefer_cd) {
-        this.sms_send_prefer_cd = sms_send_prefer_cd;
-    }
-	
+	public void setSms_send_prefer_cd(String sms_send_prefer_cd) {
+		this.sms_send_prefer_cd = sms_send_prefer_cd;
+	}
 }

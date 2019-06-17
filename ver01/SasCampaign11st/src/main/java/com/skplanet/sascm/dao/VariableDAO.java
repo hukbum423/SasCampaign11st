@@ -8,7 +8,7 @@ import com.skplanet.sascm.object.UaextVariableBO;
 
 /**
  * VariableDAO
- * 
+ *
  * @author 김일범
  * @since 2013-12-05
  * @version $Revision$
@@ -17,7 +17,7 @@ public interface VariableDAO {
 
 	/**
 	 * 매개변수 목록 조회
-	 * 
+	 *
 	 * @param request
 	 * @param response
 	 * @param modelMap
@@ -28,7 +28,7 @@ public interface VariableDAO {
 
 	/**
 	 * 매개변수 목록 전체 건수
-	 * 
+	 *
 	 * @param request
 	 * @param response
 	 * @param modelMap
@@ -39,7 +39,7 @@ public interface VariableDAO {
 
 	/**
 	 * 매개변수 중복 조회
-	 * 
+	 *
 	 * @param request
 	 * @param response
 	 * @param modelMap
@@ -50,7 +50,7 @@ public interface VariableDAO {
 
 	/**
 	 * 매개변수 저장
-	 * 
+	 *
 	 * @param request
 	 * @param response
 	 * @param modelMap
@@ -61,7 +61,7 @@ public interface VariableDAO {
 
 	/**
 	 * 매개변수 수정
-	 * 
+	 *
 	 * @param request
 	 * @param response
 	 * @param modelMap
@@ -72,7 +72,7 @@ public interface VariableDAO {
 
 	/**
 	 * 매개변수 삭제
-	 * 
+	 *
 	 * @param request
 	 * @param response
 	 * @param modelMap
@@ -83,7 +83,7 @@ public interface VariableDAO {
 
 	/**
 	 * 매개변수 상세정보 조회
-	 * 
+	 *
 	 * @param request
 	 * @param response
 	 * @param modelMap
@@ -94,7 +94,7 @@ public interface VariableDAO {
 
 	/**
 	 * 매개변수 조회
-	 * 
+	 *
 	 * @param request
 	 * @param response
 	 * @param modelMap
@@ -105,7 +105,7 @@ public interface VariableDAO {
 
 	/**
 	 * 매개변수 SMS조회
-	 * 
+	 *
 	 * @param request
 	 * @param response
 	 * @param modelMap

@@ -146,5 +146,4 @@ public class VariableDAOImpl extends AbstractDAO implements VariableDAO {
 	public String getVariablePreValSMS(Map<String, Object> param) throws SQLException {
 		return (String) selectOne("Variable.getVariablePreValSMS", param);
 	}
-
 }

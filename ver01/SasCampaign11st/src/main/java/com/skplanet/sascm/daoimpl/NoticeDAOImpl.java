@@ -119,5 +119,4 @@ public class NoticeDAOImpl extends AbstractDAO implements NoticeDAO {
 	public int delteNoticeDetail(Map<String, Object> param) throws SQLException {
 		return (int) delete("Notice.delteNoticeDetail", param);
 	}
-
 }

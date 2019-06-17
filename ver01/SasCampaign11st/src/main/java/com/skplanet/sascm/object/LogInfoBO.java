@@ -1,7 +1,6 @@
 package com.skplanet.sascm.object;
 
 public class LogInfoBO {
-
 	private String num;
 	private String logid;
 	private String objectname;

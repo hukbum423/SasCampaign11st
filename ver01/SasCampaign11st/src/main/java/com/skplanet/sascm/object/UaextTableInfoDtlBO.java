@@ -1,7 +1,6 @@
 package com.skplanet.sascm.object;
 
 public class UaextTableInfoDtlBO {
-
 	private String table_name;
 	private String column_name;
 	private String column_type;

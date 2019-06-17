@@ -13,7 +13,7 @@ import com.skplanet.sascm.object.UaextTableInfoMstBO;
 
 /**
  * TableInfoDAOImpl
- * 
+ *
  * @author 김일범
  * @since 2013-12-05
  * @version $Revision$
@@ -23,7 +23,7 @@ public class TableInfoDAOImpl  extends AbstractDAO implements TableInfoDAO {
 
 	/**
 	 * 테이블 목록 조회
-	 * 
+	 *
 	 * @param request
 	 * @param response
 	 * @param modelMap
@@ -38,7 +38,7 @@ public class TableInfoDAOImpl  extends AbstractDAO implements TableInfoDAO {
 
 	/**
 	 * 테이블 목록 전체 건수
-	 * 
+	 *
 	 * @param request
 	 * @param response
 	 * @param modelMap
@@ -52,7 +52,7 @@ public class TableInfoDAOImpl  extends AbstractDAO implements TableInfoDAO {
 
 	/**
 	 * 테이블 마스터 상세 조회
-	 * 
+	 *
 	 * @param request
 	 * @param response
 	 * @param modelMap
@@ -66,7 +66,7 @@ public class TableInfoDAOImpl  extends AbstractDAO implements TableInfoDAO {
 
 	/**
 	 * 테이블 마스터 중복 체크
-	 * 
+	 *
 	 * @param request
 	 * @param response
 	 * @param modelMap
@@ -80,7 +80,7 @@ public class TableInfoDAOImpl  extends AbstractDAO implements TableInfoDAO {
 
 	/**
 	 * 테이블 마스터 정보 저장
-	 * 
+	 *
 	 * @param request
 	 * @param response
 	 * @param modelMap
@@ -94,7 +94,7 @@ public class TableInfoDAOImpl  extends AbstractDAO implements TableInfoDAO {
 
 	/**
 	 * 테이블 마스터 정보 수정
-	 * 
+	 *
 	 * @param request
 	 * @param response
 	 * @param modelMap
@@ -108,7 +108,7 @@ public class TableInfoDAOImpl  extends AbstractDAO implements TableInfoDAO {
 
 	/**
 	 * 테이블 마스터 정보 삭제
-	 * 
+	 *
 	 * @param request
 	 * @param response
 	 * @param modelMap
@@ -122,7 +122,7 @@ public class TableInfoDAOImpl  extends AbstractDAO implements TableInfoDAO {
 
 	/**
 	 * 테이블 상세정보 목록 조회
-	 * 
+	 *
 	 * @param request
 	 * @param response
 	 * @param modelMap
@@ -137,7 +137,7 @@ public class TableInfoDAOImpl  extends AbstractDAO implements TableInfoDAO {
 
 	/**
 	 * 테이블 상세정보 저장
-	 * 
+	 *
 	 * @param request
 	 * @param response
 	 * @param modelMap
@@ -151,7 +151,7 @@ public class TableInfoDAOImpl  extends AbstractDAO implements TableInfoDAO {
 
 	/**
 	 * 테이블 상세정보 삭제
-	 * 
+	 *
 	 * @param request
 	 * @param response
 	 * @param modelMap
@@ -162,5 +162,4 @@ public class TableInfoDAOImpl  extends AbstractDAO implements TableInfoDAO {
 	public int deleteTableInfoDetailAll(Map<String, Object> param) throws SQLException {
 		return (int) delete("TableInfo.deleteTableInfoDetailAll", param);
 	}
-
 }

@@ -8,7 +8,7 @@ import com.skplanet.sascm.object.UaextNoticeBO;
 
 /**
  * NoticeDAO
- * 
+ *
  * @author 김일범
  * @since 2013-12-05
  * @version $Revision$
@@ -17,7 +17,7 @@ public interface NoticeDAO {
 
 	/**
 	 * 공지사항 목록 조회
-	 * 
+	 *
 	 * @param request
 	 * @param response
 	 * @param modelMap
@@ -28,7 +28,7 @@ public interface NoticeDAO {
 
 	/**
 	 * 공지사항 목록 건수 조회
-	 * 
+	 *
 	 * @param request
 	 * @param response
 	 * @param modelMap
@@ -39,7 +39,7 @@ public interface NoticeDAO {
 
 	/**
 	 * 공지사항 목록 조회(프론트용)
- 	 * 
+ 	 *
 	 * @param request
 	 * @param response
 	 * @param modelMap
@@ -50,7 +50,7 @@ public interface NoticeDAO {
 
 	/**
 	 * 공지사항 목록 건수 조회(프론트용)
-	 * 
+	 *
 	 * @param request
 	 * @param response
 	 * @param modelMap
@@ -61,7 +61,7 @@ public interface NoticeDAO {
 
 	/**
 	 * 공지사항 상세 조회
-	 * 
+	 *
 	 * @param request
 	 * @param response
 	 * @param modelMap
@@ -72,7 +72,7 @@ public interface NoticeDAO {
 
 	/**
 	 * 공지사항 상세 조회
-	 * 
+	 *
 	 * @param request
 	 * @param response
 	 * @param modelMap
@@ -83,7 +83,7 @@ public interface NoticeDAO {
 
 	/**
 	 * 공지사항 삭제
-	 * 
+	 *
 	 * @param request
 	 * @param response
 	 * @param modelMap

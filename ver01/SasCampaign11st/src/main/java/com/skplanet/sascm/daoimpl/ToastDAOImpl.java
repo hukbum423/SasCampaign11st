@@ -32,7 +32,7 @@ public class ToastDAOImpl extends AbstractDAO implements ToastDAO {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<ToastMsgMstrSrcBO> getToastList(Map<String, Object> param) throws SQLException {
-		return (List<ToastMsgMstrSrcBO>)selectList("Toast.getToastList", param);
+		return (List<ToastMsgMstrSrcBO>) selectList("Toast.getToastList", param);
 	}
 
 	/**

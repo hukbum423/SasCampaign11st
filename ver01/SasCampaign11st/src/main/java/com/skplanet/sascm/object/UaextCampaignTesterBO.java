@@ -1,7 +1,6 @@
 package com.skplanet.sascm.object;
 
 public class UaextCampaignTesterBO {
-
 	private String num;
 	private String mem_id;
 	private String mem_no;

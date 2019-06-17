@@ -32,6 +32,6 @@ public class CalendarDAOImpl extends AbstractDAO implements CalendarDAO {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<CalendarBO> getCalendarList(Map<String, Object> param) throws SQLException {
-		return (List<CalendarBO>)selectList("Calendar.getCalendarList", param);
+		return (List<CalendarBO>) selectList("Calendar.getCalendarList", param);
 	}
 }

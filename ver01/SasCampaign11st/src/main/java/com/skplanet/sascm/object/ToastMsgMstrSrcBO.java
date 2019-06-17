@@ -1,7 +1,6 @@
 package com.skplanet.sascm.object;
 
 public class ToastMsgMstrSrcBO {
-
 	private String num;
 	private String campaign_mang_code; //tr코드
 	private String campaigncode;

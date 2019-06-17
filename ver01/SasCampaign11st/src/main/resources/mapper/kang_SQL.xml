@@ -1,9 +1,155 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Kang">
-	<select id="selectMessage" resultType="String">
+
+	<resultMap id="KangBO" type="com.skplanet.sascm.object.KangBO">
+		<result property="cmpgn_id" column="cmpgn_id" />
+		<result property="rsrv_dt" column="rsrv_dt" />
+		<result property="campaignname" column="campaignname" />
+		<result property="campaigncode" column="campaigncode" />
+	</resultMap>
+
+	<!-- select Message -->
+	<select id="Kang.selectMessage" resultType="String">
 		SELECT 'Hello, World(강석)' as message FROM dual
 	</select>
+
+	<!-- select CommCodeList on Map -->
+	<select id="Kang.selectCommCodeListOnMap" parameterType="Map" resultType="Map">
+		SELECT
+			B.COMM_CODE_ID
+			, B.COMM_CODE_NAME
+			, B.CODE_DESC
+			, C.CODE_ID
+			, C.CODE_NAME
+			, NVL(C.CODE_DESC, '-')  SUB_CODE_DESC
+			, C.USE_YN
+		FROM
+			(
+				SELECT
+					A.COMM_CODE_ID
+					, A.COMM_CODE_NAME
+					, NVL(A.CODE_DESC, '-')   CODE_DESC
+					, A.USE_YN
+				FROM
+					HR.CM_CODE_MST  A
+				WHERE 1=1
+					<if test="comm_code_id != ''">AND A.COMM_CODE_ID = #{comm_code_id}</if>
+					<if test="arrKey != ''">
+					AND A.COMM_CODE_ID IN (
+						<foreach collection="arrKey" separator="," index="index" >'${arrKey[index]}'</foreach>
+					)
+					</if>
+					AND A.USE_YN = 'Y'
+				ORDER BY SORT_SEQ
+			) B
+			, HR.CM_CODE_DTL C
+		WHERE 1=1
+			AND B.COMM_CODE_ID = C.COMM_CODE_ID
+			AND C.USE_YN = 'Y'
+		ORDER BY
+			B.COMM_CODE_ID
+			, C.CODE_ID
+	</select>
+
+	<!-- select CommCodeList on KangBO -->
+	<select id="Kang.selectCommCodeListOnKangBO" parameterType="Map" resultMap="KangBO">
+	</select>
+
+<!--
+	/////////////////////////////////////////////////////////////////////
+		<if test="serverType == 'PRD'">
+			<![CDATA[ AND CAMPAIGN_SK >= 10000 ]]>
+		</if>
+		<if test="serverType == 'STG'">
+			<![CDATA[ AND CAMPAIGN_SK < 10000 ]]>
+		</if>
+		<if test="serverType == 'DEV'">
+			<![CDATA[ AND CAMPAIGN_SK < 60000 ]]>
+		</if>
+
+		<if test='disp_ctgr1 != ""'>
+			and disp_ctgr1_no = ${disp_ctgr1}
+		</if>
+		<if test='disp_ctgr2 != ""'>
+			and disp_ctgr2_no = ${disp_ctgr2}
+		</if>
+		<if test='disp_ctgr3 != ""'>
+			and disp_ctgr3_no = ${disp_ctgr3}
+		</if>
+
+	/////////////////////////////////////////////////////////////////////
+		<if test='cateNo == "1"'>
+			and disp_ctgr1_no IN (
+				<foreach collection="arrKey"  separator="," index="index" >
+					'${arrKey[index]}'
+				</foreach>
+			)
+			and disp_ctgr2_no is not null
+		</if>
+		<if test='cateNo == "2"'>
+			and disp_ctgr2_no IN (
+				<foreach collection="arrKey"  separator="," index="index" >
+					'${arrKey[index]}'
+				</foreach>
+			)
+			and disp_ctgr3_no is not null
+		</if>
+		<if test='cateNo == "3"'>
+			and disp_ctgr3_no IN (
+				<foreach collection="arrKey"  separator="," index="index" >
+					'${arrKey[index]}'
+				</foreach>
+			)
+			and disp_ctgr4_no is not null
+		</if>
+
+
+	/////////////////////////////////////////////////////////////////////
+		<foreach collection="array" item="RUN_RESV_LIST" separator=" UNION ALL " index="index" >
+			SELECT
+				 TRIM(#{CAMPAIGNCODE}) CAMPAIGNCODE
+				,TO_DATE('${array[index]}', 'YYYY-MM-DD HH24:MI') RSRV_DT
+				,TRIM(#{CREATE_ID}) CREATE_ID
+				,SYSDATE
+			FROM DUAL
+		</foreach>
+
+
+	/////////////////////////////////////////////////////////////////////
+		<if test='SEARCH_TYPE == "NULL"'>
+			AND A.RUN_START_DT IS NULL
+		</if>
+		<if test='SEARCH_TYPE == "NOTNULL"'>
+			AND A.RUN_START_DT IS NOT NULL
+		</if>
+
+	/////////////////////////////////////////////////////////////////////
+		<update id="Schedule.setCampaignTestTarget" parameterType="Map" >
+			INSERT ALL
+			<foreach collection="array" item="TEST_MEM_ID" separator=" " index="index" >
+				INTO cm_campaign_test_target
+				(
+					CAMPAIGNCODE
+					,RUN_DT
+					,MEM_ID
+					,CREATE_ID
+					,CREATE_DT
+				)
+				VALUES (
+					TRIM(#{CAMPAIGNCODE})
+					,TO_DATE(TRIM(#{RUN_DT}), 'YYYY-MM-DD HH24:MI:SS')
+					,'${array[index]}'
+					,TRIM(#{CREATE_ID})
+					,SYSDATE
+				)
+			</foreach>
+			SELECT * FROM DUAL
+		</update>
+
+
+-->
+
 </mapper>
 
 

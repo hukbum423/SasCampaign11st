@@ -122,7 +122,7 @@ public class OfferDAOImpl extends AbstractDAO implements OfferDAO {
 	}
 	
 	public CupnStatBO getCampaignStat(Map<String, Object> param) throws Exception{
-	    CupnStatBO getCampaignStat= (CupnStatBO) selectOne("Offer.getCampaignStat", param);
-        return getCampaignStat;
-   }
+		CupnStatBO getCampaignStat= (CupnStatBO) selectOne("Offer.getCampaignStat", param);
+		return getCampaignStat;
+	}
 }

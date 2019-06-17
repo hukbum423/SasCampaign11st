@@ -1,7 +1,6 @@
 package com.skplanet.sascm.object;
 
 public class CampaignChannelBO {
-
 	private String campaignid;
 	private String campaignname;
 	private String campaigncode;
@@ -524,5 +523,4 @@ public class CampaignChannelBO {
 	public void setLms_title(String lms_title) {
 		this.lms_title = lms_title;
 	}
-
 }

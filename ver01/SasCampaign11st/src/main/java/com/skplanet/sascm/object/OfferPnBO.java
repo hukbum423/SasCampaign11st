@@ -1,7 +1,6 @@
 package com.skplanet.sascm.object;
 
 public class OfferPnBO {
-
 	private String campaignid;
 	private String campaignname;
 	private String campaigncode;
@@ -36,15 +35,15 @@ public class OfferPnBO {
 	private String update_id;
 	private String update_nm;
 	private String update_dt;
-	
-    private String communication_sk;
-    private String offer_conttent_id;
-    private String offer_content_nm;
 
-    private String offer_aply_cd;
-    private String prod_recom_cd;
+	private String communication_sk;
+	private String offer_conttent_id;
+	private String offer_content_nm;
 
-    public String getCampaignid() {
+	private String offer_aply_cd;
+	private String prod_recom_cd;
+
+	public String getCampaignid() {
 		return campaignid;
 	}
 
@@ -308,44 +307,43 @@ public class OfferPnBO {
 		this.update_nm = update_nm;
 	}
 
-    public String getCommunication_sk() {
-        return communication_sk;
-    }
+	public String getCommunication_sk() {
+		return communication_sk;
+	}
 
-    public void setCommunication_sk(String communication_sk) {
-        this.communication_sk = communication_sk;
-    }
+	public void setCommunication_sk(String communication_sk) {
+		this.communication_sk = communication_sk;
+	}
 
-    public String getOffer_conttent_id() {
-        return offer_conttent_id;
-    }
+	public String getOffer_conttent_id() {
+		return offer_conttent_id;
+	}
 
-    public void setOffer_conttent_id(String offer_conttent_id) {
-        this.offer_conttent_id = offer_conttent_id;
-    }
+	public void setOffer_conttent_id(String offer_conttent_id) {
+		this.offer_conttent_id = offer_conttent_id;
+	}
 
-    public String getOffer_content_nm() {
-        return offer_content_nm;
-    }
+	public String getOffer_content_nm() {
+		return offer_content_nm;
+	}
 
-    public void setOffer_content_nm(String offer_content_nm) {
-        this.offer_content_nm = offer_content_nm;
-    }
+	public void setOffer_content_nm(String offer_content_nm) {
+		this.offer_content_nm = offer_content_nm;
+	}
 
-    public String getOffer_aply_cd() {
-        return offer_aply_cd;
-    }
+	public String getOffer_aply_cd() {
+		return offer_aply_cd;
+	}
 
-    public void setOffer_aply_cd(String offer_aply_cd) {
-        this.offer_aply_cd = offer_aply_cd;
-    }
+	public void setOffer_aply_cd(String offer_aply_cd) {
+		this.offer_aply_cd = offer_aply_cd;
+	}
 
-    public String getProd_recom_cd() {
-        return prod_recom_cd;
-    }
+	public String getProd_recom_cd() {
+		return prod_recom_cd;
+	}
 
-    public void setProd_recom_cd(String prod_recom_cd) {
-        this.prod_recom_cd = prod_recom_cd;
-    }
-
+	public void setProd_recom_cd(String prod_recom_cd) {
+		this.prod_recom_cd = prod_recom_cd;
+	}
 }

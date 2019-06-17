@@ -21,7 +21,7 @@ import com.skplanet.sascm.object.UaextCampaignTesterBO;
 public class TestTargetDAOImpl extends AbstractDAO implements TestTargetDAO {
 	
 	/**
-	 * �뚯뒪����긽��紐⑸줉 議고쉶
+	 * 테스트 대상자 목록를 얻는다.
 	 * 
 	 * @param request
 	 * @param response
@@ -132,5 +132,4 @@ public class TestTargetDAOImpl extends AbstractDAO implements TestTargetDAO {
 	public int deleteTestTargetMemId(Map<String, Object> param) throws SQLException {
 		return (int) delete("TestTarget.deleteTestTargetMemId", param);
 	}
-
 }

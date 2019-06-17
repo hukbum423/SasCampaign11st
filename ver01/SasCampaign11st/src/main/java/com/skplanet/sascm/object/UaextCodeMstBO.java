@@ -1,7 +1,6 @@
 package com.skplanet.sascm.object;
 
 public class UaextCodeMstBO {
-
 	private String comm_code_id;
 	private String comm_code_name;
 	private String code_desc;

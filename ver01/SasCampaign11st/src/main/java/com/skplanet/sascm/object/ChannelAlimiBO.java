@@ -1,7 +1,6 @@
 package com.skplanet.sascm.object;
 
 public class ChannelAlimiBO {
-
 	private String cellId;
 	private String campaignCode;
 	private String campaignId;

@@ -1,7 +1,6 @@
 package com.skplanet.sascm.object;
 
 public class UaextVariableBO {
-
 	private String num;
 	private String vari_name;
 	private String key_column;

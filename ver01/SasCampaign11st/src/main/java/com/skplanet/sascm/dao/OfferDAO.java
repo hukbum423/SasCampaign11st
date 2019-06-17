@@ -10,7 +10,7 @@ import com.skplanet.sascm.object.OfferPnBO;
 import com.skplanet.sascm.object.OfferCouponInfoBO;
 /**
  * OfferDAO
- * 
+ *
  * @author 김일범
  * @since 2013-12-05
  * @version $Revision$
@@ -19,7 +19,7 @@ public interface OfferDAO {
 
 	/**
 	 * 오퍼 포인트 정보 조회
-	 * 
+	 *
 	 * @param request
 	 * @param response
 	 * @param modelMap
@@ -30,7 +30,7 @@ public interface OfferDAO {
 
 	/**
 	 * 오퍼 포인트 정보 저장
-	 * 
+	 *
 	 * @param request
 	 * @param response
 	 * @param modelMap
@@ -41,7 +41,7 @@ public interface OfferDAO {
 
 	/**
 	 * 오퍼 쿠폰목록 조회
-	 * 
+	 *
 	 * @param request
 	 * @param response
 	 * @param modelMap
@@ -52,7 +52,7 @@ public interface OfferDAO {
 
 	/**
 	 * 오퍼 쿠폰 정보 조회
-	 * 
+	 *
 	 * @param request
 	 * @param response
 	 * @param modelMap
@@ -63,7 +63,7 @@ public interface OfferDAO {
 
 	/**
 	 * 오퍼 쿠폰 정보 저장
-	 * 
+	 *
 	 * @param request
 	 * @param response
 	 * @param modelMap
@@ -72,8 +72,8 @@ public interface OfferDAO {
 	 */
 	public int setOfferCu(Map<String, Object> param) throws SQLException;
 	/**
-	 * OM荑좏룿 �뺣낫 議고쉶
-	 * 
+	 * OM 임시쿠폰정보를 얻는다.
+	 *
 	 * @param request
 	 * @param response
 	 * @param modelMap
@@ -82,8 +82,8 @@ public interface OfferDAO {
 	 */
 	public OfferCouponInfoBO getOfferTmplCupnInfoOM(Map<String, Object> param) throws SQLException;
 	/**
-	 * MM荑좏룿 �뺣낫 議고쉶
-	 * 
+	 * MM 임시쿠폰정보를 얻는다.
+	 *
 	 * @param request
 	 * @param response
 	 * @param modelMap
@@ -92,6 +92,6 @@ public interface OfferDAO {
 	 */
 	public OfferCouponInfoBO getOfferTmplCupnInfoMM(Map<String, Object> param) throws SQLException;
 
-	
+
 	public CupnStatBO getCampaignStat(Map<String, Object> param) throws Exception;
 }

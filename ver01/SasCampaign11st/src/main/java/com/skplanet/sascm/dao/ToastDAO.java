@@ -8,7 +8,7 @@ import com.skplanet.sascm.object.ToastMsgMstrSrcBO;
 
 /**
  * ToastDAO
- * 
+ *
  * @author 김일범
  * @since 2013-12-05
  * @version $Revision$
@@ -17,7 +17,7 @@ public interface ToastDAO {
 
 	/**
 	 * 토스트 목록 조회
-	 * 
+	 *
 	 * @param request
 	 * @param response
 	 * @param modelMap
@@ -28,7 +28,7 @@ public interface ToastDAO {
 
 	/**
 	 * 토스트 목록 전체 건수
-	 * 
+	 *
 	 * @param request
 	 * @param response
 	 * @param modelMap
@@ -39,7 +39,7 @@ public interface ToastDAO {
 
 	/**
 	 * 토스트 상세 보기
-	 * 
+	 *
 	 * @param request
 	 * @param response
 	 * @param modelMap
@@ -50,7 +50,7 @@ public interface ToastDAO {
 
 	/**
 	 * 토스트 상세 정보 수정
-	 * 
+	 *
 	 * @param request
 	 * @param response
 	 * @param modelMap

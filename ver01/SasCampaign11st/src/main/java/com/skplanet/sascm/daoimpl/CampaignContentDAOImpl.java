@@ -127,7 +127,7 @@ public class CampaignContentDAOImpl extends AbstractDAO implements CampaignConte
 	 */
 	@Override
 	public CampaignContentBO getChannelInfo(Map<String, Object> param) throws SQLException {
-		return (CampaignContentBO)selectOne("CampaignContent.getChannelInfo", param);
+		return (CampaignContentBO) selectOne("CampaignContent.getChannelInfo", param);
 	}
 	/**
 	 * 채널 목록 조회
@@ -141,7 +141,7 @@ public class CampaignContentDAOImpl extends AbstractDAO implements CampaignConte
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<CampaignContentChannelBO> getContentChannelList(Map<String, Object> param) throws SQLException {
-		return (List<CampaignContentChannelBO>)selectList("CampaignContent.getContentChannelList", param);
+		return (List<CampaignContentChannelBO>) selectList("CampaignContent.getContentChannelList", param);
 	}
 	/**
 	 * 채널 정보 조회
@@ -154,7 +154,7 @@ public class CampaignContentDAOImpl extends AbstractDAO implements CampaignConte
 	 */
 	@Override
 	public CampaignContentChannelBO getChannelDtlInfo(Map<String, Object> param) throws SQLException {
-		return (CampaignContentChannelBO)selectOne("CampaignContent.getChannelDtlInfo", param);
+		return (CampaignContentChannelBO) selectOne("CampaignContent.getChannelDtlInfo", param);
 	}
 	/**
 	 * 캠페인컨텐츠 채널 sms 저장

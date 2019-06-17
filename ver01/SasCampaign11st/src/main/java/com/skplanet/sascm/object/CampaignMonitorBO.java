@@ -1,7 +1,6 @@
 package com.skplanet.sascm.object;
 
 public class CampaignMonitorBO {
-
 	private String num;
 	private String campaignid;
 	private String campaignname;

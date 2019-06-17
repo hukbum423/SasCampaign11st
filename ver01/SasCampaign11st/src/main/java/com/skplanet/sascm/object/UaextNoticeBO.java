@@ -1,7 +1,6 @@
 package com.skplanet.sascm.object;
 
 public class UaextNoticeBO {
-
 	private String num;
 	private String notice_no;
 	private String title;

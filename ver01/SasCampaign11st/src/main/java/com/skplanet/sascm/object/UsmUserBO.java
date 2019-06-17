@@ -1,7 +1,6 @@
 package com.skplanet.sascm.object;
 
 public class UsmUserBO {
-
 	private String id;
 	private String name;
 	private String password;

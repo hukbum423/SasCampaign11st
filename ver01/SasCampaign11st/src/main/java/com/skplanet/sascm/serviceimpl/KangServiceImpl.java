@@ -1,5 +1,7 @@
 package com.skplanet.sascm.serviceimpl;
 
+import java.sql.SQLException;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -20,4 +22,8 @@ public class KangServiceImpl implements KangService {
 		return this.kangDAO.getMessage(param);
 	}
 
+	@Override
+	public List<Map<String, Object>> selectCommCodeListOnMap(Map<String, Object> param) throws SQLException {
+		return this.kangDAO.selectCommCodeListOnMap(param);
+	}
 }

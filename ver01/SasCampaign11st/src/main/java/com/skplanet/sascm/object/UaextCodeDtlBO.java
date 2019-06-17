@@ -1,7 +1,6 @@
 package com.skplanet.sascm.object;
 
 public class UaextCodeDtlBO {
-
 	private String code_id;
 	private String code_name;
 	private String code_desc;

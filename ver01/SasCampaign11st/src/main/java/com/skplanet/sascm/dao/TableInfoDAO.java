@@ -9,7 +9,7 @@ import com.skplanet.sascm.object.UaextTableInfoMstBO;
 
 /**
  * TableInfoDAO
- * 
+ *
  * @author 김일범
  * @since 2013-12-05
  * @version $Revision$
@@ -18,7 +18,7 @@ public interface TableInfoDAO {
 
 	/**
 	 * 테이블 목록 조회
-	 * 
+	 *
 	 * @param request
 	 * @param response
 	 * @param modelMap
@@ -29,7 +29,7 @@ public interface TableInfoDAO {
 
 	/**
 	 * 테이블 목록 전체 건수
-	 * 
+	 *
 	 * @param request
 	 * @param response
 	 * @param modelMap
@@ -40,7 +40,7 @@ public interface TableInfoDAO {
 
 	/**
 	 * 테이블 마스터 상세 조회
-	 * 
+	 *
 	 * @param request
 	 * @param response
 	 * @param modelMap
@@ -51,7 +51,7 @@ public interface TableInfoDAO {
 
 	/**
 	 * 테이블 마스터 중복 체크
-	 * 
+	 *
 	 * @param request
 	 * @param response
 	 * @param modelMap
@@ -62,7 +62,7 @@ public interface TableInfoDAO {
 
 	/**
 	 * 테이블 마스터 정보 저장
-	 * 
+	 *
 	 * @param request
 	 * @param response
 	 * @param modelMap
@@ -73,7 +73,7 @@ public interface TableInfoDAO {
 
 	/**
 	 * 테이블 마스터 정보 수정
-	 * 
+	 *
 	 * @param request
 	 * @param response
 	 * @param modelMap
@@ -84,7 +84,7 @@ public interface TableInfoDAO {
 
 	/**
 	 * 테이블 마스터 정보 삭제
-	 * 
+	 *
 	 * @param request
 	 * @param response
 	 * @param modelMap
@@ -95,7 +95,7 @@ public interface TableInfoDAO {
 
 	/**
 	 * 테이블 상세정보 목록 조회
-	 * 
+	 *
 	 * @param request
 	 * @param response
 	 * @param modelMap
@@ -106,7 +106,7 @@ public interface TableInfoDAO {
 
 	/**
 	 * 테이블 상세정보 저장
-	 * 
+	 *
 	 * @param request
 	 * @param response
 	 * @param modelMap
@@ -117,7 +117,7 @@ public interface TableInfoDAO {
 
 	/**
 	 * 테이블 상세정보 삭제
-	 * 
+	 *
 	 * @param request
 	 * @param response
 	 * @param modelMap

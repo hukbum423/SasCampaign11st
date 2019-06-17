@@ -1,7 +1,6 @@
 package com.skplanet.sascm.object;
 
 public class CampaignListBO {
-
 	private String campaignid;
 	private String campaigncd;
 	private String campaign_status_cd;
@@ -32,12 +31,12 @@ public class CampaignListBO {
 	private String name;
 	private String pid;
 	private String cnt;
-	
+
 
 	public String getCampaignid() {
 		return campaignid;
 	}
-	
+
 	public void setCampaign_id(String campaignid) {
 		this.campaignid = campaignid;
 	}
@@ -210,25 +209,23 @@ public class CampaignListBO {
 		this.pid = pid;
 	}
 
-    public String getCnt() {
-        return cnt;
-    }
+	public String getCnt() {
+		return cnt;
+	}
 
-    public void setCnt(String cnt) {
-        this.cnt = cnt;
-    }
+	public void setCnt(String cnt) {
+		this.cnt = cnt;
+	}
 
-    public void setCampaignid(String campaignid) {
-        this.campaignid = campaignid;
-    }
+	public void setCampaignid(String campaignid) {
+		this.campaignid = campaignid;
+	}
 
-    public void setCampaigncd(String campaigncd) {
-        this.campaigncd = campaigncd;
-    }
+	public void setCampaigncd(String campaigncd) {
+		this.campaigncd = campaigncd;
+	}
 
-    public void setCampaignnm(String campaignnm) {
-        this.campaignnm = campaignnm;
-    }
-	
-	
+	public void setCampaignnm(String campaignnm) {
+		this.campaignnm = campaignnm;
+	}
 }

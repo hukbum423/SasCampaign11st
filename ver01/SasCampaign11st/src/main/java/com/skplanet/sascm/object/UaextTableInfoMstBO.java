@@ -1,7 +1,6 @@
 package com.skplanet.sascm.object;
 
 public class UaextTableInfoMstBO {
-
 	private String num;
 	private String table_name;
 	private String create_date;

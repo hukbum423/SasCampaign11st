@@ -73,14 +73,14 @@ public class CampaignContentChannelBO {
 	private String lms_callback;
 	private String lms_priority_rnk;
 	private String lms_disp_time;
-    private String mobile_lnk_page_url;
-    private String mobile_lnk_page_typ;
-    private String mobile_send_prefer_cd;
-    private String mobile_person_msg_yn;
-    
-    private String sms_send_prefer_cd;
+	private String mobile_lnk_page_url;
+	private String mobile_lnk_page_typ;
+	private String mobile_send_prefer_cd;
+	private String mobile_person_msg_yn;
 
-    public String getCampaignid() {
+	private String sms_send_prefer_cd;
+
+	public String getCampaignid() {
 		return campaignid;
 	}
 	public void setCampaignid(String campaignid) {
@@ -512,35 +512,34 @@ public class CampaignContentChannelBO {
 	public void setLms_disp_time(String lms_disp_time) {
 		this.lms_disp_time = lms_disp_time;
 	}
-    public String getMobile_send_prefer_cd() {
-        return mobile_send_prefer_cd;
-    }
-    public void setMobile_send_prefer_cd(String mobile_send_prefer_cd) {
-        this.mobile_send_prefer_cd = mobile_send_prefer_cd;
-    }
-    public String getMobile_person_msg_yn() {
-        return mobile_person_msg_yn;
-    }
-    public void setMobile_person_msg_yn(String mobile_person_msg_yn) {
-        this.mobile_person_msg_yn = mobile_person_msg_yn;
-    }
-    public String getMobile_lnk_page_url() {
-        return mobile_lnk_page_url;
-    }
-    public void setMobile_lnk_page_url(String mobile_lnk_page_url) {
-        this.mobile_lnk_page_url = mobile_lnk_page_url;
-    }
-    public String getMobile_lnk_page_typ() {
-        return mobile_lnk_page_typ;
-    }
-    public void setMobile_lnk_page_typ(String mobile_lnk_page_typ) {
-        this.mobile_lnk_page_typ = mobile_lnk_page_typ;
-    }
-    public String getSms_send_prefer_cd() {
-        return sms_send_prefer_cd;
-    }
-    public void setSms_send_prefer_cd(String sms_send_prefer_cd) {
-        this.sms_send_prefer_cd = sms_send_prefer_cd;
-    }
-
+	public String getMobile_send_prefer_cd() {
+		return mobile_send_prefer_cd;
+	}
+	public void setMobile_send_prefer_cd(String mobile_send_prefer_cd) {
+		this.mobile_send_prefer_cd = mobile_send_prefer_cd;
+	}
+	public String getMobile_person_msg_yn() {
+		return mobile_person_msg_yn;
+	}
+	public void setMobile_person_msg_yn(String mobile_person_msg_yn) {
+		this.mobile_person_msg_yn = mobile_person_msg_yn;
+	}
+	public String getMobile_lnk_page_url() {
+		return mobile_lnk_page_url;
+	}
+	public void setMobile_lnk_page_url(String mobile_lnk_page_url) {
+		this.mobile_lnk_page_url = mobile_lnk_page_url;
+	}
+	public String getMobile_lnk_page_typ() {
+		return mobile_lnk_page_typ;
+	}
+	public void setMobile_lnk_page_typ(String mobile_lnk_page_typ) {
+		this.mobile_lnk_page_typ = mobile_lnk_page_typ;
+	}
+	public String getSms_send_prefer_cd() {
+		return sms_send_prefer_cd;
+	}
+	public void setSms_send_prefer_cd(String sms_send_prefer_cd) {
+		this.sms_send_prefer_cd = sms_send_prefer_cd;
+	}
 }

@@ -1,7 +1,6 @@
 package com.skplanet.sascm.object;
 
 public class CampaignOfferBO {
-
 	private String campaignid;
 	private String campaignname;
 	private String campaigncode;
@@ -36,11 +35,11 @@ public class CampaignOfferBO {
 	private String update_id;
 	private String update_nm;
 	private String update_dt;
-	
+
 	private String communication_sk;
 	private String offer_content_id;
 	private String offer_content_nm;
-	
+
 	public String getCampaignid() {
 		return campaignid;
 	}
@@ -305,29 +304,27 @@ public class CampaignOfferBO {
 		this.update_dt = update_dt;
 	}
 
-    public String getCommunication_sk() {
-        return communication_sk;
-    }
+	public String getCommunication_sk() {
+		return communication_sk;
+	}
 
-    public void setCommunication_sk(String communication_sk) {
-        this.communication_sk = communication_sk;
-    }
+	public void setCommunication_sk(String communication_sk) {
+		this.communication_sk = communication_sk;
+	}
 
-    public String getOffer_content_id() {
-        return offer_content_id;
-    }
+	public String getOffer_content_id() {
+		return offer_content_id;
+	}
 
-    public void setOffer_content_id(String offer_content_id) {
-        this.offer_content_id = offer_content_id;
-    }
+	public void setOffer_content_id(String offer_content_id) {
+		this.offer_content_id = offer_content_id;
+	}
 
-    public String getOffer_content_nm() {
-        return offer_content_nm;
-    }
+	public String getOffer_content_nm() {
+		return offer_content_nm;
+	}
 
-    public void setOffer_content_nm(String offer_content_nm) {
-        this.offer_content_nm = offer_content_nm;
-    }
-
-	
+	public void setOffer_content_nm(String offer_content_nm) {
+		this.offer_content_nm = offer_content_nm;
+	}
 }

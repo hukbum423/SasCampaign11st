@@ -37,6 +37,7 @@ public class CampaignContentOfferCuBO {
 	private String update_nm;
 	private String update_dt;
 	private String cell_package_sk;
+
 	public String getOffer_content_id() {
 		return offer_content_id;
 	}
@@ -247,5 +248,4 @@ public class CampaignContentOfferCuBO {
 	public void setCell_package_sk(String cell_package_sk) {
 		this.cell_package_sk = cell_package_sk;
 	}
-
 }
