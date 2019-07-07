@@ -14,7 +14,7 @@
 <%-- <script type="text/javascript" src="${staticPATH }/js/datepicker/dateOption.js"></script> --%>
 <script type="text/javascript" src="${staticPATH }/js/common/common.js"></script>
 
-<script language="JavaScript">
+<script type="text/javascript">
 	var oEditors = [];
 
 	window.resizeTo(1080,780);
