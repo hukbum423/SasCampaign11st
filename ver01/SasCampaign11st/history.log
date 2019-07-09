@@ -305,7 +305,7 @@ UI 상 이슈 정리
 		--------------------------------------------------------------------------------
 		--------------------------------------------------------------------------------
 		
-2019.07.07
+2019.07.09
 
 	45. 배치처리시 Email 발송이 안됨                                               <-- complete
 		- 운영 테이블과 개발 테이블의 테이블 구조를 확인한다.
@@ -313,7 +313,45 @@ UI 상 이슈 정리
 			CM_CAMPAIGN_CHANNEL    EMAIL_EDIT_YN (?)
 		
 		- 아니면 신규 필드이면 SQL를 확인하여 필드추가 작업을 확인하여 mapper_SQL을 수정한다.
+		
+		----------------------------------------------------------------------
+		CM_CAMPAIGN_CHANNEL.EMAIL_PERSON_MSG_YN field be added
+		
+		- ChannelController.java
+			setChannelEmail.do   <- useIndo
+		- ChannelBO.java
+			String email_person_msg_yn
+		- channel_SQL.xml
+			resultMap : channelBO. email_person_msg_yn
+			setChannelEmail
+			getChannelDtlInfo
+		- channelEmail.jsp
+			fn_save
+			fn_validate
 
+		#!/bin/bash
+		
+		SRC_PATH=/home/sasadm/_KANG/20190709
+		TGT_PATH=/app/sasdata/pgm/java/webapps/SASCampaign/WEB-INF
+		
+		echo "#### START: script running ####"
+		
+		######################################################
+		# MAPPER
+		cp $SRC_PATH/mapper/* $TGT_PATH/classes/mapper
+		
+		
+		######################################################
+		# CLASSES
+		cp $SRC_PATH/object/* $TGT_PATH/classes/com/skplanet/sascm/object
+		cp $SRC_PATH/controller/* $TGT_PATH/classes/com/skplanet/sascm/controller
+		
+		
+		######################################################
+		# VIEWS
+		cp $SRC_PATH/views/channel/* $TGT_PATH/views/channel
+		
+		echo "#### END: script running ####"
 
 
 

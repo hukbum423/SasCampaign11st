@@ -86,6 +86,8 @@ public class ChannelBO {
 	private String mobile_person_msg_yn;
 
 	private String sms_send_prefer_cd;
+	
+	private String email_person_msg_yn;
 
 	public String getCampaignid() {
 		return campaignid;
@@ -757,5 +759,13 @@ public class ChannelBO {
 
 	public void setSms_send_prefer_cd(String sms_send_prefer_cd) {
 		this.sms_send_prefer_cd = sms_send_prefer_cd;
+	}
+
+	public String getEmail_person_msg_yn() {
+		return email_person_msg_yn;
+	}
+
+	public void setEmail_person_msg_yn(String email_person_msg_yn) {
+		this.email_person_msg_yn = email_person_msg_yn;
 	}
 }

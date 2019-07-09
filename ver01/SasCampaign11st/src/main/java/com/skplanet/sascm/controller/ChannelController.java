@@ -919,6 +919,7 @@ public class ChannelController {
 		log.info("EMAIL_DISP_DT        : " + request.getParameter("EMAIL_DISP_DT"));
 		log.info("EMAIL_PRIORITY_RNK   : " + request.getParameter("EMAIL_PRIORITY_RNK"));
 		log.info("EMAIL_DISP_TIME      : " + request.getParameter("EMAIL_DISP_TIME"));
+		log.info("useIndi              : " + request.getParameter("useIndi"));
 		log.info("=============================================");
 
 		//입력 값
@@ -939,16 +940,17 @@ public class ChannelController {
 		map.put("EMAIL_DISP_DT", Common.nvl(request.getParameter("EMAIL_DISP_DT"), ""));
 		map.put("EMAIL_PRIORITY_RNK", Common.nvl(request.getParameter("EMAIL_PRIORITY_RNK"), ""));
 		map.put("EMAIL_DISP_TIME", Common.nvl(request.getParameter("EMAIL_DISP_TIME"), ""));
+		map.put("useIndi", Common.nvl(request.getParameter("useIndi"), "N"));
 		map.put("CREATE_ID", user.getId());
 		map.put("UPDATE_ID", user.getId());
 
 		//캠페인의 상태체크(START일경우에는 수정못함)
-		CampaignInfoBO bo = campaignInfoService.getCampaignInfo(map);
+		CampaignInfoBO bo = this.campaignInfoService.getCampaignInfo(map);
 		String CMP_STATUS = Common.nvl(bo.getCamp_status_cd(), "");
 
 		if (!CMP_STATUS.equals("START")) {
 			//EMAIL 정보 저장
-			channelService.setChannelEmail(map);
+			this.channelService.setChannelEmail(map);
 		}
 
 		//캠페인 상태 리턴

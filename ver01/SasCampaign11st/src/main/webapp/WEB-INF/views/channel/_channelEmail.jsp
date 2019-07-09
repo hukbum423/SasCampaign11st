@@ -14,17 +14,17 @@
 <%-- <script type="text/javascript" src="${staticPATH }/js/datepicker/dateOption.js"></script> --%>
 <script type="text/javascript" src="${staticPATH }/js/common/common.js"></script>
 
-<script type="text/javascript">
+<script language="JavaScript">
 	var oEditors = [];
 
 	window.resizeTo(1080,780);
-
+	
 	$(document).ready(function(){
-/*
+/* 		
 		if("${bo.channel_priority_yn}" == "N" && "${user.title}" != "N"){
-			alert("해당캠페인은 채널우선순위적용이 [N]입니다\n사용자는 권한이 없으므로 채널정보를 입력할수 없습니다");
+			alert("해당캠페인은 채널우선순위적용이 [N]입니다\n사용자는 권한이 없으므로 채널정보를 입력할수 없습니다");			
 		}
- */
+ */		
    $("#EMAIL_DISP_DT").datepicker({
      showOn: "button",
      buttonImage: "${staticPATH }/image/calendar.gif",
@@ -32,18 +32,18 @@
      buttonText: "Select date"
    });
 		$("img.ui-datepicker-trigger").attr("style", "margin-left:3px; margin-bottom:-2px; vertical-align:middle;");
-
+		
 		if("${bo.camp_term_cd}" == "02"){ //캠페인 기간구분이 반복일경우 노출일 disable
 			$("#EMAIL_DISP_DT" ).datepicker("disable");
 			$("#EMAIL_DISP_DT" ).addClass("essentiality");
 		}
-
+	
 		//채널선택시 페이지 이동
 		$("#CHANNEL_CD").bind("change",fn_selectChannel);
-
+	
 		//메세지 작성 선택시 이벤트 추가
 		$("input:radio[name='EMAIL_EDIT_YN']").bind("change",fn_selectEmailEdit);
-
+		
 		//사용자 변수 더블클릭 이벤트
 		$("#VAL_LIST").dblclick(function(){
 			
@@ -66,17 +66,17 @@
       }
 			
 		});
-
+		
 		//오늘날짜 조회
 		getToday();
-
+		
 		fn_hide();
-
+		
 		//SMARTEDITOR 설정
 // 		nhn.husky.EZCreator.createInIFrame({
 // 			oAppRef: oEditors,
 // 			elPlaceHolder: "EMAIL_CONTENT",
-// 			sSkinURI: "/UnicaExt/smartEdit/SmartEditor2Skin.html",
+// 			sSkinURI: "/UnicaExt/smartEdit/SmartEditor2Skin.html",	
 // 			htParams : {
 // 				bUseToolbar : true,				// 툴바 사용 여부 (true:사용/ false:사용하지 않음)
 // 				bUseVerticalResizer : true,		// 입력창 크기 조절바 사용 여부 (true:사용/ false:사용하지 않음)
@@ -85,75 +85,75 @@
 // 				}
 // 			},
 // 			fOnAppLoad : function(){
-
+				
 // 				//ifame 사이즈 변경
 // 				$("iframe").css("width","700");
-
+				
 // 				fn_hide();
 // 			},
 // 			fCreator: "createSEditor2"
 // 		});
 
-
+		
 		//메세지 작성여부에 따른 이벤트
 		fn_selectEmailEdit();
-
+		
 		//발송시간 설정
 		fn_set_emailSendTime();
-
+		
 		//우선순위에 따른 발송시간 설정
 		fn_chk_emailSendTime();
 		$("#EMAIL_PRIORITY_RNK").bind("change",fn_chk_emailSendTime);
-
+		
 		// 기존에 저장된 채널발송시간이 있을 경우 선택
 		if ( "${bo.email_disp_time}" != '' ){
 			$("#EMAIL_DISP_TIME").val("${bo.email_disp_time}");
 		}
-
+		
 		// 캠페인 데이터 전송방식이 Manual 또는 Time 일 경우 발송시간 항목 disable 처리
 		if ( "${bo.manual_trans_yn}" == 'Y' || "${bo.manual_trans_yn}" == 'T'){
 			$("#EMAIL_DISP_TIME").attr("disabled",true);
 		}
+		
+    $("#useIndi").click(function(){
+      if($('input:checkbox[id="useIndi"]').is(":checked") == true){
+        $("#VAL_LIST").removeAttr("disabled");
+      }else{
+        $("#VAL_LIST").attr("disabled","disabled");
+      }
+    });
+    
+    <c:if test="${bo.email_person_msg_yn eq 'Y'}">
+    $("#VAL_LIST").removeAttr("disabled");
+    </c:if>
+    <c:if test="${bo.email_person_msg_yn ne 'Y'}">
+    $("#VAL_LIST").attr("disabled","disabled");
+    </c:if>
+		
+	});
 
-	    $("#useIndi").click(function(){
-	        if($('input:checkbox[id="useIndi"]').is(":checked") == true){
-	          $("#VAL_LIST").removeAttr("disabled");
-	        }else{
-	          $("#VAL_LIST").attr("disabled","disabled");
-	        }
-	      });
-	      
-	      <c:if test="${bo.email_person_msg_yn eq 'Y'}">
-	      $("#VAL_LIST").removeAttr("disabled");
-	      </c:if>
-	      <c:if test="${bo.email_person_msg_yn ne 'Y'}">
-	      $("#VAL_LIST").attr("disabled","disabled");
-	      </c:if>
-	  		
-	  	});
-
-
-
+	
+	
 	//채널 선택
 	function fn_selectChannel(){
-
+		
 		var frm = document.form;
-
+		
 		if($("#CHANNEL_CD").val() == "SMS"){
 			frm.action = "${staticPATH }/channel/channelSms.do";
 			frm.submit();
 		}
-
+		
 		if($("#CHANNEL_CD").val() == "EMAIL"){
 			frm.action = "${staticPATH }/channel/channelEmail.do";
 			frm.submit();
 		}
-
+		
 		if($("#CHANNEL_CD").val() == "TOAST"){
 			frm.action = "${staticPATH }/channel/channelToast.do";
 			frm.submit();
 		}
-
+		
 		if($("#CHANNEL_CD").val() == "MOBILE"){
 			frm.action = "${staticPATH }/channel/channelMobile.do";
 			frm.submit();
@@ -172,12 +172,12 @@
 		if(!fn_validation()){
 			return;
 		}
-
+		
 		if(!fnChkByte($("#EMAIL_CONTENT"), 30000)){
-			return;
+		  return;
 		}
-
-
+	
+		
 		if(!confirm("저장 하시겠습니까?")){
 			return;
 		}
@@ -197,16 +197,16 @@
 	        			alert("진행중인 캠페인은 수정할수 없습니다.");
 	        		}else{
 						alert("저장되었습니다");
-
+	        			
 	        			//부모창 재조회
 	        			window.opener.fn_getCampaignDtl(campaignid);
-
+	        			
 	        			//창닫기
 	        			fn_close();
 	        		}
-
+        			
 	        	}else{
-	        		alert("에러가 발생하였습니다.");
+	        		alert("에러가 발생하였습니다.");	
 	        	}
 	        },
 	        error: function(result, option) {
@@ -214,23 +214,23 @@
 	        }
 		});
 
-	};
-
-
+	};	
+	
+	
 	/* 유효성 체크 */
 	function fn_validation() {
-
+		
 		if("${bo.camp_status_cd}" == "START"){
 			$("#btn_save").hide();
 			alert("진행중인 캠페인은 수정할수 없습니다.");
 			return false;
 		}
-/*
+/*		
 		if("${bo.channel_priority_yn}" == "N" && "${user.title}" != "N"){
 			alert("해당캠페인은 채널우선순위적용이 [N]입니다\n사용자는 권한이 없으므로 채널정보를 입력할수 없습니다");
-			return false;
+			return false;			
 		}
-*/
+*/		
 		if($("#EMAIL_NAME").val() ==""){
 			alert("이메일명을 입력하세요");
 			$("#EMAIL_NAME").focus();
@@ -244,7 +244,7 @@
 		}
 
 		if("${bo.camp_term_cd}" == "01"){
-
+		
 			if($("#EMAIL_DISP_DT").val() ==""){
 				alert("이메일 노출일 입력하세요");
 				$("#EMAIL_DISP_DT").focus();
@@ -257,7 +257,7 @@
 				$("#EMAIL_DISP_DT").focus();
 				return false;
 			}
-
+		
 			// 수동전송여부 : Y && 채널우선순위적용여부 : N ==> 오늘부터 입력가능(즉시전송 가능)
 			// 수동전송여부 : N && 채널우선순위적용여부 : N ==> 내일부터 입력가능
 			// 수동전송여부 : N && 채널우선순위적용여부 : Y ==> 내일부터 입력가능( 2015.02.16 고도화로 모레에서 내일로 변경 )
@@ -265,22 +265,22 @@
 				if($("#TO_DATE").val() > $("#EMAIL_DISP_DT").val()){
 					alert("수동전송 [Y], 채널우선순위적용여부 [N]일경우 채널전송일은 오늘("+$("#TO_DATE").val()+") 이후여야 합니다");
 					$("#EMAIL_DISP_DT").focus();
-					return false;
+					return false;				
 				}
 			}else if( "${bo.manual_trans_yn}" == "N" && "${bo.channel_priority_yn}" =="N" ){ //내일부터 입력가능
 				if($("#TO_DATE_P1").val() > $("#EMAIL_DISP_DT").val()){
 					alert("수동전송 [N], 채널우선순위적용여부 [N]일경우 채널전송일은 내일("+$("#TO_DATE_P1").val()+") 이후여야 합니다");
 					$("#EMAIL_DISP_DT").focus();
-					return false;
-				}
+					return false;				
+				}			
 			}else if( "${bo.manual_trans_yn}" == "N" && "${bo.channel_priority_yn}" =="Y" ){ //내일부터 입력가능
 				if($("#TO_DATE_P1").val() > $("#EMAIL_DISP_DT").val()){
 					alert("수동전송 [N], 채널우선순위적용여부 [Y]일경우 채널전송일은 내일("+$("#TO_DATE_P1").val()+") 이후여야 합니다");
 					$("#EMAIL_DISP_DT").focus();
-					return false;
-				}
+					return false;				
+				}	
 			}
-
+			
 		}
 
 		//if($("input:radio[name='EMAIL_EDIT_YN']:checked").val() == "Y"){ //CMS 작성일때만 체크!
@@ -290,31 +290,31 @@
 				$("#EMAIL_FROMNAME").focus();
 				return false;
 			}
-
+	
 			if($("#EMAIL_FROMADDRESS").val() ==""){
 				alert("보내는이 이메일을 입력하세요");
 				$("#EMAIL_FROMADDRESS").focus();
 				return false;
 			}
-
+	
 			if($("#EMAIL_REPLYTO").val() ==""){
 				alert("회신 이메일을 입력하세요");
 				$("#EMAIL_REPLYTO").focus();
 				return false;
 			}
-
+			
 			if($("#EMAIL_SUBJECT").val() ==""){
 				alert("이메일 제목을 입력하세요");
 				$("#EMAIL_SUBJECT").focus();
 				return false;
 			}
-
+			
 			if($("#EMAIL_SUBJECT").val().indexOf("(광고)") < 0){
 				alert("이메일 제목에 (광고) 문구가 포함되어야 합니다.");
 				$("#EMAIL_SUBJECT").focus();
 				return false;
 			}
-
+	
 			//SMART EDIT 내용을 TEXTAREA로 옮김
 	// 		oEditors.getById["EMAIL_CONTENT"].exec("UPDATE_CONTENTS_FIELD", []);
 			if($("#EMAIL_CONTENT").val() ==""){
@@ -333,24 +333,24 @@
 				}
 			}
 		}
-
+		
 		return true;
-
+		
 	}
-
-
+	
+	
 	//창닫기
 	function fn_close(){
-
+		
 		//창닫기
 		window.close();
-
+		
 	}
-
+	
 
 	/* 이메일 내용 숨기기/보이기 */
 	function fn_hide(){
-
+		
 		if($('#TR_CONTENT').css('display') =="none"){
 			$('#TR_CONTENT').css('display', '');
 			$('#TD_CONTENT').attr("rowspan","2");
@@ -358,7 +358,7 @@
 			$('#TR_CONTENT').css('display', 'none');
 			$('#TD_CONTENT').attr("rowspan","1");
 		}
-
+		
 	}
 
 	//오늘 날짜 가져오기
@@ -372,24 +372,24 @@
 	        success: function(result, option) {
 
 	        	if(option=="success"){
-
+	        		
 	        		$("#TO_DATE").val(result.TO_DATE) ;
 	        		$("#TO_DATE_P1").val(result.TO_DATE_P1) ;
 	        		$("#TO_DATE_P2").val(result.TO_DATE_P2) ;
-
+	        		
 	        	}else{
-	        		alert("에러가 발생하였습니다.");
+	        		alert("에러가 발생하였습니다.");	
 	        	}
 	        },
 	        error: function(result, option) {
 	        	alert("에러가 발생하였습니다.");
 	        }
-		});
+		});		
 	}
-
+	
 	//메세지 작성 라디오 버튼 클릭시 이벤트 추가
 	function fn_selectEmailEdit(){
-
+		
 		if($("input:radio[name='EMAIL_EDIT_YN']:checked").val() == "Y"){
 			$("#EMAIL_FROMNAME").removeClass("essentiality");
 			$("#EMAIL_FROMNAME").attr("readonly",false);
@@ -417,11 +417,11 @@
 			$('#TD_CONTENT').attr("rowspan","1");
 			$('li:eq(2)').hide();
 		}
+		
 
-
-
+		
 	}
-
+	
 
 	/* 이메일 미리보기 */
 	function fn_pre_view(){
@@ -429,21 +429,21 @@
 		var email_text = $("#EMAIL_CONTENT").val();
 
 		$("#pre_emal").html("" +email_text+"");
-
+		
 		//$("#emailWrap").slideToggle(1);
 		$("#emailWrap").show();
-
+		
 	}
-
-
+	
+	
 	/* 바로보기 닫기 */
 	function fn_pre_viewClose(){
 		$("#emailWrap").hide();
 	}
-
+	
 	/* 발송시간 설정 */
 	function fn_set_emailSendTime(){
-
+		
 		for( var i = 0; i < 24; i++ ){
 			for ( var j = 0; j < 60; j+=30 ){
 				var ii = i;
@@ -454,9 +454,9 @@
 				if ( jj < 10 ){
 					jj = '0' + j;
 				}
-
-
-
+				
+				
+				
 				if ( i < 12 ){
 					$("#EMAIL_DISP_TIME").append("<option value='"+ii+jj+"'>"+ii+":"+jj+"AM</option>");
 				}else{
@@ -464,50 +464,50 @@
 				}
 			}
 		}
-
+		
 	}
-
+	
 	/* 우선순위에 따른 EMAIL채널발송시간 설정 */
 	function fn_chk_emailSendTime(){
-
+		
 		var i = 1;
 		var sendtime = new Array(${fn:length(priority_rank_sendtime)});
 		var sendtimevalue = new Array(${fn:length(priority_rank_sendtime)});
-
+		
 		<c:forEach var="val" items="${priority_rank_sendtime}">
 		sendtime[i] = "${val.code_id}";
 		sendtimevalue[i] = "${val.code_name}";
 		i++;
 		</c:forEach>
-
+		
 		for( var i = 1; i <= $("#EMAIL_PRIORITY_RNK option").size() ; i++ ){
 			if( $("#EMAIL_PRIORITY_RNK").val() == sendtime[i] ){
 				$("#EMAIL_DISP_TIME").val(sendtimevalue[i]);
 			}
 		}
-
+		
 		// 우선순위가 N 일 경우
 		if ( $("#EMAIL_PRIORITY_RNK").val() == 'N' ){
 			for ( var i = 1; i < sendtime.length; i++ ){
 				if ( sendtime[i] = 'N' ){
-					$("#EMAIL_DISP_TIME").val(sendtimevalue[i]);
+					$("#EMAIL_DISP_TIME").val(sendtimevalue[i]);					
 				}
 			}
 		}
-
+		
 	}
 
   function fnChkByte(obj, maxByte){
   	  var str = obj.val();
   	  var str_len = str.length;
-
+  	  
   	  console.log(str_len);
-
+  
   	  var rbyte = 0;
   	  var rlen = 0;
   	  var one_char = "";
   	  var str2 = "";
-
+  
   	  for(var i=0; i<str_len; i++){
     	  one_char = str.charAt(i);
     	  if(escape(one_char).length > 4){
@@ -515,14 +515,14 @@
     	  }else{
     	      rbyte++;                                            //영문 등 나머지 1Byte
     	  }
-
+    
     	  if(rbyte <= maxByte){
     	      rlen = i+1;                                          //return할 문자열 갯수
     	  }
   	  }
-
+  	  
   	  console.log(rbyte + "/ " + maxByte);
-
+  
   	  if(rbyte > maxByte){
   	      alert("한글 "+(maxByte/2)+"자 / 영문 "+maxByte+"자를 초과 입력할 수 없습니다.");
   	      str2 = str.substr(0,rlen);                                  //문자열 자르기
@@ -535,7 +535,7 @@
   	  }
 	  }
 
-
+	
 </script>
  <!--PAGE CONTENT -->
         <div id="content" style="width:100%; height100%;">
@@ -580,15 +580,15 @@
 							<option value="${val.code_id}" <c:if test="${val.code_id eq CHANNEL_CD}">selected="selected"</c:if>>
 								${val.code_name}
 							</option>
-
-						</c:forEach>
-					</select>
+														
+						</c:forEach>					
+					</select>				
 				</td>
 				<td class="info">고객세그먼트</td>
 				<td class="tbtd_content">${bo.cellname}</td>
 			</tr>
 		</table>
-		<div>
+		<div>		
 			<table class="table table-striped table-hover table-condensed table-bordered" width="100%" border="0" cellpadding="0" cellspacing="0">
 				<colgroup>
 					<col width="15%"/>
@@ -605,9 +605,9 @@
 					<td class="tbtd_content" colspan="3"><input type="text" id="EMAIL_DESC" name="EMAIL_DESC" style="width:600px;" value="${bo.email_desc}" class="txt" maxlength="100"/></td>
 				</tr>
 				<tr>
-					<td class="info">노출일</td>
+					<td class="info">노출일</td>		
 					<td class="tbtd_content" colspan="3">
-						<input type="text" id="EMAIL_DISP_DT" name="EMAIL_DISP_DT" style="width:85px;"
+						<input type="text" id="EMAIL_DISP_DT" name="EMAIL_DISP_DT" style="width:85px;" 
 							<c:if test="${bo.email_disp_dt != null}">value="${bo.email_disp_dt}"</c:if>
 							<c:if test="${bo.email_disp_dt == null && bo.camp_term_cd eq '01'}">value="${bo.camp_bgn_dt}"</c:if>
 						readonly="readonly"/>
@@ -619,7 +619,7 @@
 					<td class="tbtd_content">
 						<select id="EMAIL_PRIORITY_RNK" name="EMAIL_PRIORITY_RNK"  style="width:60px;">
 							<c:forEach var="val" items="${priority_rank}">
-
+								
 								<!-- 캠페인의 채널우선순위 적용여부 체크 -->
 								<c:if test="${bo.channel_priority_yn == 'N' && bo.channel_priority_yn == val.code_id}">"
 									<option value="${val.code_id}">
@@ -627,30 +627,30 @@
 									</option>
 								</c:if>
 								<c:if test="${bo.channel_priority_yn == 'Y' && val.code_id != 'N' }">
-
+									
 									<!-- 사용자의 권한체크(user.title) 우선순위 권한에 따라 보여준다 -->
-									<%-- <c:if test="${user.title =='N' || user.title <= val.code_id  }"> --%>
+									<%-- <c:if test="${user.title =='N' || user.title <= val.code_id  }"> --%>	
 										<option value="${val.code_id}" <c:if test="${val.code_id eq bo.email_priority_rnk}">selected="selected"</c:if>>
 											${val.code_name}
 										</option>
 									<%-- </c:if>								 --%>
 								</c:if>
-
-							</c:forEach>
+								
+							</c:forEach>					
 						</select>
 					</td>
-					<td class="info">발송시간</td>
+					<td class="info">발송시간</td>		
 					<td class="tbtd_content">
-
+						
 						<select id="EMAIL_DISP_TIME" name="EMAIL_DISP_TIME"  style="width:80px;">
-
-
+							
+							
 						</select>
 					</td>
 				</tr>
-<!--
+<!-- 
 				<tr>
-					<td class="info">메시지작성</td>
+					<td class="info">메시지작성</td>		
 					<td class="tbtd_content" colspan="3">
 						<input type="radio" name="EMAIL_EDIT_YN" class="txt"  value="Y" checked="checked"/> CMS에서 작성
 						<input type="radio" name="EMAIL_EDIT_YN" class="txt"  value="N" <c:if test="${bo.email_edit_yn eq 'N'}">checked="checked"</c:if>/> EMAIL시스템에서 작성
@@ -672,44 +672,41 @@
 				</tr>
 				<tr>
 					<td class="info">이메일 제목</td>
-
+          
           <c:set var="subjectVal" value="${bo.email_subject}"/>
           <c:if test="${bo.email_subject == '' || bo.email_subject eq null}">
             <c:set var="subjectVal" value="(광고)"/>
           </c:if>
-
+          
 					<td class="tbtd_content" colspan="3"><input type="text" id="EMAIL_SUBJECT" name="EMAIL_SUBJECT" style="width:500px;" class="txt" maxlength="200" value="${subjectVal}" /></td>
-				</tr>
+				</tr>				
 				<tr>
 					<td id="TD_CONTENT"class="info" rowspan="2">내용</td>
 					<td class="tbtd_content" colspan="3">
 						<div id="search" style="text-align:right;margin-bottom:10px;">
-							<button type="button" class="btn btn-success btn-sm" onclick="fn_hide();"><i class="fa fa-eye-slash" aria-hidden="true"></i> Visible</button>
-						</div>
+							<button type="button" class="btn btn-success btn-sm" onclick="fn_hide();"><i class="fa fa-eye-slash" aria-hidden="true"></i> Visible</button>	
+						</div>					
 					</td>
 				</tr>
 				<tr id="TR_CONTENT">
 					<td class="tbtd_content" colspan="3">
-
-<!-- KANG-20190708: be fixed by Kiea Seok Kang -->
-<table border="0" cellpadding="0" cellspacing="0">
-	<tr>
-		<td><textarea name="EMAIL_CONTENT" id="EMAIL_CONTENT" rows="12" cols="90">${bo.email_content}</textarea></td>
-		<td width="10px"></td>
-		<td valign="top">
-			<label for="useIndi"><input type="checkbox" name="useIndi" value="Y" id="useIndi" <c:if test="${bo.email_person_msg_yn eq 'Y'}"> checked</c:if> > 개인별 적용</label><br/>
-			<select style="width:170px; height:183px; vertical-align: top;" size="10" id="VAL_LIST" name="VAL_LIST" >
-				<c:forEach var="val" items="${vri_list}">
-					<option value="${val.code_id}">
-						${val.code_name}
-					</option>
-				</c:forEach>
-			</select>
-		</td>
-	</tr>
-</table>
-
-					</td>
+            <table border="0" cellpadding="0" cellspacing="0">
+              <tr>
+                <td><textarea name="EMAIL_CONTENT" id="EMAIL_CONTENT" rows="13" cols="90">${bo.email_content}</textarea></td>
+                <td width="10px"></td>
+                <td valign="top">
+                  <label fore="useIndi"><input type="checkbox" name="useIndi" value="Y" id="useIndi" <c:if test="${bo.email_person_msg_yn eq 'Y'}"> checked</c:if> > 개인별 적용</label><br/>
+                  <select style="width:170px; height:183px; vertical-align: top;" size="10" id="VAL_LIST" name="VAL_LIST" >
+                    <c:forEach var="val" items="${vri_list}">
+                      <option value="${val.code_id}">
+                        ${val.code_name}
+                      </option>
+                    </c:forEach>
+                  </select>     
+                </td>
+               </tr>
+            </table>
+					</td>					
 				</tr>
 				<tr>
 					<td class="info">등록자</td>
@@ -717,28 +714,28 @@
 					<td class="info">등록일시</td>
 					<td class="tbtd_content">${bo.create_dt}</td>
 				</tr>
-
+	
 				<tr>
 					<td class="info">수정자</td>
 					<td class="tbtd_content">${bo.update_nm}</td>
 					<td class="info">수정일시</td>
 					<td class="tbtd_content">${bo.update_dt}</td>
-				</tr>
+				</tr>						
 			</table>
 		</div>
 	</div>
 
 	<div id="sysbtn" class="col-md-12" style="text-align:right;margin-bottom:10px;">
 		<button type="button" class="btn btn-success btn-sm" onclick="fn_pre_view();"><i class="fa fa-eye" aria-hidden="true"></i> 미리보기</button>
-		<button type="button" class="btn btn-danger btn-sm" onclick="fn_save();"><i class="fa fa-floppy-o" aria-hidden="true"></i> 저장</button>
+		<button type="button" class="btn btn-danger btn-sm" onclick="fn_save();"><i class="fa fa-floppy-o" aria-hidden="true"></i> 저장</button>	
 		<button type="button" class="btn btn-default btn-sm" onclick="fn_close();"><i class="fa fa-times" aria-hidden="true"></i> 닫기</button>
 	</div>
-
+		
 
 
 
 <div id="emailWrap" style="background-color:#ffffff; position:fixed; display: none;left:75px; top: 50px; width: 900px; border: 2px solid #000000;">
-	<div style="background-color:#CDCDCD;border: 1px solid #ffffff"><a href="javascript:fn_pre_viewClose();" class="bt"><img width="30" height="30" style="padding:0px; border:0px; margin-left: 97%;" alt="닫기" src="<c:url value='/image/btn/x_button.png'/>" ></a></div>
+	<div style="background-color:#CDCDCD;border: 1px solid #ffffff"><a href="javascript:fn_pre_viewClose();" class="bt"><img width="30" height="30" style="padding:0px; border:0px; margin-left: 97%;" alt="닫기" src="<c:url value='/image/btn/x_button.png'/>" ></a></div>	
 	<div id="pre_emal" style="background-color:#ffffff; width:100%; height:450px; overflow-y:scroll; word-wrap:break-word ; "></div>
 </div>
 
@@ -748,7 +745,7 @@
                         </div>
                         <!--END BLOCK SECTION -->
                         <div class="col-lg-3"></div>
-
+              
                       </div>
                       <!--END PAGE CONTENT -->
 
