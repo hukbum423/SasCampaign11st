@@ -28,10 +28,10 @@ public class LoginServiceImpl implements LoginService {
 	private LoginDAO loginDao;
 
 	public List<SessionVO> getLoginInfo(MemberVO memberVo) throws Exception {
-		return (List<SessionVO>) loginDao.getMemberLogin(memberVo);
+		return (List<SessionVO>) this.loginDao.getMemberLogin(memberVo);
 	}
 	
 	public MemberVO getMemberView(MemberVO memberVo) throws Exception {
-        return (MemberVO) loginDao.getMemberView(memberVo);
-    }
+		return (MemberVO) this.loginDao.getMemberView(memberVo);
+	}
 }

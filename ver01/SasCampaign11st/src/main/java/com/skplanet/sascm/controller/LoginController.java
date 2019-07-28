@@ -128,7 +128,7 @@ public class LoginController {
 
 					SessionVO loginVo = resultVo.get(0);
 
-					memberVo = loginService.getMemberView(memberVo);
+					memberVo = this.loginService.getMemberView(memberVo);
 
 					UsmUserBO bo = new UsmUserBO();
 					bo.setName(memberVo.getUserid());
@@ -145,7 +145,7 @@ public class LoginController {
 					System.out.println(">>>>> session name : " + bo.getName());
 					System.out.println(">>>>> session id : " + bo.getId());
 
-					sessionService.setSession(request, loginVo);
+					this.sessionService.setSession(request, loginVo);
 				}
 			} catch (Exception e) {
 				logger.debug("LoginController exception");

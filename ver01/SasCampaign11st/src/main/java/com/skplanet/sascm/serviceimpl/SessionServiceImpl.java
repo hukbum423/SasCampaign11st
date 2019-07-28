@@ -11,6 +11,7 @@ import com.skplanet.sascm.vo.SessionVO;
 @Service
 public class SessionServiceImpl implements SessionService {
 
+	// session name
 	private static final String SESSION = "sessionVo";
 
 	public SessionVO getSession(HttpServletRequest request) throws Exception {
@@ -21,14 +22,17 @@ public class SessionServiceImpl implements SessionService {
 		setMuzSession(request, SESSION, obj);
 	}
 
+	// get session information from request
 	public Object getMuzSession(HttpServletRequest request, String str) throws Exception {
 		return request.getSession().getAttribute(str);
 	}
 
+	// set session information to request
 	public void setMuzSession(HttpServletRequest request, String str, Object obj) throws Exception {
 		request.getSession().setAttribute(str, obj);
 	}
 
+	// remove session
 	public void removeMuzSession(HttpServletRequest request) throws Exception {
 		HttpSession session = request.getSession();
 		if (session != null) {
