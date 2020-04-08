@@ -173,7 +173,7 @@
 			return;
 		}
 
-		if(!fnChkByte($("#EMAIL_CONTENT"), 60000)){
+		if(!fnChkByte($("#EMAIL_CONTENT"), 30000)){
 			return;
 		}
 

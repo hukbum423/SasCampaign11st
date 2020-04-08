@@ -16,7 +16,6 @@
 <!--[if IE]>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <![endif]-->
-
 <!-- GLOBAL STYLES -->
 <link rel="stylesheet"
   href="${staticPATH }/assets/plugins/bootstrap/css/bootstrap.css" />
@@ -52,10 +51,9 @@
 </head>
 <!-- END HEAD -->
 
-
-
 <!-- BEGIN BODY -->
-<body class=" " style="margin-left:20px">
+<body class=" ">
+<!-- body class=" " style="margin-left:20px" -->
 
 	<!-- MAIN WRAPPER -->
 	<div id="wrap">
@@ -64,10 +62,3 @@
 		<div id="top">
 		</div>
 		<!-- END HEADER SECTION -->
-
-
-
-
-
-
-

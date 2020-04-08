@@ -1,0 +1,408 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Offer">
+  
+  <resultMap type="com.skplanet.sascm.object.OfferCuBO" id="OfferCuBO">
+    <result property="campaignid"        column="campaignid" />
+    <result property="campaignname"        column="campaignname" />
+    <result property="campaigncode"        column="campaigncode" />
+    <result property="audience_cd"        column="audience_cd" />
+    <result property="manual_trans_yn"        column="manual_trans_yn" />
+    <result property="offer_direct_yn"        column="offer_direct_yn" />
+    <result property="channel_priority_yn"        column="channel_priority_yn" />
+    <result property="camp_status_cd"        column="camp_status_cd" />
+    <result property="flowchartid"        column="flowchartid" />
+    <result property="flowchartname"        column="flowchartname" />
+    <result property="flowchartrow"        column="flowchartrow" />
+    <result property="filename"        column="filename" />
+    <result property="status"        column="status" />
+    <result property="camp_bgn_dt"        column="camp_bgn_dt" />
+    <result property="camp_end_dt"        column="camp_end_dt" />
+    <result property="camp_term_cd"        column="camp_term_cd" />
+    <result property="cellid"        column="cellid" />
+    <result property="cellrow"        column="cellrow" />
+    <result property="cellname"        column="cellname" />
+    <result property="cellcode"        column="cellcode" />
+    <result property="offerlistid"        column="offerlistid" />
+    <result property="offerid"        column="offerid" />
+    <result property="offername"        column="offername" />
+    <result property="offercode1"        column="offercode1" />
+    <result property="offer_type_cd"        column="offer_type_cd" />
+    <result property="offer_sys_cd"        column="offer_sys_cd" />
+    <result property="disp_name"        column="disp_name" />
+    <result property="tmpl_cupn_no"        column="tmpl_cupn_no" />
+    <result property="tmpl_cupn_no_use_yn"        column="tmpl_cupn_no_use_yn" />
+    <result property="offer_amt"        column="offer_amt" />
+    <result property="create_id"        column="create_id" />
+    
+    <result property="create_nm"        column="create_nm" />
+    <result property="create_dt"        column="create_dt" />
+    <result property="update_id"        column="update_id" />
+    <result property="update_nm"        column="update_nm" />
+    <result property="update_dt"        column="update_dt" />
+    
+    <result property="cell_package_sk"        column="cell_package_sk" />
+   </resultMap>
+   
+  <resultMap type="com.skplanet.sascm.object.OfferPnBO" id="OfferPnBO">
+    <result property="campaignid"        column="campaignid" />
+    <result property="campaignname"        column="campaignname" />
+    <result property="campaigncode"        column="campaigncode" />
+    <result property="audience_cd"        column="audience_cd" />
+    <result property="manual_trans_yn"        column="manual_trans_yn" />
+    <result property="offer_direct_yn"        column="offer_direct_yn" />
+    <result property="channel_priority_yn"        column="channel_priority_yn" />
+    <result property="camp_status_cd"        column="camp_status_cd" />
+    <result property="flowchartid"        column="flowchartid" />
+    <result property="flowchartname"        column="flowchartname" />
+    <result property="flowchartrow"        column="flowchartrow" />
+    <result property="filename"        column="filename" />
+    <result property="status"        column="status" />
+    <result property="cellid"        column="cellid" />
+    <result property="cellrow"        column="cellrow" />
+    <result property="cellname"        column="cellname" />
+    <result property="cellcode"        column="cellcode" />
+    <result property="offerlistid"        column="offerlistid" />
+    <result property="offerid"        column="offerid" />
+    <result property="offername"        column="offername" />
+    <result property="offercode1"        column="offercode1" />
+    <result property="offer_type_cd"        column="offer_type_cd" />
+    <result property="offer_sys_cd"        column="offer_sys_cd" />
+    <result property="disp_name"        column="disp_name" />
+    <result property="tmpl_cupn_no"        column="tmpl_cupn_no" />
+    <result property="tmpl_cupn_no_use_yn"        column="tmpl_cupn_no_use_yn" />
+    <result property="offer_amt"        column="offer_amt" />
+    <result property="create_id"        column="create_id" />
+    <result property="create_nm"        column="create_nm" />
+    <result property="create_dt"        column="create_dt" />
+    <result property="update_id"        column="update_id" />
+    <result property="update_nm"        column="update_nm" />
+    <result property="update_dt"        column="update_dt" />
+
+   </resultMap>
+  
+  <!-- 오퍼정보 목록 조회(OM쿠폰, MM쿠폰, MM마일리지) -->
+  <select id="Offer.getOfferCuInfoList" parameterType="Map"  resultMap="OfferCuBO">
+    SELECT OFFER_SYS_CD
+          ,OFFER_TYPE_CD
+          ,TMPL_CUPN_NO
+          ,TMPL_CUPN_NO_USE_YN
+      FROM CM_CAMPAIGN_OFFER
+     WHERE CAMPAIGNCODE          = #{CAMPAIGNCODE}
+       AND TMPL_CUPN_NO_USE_YN IN ('Y', 'N')  
+  </select>
+  
+  <!-- 오퍼정보 조회(포인트, 마일리지, OCB) -->
+  <select id="Offer.getOfferPnInfo" parameterType="Map"  resultMap="OfferPnBO">
+  SELECT
+      SUBSTR(A.OFFERLISTID,1,INSTR(A.OFFERLISTID, ':')-1) AS OFFERID, 
+      SUBSTR(A.OFFERLISTID,INSTR(A.OFFERLISTID, ':')+1) AS OFFERNAME,
+           CASE WHEN SUBSTR(A.OFFERLISTID,INSTR(A.OFFERLISTID, ':')+1) LIKE '%쿠폰%' THEN 'CU'
+                WHEN SUBSTR(A.OFFERLISTID,INSTR(A.OFFERLISTID, ':')+1) LIKE '%OCB%' THEN 'OC'
+                WHEN SUBSTR(A.OFFERLISTID,INSTR(A.OFFERLISTID, ':')+1) LIKE '%즉시할인%' THEN 'DP'
+                ELSE 'ZZ' END AS OFFER_TYPE_CD , 
+       A.*
+      ,B.DISP_NAME                                        DISP_NAME
+      ,B.TMPL_CUPN_NO                                     TMPL_CUPN_NO
+      ,B.TMPL_CUPN_NO_USE_YN                              TMPL_CUPN_NO_USE_YN
+      ,B.OFFER_AMT                                        OFFER_AMT
+      ,B.CREATE_ID                                        CREATE_ID
+      ,(SELECT USER_NAME FROM CM_USER WHERE ID = B.CREATE_ID) CREATE_NM
+      ,TO_CHAR(B.CREATE_DT, 'YYYY-MM-DD HH24:MI:SS')      CREATE_DT
+      ,B.UPDATE_ID                                        UPDATE_ID
+      ,(SELECT USER_NAME FROM CM_USER WHERE ID = B.UPDATE_ID) UPDATE_NM
+      ,TO_CHAR(B.UPDATE_DT, 'YYYY-MM-DD HH24:MI:SS')      UPDATE_DT
+    FROM 
+         (     
+         SELECT DISTINCT 
+                A.CAMPAIGN_SK                              CAMPAIGNID        
+              , A.CAMPAIGN_NM                              CAMPAIGNNAME 
+              , A.CAMPAIGN_CD                              CAMPAIGNCODE
+              , H.AUDIENCE_CD                              AUDIENCE_CD  
+              , H.MANUAL_TRANS_YN                          MANUAL_TRANS_YN    
+              , H.OFFER_DIRECT_YN                          OFFER_DIRECT_YN
+              , H.CHANNEL_PRIORITY_YN                      CHANNEL_PRIORITY_YN
+              , H.CAMP_STATUS_CD                           CAMP_STATUS_CD
+              , A.MARKETING_CELL_SK                        CELLID
+              , A.MARKETING_CELL_NM                        CELLNAME          
+              , A.MARKETING_CELL_CD                        CELLCODE          
+              , K.COMMUNICATION_SK                         COMMUNICATION_SK       
+              , K.OFFERLIST                                OFFERLISTID    
+              , K.OFFER_SYS_CD                             OFFER_SYS_CD      
+          FROM CI_CELL_PACKAGE        A
+             , (
+               SELECT DISTINCT CAMPAIGN_SK
+                   , CHANNEL_CD
+                   , MARKETING_CELL_SK
+                   , OFFER_SYS_CD
+                   , OFFER_TYPE_CD
+                   , TRIM(REGEXP_SUBSTR(OFFERLIST,'[^,]+', 1, LEVEL) ) OFFERLIST, LEVEL
+                 , MAX(COMMUNICATION_SK) AS COMMUNICATION_SK
+                FROM 
+                    (
+
+                       SELECT CAMPAIGN_SK
+                            , CHANNEL_CD
+                            , MARKETING_CELL_SK
+                            , MAX(COMMUNICATION_SK)                                 AS COMMUNICATION_SK
+                            , MAX(OFFER_SYS_CD)                                     AS OFFER_SYS_CD
+                            , MAX(OFFER_TYPE_CD)                                    AS OFFER_TYPE_CD
+                            , MAX(OFFERLIST)                                        AS OFFERLIST
+                        FROM (
+                             SELECT DISTINCT  F.CAMPAIGN_SK                         AS CAMPAIGN_SK           /* 캠페인ID     */
+                                 , F.CHANNEL_CD                                     AS CHANNEL_CD            /* 채널 코드     */
+                                 , F.MARKETING_CELL_SK                                     AS MARKETING_CELL_SK            /* MARKETING_CELL_SK 코드     */
+                                 , F.COMMUNICATION_SK                               AS COMMUNICATION_SK      /* 캠페인코드     */
+                                 , CASE WHEN UPPER(G.CHAR_EXT_COLUMN_NM) = 'OFFER_SYS_CD' THEN
+                                             G.CHAR_UDF_VAL
+                                        ELSE NULL
+                                   END                                              AS OFFER_SYS_CD          /* 캠페인 오퍼 시스템 */
+                                 , CASE WHEN UPPER(G.CHAR_EXT_COLUMN_NM) = 'OFFER_TYPE_CD' THEN
+                                             G.CHAR_UDF_VAL
+                                        ELSE NULL
+                                   END                                               AS OFFER_TYPE_CD        /* 캠페인 유형  */
+                                 , CASE WHEN UPPER(G.CHAR_EXT_COLUMN_NM) IN ( 'OFFER', 'OFFER1' ) THEN
+                                             G.CHAR_UDF_VAL
+                                        ELSE NULL
+                                   END                                               AS OFFERLIST             /* 캠페인 유형  */
+                              FROM CI_CELL_PACKAGE            F
+                                   LEFT JOIN CI_COMMUNICATION_CHAR_UDF G
+                                ON F.COMMUNICATION_SK = G.COMMUNICATION_SK
+                             AND G.COMMUNICATION_SK IN ( SELECT COMMUNICATION_SK 
+                                                                             FROM CI_COMMUNICATION 
+                                                                           WHERE DELETED_FLG = 'N' )
+                             AND ( F.CONTROL_GROUP_TYPE_CD IS NULL OR F.CONTROL_GROUP_TYPE_CD IN ('_CH','_CL') ) 
+         WHERE F.CAMPAIGN_SK  = #{CAMPAIGNID}
+
+                     ) TMP11 
+                 GROUP BY  CAMPAIGN_SK, CHANNEL_CD, MARKETING_CELL_SK 
+               )
+        CONNECT BY REGEXP_SUBSTR(OFFERLIST, '[^,]+', 1, LEVEL) IS NOT NULL
+           AND PRIOR CAMPAIGN_SK =  CAMPAIGN_SK 
+           AND PRIOR SYS_GUID() IS NOT NULL  
+                 GROUP BY  CAMPAIGN_SK
+                 , CHANNEL_CD
+                 , MARKETING_CELL_SK
+                 , OFFER_SYS_CD
+                 , OFFER_TYPE_CD
+                 , TRIM(REGEXP_SUBSTR(OFFERLIST,'[^,]+', 1, LEVEL) ) , LEVEL
+        ORDER BY CAMPAIGN_SK, LEVEL 
+        ) K
+       , CM_CAMPAIGN_DTL    H
+   WHERE A.CAMPAIGN_SK  = #{CAMPAIGNID}
+     AND A.CAMPAIGN_SK  = H.CAMPAIGNID
+     AND A.CAMPAIGN_SK  = K.CAMPAIGN_SK
+     AND A.COMMUNICATION_SK  = K.COMMUNICATION_SK
+     AND ( A.CONTROL_GROUP_TYPE_CD IS NULL OR A.CONTROL_GROUP_TYPE_CD IN ('_CH','_CL') ) 
+        ) A
+       , CM_CAMPAIGN_OFFER  B
+   WHERE A.CELLID = B.CELLID(+)
+   AND REPLACE(SUBSTR(A.OFFERLISTID,1,INSTR(A.OFFERLISTID, ':')-1),CHR(9),'') = TO_CHAR(B.OFFERID(+))
+   AND A.CELLID = #{CELLID}
+   AND REPLACE(SUBSTR(A.OFFERLISTID,1,INSTR(A.OFFERLISTID, ':')-1),CHR(9),'')  = #{OFFERID}
+   
+  </select>
+  
+
+
+  <!-- 오퍼정보 저장(포인트, 마일리지, OCB) -->
+  <update id="Offer.setOfferPn" parameterType="Map" >
+    MERGE INTO CM_CAMPAIGN_OFFER
+    USING DUAL
+    ON (    CELLID  = #{CELLID}
+        AND OFFERID = #{OFFERID}
+       )
+    WHEN MATCHED THEN
+    UPDATE SET DISP_NAME           = TRIM(#{DISP_NAME})
+              ,OFFER_AMT           = TRIM(#{OFFER_AMT})
+              ,UPDATE_ID           = TRIM(#{UPDATE_ID})
+              ,UPDATE_DT           = SYSDATE
+    WHEN NOT MATCHED THEN
+    INSERT (
+       CELLID
+      ,OFFERID
+      ,OFFER_TYPE_CD
+      ,OFFER_SYS_CD
+      ,DISP_NAME
+      ,OFFER_AMT
+      ,CAMPAIGNCODE
+      ,FLOWCHARTID
+      ,CREATE_ID
+      ,CREATE_DT
+
+    )
+    VALUES (
+       TRIM(#{CELLID})
+      ,TRIM(#{OFFERID})
+      ,TRIM(#{OFFER_TYPE_CD})
+      ,TRIM(#{OFFER_SYS_CD})
+      ,TRIM(#{DISP_NAME})
+      ,TRIM(#{OFFER_AMT})
+      ,TRIM(#{CAMPAIGNCODE})
+      ,TO_NUMBER(SUBSTR(TRIM(#{CAMPAIGNCODE}),5))
+      ,TRIM(#{CREATE_ID})
+      ,SYSDATE
+    )               
+  </update>
+
+
+  <!-- 오퍼정보 조회(쿠폰, 도서 포인트) -->
+  <select id="Offer.getOfferCuInfo" parameterType="Map"  resultMap="OfferCuBO">
+    SELECT DISTINCT
+      SUBSTR(A.OFFERLISTID,1,INSTR(A.OFFERLISTID, ':')-1) AS OFFERID, 
+      SUBSTR(A.OFFERLISTID,INSTR(A.OFFERLISTID, ':')+1) AS OFFERNAME, 
+           CASE WHEN SUBSTR(A.OFFERLISTID,INSTR(A.OFFERLISTID, ':')+1) LIKE '%쿠폰%' THEN 'CU'
+                WHEN SUBSTR(A.OFFERLISTID,INSTR(A.OFFERLISTID, ':')+1) LIKE '%OCB%' THEN 'OC'
+                WHEN SUBSTR(A.OFFERLISTID,INSTR(A.OFFERLISTID, ':')+1) LIKE '%즉시할인%' THEN 'DP'
+                ELSE 'ZZ' END AS OFFER_TYPE_CD , 
+      A.* 
+     ,(SELECT CODE_NAME FROM CM_CODE_DTL WHERE CODE_ID = SUBSTR(A.OFFERLISTID,1,2) AND COMM_CODE_ID = 'G004') TEST
+     , B.DISP_NAME                                        DISP_NAME
+     , B.OFFER_AMT                                        OFFER_AMT
+     , B.CREATE_ID                                        CREATE_ID
+     , (SELECT USER_NAME FROM CM_USER WHERE ID = B.CREATE_ID) CREATE_NM
+     , B.CREATE_DT                                        CREATE_DT
+     , B.UPDATE_ID                                        UPDATE_ID
+     , (SELECT USER_NAME FROM CM_USER WHERE ID = B.UPDATE_ID) UPDATE_NM
+     , B.UPDATE_DT                                        UPDATE_DT
+     , B.TMPL_CUPN_NO                                     TMPL_CUPN_NO
+  FROM 
+        (
+         SELECT DISTINCT 
+                A.CAMPAIGN_SK                              CAMPAIGNID        
+              , A.CAMPAIGN_NM                              CAMPAIGNNAME 
+              , A.CAMPAIGN_CD                              CAMPAIGNCODE
+              , H.AUDIENCE_CD                              AUDIENCE_CD  
+              , H.MANUAL_TRANS_YN                          MANUAL_TRANS_YN    
+              , H.OFFER_DIRECT_YN                          OFFER_DIRECT_YN
+              , H.CHANNEL_PRIORITY_YN                      CHANNEL_PRIORITY_YN
+              , H.CAMP_STATUS_CD                           CAMP_STATUS_CD
+              , A.MARKETING_CELL_SK                        CELLID
+              , A.MARKETING_CELL_NM                        CELLNAME          
+              , A.MARKETING_CELL_CD                        CELLCODE          
+              , K.COMMUNICATION_SK                         COMMUNICATION_SK       
+              , K.OFFERLIST                                OFFERLISTID    
+              , K.OFFER_SYS_CD                             OFFER_SYS_CD      
+          FROM CI_CELL_PACKAGE        A
+             , (
+               SELECT DISTINCT CAMPAIGN_SK
+                   , CHANNEL_CD
+                   , MARKETING_CELL_SK
+                   , OFFER_SYS_CD
+                   , OFFER_TYPE_CD
+                   , TRIM(REGEXP_SUBSTR(OFFERLIST,'[^,]+', 1, LEVEL) ) OFFERLIST, LEVEL
+                 , MAX(COMMUNICATION_SK) AS COMMUNICATION_SK
+                FROM 
+                    (
+
+                       SELECT CAMPAIGN_SK
+                            , CHANNEL_CD
+                            , MARKETING_CELL_SK
+                            , MAX(COMMUNICATION_SK)                                 AS COMMUNICATION_SK
+                            , MAX(OFFER_SYS_CD)                                     AS OFFER_SYS_CD
+                            , MAX(OFFER_TYPE_CD)                                    AS OFFER_TYPE_CD
+                            , MAX(OFFERLIST)                                        AS OFFERLIST
+                        FROM (
+                             SELECT DISTINCT  F.CAMPAIGN_SK                         AS CAMPAIGN_SK           /* 캠페인ID     */
+                                 , F.CHANNEL_CD                                     AS CHANNEL_CD            /* 채널 코드     */
+                                 , F.MARKETING_CELL_SK                                     AS MARKETING_CELL_SK            /* MARKETING_CELL_SK 코드     */
+                                 , F.COMMUNICATION_SK                               AS COMMUNICATION_SK      /* 캠페인코드     */
+                                 , CASE WHEN UPPER(G.CHAR_EXT_COLUMN_NM) = 'OFFER_SYS_CD' THEN
+                                             G.CHAR_UDF_VAL
+                                        ELSE NULL
+                                   END                                              AS OFFER_SYS_CD          /* 캠페인 오퍼 시스템 */
+                                 , CASE WHEN UPPER(G.CHAR_EXT_COLUMN_NM) = 'OFFER_TYPE_CD' THEN
+                                             G.CHAR_UDF_VAL
+                                        ELSE NULL
+                                   END                                               AS OFFER_TYPE_CD        /* 캠페인 유형  */
+                                 , CASE WHEN UPPER(G.CHAR_EXT_COLUMN_NM) IN ( 'OFFER', 'OFFER1' ) THEN
+                                             G.CHAR_UDF_VAL
+                                        ELSE NULL
+                                   END                                               AS OFFERLIST             /* 캠페인 유형  */
+                              FROM CI_CELL_PACKAGE            F
+                                   LEFT JOIN CI_COMMUNICATION_CHAR_UDF G
+                                ON F.COMMUNICATION_SK = G.COMMUNICATION_SK
+                             AND G.COMMUNICATION_SK IN ( SELECT COMMUNICATION_SK 
+                                                                             FROM CI_COMMUNICATION 
+                                                                           WHERE DELETED_FLG = 'N' )
+                             AND ( F.CONTROL_GROUP_TYPE_CD IS NULL OR F.CONTROL_GROUP_TYPE_CD IN ('_CH','_CL') ) 
+                           WHERE F.CAMPAIGN_SK  = #{CAMPAIGNID}
+                     ) 
+                 GROUP BY  CAMPAIGN_SK, CHANNEL_CD, MARKETING_CELL_SK 
+               )
+        CONNECT BY REGEXP_SUBSTR(OFFERLIST, '[^,]+', 1, LEVEL) IS NOT NULL
+           AND PRIOR CAMPAIGN_SK =  CAMPAIGN_SK 
+           AND PRIOR SYS_GUID() IS NOT NULL  
+                 GROUP BY  CAMPAIGN_SK
+                 , CHANNEL_CD
+                 , MARKETING_CELL_SK
+                 , OFFER_SYS_CD
+                 , OFFER_TYPE_CD
+                 , TRIM(REGEXP_SUBSTR(OFFERLIST,'[^,]+', 1, LEVEL) ) , LEVEL
+        ORDER BY CAMPAIGN_SK, LEVEL 
+        ) K
+     , CM_CAMPAIGN_DTL    H
+ WHERE A.CAMPAIGN_SK  = #{CAMPAIGNID}   
+   AND A.CAMPAIGN_SK  = H.CAMPAIGNID(+)
+   AND A.CAMPAIGN_SK  = K.CAMPAIGN_SK
+   AND A.COMMUNICATION_SK  = K.COMMUNICATION_SK
+   AND ( A.CONTROL_GROUP_TYPE_CD IS NULL OR A.CONTROL_GROUP_TYPE_CD IN ('_CH','_CL') ) 
+      ) A
+     , CM_CAMPAIGN_OFFER  B
+ WHERE A.CELLID = B.CELLID(+)
+   AND REPLACE(SUBSTR(A.OFFERLISTID,1,INSTR(A.OFFERLISTID, ':')-1),CHR(9),'') = TO_CHAR(B.OFFERID(+))
+   AND A.CELLID = #{CELLID}
+   AND REPLACE(SUBSTR(A.OFFERLISTID,1,INSTR(A.OFFERLISTID, ':')-1),CHR(9),'')  = #{OFFERID}
+       
+  </select>
+
+
+  <!-- 오퍼정보 저장(쿠폰, 도서쿠폰) -->
+  <update id="Offer.setOfferCu" parameterType="Map" >
+    MERGE INTO CM_CAMPAIGN_OFFER
+    USING DUAL
+    ON (    CELLID  = #{CELLID}
+        AND OFFERID = #{OFFERID}
+       )
+    WHEN MATCHED THEN
+    UPDATE SET DISP_NAME           = TRIM(#{DISP_NAME})
+              ,TMPL_CUPN_NO        = TRIM(#{TMPL_CUPN_NO})
+              ,TMPL_CUPN_NO_USE_YN = TRIM(#{TMPL_CUPN_NO_USE_YN})
+              ,OFFER_AMT           = 0
+              ,UPDATE_ID           = TRIM(#{UPDATE_ID})
+              ,UPDATE_DT           = SYSDATE
+    WHEN NOT MATCHED THEN
+    INSERT (
+       CELLID
+      ,OFFERID
+      ,OFFER_TYPE_CD
+      ,OFFER_SYS_CD
+      ,DISP_NAME
+      ,TMPL_CUPN_NO
+      ,TMPL_CUPN_NO_USE_YN
+      ,OFFER_AMT
+      ,CAMPAIGNCODE
+      ,FLOWCHARTID
+      ,CREATE_ID
+      ,CREATE_DT
+
+    )
+    VALUES (
+       TRIM(#{CELLID})
+      ,TRIM(#{OFFERID})
+      ,TRIM(#{OFFER_TYPE_CD})
+      ,TRIM(#{OFFER_SYS_CD})
+      ,TRIM(#{DISP_NAME})
+      ,TRIM(#{TMPL_CUPN_NO})
+      ,TRIM(#{TMPL_CUPN_NO_USE_YN})
+      ,0
+      ,TRIM(#{CAMPAIGNCODE})
+      ,TO_NUMBER(SUBSTR(TRIM(#{CAMPAIGNCODE}),5))
+      ,TRIM(#{CREATE_ID})
+      ,SYSDATE
+    )      
+  </update>
+  
+      
+</mapper>

@@ -304,7 +304,7 @@ public class ScheduleController {
 		}
 
 		//오퍼 템플릿 쿠폰번호사용이 Y일 경우 캠페인 기간과 쿠폰유효기간이 동일한지 체크
-		if (return_code.equals("")) {
+		if (false && return_code.equals("")) {   // KANG-20200407
 			List<OfferCuBO> list = offerService.getOfferCuInfoList(map);
 
 			for (int i = 0; i < list.size(); i++) {
@@ -357,7 +357,7 @@ public class ScheduleController {
 		}
 
 		//오퍼 템플릿 쿠폰번호 사용이 N일 경우 캠페인 기간이 쿠폰유효기간에 포함되는 체크
-		if (return_code.equals("")) {
+		if (false && return_code.equals("")) {   // KANG-20200407
 			List<OfferCuBO> list = offerService.getOfferCuInfoList(map);
 
 			for (int i = 0; i < list.size(); i++) {

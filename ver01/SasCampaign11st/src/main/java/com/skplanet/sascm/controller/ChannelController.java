@@ -1369,6 +1369,149 @@ public class ChannelController {
 		this.jsonView.render(map, request, response);
 	}
 
+	/**
+	 * KANG-20200406: set
+	 *
+	 * 채널 MOBILE 정보 강제저장
+	 *
+	 * @param request
+	 * @param response
+	 * @param modelMap
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("setChannelMobileForce.do")
+	public void setChannelMobileForce(HttpServletRequest request, HttpServletResponse response, ModelMap modelMap, HttpSession session) throws Exception {
+		Map<String, Object> map = new HashMap<String, Object>();
+
+		UsmUserBO user = (UsmUserBO) session.getAttribute("ACCOUNT");
+
+		//paramter
+		log.info("=============================================");
+		log.info("CAMPAIGNID              : " + request.getParameter("CampaignId"));
+		log.info("CAMPAIGNCODE            : " + request.getParameter("CAMPAIGNCODE"));
+		log.info("FLOWCHARTID             : " + request.getParameter("FLOWCHARTID"));
+		log.info("CELLID                  : " + request.getParameter("CELLID"));
+		log.info("CHANNEL_CD              : " + request.getParameter("CHANNEL_CD"));
+
+		log.info("MOBILE_APP_KD_CD        : " + request.getParameter("MOBILE_APP_KD_CD"));
+		log.info("MOBILE_DISP_TITLE       : " + request.getParameter("MOBILE_DISP_TITLE"));
+		log.info("MOBILE_CONTENT          : " + request.getParameter("MOBILE_CONTENT"));
+		log.info("MOBILE_ADD_TEXT         : " + request.getParameter("MOBILE_ADD_TEXT"));
+		log.info("MOBILE_DISP_DT          : " + request.getParameter("MOBILE_DISP_DT"));
+		log.info("MOBILE_PRIORITY_RNK     : " + request.getParameter("MOBILE_PRIORITY_RNK"));
+		log.info("MOBILE_DISP_TIME        : " + request.getParameter("MOBILE_DISP_TIME"));
+		log.info("TIMELINE_DISP_YN        : " + request.getParameter("TIMELINE_DISP_YN"));
+		log.info("PUSH_MSG_POPUP_INDC_YN  : " + request.getParameter("PUSH_MSG_POPUP_INDC_YN"));
+		log.info("THUM_IMG_URL            : " + request.getParameter("THUM_IMG_URL"));
+		log.info("BNNR_IMG_URL            : " + request.getParameter("BNNR_IMG_URL"));
+		log.info("useIndi                 : " + request.getParameter("useIndi"));
+		log.info("MOBILE_SEND_PREFER_CD   : " + request.getParameter("MOBILE_SEND_PREFER_CD"));
+
+		log.info("ALIMI_PARAMS            : " + request.getParameter("ALIMI_PARAMS"));
+		log.info("=============================================");
+
+		if (Flag.flag) {
+			// 알리미
+			String json = request.getParameter("ALIMI_PARAMS");
+			JsonNode root = this.objectMapper.readTree(json);
+			map.put("TALK_MSG_DISP_YN", root.path("alimiShow").asText());
+			map.put("TALK_MSG_SUMMARY", root.path("alimiText").asText());
+			map.put("TALK_MSG_TMPLT_NO", root.path("alimiType").asText());
+
+			String jsonBlckCont = this.getBlockContent(json);
+			//map.put("JSON_CONTENT", jsonBlckCont);
+			map.put("TALK_BLCK_CONT", jsonBlckCont.replace("\"", "\\\"").replace("'", "\\'"));
+		}
+
+		//입력 값
+		map.put("CAMPAIGNID", Common.nvl(request.getParameter("CampaignId"), ""));
+		map.put("CAMPAIGNCODE", Common.nvl(request.getParameter("CAMPAIGNCODE"), ""));
+		map.put("FLOWCHARTID", Common.nvl(request.getParameter("FLOWCHARTID"), ""));
+		map.put("CELLID", Common.nvl(request.getParameter("CELLID"), ""));
+		map.put("CHANNEL_CD", "MOBILE"); //MOBILE
+
+		map.put("MOBILE_APP_KD_CD", Common.nvl(request.getParameter("MOBILE_APP_KD_CD"), ""));
+		map.put("MOBILE_DISP_TITLE", Common.nvl(request.getParameter("MOBILE_DISP_TITLE"), ""));
+		map.put("MOBILE_CONTENT", Common.nvl(request.getParameter("MOBILE_CONTENT"), ""));
+		map.put("MOBILE_ADD_TEXT", Common.nvl(request.getParameter("MOBILE_ADD_TEXT"), ""));
+		map.put("MOBILE_DISP_DT", Common.nvl(request.getParameter("MOBILE_DISP_DT"), ""));
+		map.put("MOBILE_PRIORITY_RNK", Common.nvl(request.getParameter("MOBILE_PRIORITY_RNK"), ""));
+		map.put("MOBILE_DISP_TIME", Common.nvl(request.getParameter("MOBILE_DISP_TIME"), ""));
+		map.put("TIMELINE_DISP_YN", Common.nvl(request.getParameter("TIMELINE_DISP_YN"), ""));
+		map.put("PUSH_MSG_POPUP_INDC_YN", Common.nvl(request.getParameter("PUSH_MSG_POPUP_INDC_YN"), ""));
+		map.put("THUM_IMG_URL", Common.nvl(request.getParameter("THUM_IMG_URL"), ""));
+		map.put("BNNR_IMG_URL", Common.nvl(request.getParameter("BNNR_IMG_URL"), ""));
+
+		map.put("MOBILE_LNK_PAGE_TYP", Common.nvl(request.getParameter("MOBILE_LNK_PAGE_TYP"), ""));
+		map.put("MOBILE_LNK_PAGE_URL", Common.nvl(request.getParameter("MOBILE_LNK_PAGE_URL"), ""));
+
+		map.put("useIndi", Common.nvl(request.getParameter("useIndi"), "N"));
+		map.put("MOBILE_SEND_PREFER_CD", Common.nvl(request.getParameter("MOBILE_SEND_PREFER_CD"), ""));
+
+		map.put("CREATE_ID", user.getId());
+		map.put("UPDATE_ID", user.getId());
+
+		//캠페인의 상태체크(START일경우에는 수정못함)
+		CampaignInfoBO bo = this.campaignInfoService.getCampaignInfo(map);
+		String CMP_STATUS = Common.nvl(bo.getCamp_status_cd(), "");
+
+		if (Flag.flag) {
+			// add this.channelService.setChannelMobileAlimi
+			if (!CMP_STATUS.equals("START") || true) { // save force
+				//모바일 정보 저장
+				this.channelService.setChannelMobile(map);
+
+				// KANG-20190328: save alimi data
+				if (Flag.flag) {
+
+					// data covert from pc to block
+					// this.channelService.setChannelMobileAlimi(map);
+					ChannelAlimiBO alimi = this.channelService.getChannelMobileAlimi(map);
+					if (alimi == null) {
+						this.channelService.insertChannelMobileAlimi(map);
+					} else {
+						this.channelService.updateChannelMobileAlimi(map);
+					}
+				}
+			}
+		}
+
+		if (!Flag.flag) {
+			// TODO KANG-20190416: test for CLOB
+			String cellId = (String) map.get("CELLID");  // CELLID
+			String channelCd = (String) map.get("CHANNEL_CD"); // CHANNEL_CD
+			String talkBlckCont = (String) map.get("TALK_BLCK_CONT"); // TALK_BLCK_CONT
+
+			StringBuffer sb = new StringBuffer();
+			for (int i=0; i < 70000; i++) {
+				sb.append("1234567890");
+			}
+
+			map.put("CELLID", "1004");
+			map.put("CHANNEL_CD", "MOBILE");
+			map.put("TALK_BLCK_CONT", sb.toString());
+
+			ChannelAlimiBO alimi = this.channelService.getChannelMobileAlimi(map);
+			if (alimi == null) {
+				this.channelService.insertChannelMobileAlimi(map);
+			} else {
+				this.channelService.updateChannelMobileAlimi(map);
+			}
+
+			// restore
+			map.put("CELLID", cellId);
+			map.put("CHANNEL_CD", channelCd);
+			map.put("TALK_BLCK_CONT", talkBlckCont);
+		}
+
+		//캠페인 상태 리턴
+		map.put("CMP_STATUS", CMP_STATUS);
+
+		this.jsonView.render(map, request, response);
+	}
+
+	
 	//private static boolean flag = true;
 	private Gson gson = new Gson();
 

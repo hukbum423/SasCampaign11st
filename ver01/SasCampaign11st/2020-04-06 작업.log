@@ -1,2 +1,253 @@
 2020.04.06
-	개발 환경 설정
+	1. 개발 환경 설정
+		GIT: hukbum423@gmail.com/winner24^^
+		http://localhost:8080/SASCampaign/
+		cm_work1@saspw/1
+	
+	2. 분석
+	
+		--------------------------------------------------------------
+		- Campaign
+		
+			CI_CELL_PACKAGE (요약)
+				CI_CAMPAIGN - char/num/date_udf
+					CI_CAMP_PAGE - char/num/date_udf
+				CI_COMMUNICATION - char/num/date_udf
+				CI_MARKETING_CELL
+				
+				CM_CAMPAIGN_DTL (속성)
+				CM_CAMPAIGN_CONTENTS (오퍼)
+					CM_CAMPAIGN_CONTENTS_OFFERLIST
+						CM_CAMPAIGN_OFFER
+				CM_CAMPAIGN_CHANNEL (채널)
+				CM_CAMPAIGN_RUN_RESV (일정)
+					CM_CAMPAIGN_RUN_SCHEDULE
+	
+			CM_CODE_MST
+				CM_CODE_DTL
+		--------------------------------------------------------------
+	
+	2. 테이블 생성: CM_CAMPAIGN_CHANNEL_JS
+	
+		DROP TABLE CM_CAMPAIGN_CHANNEL_JS;
+		
+		CREATE TABLE CM_CAMPAIGN_CHANNEL_JS
+		(
+			CELLID                  NUMBER,         -- CELLID
+			CAMPAIGNCODE            VARCHAR2(60),   -- 캠페인코드 (CAMP12345)
+			CAMPAIGNID              NUMBER,         -- 캠페인ID  (12345)
+			CHANNEL_CD              VARCHAR2(10),   -- CHANNEL CD
+			APP_KD_CD               VARCHAR2(10),   -- 앱구분 
+			TALK_MSG_DISP_YN        VARCHAR2(2),    -- 알림톡 노출 여부 (노출함Y , 노출안함N )  
+			TALK_MSG_SUMMARY        VARCHAR2(1000), -- 알림톡 방목록 텍스트 
+			TALK_MSG_TMPLT_NO       VARCHAR2(10),   -- 카테고리 템플릿 (타입)번호 
+			TALK_BLCK_CONT          CLOB ,          -- CLOB (JSON형태)
+			MOBILE_SEND_PREFER_CD   VARCHAR2(10),   -- 선호시간
+			MOBILE_PERSON_MSG_YN    VARCHAR2(10),   -- 개인화 적용 여부 
+			CREATE_DT               DATE,
+			-- CREATE_NO               NUMBER,         -- 사용자 아이디
+			CREATE_ID               NUMBER,         -- 사용자 아이디
+			UPDATE_DT               DATE,
+			-- UPDATE_NO               NUMBER          -- 사용자 아이디
+			UPDATE_ID               NUMBER          -- 사용자 아이디
+		)
+		LOGGING
+		TABLESPACE USERS
+		PCTFREE 10
+		INITRANS 1
+		STORAGE
+		(
+		  INITIAL 65536 
+		  NEXT 1048576 
+		  MINEXTENTS 1 
+		  MAXEXTENTS UNLIMITED 
+		  BUFFER_POOL DEFAULT 
+		)
+		NOCOMPRESS
+		NOPARALLEL
+		;
+	
+	3. Job
+		select
+			*
+		from
+			all_tab_columns
+		where 1=1
+			and owner = 'TMSAS'
+			and data_type like '%LOB'
+		;
+
+		/SASCampaign/getCampaignInfoAll.do
+			com.skplanet.sascm.controller.CampaignController.getCampaignInfoAll();
+			
+		/SASCampaign/channel/channelInfo.do
+			com.skplanet.sascm.controller.ChannelController.pageChannelInfo()
+		
+		/SASCampaign/channel/channelEmail.do
+			com.skplanet.sascm.controller.ChannelController.pageChannelEmail()
+
+			-- add: CM_CAMPAIGN_CHANNEL.EMAIL_PERSON_MSG_YN
+			
+			-- channel/channelEmail.jsp
+				EMAIL_CONTENT
+				
+	4. CLOB
+			-- type change: CM_CAMPAIGN_CHANNEL.EMAIL_CONTENT VARCHAR2(1024 BYTE) --> CLOB
+			-- type change: CM_CAMPAIGN_CHANNEL.MOBILE_ADD_TEXT VARCHAR2(1024 BYTE) --> CLOB
+				-> alter table CM_CAMPAIGN_CHANNEL modify (EMAIL_CONTENT CLOB, MOBILE_ADD_TEXT CLOB);  -> ERROR
+				-> alter table CM_CAMPAIGN_CHANNEL add (EMAIL_CONTENT2 CLOB, MOBILE_ADD_TEXT2 CLOB);
+				-> alter table CM_CAMPAIGN_CHANNEL rename column EMAIL_CONTENT2 to EMAIL_CONTENT_2;
+				-> alter table CM_CAMPAIGN_CHANNEL rename column MOBILE_ADD_TEXT2 to MOBILE_ADD_TEXT_2;
+			
+			SQL> UPDATE TEST_TABLE_ONE A SET AMT=(SELECT AMT FROM  TEST_TABLE_TWO B WHERE A.ID=B.ID) WHERE ID='test3'
+			SQL> merge into a
+				using ( select request_num, max(cust_id) as new_id
+				      from   a
+				      group by request_num
+				    ) b
+				on (a.request_num = b.request_num)
+				when matched then update a.cust_id = b.new_id
+				  where a.cust_id is null and b.new_id is not null
+				;
+			--------------------------------------------------------
+				select
+					cellid
+					, channel_cd
+					, email_content
+					, email_content_2 
+				from 
+					cm_campaign_channel 
+				where 1=1
+					and channel_cd = 'EMAIL'
+				order by
+					cellid
+				;
+				
+				merge into cm_campaign_channel a
+				using (
+					select
+						cellid
+						, channel_cd
+						, email_content
+						, email_content_2
+					from
+						cm_campaign_channel
+					where 1=1
+						and channel_cd = 'EMAIL'
+				) b
+				on (
+					a.cellid = b.cellid 
+					and a.channel_cd = 'EMAIL'
+				)
+				when matched then
+					update set a.email_content_2 = b.email_content
+					where 1=1
+						and a.email_content_2 is null
+						and b.email_content is not null
+				;
+			--------------------------------------------------------
+				select
+					cellid
+					, channel_cd
+					, mobile_add_text
+					, mobile_add_text_2 
+				from 
+					cm_campaign_channel 
+				where 1=1
+					and channel_cd = 'MOBILE'
+				order by
+					cellid
+				;
+				
+				merge into cm_campaign_channel a
+				using (
+					select
+						cellid
+						, channel_cd
+						, mobile_add_text
+						, mobile_add_text_2
+					from
+						cm_campaign_channel
+					where 1=1
+						and channel_cd = 'MOBILE'
+				) b
+				on (
+					a.cellid = b.cellid 
+					and a.channel_cd = 'MOBILE'
+				)
+				when matched then
+					update set a.mobile_add_text_2 = b.mobile_add_text
+					where 1=1
+						and a.mobile_add_text_2 is null
+						and b.mobile_add_text is not null
+				;
+			
+			--------------------------------------------------------
+				--> alter table CM_CAMPAIGN_CHANNEL rename column EMAIL_CONTENT to EMAIL_CONTENT2;
+				--> alter table CM_CAMPAIGN_CHANNEL rename column MOBILE_ADD_TEXT to MOBILE_ADD_TEXT2;
+				--> alter table CM_CAMPAIGN_CHANNEL rename column EMAIL_CONTENT_2 to EMAIL_CONTENT;
+				--> alter table CM_CAMPAIGN_CHANNEL rename column MOBILE_ADD_TEXT_2 to MOBILE_ADD_TEXT;
+
+
+		channelInfo.do
+			com.skplanet.sascm.controller.ChannelController
+
+		
+		/SASCampaign/channel/channelMobile.do
+			com.skplanet.sascm.controller.ChannelController.pageChannelMobile()
+			
+			-- name change:
+				-- CM_CAMPAIGN_CHANNEL_JS.CREATE_ID  <- CREATE_NO
+				-- CM_CAMPAIGN_CHANNEL_JS.UPDATE_ID  <- UPDATE_NO
+
+			-- channel/channelMobile.jsp
+				<!-- KANG-20200406 -->
+				 maxlength="22" placeholder='(문자수 최대 22) '/>
+			
+	5. save force...   -> CHANGE: START -> EDIT
+		
+		/SASCampaign/channel/channelMobile.do
+			
+			-- channel/channelMobile.jsp
+				function fn_save_force() {
+				if (false && !fn_validation()){
+				url: '${staticPATH }/setChannelMobileForce.do',
+
+			-- com.skplanet.sascm.controller.ChannelController.setChannelMobileForce()
+				@RequestMapping("setChannelMobileForce.do")
+				public void setChannelMobileForce(HttpServletRequest request, HttpServletResponse response, ModelMap modelMap, HttpSession session) throws Exception {
+						if (!CMP_STATUS.equals("START") || true) { // save force
+		
+		/SASCampaign/channel/channelEmail.do
+		/SASCampaign/channel/channelSMS.do
+		/SASCampaign/channel/channelToast.do
+		
+		
+	6. ScheduleController.java
+	
+		@RequestMapping("/setScheduleDetail.do")
+		public void setScheduleDetail(HttpServletRequest request, HttpServletResponse response, ModelMap modelMap, HttpSession session) throws Exception {
+			// 나중에 false를 제거   KANG-20200407
+		
+		
+		
+	
+	
+	
+	11. backup from git
+	
+		$ git clone https://github.com/hukbum423/SasCampaign11st.git
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	

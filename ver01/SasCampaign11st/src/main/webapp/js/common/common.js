@@ -375,4 +375,3 @@ function nvl(str, defaultVal) {
    
   return str;
 }
-

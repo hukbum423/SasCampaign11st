@@ -6,4 +6,3 @@
 		<typeHandler javaType="java.lang.String" jdbcType="CLOB" handler="org.apache.ibatis.type.ClobTypeHandler" />
 	</typeHandlers>
 </configuration>
-

@@ -943,9 +943,45 @@
       });
     }
   }
+
+//쿠폰회수 처리 기능을 SAS STP 이용하는 것으로 변경 처리 (2018.5.3) 
+  function loadingStart() {
+    //화면의 높이와 너비를 구한다.
+    var maskHeight = $(document).height();  
+    var maskWidth = $(document).width();
+
+    var mask = "<div id='mask' style='position:absolute; z-index:9000; background-color:#000000; display:none; left:0; top:0;'></div>";
+    var loadingImg = '';
+    loadingImg += "<div id='loadingImg' style='position:absolute; left:40%; top:40%; display:none; z-index:10000;'>";
+    loadingImg += " <img src='${staticPATH }/image/ajax_loader4.gif' style='width:70px; height:70px;'/>"; 
+    loadingImg += "</div>";   
+
+    //화면에 레이어 추가 
+    $('body').append(mask).append(loadingImg);
+
+    //마스크의 높이와 너비를 화면 것으로 만들어 전체 화면을 채운다.
+    $('#mask').css({
+      'width' : maskWidth,
+      'height': maskHeight,
+      'opacity' : '0.4'
+    });  
+
+    //마스크 표시
+    $('#mask').show();    
+
+    //로딩중 이미지 표시
+    $('#loadingImg').show();
+  }
+
+  function loadingClose() {
+    $('#mask, #loadingImg').hide();
+    $('#mask, #loadingImg').remove();  
+  }
+
 //쿠폰회수 처리 기능을 SAS STP 이용하는 것으로 변경 처리 (2018.5.3) 
   function fn_delete_cupn_new(){
     if(confirm("쿠폰을 회수 하시겠습니까??"))  {
+      loadingStart();
       
       jQuery.ajax({
         url           : '/SASStoredProcess/do?_program=/CM_META/41.STP/412.STP/del_cupn&p_campcode='+$("#CAMPAIGNCODE").val()+'&p_cellid=' + $("#CELLID").val()+'&p_offerid='+$("#OFFERID").val(),
@@ -955,7 +991,7 @@
 
         success: function(result, option) {
           //alert("SUCCESS: 쿠폰 회수가 완료되었습니다..\n\n..");
-          
+          loadingClose();
           if(option=="success"){
             if(result.length > 0){
               // 성공
@@ -1196,15 +1232,3 @@
                       </div>
                       <!--END PAGE CONTENT -->
 <%-- <%@ include file="/WEB-INF/views/common/_footer.jsp"%> --%>
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 

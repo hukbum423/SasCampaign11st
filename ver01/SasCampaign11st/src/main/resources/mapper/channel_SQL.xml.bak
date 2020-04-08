@@ -1,0 +1,625 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Channel">
+<resultMap type="com.skplanet.sascm.object.CampaignChannelBO" id="CampaignChannelBO">
+        <result property="campaignid"          column="campaignid" />
+        <result property="campaignname"        column="campaignname" />
+    <result property="campaigncode"        column="campaigncode" />
+    <result property="audience_cd"         column="audience_cd" />
+    <result property="manual_trans_yn"     column="manual_trans_yn" />
+    <result property="offer_direct_yn"     column="offer_direct_yn" />
+    <result property="channel_priority_yn" column="channel_priority_yn" />
+    <result property="camp_status_cd"      column="camp_status_cd" />
+    <result property="flowchartid"         column="flowchartid" />
+    <result property="flowchartname"       column="flowchartname" />
+    <result property="flowchartrow"        column="flowchartrow" />
+    <result property="filename"            column="filename" />
+    <result property="status"              column="status" />
+    <result property="cellid"              column="cellid" />
+    <result property="cellrow"             column="cellrow" />
+    <result property="cellname"            column="cellname" />
+    <result property="cellcode"            column="cellcode" />
+    <result property="offerlistid"         column="offerlistid" />
+    <result property="offerid"             column="offerid" />
+    <result property="offername"           column="offername" />
+    <result property="offercode1"          column="offercode1" />
+    <result property="offer_type_cd"       column="offer_type_cd" />
+    <result property="offer_sys_cd"        column="offer_sys_cd" />
+    <result property="channel_cd"          column="channel_cd" />
+    <result property="channel_nm"          column="channel_nm" />
+    <result property="toast_title"         column="toast_title" />
+    <result property="toast_msg"           column="toast_msg" />
+    <result property="toast_msg_query"     column="toast_msg_query" />
+    <result property="toast_link_url"      column="toast_link_url" />
+    <result property="toast_msg_desc"      column="toast_msg_desc" />
+    <result property="toast_priority_rnk"  column="toast_priority_rnk" />
+    <result property="toast_evnt_typ_cd"   column="toast_evnt_typ_cd" />
+    <result property="sms_msg"             column="sms_msg" />
+    <result property="sms_msg_query"       column="sms_msg_query" />
+    <result property="sms_longurl"         column="sms_longurl" />
+    <result property="sms_shorturl"        column="sms_shorturl" />
+    <result property="sms_returncall"      column="sms_returncall" />
+    <result property="sms_disp_dt"         column="sms_disp_dt" />
+    <result property="sms_priority_rnk"    column="sms_priority_rnk" />
+    <result property="email_name"          column="email_name" />
+    <result property="email_desc"          column="email_desc" />
+    <result property="email_disp_dt"       column="email_disp_dt" />
+    <result property="email_priority_rnk"  column="email_priority_rnk" />
+    <result property="mobile_app_kd_cd"    column="mobile_app_kd_cd" />
+    <result property="mobile_disp_title"   column="mobile_disp_title" />
+    <result property="mobile_content"      column="mobile_content" />
+    <result property="mobile_add_text"     column="mobile_add_text" />
+    <result property="mobile_disp_dt"      column="mobile_disp_dt" />
+    <result property="mobile_priority_rnk" column="mobile_priority_rnk" />
+    <result property="create_id"           column="create_id" />
+    <result property="create_nm"           column="create_nm" />
+    <result property="create_dt"           column="create_dt" />
+    <result property="update_id"           column="update_id" />
+    <result property="update_nm"           column="update_nm" />
+    <result property="update_dt"           column="update_dt" />
+    <result property="camp_bgn_dt"         column="camp_bgn_dt" />
+    <result property="camp_end_dt"         column="camp_end_dt" />
+    <result property="lms_title"           column="lms_title" />
+    
+ </resultMap>
+ <resultMap type="com.skplanet.sascm.object.ChannelBO" id="ChannelBO">
+        <result property="campaignid"         column="campaignid" />
+        <result property="campaignname"       column="campaignname" />
+        <result property="campaigncode"       column="campaigncode" />
+        <result property="audience_cd"        column="audience_cd" />
+        <result property="manual_trans_yn"     column="manual_trans_yn" />
+        <result property="offer_direct_yn"     column="offer_direct_yn" />
+        <result property="channel_priority_yn" column="channel_priority_yn" />
+        <result property="camp_status_cd"     column="camp_status_cd" />
+        <result property="camp_bgn_dt"        column="camp_bgn_dt" />
+        <result property="camp_end_dt"        column="camp_end_dt" />
+        <result property="flowchartid"        column="flowchartid" />
+        <result property="flowchartname"      column="flowchartname" />
+        <result property="flowchartrow"       column="flowchartrow" />
+        <result property="filename"           column="filename" />
+        <result property="status"             column="status" />
+        <result property="cellid"             column="cellid" />
+        <result property="cellrow"            column="cellrow" />
+        <result property="cellname"           column="cellname" />
+        <result property="cellcode"           column="cellcode" />
+        <result property="offerlistid"        column="offerlistid" />
+        <result property="lms_title"          column="lms_title" />
+        <result property="lms_msg"            column="lms_msg" />
+        <result property="lms_msg_query"      column="lms_msg_query" />
+        <result property="lms_longurl"        column="lms_longurl" />
+        <result property="lms_shorturl"       column="lms_shorturl" />
+        <result property="lms_returncall"     column="lms_returncall" />
+        <result property="lms_disp_dt"        column="lms_disp_dt" />
+        <result property="lms_callback"       column="lms_callback" />
+        <result property="lms_priority_rnk"   column="lms_priority_rnk" />
+        <result property="lms_disp_time"      column="lms_disp_time" />
+        
+ </resultMap>
+  <!-- 캠페인 채널 리스트 -->
+    
+  
+  <!-- 캠페인 채널 리스트 -->
+  <select id="Channel.getCampaignChannelList" parameterType="Map" resultMap="CampaignChannelBO">
+    SELECT
+          distinct
+          A.CAMPAIGN_SK                         campaignid
+         ,B.MARKETING_CELL_NM                   cellname
+         ,D.CHANNEL_CD                          channel_cd
+         ,(SELECT CODE_NAME FROM CM_CODE_DTL WHERE CODE_ID = D.CHANNEL_CD AND COMM_CODE_ID = 'C011') channel_nm
+         ,D.TOAST_TITLE                         toast_title
+         ,D.SMS_MSG                             sms_msg
+         ,D.LMS_TITLE                           lms_title
+         ,D.EMAIL_NAME                          email_name
+         ,D.MOBILE_DISP_TITLE                   mobile_disp_title
+         ,C.CAMP_STATUS_CD                      camp_status_cd
+         ,B.MARKETING_CELL_SK                   cellid
+             ,COUNT(1) OVER (PARTITION BY B.COMMUNICATION_SK )      cellrow
+     FROM CI_CAMPAIGN            A   
+         ,CI_CELL_PACKAGE        B
+         ,CM_CAMPAIGN_DTL        C
+         ,CM_CAMPAIGN_CHANNEL    D
+    WHERE A.CAMPAIGN_SK  = #{CAMPAIGNID}
+      AND ( B.CONTROL_GROUP_TYPE_CD IS NULL OR B.CONTROL_GROUP_TYPE_CD IN ('_CH','_CL') ) 
+      AND A.CAMPAIGN_SK  = B.CAMPAIGN_SK
+      AND A.CAMPAIGN_SK  = C.CAMPAIGNID(+)
+      AND B.MARKETING_CELL_SK       = D.CELLID(+)
+    ORDER BY CELLNAME ASC
+  </select> 
+  <!-- 채널 기본정보 조회 -->
+  <select id="Channel.getChannelInfo" parameterType="Map"  resultMap="ChannelBO">
+      SELECT
+        DISTINCT
+             A.CAMPAIGN_SK                               campaignid
+            ,A.CAMPAIGN_NM                                     campaignname
+            ,A.CAMPAIGN_CD                             campaigncode
+            ,C.AUDIENCE_CD                              audience_cd
+            ,C.MANUAL_TRANS_YN                          manual_trans_yn
+            ,C.OFFER_DIRECT_YN                          offer_direct_yn
+            ,C.CHANNEL_PRIORITY_YN                      channel_priority_yn
+            ,C.CAMP_STATUS_CD                           camp_status_cd
+            ,C.CAMP_BGN_DT                              camp_bgn_dt
+            ,C.CAMP_END_DT                              camp_end_dt
+            ,B.MARKETING_CELL_SK                                   cellid
+            ,COUNT(1) OVER (PARTITION BY B.MARKETING_CELL_SK)      cellrow
+            ,B.MARKETING_CELL_NM                                 cellname
+            ,B.MARKETING_CELL_CD                                 cellcode
+            ,''                                    offerlistid
+    FROM CI_CAMPAIGN        A
+        ,CI_CELL_PACKAGE    B
+        ,CM_CAMPAIGN_DTL    C
+    WHERE 
+          A.CAMPAIGN_SK  = #{CAMPAIGNID}
+                  AND ( B.CONTROL_GROUP_TYPE_CD IS NULL OR B.CONTROL_GROUP_TYPE_CD IN ('_CH','_CL') ) 
+                  AND A.CAMPAIGN_SK  = B.CAMPAIGN_SK
+                  AND A.CAMPAIGN_SK  = C.CAMPAIGNID(+)
+                  AND B.MARKETING_CELL_SK      = #{CELLID}
+  </select>
+  
+  
+  
+  <!-- 채널 상세정보 조회(공통) -->
+  <select id="Channel.getChannelDtlInfo" parameterType="Map"  resultMap="ChannelBO">
+         SELECT
+               DISTINCT
+               A.CAMPAIGN_SK                              campaignid
+              ,A.CAMPAIGN_NM                              campaignname
+              ,A.CAMPAIGN_CD                              campaigncode
+              ,C.CAMP_TERM_CD                             camp_term_cd
+              ,TO_CHAR(C.CAMP_BGN_DT, 'YYYY-MM-DD')       camp_bgn_dt
+              ,TO_CHAR(C.CAMP_END_DT, 'YYYY-MM-DD')       camp_end_dt
+              ,C.CAMP_TERM_DAY                            camp_term_day
+              ,C.AUDIENCE_CD                              audience_cd
+              ,C.MANUAL_TRANS_YN                          manual_trans_yn
+              ,C.OFFER_DIRECT_YN                          offer_direct_yn
+              ,C.CHANNEL_PRIORITY_YN                      channel_priority_yn
+              ,C.CAMP_STATUS_CD                           camp_status_cd
+              ,B.MARKETING_CELL_SK                      cellid
+              ,COUNT(1) OVER (PARTITION BY B.MARKETING_CELL_SK)      cellrow
+              ,B.MARKETING_CELL_NM                        cellname
+              ,B.MARKETING_CELL_CD                        cellcode
+              ,''                                         offerlistid
+              ,D.CHANNEL_CD                               channel_cd
+              ,D.TOAST_TITLE                              toast_title
+              ,D.TOAST_MSG                                toast_msg
+              ,D.TOAST_MSG_QUERY                          toast_msg_query
+              ,D.TOAST_INPUT_MSG                          toast_input_msg
+              ,D.TOAST_IMG_URL                            toast_img_url
+              ,D.TOAST_LINK_URL                           toast_link_url
+              ,D.TOAST_MSG_DESC                           toast_msg_desc
+              ,D.TOAST_PRIORITY_RNK                       toast_priority_rnk
+              ,D.TOAST_EVNT_TYP_CD                        toast_evnt_typ_cd
+              ,D.SMS_MSG                                  sms_msg
+              ,D.SMS_MSG_QUERY                            sms_msg_query
+              ,D.SMS_LONGURL                              sms_longurl
+              ,D.SMS_SHORTURL                             sms_shorturl
+              ,D.SMS_RETURNCALL                           sms_returncall
+              ,D.SMS_CALLBACK               sms_callback
+              ,TO_CHAR(D.SMS_DISP_DT, 'YYYY-MM-DD')       sms_disp_dt
+              ,D.SMS_PRIORITY_RNK                         sms_priority_rnk
+              ,D.SMS_DISP_TIME                            sms_disp_time
+              ,D.EMAIL_EDIT_YN                            email_edit_yn
+              ,D.EMAIL_SUBJECT                            email_subject
+              ,CASE WHEN D.EMAIL_EDIT_YN = 'N' THEN '' 
+                    ELSE NVL(D.EMAIL_FROMNAME,    (SELECT CODE_NAME FROM CM_CODE_DTL WHERE COMM_CODE_ID = 'C018' AND CODE_ID = 'FROMNAME'    AND USE_YN = 'Y' )) END email_fromname
+              ,CASE WHEN D.EMAIL_EDIT_YN = 'N' THEN '' 
+                    ELSE NVL(D.EMAIL_FROMADDRESS, (SELECT CODE_NAME FROM CM_CODE_DTL WHERE COMM_CODE_ID = 'C018' AND CODE_ID = 'FROMADDRESS' AND USE_YN = 'Y' )) END email_fromaddress
+              ,CASE WHEN D.EMAIL_EDIT_YN = 'N' THEN '' 
+                    ELSE NVL(D.EMAIL_REPLYTO,     (SELECT CODE_NAME FROM CM_CODE_DTL WHERE COMM_CODE_ID = 'C018' AND CODE_ID = 'REPYTO'      AND USE_YN = 'Y' )) END email_replyto
+              ,D.EMAIL_NAME                               email_name
+              ,D.EMAIL_DESC                               email_desc
+              ,TO_CHAR(D.EMAIL_DISP_DT, 'YYYY-MM-DD')     email_disp_dt
+              ,D.EMAIL_PRIORITY_RNK                       email_priority_rnk
+              ,D.EMAIL_DISP_TIME                          email_disp_time
+              ,D.MOBILE_APP_KD_CD                         mobile_app_kd_cd
+              ,D.MOBILE_DISP_TITLE                        mobile_disp_title
+              ,D.MOBILE_CONTENT                           mobile_content
+              ,dbms_lob.substr(D.MOBILE_ADD_TEXT, dbms_lob.getlength(D.MOBILE_ADD_TEXT))                           mobile_add_text
+              ,TO_CHAR(D.MOBILE_DISP_DT, 'YYYY-MM-DD')    mobile_disp_dt
+              ,D.MOBILE_PRIORITY_RNK                      mobile_priority_rnk
+              ,D.MOBILE_DISP_TIME                         mobile_disp_time
+              ,D.timeline_disp_yn                         timeline_disp_yn
+              ,D.push_msg_popup_indc_yn                   push_msg_popup_indc_yn
+              ,D.thum_img_url                             thum_img_url
+              ,D.bnnr_img_url                             bnnr_img_url
+              ,D.CREATE_ID                                create_id
+              ,(SELECT USER_NAME FROM CM_USER WHERE ID = D.CREATE_ID) create_nm
+              ,TO_CHAR(D.CREATE_DT, 'YYYY-MM-DD HH24:MI:SS') create_dt
+              ,D.UPDATE_ID                                update_id
+              ,(SELECT USER_NAME FROM CM_USER WHERE ID = D.UPDATE_ID) update_nm
+              ,TO_CHAR(D.UPDATE_DT, 'YYYY-MM-DD HH24:MI:SS') update_dt
+              ,dbms_lob.substr(D.EMAIL_CONTENT, dbms_lob.getlength(D.EMAIL_CONTENT))                             email_content
+              ,D.LMS_TITLE
+          ,D.LMS_MSG
+          ,D.LMS_MSG_QUERY
+          ,D.LMS_LONGURL
+          ,D.LMS_SHORTURL
+          ,D.LMS_RETURNCALL
+          ,D.LMS_DISP_DT
+          ,D.LMS_CALLBACK
+          ,D.LMS_PRIORITY_RNK
+          ,D.LMS_DISP_TIME
+             FROM CI_CAMPAIGN            A   
+             ,CI_CELL_PACKAGE        B
+             ,CM_CAMPAIGN_DTL        C
+             ,CM_CAMPAIGN_CHANNEL    D
+      WHERE A.CAMPAIGN_SK  = B.CAMPAIGN_SK
+        AND ( B.CONTROL_GROUP_TYPE_CD IS NULL OR B.CONTROL_GROUP_TYPE_CD IN ('_CH','_CL') ) 
+        AND A.CAMPAIGN_SK  = C.CAMPAIGNID(+)
+        AND B.MARKETING_CELL_SK  = D.CELLID(+)
+              AND B.MARKETING_CELL_SK  = #{CELLID}
+              AND #{CHANNEL_CD} = D.CHANNEL_CD(+)
+            ORDER BY 1, CELLID
+  </select>
+
+
+  <!-- 채널정보 저장(토스트배너) -->
+  <update id="Channel.setChannelToast" parameterType="Map" >
+    MERGE INTO CM_CAMPAIGN_CHANNEL
+    USING DUAL
+    ON (    CELLID     = #{CELLID}
+        AND CHANNEL_CD = #{CHANNEL_CD}
+       )
+    WHEN MATCHED THEN
+    UPDATE SET TOAST_TITLE           = TRIM(#{TOAST_TITLE})
+              ,TOAST_MSG             = TRIM(#{TOAST_MSG})
+              ,TOAST_INPUT_MSG       = TRIM(#{TOAST_INPUT_MSG})
+              ,TOAST_IMG_URL         = TRIM(#{TOAST_IMG_URL})
+              ,TOAST_MSG_QUERY       = TRIM(#{TOAST_MSG_QUERY})
+              ,TOAST_LINK_URL        = TRIM(#{TOAST_LINK_URL})
+              ,TOAST_MSG_DESC        = TRIM(#{TOAST_MSG_DESC})
+              ,TOAST_PRIORITY_RNK    = TRIM(#{TOAST_PRIORITY_RNK})
+              ,TOAST_EVNT_TYP_CD     = TRIM(#{TOAST_EVNT_TYP_CD})
+              ,UPDATE_ID             = TRIM(#{UPDATE_ID})
+              ,UPDATE_DT             = SYSDATE
+    WHEN NOT MATCHED THEN
+    INSERT (
+       CELLID
+      ,CHANNEL_CD
+      ,TOAST_TITLE
+      ,TOAST_MSG
+      ,TOAST_MSG_QUERY
+      ,TOAST_INPUT_MSG
+      ,TOAST_IMG_URL
+      ,TOAST_LINK_URL
+      ,TOAST_MSG_DESC
+      ,TOAST_PRIORITY_RNK
+      ,TOAST_EVNT_TYP_CD
+      ,CAMPAIGNCODE
+      ,FLOWCHARTID
+      ,CREATE_ID
+      ,CREATE_DT
+    )
+    VALUES (
+       TRIM(#{CELLID})
+      ,TRIM(#{CHANNEL_CD})
+      ,TRIM(#{TOAST_TITLE})
+      ,TRIM(#{TOAST_MSG})
+      ,TRIM(#{TOAST_MSG_QUERY})
+      ,TRIM(#{TOAST_INPUT_MSG})
+      ,TRIM(#{TOAST_IMG_URL})
+      ,TRIM(#{TOAST_LINK_URL})
+      ,TRIM(#{TOAST_MSG_DESC})
+      ,TRIM(#{TOAST_PRIORITY_RNK})
+      ,TRIM(#{TOAST_EVNT_TYP_CD})
+      ,TRIM(#{CAMPAIGNCODE})
+      ,TO_NUMBER(SUBSTR(TRIM(#{CAMPAIGNCODE}),5))
+      ,TRIM(#{CREATE_ID})
+      ,SYSDATE
+    )         
+  </update>
+  
+  
+  <!-- 채널정보 저장(SMS) -->
+  <update id="Channel.setChannelSms" parameterType="Map" >
+    MERGE INTO CM_CAMPAIGN_CHANNEL
+    USING DUAL
+    ON (    CELLID     = #{CELLID}
+        AND CHANNEL_CD = #{CHANNEL_CD}
+       )
+    WHEN MATCHED THEN
+    UPDATE SET SMS_MSG               = TRIM(#{SMS_MSG})
+              ,SMS_MSG_QUERY         = TRIM(#{SMS_MSG_QUERY})
+              ,SMS_LONGURL           = TRIM(#{SMS_LONGURL})
+              ,SMS_SHORTURL          = TRIM(#{SMS_SHORTURL})
+              ,SMS_RETURNCALL        = TRIM(#{SMS_RETURNCALL})
+              ,SMS_DISP_DT           = TO_DATE(TRIM(#{SMS_DISP_DT}),'YYYY-MM-DD')
+              ,SMS_CALLBACK          = TRIM(#{SMS_CALLBACK})
+              ,SMS_PRIORITY_RNK      = TRIM(#{SMS_PRIORITY_RNK})
+              ,SMS_DISP_TIME         = TRIM(#{SMS_DISP_TIME})
+              ,UPDATE_ID             = TRIM(#{UPDATE_ID})
+              ,UPDATE_DT             = SYSDATE
+    WHEN NOT MATCHED THEN
+    INSERT (
+       CELLID
+      ,CHANNEL_CD
+      ,SMS_MSG
+      ,SMS_MSG_QUERY
+      ,SMS_LONGURL
+      ,SMS_SHORTURL
+      ,SMS_RETURNCALL
+      ,SMS_DISP_DT
+      ,SMS_CALLBACK
+      ,SMS_PRIORITY_RNK
+      ,SMS_DISP_TIME
+      ,CAMPAIGNCODE
+      ,FLOWCHARTID
+      ,CREATE_ID
+      ,CREATE_DT      
+    )
+    VALUES (
+       TRIM(#{CELLID})
+      ,TRIM(#{CHANNEL_CD})
+      ,TRIM(#{SMS_MSG})
+      ,TRIM(#{SMS_MSG_QUERY})
+      ,TRIM(#{SMS_LONGURL})
+      ,TRIM(#{SMS_SHORTURL})
+      ,TRIM(#{SMS_RETURNCALL})
+      ,TO_DATE(TRIM(#{SMS_DISP_DT}),'YYYY-MM-DD')
+      ,TRIM(#{SMS_CALLBACK})
+      ,TRIM(#{SMS_PRIORITY_RNK})
+      ,TRIM(#{SMS_DISP_TIME})
+      ,TRIM(#{CAMPAIGNCODE})
+      ,TO_NUMBER(SUBSTR(TRIM(#{CAMPAIGNCODE}),5))
+      ,TRIM(#{CREATE_ID})
+      ,SYSDATE      
+    )         
+  </update>
+        
+
+  <!-- 채널정보 저장(EMAIL) -->
+  <update id="Channel.setChannelEmail" parameterType="Map" >
+  <![CDATA[ 
+    MERGE INTO CM_CAMPAIGN_CHANNEL
+    USING DUAL
+    ON (    CELLID     = #{CELLID}
+        AND CHANNEL_CD = #{CHANNEL_CD}
+       )
+    WHEN MATCHED THEN
+        UPDATE SET EMAIL_NAME            = TRIM(#{EMAIL_NAME})
+                  ,EMAIL_DESC            = TRIM(#{EMAIL_DESC})
+                  ,EMAIL_EDIT_YN         = TRIM(#{EMAIL_EDIT_YN})
+                  ,EMAIL_SUBJECT         = TRIM(#{EMAIL_SUBJECT})
+                  ,EMAIL_CONTENT         = ''
+                  ,EMAIL_FROMNAME        = CASE WHEN TRIM(#{EMAIL_EDIT_YN}) = 'Y' THEN TRIM(#{EMAIL_FROMNAME})      ELSE '' END
+                  ,EMAIL_FROMADDRESS     = CASE WHEN TRIM(#{EMAIL_EDIT_YN}) = 'Y' THEN TRIM(#{EMAIL_FROMADDRESS})   ELSE '' END
+                  ,EMAIL_REPLYTO         = CASE WHEN TRIM(#{EMAIL_EDIT_YN}) = 'Y' THEN TRIM(#{EMAIL_REPLYTO})       ELSE '' END
+                  ,EMAIL_DISP_DT         = TO_DATE(TRIM(#{EMAIL_DISP_DT}), 'YYYY-MM-DD')
+                  ,EMAIL_PRIORITY_RNK    = TRIM(#{EMAIL_PRIORITY_RNK})
+                  ,EMAIL_DISP_TIME       = TRIM(#{EMAIL_DISP_TIME})
+                  ,UPDATE_ID             = TRIM(#{UPDATE_ID})
+                  ,UPDATE_DT             = SYSDATE
+        WHEN NOT MATCHED THEN
+        INSERT (
+                 CELLID
+                ,CHANNEL_CD
+                ,EMAIL_NAME
+                ,EMAIL_DESC
+                ,EMAIL_EDIT_YN
+                ,EMAIL_SUBJECT
+                ,EMAIL_CONTENT
+                ,EMAIL_FROMNAME
+                ,EMAIL_FROMADDRESS
+                ,EMAIL_REPLYTO
+                ,EMAIL_DISP_DT
+                ,EMAIL_PRIORITY_RNK
+                ,EMAIL_DISP_TIME
+                ,CAMPAIGNCODE
+                ,FLOWCHARTID
+                ,CREATE_ID
+                ,CREATE_DT
+        )
+        VALUES (
+                 TRIM(#{CELLID})
+                ,TRIM(#{CHANNEL_CD})
+                ,TRIM(#{EMAIL_NAME})
+                ,TRIM(#{EMAIL_DESC})
+                ,TRIM(#{EMAIL_EDIT_YN})
+                ,TRIM(#{EMAIL_SUBJECT})
+                ,''
+                ,CASE WHEN TRIM(#{EMAIL_EDIT_YN}) = 'Y' THEN TRIM(#{EMAIL_FROMNAME})     ELSE '' END
+                ,CASE WHEN TRIM(#{EMAIL_EDIT_YN}) = 'Y' THEN TRIM(#{EMAIL_FROMADDRESS})  ELSE '' END
+                ,CASE WHEN TRIM(#{EMAIL_EDIT_YN}) = 'Y' THEN TRIM(#{EMAIL_REPLYTO})      ELSE '' END
+                ,TO_DATE(TRIM(#{EMAIL_DISP_DT}), 'YYYY-MM-DD')
+                ,TRIM(#{EMAIL_PRIORITY_RNK})
+                ,TRIM(#{EMAIL_DISP_TIME})
+                ,TRIM(#{CAMPAIGNCODE})
+                ,TO_NUMBER(SUBSTR(TRIM(#{CAMPAIGNCODE}),5))
+                ,TRIM(#{CREATE_ID})
+                ,SYSDATE
+        )
+    ]]>
+  </update>
+
+
+  <!-- 채널정보 저장(EMAIL-CONTENT) -->
+  <update id="Channel.setChannelEmail2" parameterType="Map" >
+    UPDATE CM_CAMPAIGN_CHANNEL
+       SET EMAIL_CONTENT = EMAIL_CONTENT || TRIM(#{EMAIL_CONTENT})
+     WHERE CELLID          = #{CELLID}
+       AND  CHANNEL_CD     = #{CHANNEL_CD}
+  </update>
+  
+
+  <!-- 채널정보 저장(MOBILE) -->
+  <update id="Channel.setChannelMobile" parameterType="Map" >
+    MERGE INTO CM_CAMPAIGN_CHANNEL
+    USING DUAL
+    ON (    CELLID     = #{CELLID}
+        AND CHANNEL_CD = #{CHANNEL_CD}
+       )
+    WHEN MATCHED THEN
+        UPDATE SET MOBILE_APP_KD_CD           = TRIM(#{MOBILE_APP_KD_CD}) 
+                  ,MOBILE_DISP_TITLE          = TRIM(#{MOBILE_DISP_TITLE})
+                  ,MOBILE_CONTENT             = TRIM(#{MOBILE_CONTENT})   
+                  ,MOBILE_ADD_TEXT            = ''  
+                  ,MOBILE_DISP_DT             = TO_DATE(TRIM(#{MOBILE_DISP_DT}), 'YYYY-MM-DD')
+                  ,MOBILE_PRIORITY_RNK        = TRIM(#{MOBILE_PRIORITY_RNK})
+                  ,MOBILE_DISP_TIME           = TRIM(#{MOBILE_DISP_TIME})
+                  ,TIMELINE_DISP_YN           = TRIM(#{TIMELINE_DISP_YN})
+                  ,PUSH_MSG_POPUP_INDC_YN     = TRIM(#{PUSH_MSG_POPUP_INDC_YN})
+                  ,THUM_IMG_URL               = TRIM(#{THUM_IMG_URL})
+                  ,BNNR_IMG_URL               = TRIM(#{BNNR_IMG_URL})
+                  ,UPDATE_ID                  = TRIM(#{UPDATE_ID})
+                  ,UPDATE_DT                  = SYSDATE
+        WHEN NOT MATCHED THEN
+        INSERT (
+                 CELLID
+                ,CHANNEL_CD
+                ,MOBILE_APP_KD_CD
+                ,MOBILE_DISP_TITLE
+                ,MOBILE_CONTENT
+                ,MOBILE_ADD_TEXT
+                ,MOBILE_DISP_DT
+                ,MOBILE_PRIORITY_RNK
+                ,MOBILE_DISP_TIME
+                ,TIMELINE_DISP_YN
+                ,PUSH_MSG_POPUP_INDC_YN
+                ,THUM_IMG_URL
+                ,BNNR_IMG_URL
+                ,CAMPAIGNCODE
+                ,FLOWCHARTID
+                ,CREATE_ID
+                ,CREATE_DT
+        )
+        VALUES (
+                 TRIM(#{CELLID})
+                ,TRIM(#{CHANNEL_CD})
+                ,TRIM(#{MOBILE_APP_KD_CD})
+                ,TRIM(#{MOBILE_DISP_TITLE})
+                ,TRIM(#{MOBILE_CONTENT})
+                ,''
+                ,TO_DATE(TRIM(#{MOBILE_DISP_DT}), 'YYYY-MM-DD')
+                ,TRIM(#{MOBILE_PRIORITY_RNK})
+                ,TRIM(#{MOBILE_DISP_TIME})
+                ,TRIM(#{TIMELINE_DISP_YN})
+                ,TRIM(#{PUSH_MSG_POPUP_INDC_YN})
+                ,TRIM(#{THUM_IMG_URL})
+                ,TRIM(#{BNNR_IMG_URL})
+                ,TRIM(#{CAMPAIGNCODE})
+                ,TO_NUMBER(SUBSTR(TRIM(#{CAMPAIGNCODE}),5))
+                ,TRIM(#{CREATE_ID})
+                ,SYSDATE
+        )
+  </update>
+
+
+  <!-- 채널정보 저장(MOBILE-ADD_TEXT) -->
+  <update id="Channel.setChannelMobile2" parameterType="Map" >
+    UPDATE CM_CAMPAIGN_CHANNEL
+       SET MOBILE_ADD_TEXT = MOBILE_ADD_TEXT || TRIM(#{MOBILE_ADD_TEXT})
+     WHERE CELLID          = #{CELLID}
+       AND  CHANNEL_CD     = #{CHANNEL_CD}
+  </update>
+        
+        
+  <!-- Toast LinkUrl 조회 -->
+  <select id="Channel.getChannelToastLinkUrl" parameterType="Map"  resultType="String">
+    SELECT CODE_NAME 
+    FROM   UAEXT_CODE_DTL
+    
+    WHERE COMM_CODE_ID = #{codeId}
+    AND   CODE_ID = #{TOAST_EVNT_TYP_CD}
+    AND   USE_YN = 'Y'
+  </select>
+  
+
+  <!-- 대상수준이 PCID일경우 토스트배너 이외의 채널 사용여부를 체크한다 -->
+  <select id="Channel.getCampaignChannelValiChk" parameterType="Map" resultType="String">
+      SELECT 
+             CASE WHEN COUNT(0) = 0 THEN 'Y' ELSE 'N' END channelValiChk
+        FROM   CI_CAMPAIGN               A
+            ,CI_CELL_PACKAGE           B   
+            ,CM_CAMPAIGN_CHANNEL       C
+            ,CM_CAMPAIGN_DTL           D
+      WHERE A.CAMPAIGN_SK  = #{CAMPAIGNID}
+        AND ( B.CONTROL_GROUP_TYPE_CD IS NULL OR B.CONTROL_GROUP_TYPE_CD IN ('_CH','_CL') ) 
+        AND A.CAMPAIGN_SK  = B.CAMPAIGN_SK
+        AND A.CAMPAIGN_SK  = D.CAMPAIGNID
+        AND B.MARKETING_CELL_SK      = C.CELLID
+        AND C.CHANNEL_CD != 'TOAST'
+        AND D.AUDIENCE_CD = 'PCID'
+  </select>
+    
+  <!-- 대상수준이 DEVICEID일경우 앱 푸쉬 이외의 채널 사용여부를 체크한다 -->
+  <select id="Channel.getCampaignChannelValiChkforMobile" parameterType="Map" resultType="String">
+       
+     SELECT 
+             CASE WHEN COUNT(0) = 0 THEN 'Y' ELSE 'N' END channelValiChk
+        FROM   CI_CAMPAIGN               A
+            ,CI_CELL_PACKAGE           B   
+            ,CM_CAMPAIGN_CHANNEL       C
+            ,CM_CAMPAIGN_DTL           D
+      WHERE A.CAMPAIGN_SK  = #{CAMPAIGNID}
+        AND ( B.CONTROL_GROUP_TYPE_CD IS NULL OR B.CONTROL_GROUP_TYPE_CD IN ('_CH','_CL') ) 
+        AND A.CAMPAIGN_SK  = B.CAMPAIGN_SK
+        AND A.CAMPAIGN_SK  = D.CAMPAIGNID
+        AND B.MARKETING_CELL_SK      = C.CELLID
+        AND C.CHANNEL_CD != 'MOBILE'
+        AND D.AUDIENCE_CD = 'DEVICE_ID'
+  </select>
+  <!-- 캠페인 채널 정보 삭제 -->
+  <delete id="Channel.delChannelInfo" parameterType="Map">
+    DELETE CM_CAMPAIGN_CHANNEL
+     WHERE CELLID     = #{CELLID}
+       AND CHANNEL_CD = #{CHANNEL_CD}
+  </delete>
+  <!-- 채널정보 저장(LMS) -->
+  <update id="Channel.setChannelLms" parameterType="Map" >
+    MERGE INTO CM_CAMPAIGN_CHANNEL
+    USING DUAL
+    ON (    CELLID     = #{CELLID}
+        AND CHANNEL_CD = #{CHANNEL_CD}
+       )
+    WHEN MATCHED THEN
+    UPDATE SET LMS_TITLE             = TRIM(#{LMS_TITLE})
+              ,LMS_MSG               = TRIM(#{LMS_MSG})
+              ,LMS_MSG_QUERY         = TRIM(#{LMS_MSG_QUERY})
+              ,LMS_LONGURL           = TRIM(#{LMS_LONGURL})
+              ,LMS_SHORTURL          = TRIM(#{LMS_SHORTURL})
+              ,LMS_RETURNCALL        = TRIM(#{LMS_RETURNCALL})
+              ,LMS_DISP_DT           = TO_DATE(TRIM(#{LMS_DISP_DT}),'YYYY-MM-DD')
+              ,LMS_CALLBACK          = TRIM(#{LMS_CALLBACK})
+              ,LMS_PRIORITY_RNK      = TRIM(#{LMS_PRIORITY_RNK})
+              ,LMS_DISP_TIME         = TRIM(#{LMS_DISP_TIME})
+              ,UPDATE_ID             = TRIM(#{UPDATE_ID})
+              ,UPDATE_DT             = SYSDATE
+    WHEN NOT MATCHED THEN
+    INSERT (
+       CELLID
+      ,CHANNEL_CD
+      ,LMS_TITLE
+      ,LMS_MSG
+      ,LMS_MSG_QUERY
+      ,LMS_LONGURL
+      ,LMS_SHORTURL
+      ,LMS_RETURNCALL
+      ,LMS_DISP_DT
+      ,LMS_CALLBACK
+      ,LMS_PRIORITY_RNK
+      ,LMS_DISP_TIME
+      ,CAMPAIGNCODE
+      ,FLOWCHARTID
+      ,CREATE_ID
+      ,CREATE_DT      
+    )
+    VALUES (
+       TRIM(#{CELLID})
+      ,TRIM(#{CHANNEL_CD})
+      ,TRIM(#{LMS_TITLE})
+      ,TRIM(#{LMS_MSG})
+      ,TRIM(#{LMS_MSG_QUERY})
+      ,TRIM(#{LMS_LONGURL})
+      ,TRIM(#{LMS_SHORTURL})
+      ,TRIM(#{LMS_RETURNCALL})
+      ,TO_DATE(TRIM(#{LMS_DISP_DT}),'YYYY-MM-DD')
+      ,TRIM(#{LMS_CALLBACK})
+      ,TRIM(#{LMS_PRIORITY_RNK})
+      ,TRIM(#{LMS_DISP_TIME})
+      ,TRIM(#{CAMPAIGNCODE})
+      ,TO_NUMBER(SUBSTR(TRIM(#{CAMPAIGNCODE}),5))
+      ,TRIM(#{CREATE_ID})
+      ,SYSDATE      
+    )         
+  </update>
+</mapper>

@@ -3086,12 +3086,11 @@
 								</tr>
 
 								<tr>
-									<td class="info">푸시알림제목</td><!-- KANG-20200406 -->
+									<td class="info">푸시알림제목</td>
 									<td class="tbtd_content" colspan="3"><input type="text"
 										id="MOBILE_DISP_TITLE" name="MOBILE_DISP_TITLE"
 										style="width: 350px;" value="${bo.mobile_disp_title}"
-										class="txt" maxlength="22" placeholder='(문자수 최대 22) '/>
-										</td>
+										class="txt" maxlength="100" /></td>
 								</tr>
 
 								<!-- 광고 -->
@@ -3102,11 +3101,11 @@
 								</c:if>
 
 								<tr>
-									<td class="info">푸시알림내용</td><!-- KANG-20200406 -->
+									<td class="info">푸시알림내용</td>
 									<td class="tbtd_content" colspan="3"><input type="text"
 										id="MOBILE_CONTENT" name="MOBILE_CONTENT"
 										style="width: 550px;" value="${subjectVal}" class="txt"
-										maxlength="22" placeholder='(문자수 최대 22) '/></td>
+										maxlength="216" /></td>
 								</tr>
 
 								<tr>
@@ -3166,16 +3165,27 @@
 												</td>
 												<td width="10px"></td>
 												<td valign="top">
-													<!-- label for="useIndiL"></label --> 
-													<input type="radio" name="useIndi" value="N" id="useIndia" <c:if test="${bo.mobile_person_msg_yn eq 'N'}"> checked</c:if>> 개인별 적용(안함)<br /> 
-													<input type="radio" name="useIndi" value="Y" id="useIndib" <c:if test="${bo.mobile_person_msg_yn eq 'Y'}"> checked</c:if>> 개인별 적용(DB방식)<br /> 
-													<input type="radio" name="useIndi" value="P" id="useIndic" <c:if test="${bo.mobile_person_msg_yn eq 'P'}"> checked</c:if>> 개인별 적용(API방식)<br /> 
-													<select style="width: 150px; height: 123px" size="4" id="VAL_LIST" name="VAL_LIST" disabled>
+													<!-- label for="useIndiL"></label --> <input type="radio"
+													name="useIndi" value="N" id="useIndia"
+													<c:if test="${bo.mobile_person_msg_yn eq 'N'}"> checked</c:if>>
+													개인별 적용(안함)<br /> <input type="radio" name="useIndi"
+													value="Y" id="useIndib"
+													<c:if test="${bo.mobile_person_msg_yn eq 'Y'}"> checked</c:if>>
+													개인별 적용(DB방식)<br /> <input type="radio" name="useIndi"
+													value="P" id="useIndic"
+													<c:if test="${bo.mobile_person_msg_yn eq 'P'}"> checked</c:if>>
+													개인별 적용(API방식)<br /> <select
+													style="width: 150px; height: 123px" size="4" id="VAL_LIST"
+													name="VAL_LIST" disabled>
 														<c:forEach var="val" items="${vri_list}">
-															<option value="${val.vari_name}"> ${val.vari_name}</option>
+															<option value="${val.vari_name}">
+																${val.vari_name}</option>
 														</c:forEach>
-													</select><br />
-													<button type="button" class="btn btn-success btn-sm" onclick="fn_pre_view();"> <i class="fa fa-eye" aria-hidden="true"></i> 미리보기 </button>
+												</select><br />
+													<button type="button" class="btn btn-success btn-sm"
+														onclick="fn_pre_view();">
+														<i class="fa fa-eye" aria-hidden="true"></i> 미리보기
+													</button>
 												</td>
 											</tr>
 										</table>
@@ -4019,3 +4029,6 @@
 
 <div style="visibility: hidden; background-color: #e00; height: 10px;"></div>
 <!-- visibility: hidden/visible -->
+
+
+

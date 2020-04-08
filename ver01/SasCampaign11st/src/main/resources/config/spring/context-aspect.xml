@@ -17,4 +17,3 @@
 	<bean id="loggerAspect" class="com.skplanet.sascm.common.logger.LoggerAspect" />
 
 </beans>
-
