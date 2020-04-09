@@ -237,9 +237,23 @@
 	11. backup from git
 	
 		$ git clone https://github.com/hukbum423/SasCampaign11st.git
+	--------------------------------------------------------------------------------
 	
+	12. CLOB size -> 1024000
+		channelEmail.jsp
 	
-	
+	13. 최대 문자수
+		channelMobile.jsp
+		
+	13. 강제 저장
+		method: updateToEditIfNoSchedule
+		
+		Schedule_SQL.xml
+		ScheduleDAOImpl.java
+		ScheduleDAO.java
+		ScheduleServiceImpl.java
+		ScheduleService.java
+		ScheduleController.java        <- test를 위한 false 삭제하고 운영에 반영
 	
 	
 	

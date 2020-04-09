@@ -291,6 +291,17 @@ public interface ScheduleService {
 	public int deleteScheduleList(Map<String, Object> param) throws Exception;
 
 	/**
+	 * 스케쥴이 없으면 오퍼,채널 수정가능함 KANG-20200409
+	 * 
+	 * @param request
+	 * @param response
+	 * @param modelMap
+	 * @return
+	 * @throws Exception
+	 */
+	public int updateToEditIfNoSchedule(Map<String, Object> param) throws Exception;
+
+	/**
 	 * 일정 목록 조회
 	 * 
 	 * @param request

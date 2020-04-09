@@ -763,7 +763,11 @@ public class ScheduleController {
 		String[] CHK_DATE = request.getParameterValues("CHK_DATE");
 		map.put("array", CHK_DATE);
 
+		// 일정 목록 삭제
 		scheduleService.deleteScheduleList(map);
+		
+		// 스케쥴이 없으면 오퍼,채널 수정가능함 KANG-20200409
+		scheduleService.updateToEditIfNoSchedule(map);
 
 		jsonView.render(map, request, response);
 	}

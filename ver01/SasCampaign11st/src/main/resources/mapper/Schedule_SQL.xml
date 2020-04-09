@@ -132,7 +132,8 @@
 
   <!-- 일정 저장전 유효성 체크1 (대상수준이 PCID일때 오퍼가 있거나, 채널이 토스트 배너가 아닐경우 진행불가) -->
   <select id="Schedule.getCampaignValiChk01" parameterType="Map" resultType="String">
-    SELECT CASE WHEN COUNT(0) = 0 THEN 'Y' ELSE 'N' END
+    SELECT     /* Schedule.getCampaignValiChk01 */
+         CASE WHEN COUNT(0) = 0 THEN 'Y' ELSE 'N' END
       FROM (
         SELECT
             CASE WHEN M.AUDIENCE_CD = 'PCID' AND (NVL(C.OFFER_TYPE_CD,'ZZ') != 'ZZ' OR NVL(D.CHANNEL_CD,'TOAST') != 'TOAST') THEN 'N' ELSE 'Y' END VALI
@@ -747,7 +748,6 @@
   </update>
 
   <!-- 플로차트 이름가져오기 -->
-
   <select id="Schedule.getFlowchartName" parameterType="Map" resultType="String">
   <![CDATA[
     SELECT t5.PATH||DECODE(lvl, 1, '', '/')   FILENAME
@@ -842,7 +842,8 @@
 
   <!-- 일정목록 선택 삭제 -->
   <delete id="Schedule.deleteScheduleList" parameterType="Map" >
-    DELETE FROM cm_campaign_run_schedule
+    DELETE  /* Schedule.deleteScheduleList */
+      FROM cm_campaign_run_schedule
      WHERE CAMPAIGNCODE = TRIM(#{CAMPAIGNCODE})
        AND TO_CHAR(RSRV_DT,'YYYY-MM-DD HH24:MI')
        IN (
@@ -851,7 +852,27 @@
        </foreach>
        )
   </delete>
-
+  
+  
+	<!-- 스케쥴이 없으면 오퍼,채널 수정가능함 KANG-20200409 -->
+	<update id="Schedule.updateToEditIfNoSchedule" parameterType="Map" >
+		UPDATE    /* Schedule.updateToEditIfNoSchedule */
+			CM_CAMPAIGN_DTL A
+		SET
+			A.CAMP_STATUS_CD = 'EDIT'
+			/* A.CAMP_STATUS_CD = 'START' */
+		WHERE 1=1
+			AND A.CAMPAIGNCODE = TRIM(#{CAMPAIGNCODE})
+			AND 0 = (
+				SELECT
+					COUNT(1) 
+				FROM 
+					CM_CAMPAIGN_RUN_SCHEDULE
+				WHERE 1=1 
+					/* AND CAMPAIGNCODE = 'CAMP11221' */
+					AND CAMPAIGNCODE = A.CAMPAIGNCODE
+			)
+	</update>
 
   <!-- 일정목록 건별 등록 -->
   <update id="Schedule.setScheduleList" parameterType="Map" >

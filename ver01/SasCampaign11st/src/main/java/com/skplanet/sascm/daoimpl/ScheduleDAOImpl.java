@@ -374,6 +374,20 @@ public class ScheduleDAOImpl extends AbstractDAO implements ScheduleDAO {
 	}
 
 	/**
+	 * 스케쥴이 없으면 오퍼,채널 수정가능함 KANG-20200409
+	 * 
+	 * @param request
+	 * @param response
+	 * @param modelMap
+	 * @return
+	 * @throws Exception
+	 */
+	@Override
+	public int updateToEditIfNoSchedule(Map<String, Object> param) throws SQLException {
+		return (int) update("Schedule.updateToEditIfNoSchedule", param);
+	}
+
+	/**
 	 * 일정 목록 조회
 	 * 
 	 * @param request

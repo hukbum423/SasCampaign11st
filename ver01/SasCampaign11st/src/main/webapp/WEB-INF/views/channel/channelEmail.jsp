@@ -173,7 +173,8 @@
 			return;
 		}
 
-		if(!fnChkByte($("#EMAIL_CONTENT"), 60000)){
+		// KANG-20200409: CLOB 사이즈
+		if(!fnChkByte($("#EMAIL_CONTENT"), 1024000)){
 			return;
 		}
 
