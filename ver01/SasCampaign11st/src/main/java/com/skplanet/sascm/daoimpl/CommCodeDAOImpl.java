@@ -66,6 +66,21 @@ public class CommCodeDAOImpl extends AbstractDAO implements CommCodeDAO {
 	}
 
 	/**
+	 * 공통코드 상세 목록 조회 2  // KANG-20200415: add
+	 * 
+	 * @param request
+	 * @param response
+	 * @param modelMap
+	 * @return
+	 * @throws Exception
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<UaextCodeDtlBO> getCommCodeDtlList2(Map<String, Object> param) throws SQLException {
+		return (List<UaextCodeDtlBO>) selectList("CommCode.getCommCodeDtlList2", param);   // KANG-20200415: add
+	}
+
+	/**
 	 * 공통코드 마스터 중복 여부 조회
 	 * 
 	 * @param request

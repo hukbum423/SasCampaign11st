@@ -292,7 +292,7 @@ public interface ScheduleDAO {
 	public int deleteScheduleList(Map<String, Object> param) throws SQLException;
 
 	/**
-	 * 스케쥴이 없으면 오퍼,채널 수정가능함 KANG-20200409
+	 * 스케쥴이 없으면 오퍼,채널 수정가능함: KANG-20200409
 	 *
 	 * @param request
 	 * @param response

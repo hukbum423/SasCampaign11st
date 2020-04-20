@@ -3,8 +3,8 @@
 
 <mapper namespace="Channel">
 <resultMap type="com.skplanet.sascm.object.CampaignChannelBO" id="CampaignChannelBO">
-        <result property="campaignid"          column="campaignid" />
-        <result property="campaignname"        column="campaignname" />
+    <result property="campaignid"          column="campaignid" />
+    <result property="campaignname"        column="campaignname" />
     <result property="campaigncode"        column="campaigncode" />
     <result property="audience_cd"         column="audience_cd" />
     <result property="manual_trans_yn"     column="manual_trans_yn" />

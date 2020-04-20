@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/common.jsp"%>
 <%@ include file="/WEB-INF/views/common/_head_pop.jsp"%>
 
@@ -65,6 +64,14 @@
 
 	// document.ready
 	$(document).ready(function() {
+		// KANG-20200414: 'copyChannel' button viewable
+		if (!true) {
+			alert(">>>>> channelSms.jsp (CELLID,CHANNEL_CD,COPYCHANNEL) = (${CELLID},${CHANNEL_CD},${COPYCHANNEL})\n"
+				+ " bo = .${bo.campaignid}.${bo.cellid}.${bo.channel_cd}.");
+		}
+		if ("${COPYCHANNEL}" != "YES")
+			$("#copyChannel").hide();
+
 		/*
 		if ("${bo.channel_priority_yn}" == "N" && "${user.title}" != "N"){
 			alert("해당캠페인은 채널우선순위적용이 [N]입니다\n사용자는 권한이 없으므로 채널정보를 입력할수 없습니다");
@@ -194,7 +201,7 @@
 			//return true;
 		}
 		//유효성 체크
-		if (!fn_validation()){
+		if (!fn_validation()){   // KANG-20200416
 			return;
 		}
 		if (!confirm("저장 하시겠습니까?")){
@@ -214,7 +221,7 @@
 					} else {
 						alert("저장되었습니다");
 						//부모창 재조회
-						window.opener.fn_getCampaignDtl(campaignid);
+						if ("${COPYCHANNEL}" != "YES") window.opener.fn_getCampaignDtl(campaignid);  // KANG-20200417
 						//창닫기
 						fn_close();
 					}
@@ -1379,7 +1386,8 @@
 	//
 	function fn_newAlimi_init() {
 		//if (!true) fn_for_test(); // for test
-		if (true) fn_getChannelMobileAlimi('${bo.cellid}');
+		//if (true) fn_getChannelMobileAlimi('${bo.cellid}');
+		if (true) fn_getChannelMobileAlimi('${CELLID}');
 		// 초기화면 세팅
 		//fn_newAlimiHideAll();
 		//fn_newAlimiShow("type1");
@@ -2918,6 +2926,25 @@
 
 
 
+<script>
+	// KANG-20200413: 채널 복사
+	function fn_copyChannel() {
+		//alert("KANG-20200413: fn_copyChannel()");
+		//window.open("${staticPATH }/campaign/property.do?CampaignId="+campaign_id, "propertyPop", "width=1100, height=450, status=1");
+		//window.open("${staticPATH }/campaign/campaignList.do", "propertyPop", "width=1100, height=450, status=1");
+		var disp_dt = $('#MOBILE_DISP_DT').val();  // 노출일
+		if (!true) alert(">>>>> KANG-20200418: fn_copyChannel: ." + disp_dt + ".");
+		popup_campaignChannel = window.open("${staticPATH }/campaign/campaignChannelList.do?"
+				+ "CampaignId=${bo.campaignid}"
+				+ "&CELLID=${bo.cellid}"
+				+ "&CHANNEL_CD=MOBILE"
+				+ "&disp_dt=" + disp_dt
+				, "propertyPop", "width=1100, height=450, status=1");
+	}
+</script>
+
+
+
 
 
 
@@ -2937,16 +2964,14 @@
 				<h3>채널 상세 정보.</h3>
 			</div>
 			<form name="form" id="form">
-				<input type="hidden" id="CampaignId" name="CampaignId"
-					value="${bo.campaignid}" /> <input type="hidden" id="CAMPAIGNCODE"
-					name="CAMPAIGNCODE" value="${bo.campaigncode}" /> <input
-					type="hidden" id="FLOWCHARTID" name="FLOWCHARTID"
-					value="${bo.flowchartid}" /> <input type="hidden" id="CELLID"
-					name="CELLID" value="${bo.cellid}" /> <input type="hidden"
-					id="TO_DATE" name="TO_DATE" value="" /> <input type="hidden"
-					id="TO_DATE_P1" name="TO_DATE_P1" value="" /> <input type="hidden"
-					id="TO_DATE_P2" name="TO_DATE_P2" value="" /> <input type="hidden"
-					id="ALIMI_PARAMS" name="ALIMI_PARAMS" value="" />
+				<input type="hidden" id="CampaignId"   name="CampaignId"   value="${bo.campaignid}" />
+				<input type="hidden" id="CAMPAIGNCODE" name="CAMPAIGNCODE" value="${bo.campaigncode}" />
+				<input type="hidden" id="FLOWCHARTID"  name="FLOWCHARTID"  value="${bo.flowchartid}" />
+				<input type="hidden" id="CELLID"       name="CELLID"       value="${bo.cellid}" />
+				<input type="hidden" id="TO_DATE"      name="TO_DATE"      value="" />
+				<input type="hidden" id="TO_DATE_P1"   name="TO_DATE_P1"   value="" />
+				<input type="hidden" id="TO_DATE_P2"   name="TO_DATE_P2"   value="" />
+				<input type="hidden" id="ALIMI_PARAMS" name="ALIMI_PARAMS" value="" />
 				<!-- Nav tabs -->
 				<ul class="nav nav-tabs">
 					<li class="nav-item"><a id="nav-tabs-old" class="nav-link active" data-toggle="tab" href="#oldAlimi">(구)알리미등록창</a> </li>
@@ -3041,8 +3066,7 @@
 												<c:if test="${bo.mobile_lnk_page_typ eq '01' or bo.mobile_lnk_page_typ == null or bo.mobile_lnk_page_typ == ''}">selected</c:if>>모바일+URL</option>
 											<option value="02"
 												<c:if test="${bo.mobile_lnk_page_typ eq '02'}">selected</c:if>>URL</option>
-									</select>&nbsp; <c:if
-											test="${bo.mobile_lnk_page_typ eq '01' or bo.mobile_lnk_page_typ == null or bo.mobile_lnk_page_typ == ''}">
+									</select>&nbsp; <c:if test="${bo.mobile_lnk_page_typ eq '01' or bo.mobile_lnk_page_typ == null or bo.mobile_lnk_page_typ == ''}">
 											<c:set var="mobile_lnk_page_url" value="http://m.11st.co.kr" />
 										</c:if> <c:if test="${bo.mobile_lnk_page_typ eq '02'}">
 											<c:set var="mobile_lnk_page_url"
@@ -3055,12 +3079,11 @@
 
 								<tr>
 									<td class="info">노출일</td>
-									<td class="tbtd_content"><input type="text"
-										id="MOBILE_DISP_DT" name="MOBILE_DISP_DT" class="txt"
-										style="width: 95px;"
+									<td class="tbtd_content"><input type="text" id="MOBILE_DISP_DT" name="MOBILE_DISP_DT" class="txt" style="width: 95px;"
 										<c:if test="${bo.mobile_disp_dt != null}">value="${bo.mobile_disp_dt}"</c:if>
 										<c:if test="${bo.mobile_disp_dt == null && bo.camp_term_cd eq '01'}">value="${bo.camp_bgn_dt}"</c:if>
-										readonly="readonly" /> <c:if test="${bo.camp_term_cd eq '02'}">(전송일 +1일)</c:if>
+										readonly="readonly" />
+										<c:if test="${bo.camp_term_cd eq '02'}">(전송일 +1일)</c:if>
 									</td>
 									<td class="info">우선순위</td>
 									<td class="tbtd_content"><select id="MOBILE_PRIORITY_RNK"
@@ -3959,6 +3982,7 @@
 					<!--
 					<button type="button" class="btn btn-success btn-sm" onclick="fn_pre_view();"><i class="fa fa-eye" aria-hidden="true"></i> 미리보기 </button>
 					-->
+					<button type="button" id='copyChannel' class="btn btn-success btn-sm" onclick="fn_copyChannel();"><i class="fa fa-copy" aria-hidden="true"></i> 채널복사 </button> <!-- KANG-20200413 -->
 					<button type="button" id='alimiTestSend' class="btn btn-success btn-sm" onclick="fn_alimiTestSend();"><i class="fa fa-eye" aria-hidden="true"></i> 알리미 테스트 발송 </button>
 					<button type="button" class="btn btn-danger btn-sm" onclick="fn_save();"> <i class="fa fa-floppy-o" aria-hidden="true"></i> 저장 </button>
 					<button type="button" class="btn btn-default btn-sm" onclick="fn_close();"> <i class="fa fa-times" aria-hidden="true"></i> 닫기 </button>

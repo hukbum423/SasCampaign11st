@@ -50,6 +50,17 @@ public interface CommCodeDAO {
 	public List<UaextCodeDtlBO> getCommCodeDtlList(Map<String, Object> param) throws SQLException;
 
 	/**
+	 * 공통코드 상세 목록 조회 2  // KANG-20200415: add
+	 *
+	 * @param request
+	 * @param response
+	 * @param modelMap
+	 * @return
+	 * @throws Exception
+	 */
+	public List<UaextCodeDtlBO> getCommCodeDtlList2(Map<String, Object> param) throws SQLException;  // KANG-20200415: add
+
+	/**
 	 * 공통코드 마스터 중복 여부 조회
 	 *
 	 * @param request

@@ -68,6 +68,20 @@ public class CommCodeServiceImpl implements CommCodeService {
 	}
 
 	/**
+	 * 공통코드 상세 목록 조회 2   // KANG-20200415: add
+	 * 
+	 * @param request
+	 * @param response
+	 * @param modelMap
+	 * @return
+	 * @throws Exception
+	 */
+	@Override
+	public List<UaextCodeDtlBO> getCommCodeDtlList2(Map<String, Object> param) throws Exception {
+		return commCodeDAO.getCommCodeDtlList2(param);   // KANG-20200415: add
+	}
+
+	/**
 	 * 공통코드 마스터 중복 여부 조회
 	 * 
 	 * @param request

@@ -13,24 +13,30 @@
 <script src="${staticPATH }/js/jquery_1.9.2/jquery-ui-1.9.2.custom.js" type="text/javascript"></script>
 <%-- <script type="text/javascript" src="${staticPATH }/js/datepicker/dateOption.js"></script> --%>
 
-<script language="JavaScript">
-
+<script>
 	window.resizeTo(1080,880);
 
 	$(document).ready(function(){
-/*
+		// KANG-20200414: 'copyChannel' button viewable
+		if (!true) {
+			alert(">>>>> channelSms.jsp (CELLID,CHANNEL_CD,COPYCHANNEL) = (${CELLID},${CHANNEL_CD},${COPYCHANNEL})\n"
+				+ " bo = .${bo.campaignid}.${bo.cellid}.${bo.channel_cd}.");
+		}
+		if ("${COPYCHANNEL}" != "YES")
+			$("#copyChannel").hide();
+		/*
 		if("${bo.channel_priority_yn}" == "N" && "${user.title}" != "N"){
 			alert("해당캠페인은 채널우선순위적용이 [N]입니다\n사용자는 권한이 없으므로 채널정보를 입력할수 없습니다");			
 		}
-	*/
+		*/
 		
-  $("#LMS_DISP_DT").datepicker({
-    showOn: "button",
-    buttonImage: "${staticPATH }/image/calendar.gif",
-    buttonImageOnly: true,
-    buttonText: "Select date"
-  });
-  
+		$("#LMS_DISP_DT").datepicker({
+			showOn: "button",
+			buttonImage: "${staticPATH }/image/calendar.gif",
+			buttonImageOnly: true,
+			buttonText: "Select date"
+		});
+
 		$("img.ui-datepicker-trigger").attr("style", "margin-left:3px; margin-bottom:-2px; vertical-align:middle;");
 		
 		if("${bo.camp_term_cd}" == "02"){ //캠페인 기간구분이 반복일경우 노출일 disable
@@ -42,12 +48,12 @@
 		$("#VAL_LIST").dblclick(function(){
 			$("#LMS_INPUT_MSG").focus();
 			
-      if(document.selection){
-        cRange = document.selection.createRange();
-        cRange.text = "{" + $("#VAL_LIST").val() + "}";
-      }else{
-        $("#LMS_INPUT_MSG").val($("#LMS_INPUT_MSG").val() + "{" + $("#VAL_LIST").val() + "}");
-      }
+			if(document.selection){
+				cRange = document.selection.createRange();
+				cRange.text = "{" + $("#VAL_LIST").val() + "}";
+			}else{
+				$("#LMS_INPUT_MSG").val($("#LMS_INPUT_MSG").val() + "{" + $("#VAL_LIST").val() + "}");
+			}
 		});
 		
 		//채널선택시 페이지 이동
@@ -122,7 +128,6 @@
 	
 	/* 등록 */
 	function fn_save() {
-
 		//유효성 체크
 		if(!fn_validation()){
 			return;
@@ -133,41 +138,33 @@
 		if(!confirm("저장 하시겠습니까?")){
 			return;
 		}
-
 		var campaignid = $("#CampaignId").val();
 		jQuery.ajax({
 			url           : '${staticPATH }/setChannelLms.do',
 			dataType      : "JSON",
 			scriptCharset : "UTF-8",
 			type          : "POST",
-	        data          : $("#form").serialize(),
-	        success: function(result, option) {
-
-	        	if(option=="success"){
-
-	        		if(result.CMP_STATUS == "START"){
-	        			alert("진행중인 캠페인은 수정할수 없습니다.");
-	        		}else{
-						alert("저장되었습니다");
-	        			
-	        			//부모창 재조회
-	        			window.opener.fn_getCampaignDtl(campaignid);
-	        			
-	        			//창닫기
-	        			fn_close();
-	        		}
-        			
-	        	}else{
-	        		alert("에러가 발생하였습니다.");	
-	        	}
-	        },
-	        error: function(result, option) {
-	        	alert("에러가 발생하였습니다.");
-	        }
+			data          : $("#form").serialize(),
+			success: function(result, option) {
+				if(option=="success"){
+					if (result.CMP_STATUS == "START"){
+						alert("진행중인 캠페인은 수정할수 없습니다.");
+					} else {
+					alert("저장되었습니다");
+						//부모창 재조회
+						if ("${COPYCHANNEL}" != "YES") window.opener.fn_getCampaignDtl(campaignid);  // KANG-20200417
+						//창닫기
+						fn_close();
+					}
+				}else{
+					alert("에러가 발생하였습니다.");
+				}
+			},
+			error: function(result, option) {
+				alert("에러가 발생하였습니다.");
+			}
 		});
-		
-		
-	};	
+	};
 	
 	
 	/* 유효성 체크 */
@@ -500,8 +497,25 @@
 		}
 		
 	}
-	
 </script>
+
+<script>
+	// KANG-20200413: 채널 복사
+	function fn_copyChannel() {
+		//alert("KANG-20200413: fn_copyChannel()");
+		//window.open("${staticPATH }/campaign/property.do?CampaignId="+campaign_id, "propertyPop", "width=1100, height=450, status=1");
+		//window.open("${staticPATH }/campaign/campaignList.do", "propertyPop", "width=1100, height=450, status=1");
+		var disp_dt = $('#LMS_DISP_DT').val();  // 노출일
+		if (!true) alert(">>>>> KANG-20200418: fn_copyChannel: ." + disp_dt + ".");
+		popup_campaignChannel = window.open("${staticPATH }/campaign/campaignChannelList.do?"
+				+ "CampaignId=${bo.campaignid}"
+				+ "&CELLID=${bo.cellid}"
+				+ "&CHANNEL_CD=LMS"
+				+ "&disp_dt=" + disp_dt
+				, "propertyPop", "width=1100, height=450, status=1");
+	}
+</script>
+
 <!--PAGE CONTENT -->
         <div id="content" style="width:100%; height100%;">
            <!--BLOCK SECTION -->
@@ -685,6 +699,7 @@
 	</div>
 
 	<div id="sysbtn" class="col-md-12" style="text-align:right;margin-bottom:10px;">
+		<button type="button" id='copyChannel' class="btn btn-success btn-sm" onclick="fn_copyChannel();"><i class="fa fa-copy" aria-hidden="true"></i> 채널복사 </button> <!-- KANG-20200413 -->
 		<button type="button" class="btn btn-success btn-sm" onclick="fn_pre_view();"><i class="fa fa-eye" aria-hidden="true"></i> 미리보기</button>
 		<button type="button" class="btn btn-danger btn-sm" onclick="fn_save();"><i class="fa fa-floppy-o" aria-hidden="true"></i> 저장</button>	
 		<button type="button" class="btn btn-default btn-sm" onclick="fn_close();"><i class="fa fa-times" aria-hidden="true"></i> 닫기</button>

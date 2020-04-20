@@ -129,6 +129,54 @@
 	</select>
 
 
+	<!-- 공통코드 상세 목록 조회 2    // KANG-20200415: add -->
+	<!--  
+					AND USE_YN       LIKE '%'||#{USE_YN}||'%'
+	-->
+	<select id="CommCode.getCommCodeDtlList2" parameterType="Map"  resultMap="UaextCodeDtlBO">
+		SELECT  /* CommCode.getCommCodeDtlList2 */
+			A.*
+		FROM (
+			SELECT
+				A.*
+				, ROWNUM num
+			FROM(
+				SELECT
+					CODE_ID                code_id
+					, CODE_NAME            code_name
+					, CODE_DESC            code_desc
+					, SORT_SEQ             sort_seq
+					, USE_YN               use_yn
+					, ETC1                 etc1
+					, ETC2                 etc2
+					, CREATE_ID            create_id
+					, (SELECT USER_NAME FROM CM_USER WHERE ID = A.CREATE_ID) create_nm
+					, TO_CHAR(CREATE_DT, 'YYYY-MM-DD HH24:MI:SS')            create_dt
+					, UPDATE_ID            update_id
+					, (SELECT USER_NAME FROM CM_USER WHERE ID = A.UPDATE_ID) update_nm
+					, TO_CHAR(UPDATE_DT, 'YYYY-MM-DD HH24:MI:SS')            update_dt
+					, COMM_CODE_ID         comm_code_id
+				FROM
+					CM_CODE_DTL A
+				WHERE 1=1
+					AND COMM_CODE_ID = #{codeId}
+					AND USE_YN       LIKE '%'||#{USE_YN}||'%'
+					AND CODE_ID NOT IN (
+						SELECT
+							A.CHANNEL_CD 
+						FROM
+							CM_CAMPAIGN_CHANNEL A 
+						WHERE 1=1
+							AND A.CELLID IN (#{CELLID})
+					)
+				ORDER BY
+					SORT_SEQ, CODE_ID
+			) A
+		) A
+		ORDER BY num
+	</select>
+
+
 	<!-- 공통코드 마스터 중복 조회 -->
 	<select id="CommCode.getCommCodeDupCnt" parameterType="Map"  resultType="String">
 		SELECT

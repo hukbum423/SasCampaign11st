@@ -154,7 +154,8 @@ public class ChannelController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("codeId", "C011");
 		map.put("USE_YN", "Y");
-		List<UaextCodeDtlBO> channel_list = commCodeService.getCommCodeDtlList(map);
+		map.put("CELLID", request.getParameter("CELLID"));  // KANG-20200415: add
+		List<UaextCodeDtlBO> channel_list = commCodeService.getCommCodeDtlList2(map);  // KANG-20200415: add
 
 		//paramter
 		log.info("=============================================");
@@ -221,6 +222,7 @@ public class ChannelController {
 		log.info("CampaignId   : " + request.getParameter("CampaignId"));
 		log.info("CELLID       : " + request.getParameter("CELLID"));
 		log.info("CHANNEL_CD   : " + request.getParameter("CHANNEL_CD"));
+		log.info("COPYCHANNEL  : " + request.getParameter("COPYCHANNEL"));   // KANG-20200417
 		log.info("=============================================");
 
 		//채널정보 조회
@@ -240,6 +242,144 @@ public class ChannelController {
 		modelMap.addAttribute("bo", bo);
 		modelMap.addAttribute("user", user);
 		modelMap.addAttribute("CHANNEL_CD", request.getParameter("CHANNEL_CD"));
+		modelMap.addAttribute("COPYCHANNEL", request.getParameter("COPYCHANNEL"));   // KANG-20200417
+		modelMap.addAttribute("DISABLED", request.getParameter("DISABLED"));
+
+		return "channel/channelToast";
+	}
+
+	/**
+	 * 채널 Toast배너 페이지 호출     // KANG-20200417
+	 *
+	 * @param request
+	 * @param response
+	 * @param modelMap
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/channel/copyChannelToast.do")
+	public String pageCopyChannelToast(HttpServletRequest request, HttpServletResponse response, ModelMap modelMap, HttpSession session) throws Exception {
+		//사용자 정보
+		UsmUserBO user = (UsmUserBO) session.getAttribute("ACCOUNT");
+
+		Map<String, Object> map = new HashMap<String, Object>();
+
+		/////////////////////////////////////////
+		// 채널 복사 KANG-20200415
+		log.info("=============================================");
+		log.info("srcCellId     : " + request.getParameter("srcCellId"));
+		log.info("srcChannelCd  : " + request.getParameter("srcChannelCd"));
+		log.info("tgtCampaignId : " + request.getParameter("tgtCampaignId"));
+		log.info("tgtCellId     : " + request.getParameter("tgtCellId"));
+		log.info("tgtChannelCd  : " + request.getParameter("tgtChannelCd"));
+		log.info("tgtDispDt     : " + request.getParameter("tgtDispDt"));
+		log.info("CampaignId    : " + request.getParameter("CampaignId"));
+		log.info("CELLID        : " + request.getParameter("CELLID"));
+		log.info("CHANNEL_CD    : " + request.getParameter("CHANNEL_CD"));
+		log.info("COPYCHANNEL   : " + request.getParameter("COPYCHANNEL"));
+		log.info("=============================================");
+		map.clear();
+		map.put("srcCellId"    , request.getParameter("srcCellId"    ));
+		map.put("srcChannelCd" , request.getParameter("srcChannelCd" ));
+		map.put("tgtCampaignId", request.getParameter("tgtCampaignId"));
+		map.put("tgtCellId"    , request.getParameter("tgtCellId"    ));
+		map.put("tgtChannelCd" , request.getParameter("tgtChannelCd" ));
+		map.put("tgtDispDt"    , request.getParameter("tgtDispDt"    ));
+		map.put("CampaignId"   , request.getParameter("CampaignId"   ));
+		map.put("CELLID"       , request.getParameter("CELLID"       ));
+		map.put("CHANNEL_CD"   , request.getParameter("CHANNEL_CD"   ));
+		map.put("COPYCHANNEL"  , request.getParameter("COPYCHANNEL"  ));
+		//ChannelBO bo = channelService.getChannelDtlInfo(map);
+
+		//채널 목록 조회
+		map.put("codeId", "C011");
+		map.put("USE_YN", "Y");
+		List<UaextCodeDtlBO> channel_list = commCodeService.getCommCodeDtlList(map);
+
+		//우선순위
+		map.put("codeId", "C006");
+		List<UaextCodeDtlBO> priority_rank = commCodeService.getCommCodeDtlList(map);
+
+		//이벤트 타입
+		map.put("codeId", "C008");
+		List<UaextCodeDtlBO> evt_type = commCodeService.getCommCodeDtlList(map);
+
+		//linkUrl
+		map.put("codeId", "C017"); //MEM_NO 일때의 LinkUrl
+		List<UaextCodeDtlBO> linkUrl = commCodeService.getCommCodeDtlList(map);
+
+		//linkUrl
+		map.put("codeId", "C021"); //PCID 일때의 LinkUrl
+		List<UaextCodeDtlBO> linkUrl2 = commCodeService.getCommCodeDtlList(map);
+
+		//사용자 변수
+		map.put("SVARI_NAME", Common.nvl(request.getParameter("SVARI_NAME"), ""));
+		map.put("SKEY_COLUMN", Common.nvl(request.getParameter("SKEY_COLUMN"), ""));
+		List<UaextVariableBO> vri_list = variableService.getVariableList(map);
+
+		// KANG-20200418: change logic
+		ChannelBO tgtbo = null;
+		ChannelBO bo = null;
+		if (true) {
+			//paramter
+			log.info("=============================================");
+			log.info("tgtCampaignId   : " + request.getParameter("tgtCampaignId"));
+			log.info("tgtCellId       : " + request.getParameter("tgtCellId"));
+			log.info("tgtChannelCd   : " + request.getParameter("tgtChannelCd"));
+			log.info("=============================================");
+
+			//채널정보 조회
+			map.put("CAMPAIGNID", Common.nvl(request.getParameter("tgtCampaignId"), ""));
+			map.put("CELLID", Common.nvl(request.getParameter("tgtCellId"), ""));
+			map.put("CHANNEL_CD", Common.nvl(request.getParameter("tgtChannelCd"), ""));
+
+			tgtbo = channelService.getChannelDtlInfo(map);
+		}
+		if (true) {
+			//paramter
+			log.info("=============================================");
+			log.info("CampaignId   : " + request.getParameter("CampaignId"));
+			log.info("CELLID       : " + request.getParameter("CELLID"));
+			log.info("CHANNEL_CD   : " + request.getParameter("CHANNEL_CD"));
+			log.info("=============================================");
+
+			//채널정보 조회
+			map.put("CAMPAIGNID", Common.nvl(request.getParameter("CampaignId"), ""));
+			map.put("CELLID", Common.nvl(request.getParameter("CELLID"), ""));
+			map.put("CHANNEL_CD", Common.nvl(request.getParameter("CHANNEL_CD"), ""));
+
+			bo = channelService.getChannelDtlInfo(map);
+		}
+		
+		// KANG-20200417: change values
+		bo.setCampaigncode(tgtbo.getCampaigncode());
+		bo.setCampaignname(tgtbo.getCampaignname());
+		bo.setCampaignid(tgtbo.getCampaignid());
+		bo.setCellid(tgtbo.getCellid());
+		bo.setCellname(tgtbo.getCellname());
+		bo.setChannel_cd(tgtbo.getChannel_cd());
+		bo.setCamp_status_cd("EDIT");
+		bo.setCamp_term_cd(tgtbo.getCamp_term_cd());
+		bo.setCamp_bgn_dt(tgtbo.getCamp_bgn_dt());
+		bo.setCamp_end_dt(tgtbo.getCamp_end_dt());
+		bo.setCreate_id("");
+		bo.setCreate_nm("");
+		bo.setCreate_dt("");
+		bo.setUpdate_id("");
+		bo.setUpdate_nm("");
+		bo.setUpdate_dt("");
+
+		modelMap.addAttribute("channel_list", channel_list);
+		modelMap.addAttribute("priority_rank", priority_rank);
+		modelMap.addAttribute("vri_list", vri_list);
+		modelMap.addAttribute("evt_type", evt_type);
+		modelMap.addAttribute("linkUrl", linkUrl);
+		modelMap.addAttribute("linkUrl2", linkUrl2);
+
+		modelMap.addAttribute("bo", bo);
+		modelMap.addAttribute("user", user);
+		modelMap.addAttribute("CHANNEL_CD", request.getParameter("CHANNEL_CD"));
+		modelMap.addAttribute("COPYCHANNEL", request.getParameter("COPYCHANNEL"));   // KANG-20200417
 		modelMap.addAttribute("DISABLED", request.getParameter("DISABLED"));
 
 		return "channel/channelToast";
@@ -516,6 +656,7 @@ public class ChannelController {
 		log.info("CampaignId   : " + request.getParameter("CampaignId"));
 		log.info("CELLID       : " + request.getParameter("CELLID"));
 		log.info("CHANNEL_CD   : " + request.getParameter("CHANNEL_CD"));
+		log.info("COPYCHANNEL  : " + request.getParameter("COPYCHANNEL"));   // KANG-20200417
 		log.info("=============================================");
 
 		//채널정보 조회
@@ -538,6 +679,157 @@ public class ChannelController {
 		modelMap.addAttribute("bo", bo);
 		modelMap.addAttribute("user", user);
 		modelMap.addAttribute("CHANNEL_CD", request.getParameter("CHANNEL_CD"));
+		modelMap.addAttribute("COPYCHANNEL", request.getParameter("COPYCHANNEL"));   // KANG-20200417
+		modelMap.addAttribute("DISABLED", request.getParameter("DISABLED"));
+
+		return "channel/channelSms";
+	}
+
+	/**
+	 * 채널 SMS 페이지 호출   // KANG-20200417
+	 *
+	 * @param request
+	 * @param response
+	 * @param modelMap
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/channel/copyChannelSms.do")
+	public String pageCopyChannelSms(HttpServletRequest request, HttpServletResponse response, ModelMap modelMap, HttpSession session) throws Exception {
+		//사용자 정보
+		UsmUserBO user = (UsmUserBO) session.getAttribute("ACCOUNT");
+
+		Map<String, Object> map = new HashMap<String, Object>();
+
+		/////////////////////////////////////////
+		// 채널 복사 KANG-20200415
+		log.info("=============================================");
+		log.info("srcCellId     : " + request.getParameter("srcCellId"));
+		log.info("srcChannelCd  : " + request.getParameter("srcChannelCd"));
+		log.info("tgtCampaignId : " + request.getParameter("tgtCampaignId"));
+		log.info("tgtCellId     : " + request.getParameter("tgtCellId"));
+		log.info("tgtChannelCd  : " + request.getParameter("tgtChannelCd"));
+		log.info("tgtDispDt     : " + request.getParameter("tgtDispDt"));
+		log.info("CampaignId    : " + request.getParameter("CampaignId"));
+		log.info("CELLID        : " + request.getParameter("CELLID"));
+		log.info("CHANNEL_CD    : " + request.getParameter("CHANNEL_CD"));
+		log.info("COPYCHANNEL   : " + request.getParameter("COPYCHANNEL"));
+		log.info("=============================================");
+		map.clear();
+		map.put("srcCellId"    , request.getParameter("srcCellId"    ));
+		map.put("srcChannelCd" , request.getParameter("srcChannelCd" ));
+		map.put("tgtCampaignId", request.getParameter("tgtCampaignId"));
+		map.put("tgtCellId"    , request.getParameter("tgtCellId"    ));
+		map.put("tgtChannelCd" , request.getParameter("tgtChannelCd" ));
+		map.put("tgtDispDt"    , request.getParameter("tgtDispDt"    ));
+		map.put("CampaignId"   , request.getParameter("CampaignId"   ));
+		map.put("CELLID"       , request.getParameter("CELLID"       ));
+		map.put("CHANNEL_CD"   , request.getParameter("CHANNEL_CD"   ));
+		map.put("COPYCHANNEL"  , request.getParameter("COPYCHANNEL"  ));
+		//ChannelBO bo = channelService.getChannelDtlInfo(map);
+
+
+		//채널 목록 조회
+		map.put("codeId", "C011");
+		map.put("USE_YN", "Y");
+		List<UaextCodeDtlBO> channel_list = commCodeService.getCommCodeDtlList(map);
+
+		//우선순위
+		map.put("codeId", "C006");
+		List<UaextCodeDtlBO> priority_rank = commCodeService.getCommCodeDtlList(map);
+
+		//SMS우선순위별발송시간
+		map.put("codeId", "C026");
+		List<UaextCodeDtlBO> priority_rank_sendtime = commCodeService.getCommCodeDtlList(map);
+
+		//완료시 전달번호
+		map.put("codeId", "C012");
+		List<UaextCodeDtlBO> comp_list = commCodeService.getCommCodeDtlList(map);
+
+		//CALLBACK 번호
+		map.put("codeId", "C023");
+		List<UaextCodeDtlBO> callback_list = commCodeService.getCommCodeDtlList(map);
+
+		//연결페이지 구분
+		map.put("codeId", "G006");
+		List<UaextCodeDtlBO> smsSendPreferCd = commCodeService.getCommCodeDtlList(map);
+
+
+		//사용자 변수
+		map.put("SVARI_NAME", Common.nvl(request.getParameter("SVARI_NAME"), ""));
+		map.put("SKEY_COLUMN", Common.nvl(request.getParameter("SKEY_COLUMN"), ""));
+		List<UaextVariableBO> vri_list = variableService.getVariableList(map);
+
+		// KANG-20200418: change logic
+		ChannelBO tgtbo = null;
+		ChannelBO bo = null;
+		if (true) {
+			//paramter
+			log.info("=============================================");
+			log.info("tgtCampaignId   : " + request.getParameter("tgtCampaignId"));
+			log.info("tgtCellId       : " + request.getParameter("tgtCellId"));
+			log.info("tgtChannelCd   : " + request.getParameter("tgtChannelCd"));
+			log.info("=============================================");
+
+			//채널정보 조회
+			map.put("CAMPAIGNID", Common.nvl(request.getParameter("tgtCampaignId"), ""));
+			map.put("CELLID", Common.nvl(request.getParameter("tgtCellId"), ""));
+			map.put("CHANNEL_CD", Common.nvl(request.getParameter("tgtChannelCd"), ""));
+
+			tgtbo = channelService.getChannelDtlInfo(map);
+		}
+		if (true) {
+			//paramter
+			log.info("=============================================");
+			log.info("CampaignId   : " + request.getParameter("CampaignId"));
+			log.info("CELLID       : " + request.getParameter("CELLID"));
+			log.info("CHANNEL_CD   : " + request.getParameter("CHANNEL_CD"));
+			log.info("=============================================");
+
+			//채널정보 조회
+			map.put("CAMPAIGNID", Common.nvl(request.getParameter("CampaignId"), ""));
+			map.put("CELLID", Common.nvl(request.getParameter("CELLID"), ""));
+			map.put("CHANNEL_CD", Common.nvl(request.getParameter("CHANNEL_CD"), ""));
+
+			bo = channelService.getChannelDtlInfo(map);
+		}
+
+		// KANG-20200417: change values
+		bo.setCampaigncode(tgtbo.getCampaigncode());
+		bo.setCampaignname(tgtbo.getCampaignname());
+		bo.setCampaignid(tgtbo.getCampaignid());
+		bo.setCellid(tgtbo.getCellid());
+		bo.setCellname(tgtbo.getCellname());
+		bo.setChannel_cd(tgtbo.getChannel_cd());
+		bo.setSms_disp_dt(request.getParameter("tgtDispDt"));
+		bo.setCamp_status_cd("EDIT");
+		bo.setCamp_term_cd(tgtbo.getCamp_term_cd());
+		bo.setSms_disp_dt(tgtbo.getSms_disp_dt());
+		bo.setCamp_bgn_dt(tgtbo.getCamp_bgn_dt());
+		bo.setCamp_end_dt(tgtbo.getCamp_end_dt());
+		bo.setCreate_id("");
+		bo.setCreate_nm("");
+		bo.setCreate_dt("");
+		bo.setUpdate_id("");
+		bo.setUpdate_nm("");
+		bo.setUpdate_dt("");
+		bo.setSms_returncall("");   // KANG-20200418
+
+		modelMap.addAttribute("channel_list", channel_list);
+		modelMap.addAttribute("priority_rank", priority_rank);
+		modelMap.addAttribute("priority_rank_sendtime", priority_rank_sendtime);
+		//modelMap.addAttribute("campScheduleTime", Common.campScheduleTime);
+		modelMap.addAttribute("smsSendPreferCd", smsSendPreferCd);
+
+		modelMap.addAttribute("vri_list", vri_list);
+		modelMap.addAttribute("comp_list", comp_list);
+		modelMap.addAttribute("callback_list", callback_list);
+
+		modelMap.addAttribute("bo", bo);
+		modelMap.addAttribute("user", user);
+		modelMap.addAttribute("CELLID", request.getParameter("CELLID"));
+		modelMap.addAttribute("CHANNEL_CD", request.getParameter("CHANNEL_CD"));
+		modelMap.addAttribute("COPYCHANNEL", request.getParameter("COPYCHANNEL"));   // KANG-20200417
 		modelMap.addAttribute("DISABLED", request.getParameter("DISABLED"));
 
 		return "channel/channelSms";
@@ -859,6 +1151,7 @@ public class ChannelController {
 		log.info("CampaignId   : " + request.getParameter("CampaignId"));
 		log.info("CELLID       : " + request.getParameter("CELLID"));
 		log.info("CHANNEL_CD   : " + request.getParameter("CHANNEL_CD"));
+		log.info("COPYCHANNEL  : " + request.getParameter("COPYCHANNEL"));   // KANG-20200417
 		log.info("=============================================");
 
 		//채널정보 조회
@@ -880,6 +1173,139 @@ public class ChannelController {
 		modelMap.addAttribute("bo", bo);
 		modelMap.addAttribute("user", user);
 		modelMap.addAttribute("CHANNEL_CD", request.getParameter("CHANNEL_CD"));
+		modelMap.addAttribute("COPYCHANNEL", request.getParameter("COPYCHANNEL"));   // KANG-20200417
+		modelMap.addAttribute("DISABLED", request.getParameter("DISABLED"));
+
+		return "channel/channelEmail";
+	}
+
+	/**
+	 * 채널 EMAIL 페이지 호출   // KANG-20200417
+	 *
+	 * @param request
+	 * @param response
+	 * @param modelMap
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/channel/copyChannelEmail.do")
+	public String pageCopyChannelEmail(HttpServletRequest request, HttpServletResponse response, ModelMap modelMap, HttpSession session) throws Exception {
+		//사용자 정보
+		UsmUserBO user = (UsmUserBO) session.getAttribute("ACCOUNT");
+
+		Map<String, Object> map = new HashMap<String, Object>();
+
+		/////////////////////////////////////////
+		// 채널 복사 KANG-20200415
+		log.info("=============================================");
+		log.info("srcCellId     : " + request.getParameter("srcCellId"));
+		log.info("srcChannelCd  : " + request.getParameter("srcChannelCd"));
+		log.info("tgtCampaignId : " + request.getParameter("tgtCampaignId"));
+		log.info("tgtCellId     : " + request.getParameter("tgtCellId"));
+		log.info("tgtChannelCd  : " + request.getParameter("tgtChannelCd"));
+		log.info("tgtDispDt     : " + request.getParameter("tgtDispDt"));
+		log.info("CampaignId    : " + request.getParameter("CampaignId"));
+		log.info("CELLID        : " + request.getParameter("CELLID"));
+		log.info("CHANNEL_CD    : " + request.getParameter("CHANNEL_CD"));
+		log.info("COPYCHANNEL   : " + request.getParameter("COPYCHANNEL"));
+		log.info("=============================================");
+		map.clear();
+		map.put("srcCellId"    , request.getParameter("srcCellId"    ));
+		map.put("srcChannelCd" , request.getParameter("srcChannelCd" ));
+		map.put("tgtCampaignId", request.getParameter("tgtCampaignId"));
+		map.put("tgtCellId"    , request.getParameter("tgtCellId"    ));
+		map.put("tgtChannelCd" , request.getParameter("tgtChannelCd" ));
+		map.put("tgtDispDt"    , request.getParameter("tgtDispDt"    ));
+		map.put("CampaignId"   , request.getParameter("CampaignId"   ));
+		map.put("CELLID"       , request.getParameter("CELLID"       ));
+		map.put("CHANNEL_CD"   , request.getParameter("CHANNEL_CD"   ));
+		map.put("COPYCHANNEL"  , request.getParameter("COPYCHANNEL"  ));
+		//ChannelBO bo = channelService.getChannelDtlInfo(map);
+
+		//채널 목록 조회
+		map.put("codeId", "C011");
+		map.put("USE_YN", "Y");
+		List<UaextCodeDtlBO> channel_list = commCodeService.getCommCodeDtlList(map);
+
+		//우선순위
+		map.put("codeId", "C006");
+		List<UaextCodeDtlBO> priority_rank = commCodeService.getCommCodeDtlList(map);
+
+		//EMAIL우선순위별발송시간
+		map.put("codeId", "C027");
+		List<UaextCodeDtlBO> priority_rank_sendtime = commCodeService.getCommCodeDtlList(map);
+
+		//사용자 변수 목록을 조회
+		map.put("codeId", "C013");
+		List<UaextCodeDtlBO> vri_list = commCodeService.getCommCodeDtlList(map);
+
+		// KANG-20200418: change logic
+		ChannelBO tgtbo = null;
+		ChannelBO bo = null;
+		if (true) {
+			//paramter
+			log.info("=============================================");
+			log.info("tgtCampaignId   : " + request.getParameter("tgtCampaignId"));
+			log.info("tgtCellId       : " + request.getParameter("tgtCellId"));
+			log.info("tgtChannelCd   : " + request.getParameter("tgtChannelCd"));
+			log.info("=============================================");
+
+			//채널정보 조회
+			map.put("CAMPAIGNID", Common.nvl(request.getParameter("tgtCampaignId"), ""));
+			map.put("CELLID", Common.nvl(request.getParameter("tgtCellId"), ""));
+			map.put("CHANNEL_CD", Common.nvl(request.getParameter("tgtChannelCd"), ""));
+
+			tgtbo = channelService.getChannelDtlInfo(map);
+		}
+		if (true) {
+			//paramter
+			log.info("=============================================");
+			log.info("CampaignId   : " + request.getParameter("CampaignId"));
+			log.info("CELLID       : " + request.getParameter("CELLID"));
+			log.info("CHANNEL_CD   : " + request.getParameter("CHANNEL_CD"));
+			log.info("=============================================");
+
+			//채널정보 조회
+			map.put("CAMPAIGNID", Common.nvl(request.getParameter("CampaignId"), ""));
+			map.put("CELLID", Common.nvl(request.getParameter("CELLID"), ""));
+			map.put("CHANNEL_CD", Common.nvl(request.getParameter("CHANNEL_CD"), ""));
+
+			bo = channelService.getChannelDtlInfo(map);
+		}
+
+		// KANG-20200417: change values
+		bo.setCampaigncode(tgtbo.getCampaigncode());
+		bo.setCampaignname(tgtbo.getCampaignname());
+		bo.setCampaignid(tgtbo.getCampaignid());
+		bo.setCellid(tgtbo.getCellid());
+		bo.setCellname(tgtbo.getCellname());
+		bo.setChannel_cd(tgtbo.getChannel_cd());
+		bo.setEmail_disp_dt(request.getParameter("tgtDispDt"));
+		bo.setCamp_status_cd("EDIT");
+		bo.setCamp_term_cd(tgtbo.getCamp_term_cd());
+		bo.setEmail_disp_dt(tgtbo.getEmail_disp_dt());
+		bo.setCamp_bgn_dt(tgtbo.getCamp_bgn_dt());
+		bo.setCamp_end_dt(tgtbo.getCamp_end_dt());
+		bo.setCreate_id("");
+		bo.setCreate_nm("");
+		bo.setCreate_dt("");
+		bo.setUpdate_id("");
+		bo.setUpdate_nm("");
+		bo.setUpdate_dt("");
+
+		if ( bo.getEmail_subject() != null ){
+			bo.setEmail_subject(bo.getEmail_subject().replaceAll("\"", "&quot;"));
+		}
+
+		modelMap.addAttribute("channel_list", channel_list);
+		modelMap.addAttribute("priority_rank", priority_rank);
+		modelMap.addAttribute("priority_rank_sendtime", priority_rank_sendtime);
+		modelMap.addAttribute("vri_list", vri_list);
+
+		modelMap.addAttribute("bo", bo);
+		modelMap.addAttribute("user", user);
+		modelMap.addAttribute("CHANNEL_CD", request.getParameter("CHANNEL_CD"));
+		modelMap.addAttribute("COPYCHANNEL", request.getParameter("COPYCHANNEL"));   // KANG-20200417
 		modelMap.addAttribute("DISABLED", request.getParameter("DISABLED"));
 
 		return "channel/channelEmail";
@@ -1020,6 +1446,7 @@ public class ChannelController {
 		log.info("CampaignId   : " + request.getParameter("CampaignId"));
 		log.info("CELLID       : " + request.getParameter("CELLID"));
 		log.info("CHANNEL_CD   : " + request.getParameter("CHANNEL_CD"));
+		log.info("COPYCHANNEL  : " + request.getParameter("COPYCHANNEL"));   // KANG-20200417
 		log.info("=============================================");
 
 		//채널정보 조회
@@ -1041,7 +1468,162 @@ public class ChannelController {
 
 		modelMap.addAttribute("bo", bo);
 		modelMap.addAttribute("user", user);
+		modelMap.addAttribute("CELLID", request.getParameter("CELLID"));
 		modelMap.addAttribute("CHANNEL_CD", request.getParameter("CHANNEL_CD"));
+		modelMap.addAttribute("COPYCHANNEL", request.getParameter("COPYCHANNEL"));   // KANG-20200417
+		modelMap.addAttribute("DISABLED", request.getParameter("DISABLED"));
+
+		return "channel/channelMobile";
+	}
+
+	/**
+	 * 채널 모바일 복사 페이지 호출   // KANG-20200415
+	 *
+	 * @param request
+	 * @param response
+	 * @param modelMap
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/channel/copyChannelMobile.do")
+	public String pageCopyChannelMobile(HttpServletRequest request, HttpServletResponse response, ModelMap modelMap, HttpSession session) throws Exception {
+		//사용자 정보
+		UsmUserBO user = (UsmUserBO) session.getAttribute("ACCOUNT");
+
+		Map<String, Object> map = new HashMap<String, Object>();
+
+		/////////////////////////////////////////
+		// 채널 복사 KANG-20200415
+		log.info("=============================================");
+		log.info("srcCellId     : " + request.getParameter("srcCellId"));
+		log.info("srcChannelCd  : " + request.getParameter("srcChannelCd"));
+		log.info("tgtCampaignId : " + request.getParameter("tgtCampaignId"));
+		log.info("tgtCellId     : " + request.getParameter("tgtCellId"));
+		log.info("tgtChannelCd  : " + request.getParameter("tgtChannelCd"));
+		log.info("tgtDispDt     : " + request.getParameter("tgtDispDt"));
+		log.info("CampaignId    : " + request.getParameter("CampaignId"));
+		log.info("CELLID        : " + request.getParameter("CELLID"));
+		log.info("CHANNEL_CD    : " + request.getParameter("CHANNEL_CD"));
+		log.info("COPYCHANNEL   : " + request.getParameter("COPYCHANNEL"));
+		log.info("=============================================");
+		map.clear();
+		map.put("srcCellId"    , request.getParameter("srcCellId"    ));
+		map.put("srcChannelCd" , request.getParameter("srcChannelCd" ));
+		map.put("tgtCampaignId", request.getParameter("tgtCampaignId"));
+		map.put("tgtCellId"    , request.getParameter("tgtCellId"    ));
+		map.put("tgtChannelCd" , request.getParameter("tgtChannelCd" ));
+		map.put("tgtDispDt"    , request.getParameter("tgtDispDt"    ));
+		map.put("CampaignId"   , request.getParameter("CampaignId"   ));
+		map.put("CELLID"       , request.getParameter("CELLID"       ));
+		map.put("CHANNEL_CD"   , request.getParameter("CHANNEL_CD"   ));
+		map.put("COPYCHANNEL"  , request.getParameter("COPYCHANNEL"  ));
+		//ChannelBO bo = channelService.getChannelDtlInfo(map);
+
+
+		//채널 목록 조회
+		map.clear();
+		map.put("codeId", "C011");
+		map.put("USE_YN", "Y");
+		List<UaextCodeDtlBO> channel_list = commCodeService.getCommCodeDtlList(map);
+
+		//우선순위
+		map.put("codeId", "C006");
+		List<UaextCodeDtlBO> priority_rank = commCodeService.getCommCodeDtlList(map);
+
+		//MOBILE우선순위별발송시간
+		map.put("codeId", "C028");
+		List<UaextCodeDtlBO> priority_rank_sendtime = commCodeService.getCommCodeDtlList(map);
+
+		//알리미타임라인노출여부
+		map.put("codeId", "C024");
+		List<UaextCodeDtlBO> timeline_disp_yn = commCodeService.getCommCodeDtlList(map);
+
+		//알리미타임라인노출여부
+		map.put("codeId", "C025");
+		List<UaextCodeDtlBO> push_msg_popup_indc_yn = commCodeService.getCommCodeDtlList(map);
+
+		//모바일 알리미 구분
+		map.put("codeId", "C009");
+		List<UaextCodeDtlBO> mobileApp_list = commCodeService.getCommCodeDtlList(map);
+
+		//연결페이지 구분
+		map.put("codeId", "G006");
+		List<UaextCodeDtlBO> mobileSendPreferCd = commCodeService.getCommCodeDtlList(map);
+
+		//사용자 변수
+		map.put("SVARI_NAME", Common.nvl(request.getParameter("SVARI_NAME"), ""));
+		map.put("SKEY_COLUMN", Common.nvl(request.getParameter("SKEY_COLUMN"), ""));
+		List<UaextVariableBO> vri_list = variableService.getVariableList(map);
+
+		// KANG-20200418: change logic
+		ChannelBO tgtbo = null;
+		ChannelBO bo = null;
+		if (true) {
+			//paramter
+			log.info("=============================================");
+			log.info("tgtCampaignId   : " + request.getParameter("tgtCampaignId"));
+			log.info("tgtCellId       : " + request.getParameter("tgtCellId"));
+			log.info("tgtChannelCd   : " + request.getParameter("tgtChannelCd"));
+			log.info("=============================================");
+
+			//채널정보 조회
+			map.put("CAMPAIGNID", Common.nvl(request.getParameter("tgtCampaignId"), ""));
+			map.put("CELLID", Common.nvl(request.getParameter("tgtCellId"), ""));
+			map.put("CHANNEL_CD", Common.nvl(request.getParameter("tgtChannelCd"), ""));
+
+			tgtbo = channelService.getChannelDtlInfo(map);
+		}
+		if (true) {
+			//paramter
+			log.info("=============================================");
+			log.info("CampaignId   : " + request.getParameter("CampaignId"));
+			log.info("CELLID       : " + request.getParameter("CELLID"));
+			log.info("CHANNEL_CD   : " + request.getParameter("CHANNEL_CD"));
+			log.info("=============================================");
+
+			//채널정보 조회
+			map.put("CAMPAIGNID", Common.nvl(request.getParameter("CampaignId"), ""));
+			map.put("CELLID", Common.nvl(request.getParameter("CELLID"), ""));
+			map.put("CHANNEL_CD", Common.nvl(request.getParameter("CHANNEL_CD"), ""));
+
+			bo = channelService.getChannelDtlInfo(map);
+		}
+		
+		// KANG-20200417: change values
+		bo.setCampaigncode(tgtbo.getCampaigncode());
+		bo.setCampaignname(tgtbo.getCampaignname());
+		bo.setCampaignid(tgtbo.getCampaignid());
+		bo.setCellid(tgtbo.getCellid());
+		bo.setCellname(tgtbo.getCellname());
+		bo.setChannel_cd(tgtbo.getChannel_cd());
+		bo.setMobile_disp_dt(request.getParameter("tgtDispDt"));
+		bo.setCamp_status_cd("EDIT");
+		bo.setCamp_term_cd(tgtbo.getCamp_term_cd());
+		bo.setMobile_disp_dt(tgtbo.getMobile_disp_dt());
+		bo.setCamp_bgn_dt(tgtbo.getCamp_bgn_dt());
+		bo.setCamp_end_dt(tgtbo.getCamp_end_dt());
+		bo.setCreate_id("");
+		bo.setCreate_nm("");
+		bo.setCreate_dt("");
+		bo.setUpdate_id("");
+		bo.setUpdate_nm("");
+		bo.setUpdate_dt("");
+
+		modelMap.addAttribute("channel_list", channel_list);
+		modelMap.addAttribute("priority_rank", priority_rank);
+		modelMap.addAttribute("priority_rank_sendtime", priority_rank_sendtime);
+		modelMap.addAttribute("timeline_disp_yn", timeline_disp_yn);
+		modelMap.addAttribute("push_msg_popup_indc_yn", push_msg_popup_indc_yn);
+		modelMap.addAttribute("mobileApp_list", mobileApp_list);
+		modelMap.addAttribute("mobileSendPreferCd", mobileSendPreferCd);
+
+		modelMap.addAttribute("vri_list", vri_list);
+
+		modelMap.addAttribute("bo", bo);
+		modelMap.addAttribute("user", user);
+		modelMap.addAttribute("CELLID", request.getParameter("CELLID"));
+		modelMap.addAttribute("CHANNEL_CD", request.getParameter("CHANNEL_CD"));
+		modelMap.addAttribute("COPYCHANNEL", request.getParameter("COPYCHANNEL"));   // KANG-20200417
 		modelMap.addAttribute("DISABLED", request.getParameter("DISABLED"));
 
 		return "channel/channelMobile";
@@ -1511,7 +2093,7 @@ public class ChannelController {
 		this.jsonView.render(map, request, response);
 	}
 
-	
+
 	//private static boolean flag = true;
 	private Gson gson = new Gson();
 
@@ -1852,6 +2434,7 @@ public class ChannelController {
 		log.info("CampaignId   : " + request.getParameter("CampaignId"));
 		log.info("CELLID       : " + request.getParameter("CELLID"));
 		log.info("CHANNEL_CD   : " + request.getParameter("CHANNEL_CD"));
+		log.info("COPYCHANNEL  : " + request.getParameter("COPYCHANNEL"));   // KANG-20200417
 		log.info("=============================================");
 
 		//채널정보 조회
@@ -1873,6 +2456,150 @@ public class ChannelController {
 		modelMap.addAttribute("bo", bo);
 		modelMap.addAttribute("user", user);
 		modelMap.addAttribute("CHANNEL_CD", request.getParameter("CHANNEL_CD"));
+		modelMap.addAttribute("COPYCHANNEL", request.getParameter("COPYCHANNEL"));   // KANG-20200417
+		modelMap.addAttribute("DISABLED", request.getParameter("DISABLED"));
+
+		return "channel/channelLms";
+	}
+
+	/**
+	 * 채널 LMS 페이지 호출    // KANG-20200417
+	 *
+	 * @param request
+	 * @param response
+	 * @param modelMap
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/channel/copyChannelLms.do")
+	public String pageCopyChannelLms(HttpServletRequest request, HttpServletResponse response, ModelMap modelMap, HttpSession session) throws Exception {
+		//사용자 정보
+		UsmUserBO user = (UsmUserBO) session.getAttribute("ACCOUNT");
+
+		Map<String, Object> map = new HashMap<String, Object>();
+
+		/////////////////////////////////////////
+		// 채널 복사 KANG-20200415
+		log.info("=============================================");
+		log.info("srcCellId     : " + request.getParameter("srcCellId"));
+		log.info("srcChannelCd  : " + request.getParameter("srcChannelCd"));
+		log.info("tgtCampaignId : " + request.getParameter("tgtCampaignId"));
+		log.info("tgtCellId     : " + request.getParameter("tgtCellId"));
+		log.info("tgtChannelCd  : " + request.getParameter("tgtChannelCd"));
+		log.info("tgtDispDt     : " + request.getParameter("tgtDispDt"));
+		log.info("CampaignId    : " + request.getParameter("CampaignId"));
+		log.info("CELLID        : " + request.getParameter("CELLID"));
+		log.info("CHANNEL_CD    : " + request.getParameter("CHANNEL_CD"));
+		log.info("COPYCHANNEL   : " + request.getParameter("COPYCHANNEL"));
+		log.info("=============================================");
+		map.clear();
+		map.put("srcCellId"    , request.getParameter("srcCellId"    ));
+		map.put("srcChannelCd" , request.getParameter("srcChannelCd" ));
+		map.put("tgtCampaignId", request.getParameter("tgtCampaignId"));
+		map.put("tgtCellId"    , request.getParameter("tgtCellId"    ));
+		map.put("tgtChannelCd" , request.getParameter("tgtChannelCd" ));
+		map.put("tgtDispDt"    , request.getParameter("tgtDispDt"    ));
+		map.put("CampaignId"   , request.getParameter("CampaignId"   ));
+		map.put("CELLID"       , request.getParameter("CELLID"       ));
+		map.put("CHANNEL_CD"   , request.getParameter("CHANNEL_CD"   ));
+		map.put("COPYCHANNEL"  , request.getParameter("COPYCHANNEL"  ));
+		//ChannelBO bo = channelService.getChannelDtlInfo(map);
+
+		//채널 목록 조회
+		map.put("codeId", "C011");
+		map.put("USE_YN", "Y");
+		List<UaextCodeDtlBO> channel_list = commCodeService.getCommCodeDtlList(map);
+
+		//우선순위
+		map.put("codeId", "C006");
+		List<UaextCodeDtlBO> priority_rank = commCodeService.getCommCodeDtlList(map);
+
+		//SMS우선순위별발송시간
+		map.put("codeId", "C026");
+		List<UaextCodeDtlBO> priority_rank_sendtime = commCodeService.getCommCodeDtlList(map);
+
+		//완료시 전달번호
+		map.put("codeId", "C012");
+		List<UaextCodeDtlBO> comp_list = commCodeService.getCommCodeDtlList(map);
+
+		//CALLBACK 번호
+		map.put("codeId", "C023");
+		List<UaextCodeDtlBO> callback_list = commCodeService.getCommCodeDtlList(map);
+
+		//사용자 변수
+		map.put("SVARI_NAME", Common.nvl(request.getParameter("SVARI_NAME"), ""));
+		map.put("SKEY_COLUMN", Common.nvl(request.getParameter("SKEY_COLUMN"), ""));
+		List<UaextVariableBO> vri_list = variableService.getVariableList(map);
+
+		// KANG-20200418: change logic
+		ChannelBO tgtbo = null;
+		ChannelBO bo = null;
+		if (true) {
+			//paramter
+			log.info("=============================================");
+			log.info("tgtCampaignId   : " + request.getParameter("tgtCampaignId"));
+			log.info("tgtCellId       : " + request.getParameter("tgtCellId"));
+			log.info("tgtChannelCd   : " + request.getParameter("tgtChannelCd"));
+			log.info("=============================================");
+
+			//채널정보 조회
+			map.put("CAMPAIGNID", Common.nvl(request.getParameter("tgtCampaignId"), ""));
+			map.put("CELLID", Common.nvl(request.getParameter("tgtCellId"), ""));
+			map.put("CHANNEL_CD", Common.nvl(request.getParameter("tgtChannelCd"), ""));
+
+			tgtbo = channelService.getChannelDtlInfo(map);
+		}
+		if (true) {
+			//paramter
+			log.info("=============================================");
+			log.info("CampaignId   : " + request.getParameter("CampaignId"));
+			log.info("CELLID       : " + request.getParameter("CELLID"));
+			log.info("CHANNEL_CD   : " + request.getParameter("CHANNEL_CD"));
+			log.info("=============================================");
+
+			//채널정보 조회
+			map.put("CAMPAIGNID", Common.nvl(request.getParameter("CampaignId"), ""));
+			map.put("CELLID", Common.nvl(request.getParameter("CELLID"), ""));
+			map.put("CHANNEL_CD", Common.nvl(request.getParameter("CHANNEL_CD"), ""));
+
+			bo = channelService.getChannelDtlInfo(map);
+		}
+
+		// KANG-20200417: change values
+		bo.setCampaigncode(tgtbo.getCampaigncode());
+		bo.setCampaignname(tgtbo.getCampaignname());
+		bo.setCampaignid(tgtbo.getCampaignid());
+		bo.setCellid(tgtbo.getCellid());
+		bo.setCellname(tgtbo.getCellname());
+		bo.setChannel_cd(tgtbo.getChannel_cd());
+		bo.setLms_disp_dt(request.getParameter("tgtDispDt"));
+		bo.setCamp_status_cd("EDIT");
+		bo.setCamp_term_cd(tgtbo.getCamp_term_cd());
+		bo.setLms_disp_dt(tgtbo.getLms_disp_dt());
+		bo.setCamp_bgn_dt(tgtbo.getCamp_bgn_dt());
+		bo.setCamp_end_dt(tgtbo.getCamp_end_dt());
+		bo.setCreate_id("");
+		bo.setCreate_nm("");
+		bo.setCreate_dt("");
+		bo.setUpdate_id("");
+		bo.setUpdate_nm("");
+		bo.setUpdate_dt("");
+		bo.setLms_returncall("");   // KANG-20200418
+
+
+		modelMap.addAttribute("channel_list", channel_list);
+		modelMap.addAttribute("priority_rank", priority_rank);
+		modelMap.addAttribute("priority_rank_sendtime", priority_rank_sendtime);
+		//modelMap.addAttribute("campScheduleTime", Common.campScheduleTime);
+
+		modelMap.addAttribute("vri_list", vri_list);
+		modelMap.addAttribute("comp_list", comp_list);
+		modelMap.addAttribute("callback_list", callback_list);
+
+		modelMap.addAttribute("bo", bo);
+		modelMap.addAttribute("user", user);
+		modelMap.addAttribute("CHANNEL_CD", request.getParameter("CHANNEL_CD"));
+		modelMap.addAttribute("COPYCHANNEL", request.getParameter("COPYCHANNEL"));   // KANG-20200417
 		modelMap.addAttribute("DISABLED", request.getParameter("DISABLED"));
 
 		return "channel/channelLms";
@@ -2256,7 +2983,7 @@ public class ChannelController {
 	@RequestMapping("/sendChannelAlimiTest.do")
 	public void sendChannelAlimiTest(HttpServletRequest request, HttpServletResponse response, ModelMap modelMap) throws Exception {
 		Map<String, Object> map = new HashMap<String, Object>();
-		
+
 		log.info("====================== request =======================");
 		log.info("TARGET_LIST          : " + request.getParameter("TARGET_LIST"));
 		log.info("SERVER_TYPE          : " + request.getParameter("SERVER_TYPE"));
@@ -2276,32 +3003,32 @@ public class ChannelController {
 		if (Flag.flag) {
 			// send Alimi
 			List<Block> composites = getComposites(request.getParameter("ALIMI_MESSAGE"));
-			
+
 			// target member
 			Long memberNo = Long.parseLong(request.getParameter("TARGET_LIST"));
-			
+
 			// environment
 			System.setProperty("server.type", request.getParameter("SERVER_TYPE"));
-			
+
 			// 알림톡 템플릿에 등록한 메시지 타입코드 or "002"
 			String talkMsgTempNo = request.getParameter("TALK_MSG_TEMP_NO");
-			
+
 			// 발송대상 앱코드
 			AppKdCdType appKdCd = AppKdCdType.ELEVENSTAPP;
-			
+
 			// 푸시메시지
 			JsonObject obj = new JsonObject();
 			obj.addProperty("IOS_MSG", request.getParameter("IOS_MSG"));
 			obj.addProperty("AND_TOP_MSG", request.getParameter("AND_TOP_MSG"));
 			obj.addProperty("AND_BTM_MSG", request.getParameter("AND_BTM_MSG"));
-			
+
 			// Url
 			String detailUrl = request.getParameter("DETAIL_URL");
 			String bannerUrl = request.getParameter("BANNER_URL");
 			String etcSasData = request.getParameter("ETC_DATA");
 			Map<String,String> mapEtcSasData = gson.fromJson(etcSasData, new TypeToken<Map<String, Object>>(){}.getType());
 			String summary = request.getParameter("TALK_SUMMARY_MSG");  // 알림톡방 리스트에 노출 할 메시지
-			
+
 			/////////////////////////////////////////
 			// 알림톡 인자 세팅
 			PushTalkParameter pushTalkParam = new PushTalkParameter(talkMsgTempNo, memberNo);
@@ -2326,7 +3053,7 @@ public class ChannelController {
 			if (Flag.flag) {
 				System.out.println(">>>>> " + pushTalkParam);
 			}
-			
+
 			try {
 				//알림톡 전송
 				int RET = -1;
@@ -2336,7 +3063,7 @@ public class ChannelController {
 				e.printStackTrace();
 			}
 		}
-		
+
 		if (Flag.flag) System.out.println(">>>>> map = " + map);
 		jsonView.render(map, request, response);
 	}
@@ -2478,7 +3205,7 @@ public class ChannelController {
 				break;
 			}
 		}
-		
+
 		return composites;
 	}
 }

@@ -340,30 +340,12 @@
 	});
 	
 	// 채널 추가
-	function fn_addChannel(cellid, campaignid) {
+	function fn_addChannel(cellid,campaignid) {
 		if (true) console.log("KANG.fn_addChannel: 채널 추가");
 		var frmChannel = document.frmChannel;
 		$("#ChannelCELLID").val(cellid);
 		$("#ChannelCampaignId").val(campaignid);
-		var popup_addChannel = window.open("about:blank", "POP_CHANNEL", "top=50,left=80, location=no,status=no,toolbar=no,scrollbars=yes,width=1070,height=500");
-		// KANG-20200417: Detect Popup window closed
-		var popup_seconds = 0;
-		var timer = setInterval(function() {
-			if(popup_addChannel.closed || popup_seconds > 3600) {
-				clearInterval(timer);
-				if (!true) alert("KANG-20200417: popup window [popup_addChannel] closed. (popup_seconds=" + popup_seconds + ")");
-				fn_getCampaignDtl(campaignid);
-			}
-			popup_seconds ++;
-		}, 1000);
-		// KANG-20200417: popup window close event
-		//popup_addChannel.onbeforeunload = function() {
-		//	if (true) alert(">>>>> KANG-20200417: new window closed");
-		//}
-		//popup_addChannel.addEventListener("unload", function (event) {
-		//	event.returnValue = "진짜 나감?";
-		//	if (true) alert(">>>>> KANG-20200417: new window closed");
-		//});
+		window.open("about:blank", "POP_CHANNEL", "top=50,left=80, location=no,status=no,toolbar=no,scrollbars=yes,width=1070,height=500");
 		frmChannel.action = "${staticPATH }/channel/channelInfo.do";
 		frmChannel.target = "POP_CHANNEL";
 		frmChannel.method = "POST";
@@ -387,9 +369,8 @@
 			data          : $("#frmChannel").serialize(),
 			success: function(result, option) {
 				if (option=="success"){
-					alert("삭제되었습니다.");
-					if (true) console.log("삭제되었습니다.  ." + campaign_id + "." + cellid + "." + channel_cd + ".");
-					fn_getCampaignDtl(campaign_id);
+					alert("삭제되었습니다");
+					fn_getCampaignDtl(campaignid);
 				} else {
 					alert("에러가 발생하였습니다.");
 				}
@@ -1092,7 +1073,9 @@
 	function fn_clickChannel(cellid, channel_cd) {
 		if (true) console.log("KANG.fn_clickChannel: 채널정보 상세보기(수정화면)");
 		if (!true) {
-			console.log("KANG.fn_clickChannel: ." + cellid + "." + channel_cd + ".\n");
+			console.log("KANG.fn_clickChannel(cellid, channel_cd)\n"
+				+ "cellid: " + cellid + "\n"
+				+ "channel_cd: " + channel_cd + "\n");
 		}
 		
 		var frmChannel = document.frmChannel;
@@ -1768,11 +1751,13 @@
 			<div class="col-md-10 page-header" style="margin-top:0px;">
 				<h3>캠페인 리스트</h3>
 			</div>
+			<!--
 			<div class="col-md-2 page-header" style="margin-top:31px;">
 				<button type="button" class="btn btn-success btn-xs pull-right" onclick="window.open('/SASCampaign/contents/CampaignContent.do?offercode=ALL&channelcode=ALL','contentsmapping','');" style="margin-bottom:3px;" >
 					<i class="fa fa-plus" aria-hidden="true"></i> 컨텐츠 매핑
 				</button>
 			</div>
+			-->
 			<form name="form" id="form" method="post">
 				<input type="hidden" id="selectPageNo" name="selectPageNo"  value="${selectPageNo}" />
 				<input type="hidden" id="CampaignId" name="CampaignId" value="" />
@@ -1781,6 +1766,7 @@
 				<input type="hidden" id="CELLID" name="CELLID" value="" />
 				<input type="hidden" id="OFFERID" name="OFFERID" value="" />
 				<!-- List -->
+				<!--
 				<div class="col-md-3" style="height:380px">
 					<button type="button" class="btn btn-warning btn-xs" id="expandAllBtn" onclick="return false;" style="margin-bottom:3px;" >
 						<i class="fa fa-plus" aria-hidden="true"></i> 모두열기
@@ -1790,6 +1776,7 @@
 					</button>
 					<ul id="tree" class="ztree"></ul>
 				</div>
+				-->
 				<div class="col-md-9" style="border: 1px solid #DDDDDD;margin:0px;padding:0px;">
 					<table class="table table-striped table-hover table-condensed" border="0" cellpadding="0" cellspacing="0" style="margin:0px;padding:0px;">
 						<colgroup>
