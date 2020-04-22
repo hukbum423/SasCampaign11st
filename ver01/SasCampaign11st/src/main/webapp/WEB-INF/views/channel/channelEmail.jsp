@@ -14,25 +14,27 @@
 <%-- <script type="text/javascript" src="${staticPATH }/js/datepicker/dateOption.js"></script> --%>
 <script type="text/javascript" src="${staticPATH }/js/common/common.js"></script>
 
-<script type="text/javascript">
+<script>
 	var oEditors = [];
 
 	window.resizeTo(1080,780);
 
+	// ready
 	$(document).ready(function(){
 		// KANG-20200414: 'copyChannel' button viewable
 		if (!true) {
 			alert(">>>>> channelSms.jsp (CELLID,CHANNEL_CD,COPYCHANNEL) = (${CELLID},${CHANNEL_CD},${COPYCHANNEL})\n"
 				+ " bo = .${bo.campaignid}.${bo.cellid}.${bo.channel_cd}.");
 		}
-		if ("${COPYCHANNEL}" != "YES")
+		if (!true && "${COPYCHANNEL}" != "YES") {
 			$("#copyChannel").hide();
+		}
 		/*
 		if("${bo.channel_priority_yn}" == "N" && "${user.title}" != "N"){
 			alert("해당캠페인은 채널우선순위적용이 [N]입니다\n사용자는 권한이 없으므로 채널정보를 입력할수 없습니다");
 		}
 		*/
-		
+
 		$("#EMAIL_DISP_DT").datepicker({
 			showOn: "button",
 			buttonImage: "${staticPATH }/image/calendar.gif",
@@ -41,7 +43,7 @@
 		});
 		$("img.ui-datepicker-trigger").attr("style", "margin-left:3px; margin-bottom:-2px; vertical-align:middle;");
 
-		if("${bo.camp_term_cd}" == "02"){ //캠페인 기간구분이 반복일경우 노출일 disable
+		if ("${bo.camp_term_cd}" == "02") { //캠페인 기간구분이 반복일경우 노출일 disable
 			$("#EMAIL_DISP_DT" ).datepicker("disable");
 			$("#EMAIL_DISP_DT" ).addClass("essentiality");
 		}
@@ -54,25 +56,22 @@
 
 		//사용자 변수 더블클릭 이벤트
 		$("#VAL_LIST").dblclick(function(){
-			
-// 			var sHTML = "{" + $("#VAL_LIST").val() + "}";
-// 			oEditors.getById["EMAIL_CONTENT"].exec("PASTE_HTML", [sHTML]);
-/* 			
+			// var sHTML = "{" + $("#VAL_LIST").val() + "}";
+			// oEditors.getById["EMAIL_CONTENT"].exec("PASTE_HTML", [sHTML]);
+			/*
 			$("#EMAIL_CONTENT").focus();
-			
+	
 			cRange = document.selection.createRange();
 			cRange.text =  $("#VAL_LIST").val();
-			
-			 */
-      $("#EMAIL_CONTENT").focus();
-      
-      if(document.selection){
-        cRange = document.selection.createRange();
-        cRange.text = "{" + $("#VAL_LIST").val() + "}";
-      }else{
-        $("#EMAIL_CONTENT").val($("#EMAIL_CONTENT").val() + "{" + $("#VAL_LIST").val() + "}");
-      }
-			
+			*/
+			$("#EMAIL_CONTENT").focus();
+	
+			if (document.selection) {
+				cRange = document.selection.createRange();
+				cRange.text = "{" + $("#VAL_LIST").val() + "}";
+			} else {
+				$("#EMAIL_CONTENT").val($("#EMAIL_CONTENT").val() + "{" + $("#VAL_LIST").val() + "}");
+			}
 		});
 
 		//오늘날짜 조회
@@ -81,27 +80,28 @@
 		fn_hide();
 
 		//SMARTEDITOR 설정
-// 		nhn.husky.EZCreator.createInIFrame({
-// 			oAppRef: oEditors,
-// 			elPlaceHolder: "EMAIL_CONTENT",
-// 			sSkinURI: "/UnicaExt/smartEdit/SmartEditor2Skin.html",
-// 			htParams : {
-// 				bUseToolbar : true,				// 툴바 사용 여부 (true:사용/ false:사용하지 않음)
-// 				bUseVerticalResizer : true,		// 입력창 크기 조절바 사용 여부 (true:사용/ false:사용하지 않음)
-// 				bUseModeChanger : true,			// 모드 탭(Editor | HTML | TEXT) 사용 여부 (true:사용/ false:사용하지 않음)
-// 				fOnBeforeUnload : function(){
-// 				}
-// 			},
-// 			fOnAppLoad : function(){
+		/*
+		nhn.husky.EZCreator.createInIFrame({
+			oAppRef: oEditors,
+			elPlaceHolder: "EMAIL_CONTENT",
+			sSkinURI: "/UnicaExt/smartEdit/SmartEditor2Skin.html",
+			htParams : {
+				bUseToolbar : true,				// 툴바 사용 여부 (true:사용/ false:사용하지 않음)
+				bUseVerticalResizer : true,		// 입력창 크기 조절바 사용 여부 (true:사용/ false:사용하지 않음)
+				bUseModeChanger : true,			// 모드 탭(Editor | HTML | TEXT) 사용 여부 (true:사용/ false:사용하지 않음)
+				fOnBeforeUnload : function(){
+				}
+			},
+			fOnAppLoad : function(){
 
-// 				//ifame 사이즈 변경
-// 				$("iframe").css("width","700");
+				//ifame 사이즈 변경
+				$("iframe").css("width","700");
 
-// 				fn_hide();
-// 			},
-// 			fCreator: "createSEditor2"
-// 		});
-
+				fn_hide();
+			},
+			fCreator: "createSEditor2"
+		});
+		*/
 
 		//메세지 작성여부에 따른 이벤트
 		fn_selectEmailEdit();
@@ -123,50 +123,43 @@
 			$("#EMAIL_DISP_TIME").attr("disabled",true);
 		}
 
-	    $("#useIndi").click(function(){
-	        if($('input:checkbox[id="useIndi"]').is(":checked") == true){
-	          $("#VAL_LIST").removeAttr("disabled");
-	        }else{
-	          $("#VAL_LIST").attr("disabled","disabled");
-	        }
-	      });
-	      
-	      <c:if test="${bo.email_person_msg_yn eq 'Y'}">
-	      $("#VAL_LIST").removeAttr("disabled");
-	      </c:if>
-	      <c:if test="${bo.email_person_msg_yn ne 'Y'}">
-	      $("#VAL_LIST").attr("disabled","disabled");
-	      </c:if>
-	  		
-	  	});
+		$("#useIndi").click(function(){
+			if ($('input:checkbox[id="useIndi"]').is(":checked") == true) {
+				$("#VAL_LIST").removeAttr("disabled");
+			} else {
+				$("#VAL_LIST").attr("disabled","disabled");
+			}
+		});
 
+		<c:if test="${bo.email_person_msg_yn eq 'Y'}">
+		$("#VAL_LIST").removeAttr("disabled");
+		</c:if>
+		<c:if test="${bo.email_person_msg_yn ne 'Y'}">
+		$("#VAL_LIST").attr("disabled","disabled");
+		</c:if>
+	});
 
 
 	//채널 선택
 	function fn_selectChannel(){
-
 		var frm = document.form;
-
-		if($("#CHANNEL_CD").val() == "SMS"){
+		if ($("#CHANNEL_CD").val() == "SMS") {
 			frm.action = "${staticPATH }/channel/channelSms.do";
 			frm.submit();
 		}
-
-		if($("#CHANNEL_CD").val() == "EMAIL"){
+		if ($("#CHANNEL_CD").val() == "EMAIL") {
 			frm.action = "${staticPATH }/channel/channelEmail.do";
 			frm.submit();
 		}
-
-		if($("#CHANNEL_CD").val() == "TOAST"){
+		if ($("#CHANNEL_CD").val() == "TOAST") {
 			frm.action = "${staticPATH }/channel/channelToast.do";
 			frm.submit();
 		}
-
-		if($("#CHANNEL_CD").val() == "MOBILE"){
+		if ($("#CHANNEL_CD").val() == "MOBILE") {
 			frm.action = "${staticPATH }/channel/channelMobile.do";
 			frm.submit();
 		}
-		if($("#CHANNEL_CD").val() == "LMS"){
+		if ($("#CHANNEL_CD").val() == "LMS") {
 			frm.action = "${staticPATH }/channel/channelLms.do";
 			frm.submit();
 		}
@@ -176,16 +169,16 @@
 	/* 등록 */
 	function fn_save() {
 		//유효성 체크
-		if(!fn_validation()){
+		if (false && !fn_validation()) {
 			return;
 		}
 
 		// KANG-20200409: CLOB 사이즈 최대 1MB
-		if(!fnChkByte($("#EMAIL_CONTENT"), 1024000)){
+		if (!fnChkByte($("#EMAIL_CONTENT"), 1024000)) {
 			return;
 		}
 
-		if(!confirm("저장 하시겠습니까?")){
+		if (!confirm("저장 하시겠습니까?")) {
 			return;
 		}
 
@@ -220,18 +213,17 @@
 
 	/* 유효성 체크 */
 	function fn_validation() {
-
-		if("${bo.camp_status_cd}" == "START"){
+		if ("${bo.camp_status_cd}" == "START") {
 			$("#btn_save").hide();
 			alert("진행중인 캠페인은 수정할수 없습니다.");
 			return false;
 		}
-/*
+		/*
 		if("${bo.channel_priority_yn}" == "N" && "${user.title}" != "N"){
 			alert("해당캠페인은 채널우선순위적용이 [N]입니다\n사용자는 권한이 없으므로 채널정보를 입력할수 없습니다");
 			return false;
 		}
-*/
+		*/
 		if($("#EMAIL_NAME").val() ==""){
 			alert("이메일명을 입력하세요");
 			$("#EMAIL_NAME").focus();
@@ -281,51 +273,50 @@
 					return false;
 				}
 			}
-
 		}
 
 		//if($("input:radio[name='EMAIL_EDIT_YN']:checked").val() == "Y"){ //CMS 작성일때만 체크!
-		if($("#EMAIL_EDIT_YN").val() == "Y"){ //CMS 작성일때만 체크!
-			if($("#EMAIL_FROMNAME").val() ==""){
+		if ($("#EMAIL_EDIT_YN").val() == "Y") { //CMS 작성일때만 체크!
+			if ($("#EMAIL_FROMNAME").val() =="") {
 				alert("보내는이 이름을 입력하세요");
 				$("#EMAIL_FROMNAME").focus();
 				return false;
 			}
 
-			if($("#EMAIL_FROMADDRESS").val() ==""){
+			if ($("#EMAIL_FROMADDRESS").val() =="") {
 				alert("보내는이 이메일을 입력하세요");
 				$("#EMAIL_FROMADDRESS").focus();
 				return false;
 			}
 
-			if($("#EMAIL_REPLYTO").val() ==""){
+			if ($("#EMAIL_REPLYTO").val() =="") {
 				alert("회신 이메일을 입력하세요");
 				$("#EMAIL_REPLYTO").focus();
 				return false;
 			}
 
-			if($("#EMAIL_SUBJECT").val() ==""){
+			if ($("#EMAIL_SUBJECT").val() =="") {
 				alert("이메일 제목을 입력하세요");
 				$("#EMAIL_SUBJECT").focus();
 				return false;
 			}
 
-			if($("#EMAIL_SUBJECT").val().indexOf("(광고)") < 0){
+			if ($("#EMAIL_SUBJECT").val().indexOf("(광고)") < 0) {
 				alert("이메일 제목에 (광고) 문구가 포함되어야 합니다.");
 				$("#EMAIL_SUBJECT").focus();
 				return false;
 			}
 
 			//SMART EDIT 내용을 TEXTAREA로 옮김
-	// 		oEditors.getById["EMAIL_CONTENT"].exec("UPDATE_CONTENTS_FIELD", []);
-			if($("#EMAIL_CONTENT").val() ==""){
+			// oEditors.getById["EMAIL_CONTENT"].exec("UPDATE_CONTENTS_FIELD", []);
+			if ($("#EMAIL_CONTENT").val() == "") {
 				$('#TR_CONTENT').css('display', '');
 				$('#TD_CONTENT').attr("rowspan","2");
 				alert("이메일 내용을 입력하세요");
 				$("#EMAIL_CONTENT").focus();
 				return false;
 			} else {
-				if( $("#EMAIL_CONTENT").val().indexOf('[$_EMAIL_HASH_$]') < 0 ){
+				if ( $("#EMAIL_CONTENT").val().indexOf('[$_EMAIL_HASH_$]') < 0 ) {
 					$('#TR_CONTENT').css('display', '');
 					$('#TD_CONTENT').attr("rowspan","2");
 					alert("이메일 내용에 '이메일 수신거부 HASH' 치환태그가 포함되지 않았습니다.");
@@ -334,32 +325,26 @@
 				}
 			}
 		}
-
 		return true;
-
 	}
 
 
 	//창닫기
 	function fn_close(){
-
 		//창닫기
 		window.close();
-
 	}
 
 
 	/* 이메일 내용 숨기기/보이기 */
 	function fn_hide(){
-
-		if($('#TR_CONTENT').css('display') =="none"){
+		if ($('#TR_CONTENT').css('display') =="none") {
 			$('#TR_CONTENT').css('display', '');
 			$('#TD_CONTENT').attr("rowspan","2");
-		}else{
+		} else {
 			$('#TR_CONTENT').css('display', 'none');
 			$('#TD_CONTENT').attr("rowspan","1");
 		}
-
 	}
 
 	//오늘 날짜 가져오기
@@ -369,29 +354,25 @@
 			dataType      : "JSON",
 			scriptCharset : "UTF-8",
 			type          : "POST",
-	        data          : {},
-	        success: function(result, option) {
-
-	        	if(option=="success"){
-
-	        		$("#TO_DATE").val(result.TO_DATE) ;
-	        		$("#TO_DATE_P1").val(result.TO_DATE_P1) ;
-	        		$("#TO_DATE_P2").val(result.TO_DATE_P2) ;
-
-	        	}else{
-	        		alert("에러가 발생하였습니다.");
-	        	}
-	        },
-	        error: function(result, option) {
-	        	alert("에러가 발생하였습니다.");
-	        }
+			data          : {},
+			success: function(result, option) {
+				if (option == "success"){
+					$("#TO_DATE").val(result.TO_DATE) ;
+					$("#TO_DATE_P1").val(result.TO_DATE_P1) ;
+					$("#TO_DATE_P2").val(result.TO_DATE_P2) ;
+				} else {
+					alert("에러가 발생하였습니다.");
+				}
+			},
+			error: function(result, option) {
+				alert("에러가 발생하였습니다.");
+			}
 		});
 	}
 
 	//메세지 작성 라디오 버튼 클릭시 이벤트 추가
 	function fn_selectEmailEdit(){
-
-		if($("input:radio[name='EMAIL_EDIT_YN']:checked").val() == "Y"){
+		if ($("input:radio[name='EMAIL_EDIT_YN']:checked").val() == "Y") {
 			$("#EMAIL_FROMNAME").removeClass("essentiality");
 			$("#EMAIL_FROMNAME").attr("readonly",false);
 			$("#EMAIL_FROMADDRESS").removeClass("essentiality");
@@ -404,7 +385,7 @@
 			$('#TR_CONTENT').css('display', 'none');
 			$('#TD_CONTENT').attr("rowspan","1");
 			$('li:eq(2)').show();
-		}else{
+		} else {
 			$("#EMAIL_FROMNAME").addClass("essentiality");
 			$("#EMAIL_FROMNAME").attr("readonly",false);
 			$("#EMAIL_FROMADDRESS").addClass("essentiality");
@@ -418,22 +399,15 @@
 			$('#TD_CONTENT').attr("rowspan","1");
 			$('li:eq(2)').hide();
 		}
-
-
-
 	}
 
 
 	/* 이메일 미리보기 */
 	function fn_pre_view(){
-
 		var email_text = $("#EMAIL_CONTENT").val();
-
 		$("#pre_emal").html("" +email_text+"");
-
 		//$("#emailWrap").slideToggle(1);
 		$("#emailWrap").show();
-
 	}
 
 
@@ -444,7 +418,6 @@
 
 	/* 발송시간 설정 */
 	function fn_set_emailSendTime(){
-
 		for( var i = 0; i < 24; i++ ){
 			for ( var j = 0; j < 60; j+=30 ){
 				var ii = i;
@@ -455,9 +428,6 @@
 				if ( jj < 10 ){
 					jj = '0' + j;
 				}
-
-
-
 				if ( i < 12 ){
 					$("#EMAIL_DISP_TIME").append("<option value='"+ii+jj+"'>"+ii+":"+jj+"AM</option>");
 				}else{
@@ -465,16 +435,13 @@
 				}
 			}
 		}
-
 	}
 
 	/* 우선순위에 따른 EMAIL채널발송시간 설정 */
 	function fn_chk_emailSendTime(){
-
 		var i = 1;
 		var sendtime = new Array(${fn:length(priority_rank_sendtime)});
 		var sendtimevalue = new Array(${fn:length(priority_rank_sendtime)});
-
 		<c:forEach var="val" items="${priority_rank_sendtime}">
 		sendtime[i] = "${val.code_id}";
 		sendtimevalue[i] = "${val.code_name}";
@@ -495,46 +462,43 @@
 				}
 			}
 		}
-
 	}
 
-  function fnChkByte(obj, maxByte){
-  	  var str = obj.val();
-  	  var str_len = str.length;
+	function fnChkByte(obj, maxByte){
+		var str = obj.val();
+		var str_len = str.length;
+		console.log(str_len);
 
-  	  console.log(str_len);
+		var rbyte = 0;
+		var rlen = 0;
+		var one_char = "";
+		var str2 = "";
 
-  	  var rbyte = 0;
-  	  var rlen = 0;
-  	  var one_char = "";
-  	  var str2 = "";
+		for (var i=0; i<str_len; i++) {
+			one_char = str.charAt(i);
+			if (escape(one_char).length > 4) {
+				rbyte += 2;                                         //한글2Byte
+			} else {
+				rbyte++;                                            //영문 등 나머지 1Byte
+			}
+			
+			if (rbyte <= maxByte) {
+				rlen = i+1;                                          //return할 문자열 갯수
+			}
+		}
+		console.log(rbyte + "/ " + maxByte);
 
-  	  for(var i=0; i<str_len; i++){
-    	  one_char = str.charAt(i);
-    	  if(escape(one_char).length > 4){
-    	      rbyte += 2;                                         //한글2Byte
-    	  }else{
-    	      rbyte++;                                            //영문 등 나머지 1Byte
-    	  }
-
-    	  if(rbyte <= maxByte){
-    	      rlen = i+1;                                          //return할 문자열 갯수
-    	  }
-  	  }
-
-  	  console.log(rbyte + "/ " + maxByte);
-
-  	  if(rbyte > maxByte){
-  	      alert("한글 "+(maxByte/2)+"자 / 영문 "+maxByte+"자를 초과 입력할 수 없습니다.");
-  	      str2 = str.substr(0,rlen);                                  //문자열 자르기
-  	      obj.value = str2;
-  	      //fnChkByte(obj, maxByte);
-  	      return false;
-  	  }else{
-  	      //document.getElementById('byteInfo').innerText = rbyte;
-  	      return true;
-  	  }
-	  }
+		if (rbyte > maxByte) {
+			alert("한글 "+(maxByte/2)+"자 / 영문 "+maxByte+"자를 초과 입력할 수 없습니다.");
+			str2 = str.substr(0,rlen);                                  //문자열 자르기
+			obj.value = str2;
+			//fnChkByte(obj, maxByte);
+			return false;
+		} else {
+			//document.getElementById('byteInfo').innerText = rbyte;
+			return true;
+		}
+	}
 </script>
 
 <script>
@@ -644,13 +608,12 @@
 									</option>
 								</c:if>
 								<c:if test="${bo.channel_priority_yn == 'Y' && val.code_id != 'N' }">
-
 									<!-- 사용자의 권한체크(user.title) 우선순위 권한에 따라 보여준다 -->
 									<%-- <c:if test="${user.title =='N' || user.title <= val.code_id  }"> --%>
 										<option value="${val.code_id}" <c:if test="${val.code_id eq bo.email_priority_rnk}">selected="selected"</c:if>>
 											${val.code_name}
 										</option>
-									<%-- </c:if>								 --%>
+									<%-- </c:if>   --%>
 								</c:if>
 
 							</c:forEach>
@@ -660,7 +623,6 @@
 					<td class="tbtd_content">
 
 						<select id="EMAIL_DISP_TIME" name="EMAIL_DISP_TIME"  style="width:80px;">
-
 
 						</select>
 					</td>
@@ -674,7 +636,7 @@
 					</td>
 				</tr>
          -->
-         <input type="hidden" name="EMAIL_EDIT_YN" class="txt"  value="Y"/>
+         <input type="hidden" name="EMAIL_EDIT_YN" class="txt" value="Y"/>
 				<tr>
 					<td class="info">보내는사람 이름</td>
 					<td class="tbtd_content" colspan="1">

@@ -53,8 +53,9 @@
 			alert(">>>>> channelSms.jsp (CELLID,CHANNEL_CD,COPYCHANNEL) = (${CELLID},${CHANNEL_CD},${COPYCHANNEL})\n"
 				+ " bo = .${bo.campaignid}.${bo.cellid}.${bo.channel_cd}.");
 		}
-		if ("${COPYCHANNEL}" != "YES")
+		if (!true && "${COPYCHANNEL}" != "YES") {
 			$("#copyChannel").hide();
+		}
 		$("#downBtn, #closeToday, #closeBtn ").bind("click",fn_pre_viewClose);
 		/*
 		if("${bo.channel_priority_yn}" == "N" && "${user.title}" != "N"){
@@ -135,7 +136,7 @@
 	/* 등록 */
 	function fn_save() {
 		//유효성 체크
-		if (!fn_validation()){   // KANG-20200416
+		if (false && !fn_validation()){   // KANG-20200416
 			return;
 		}
 
@@ -430,6 +431,7 @@
 				<tr>
 					<td class="info">메세지</td>
 					<td class="tbtd_content" colspan="3">
+
 <!--
 						 <textarea name="TOAST_INPUT_MSG" id="TOAST_INPUT_MSG" rows="8" cols="110"><c:if test="${bo.channel_cd ==null}">
 <strong><c:if test="${bo.audience_cd eq 'MEM_NO'}">{회원명}</c:if><c:if test="${bo.audience_cd eq 'PCID'}">고객</c:if></strong>님!
@@ -438,12 +440,13 @@
 <strong>★★</strong>
 <br>[다운받기]</c:if><c:if test="${bo.channel_cd !=''}">${bo.toast_input_msg}</c:if></textarea>
 -->
-						<textarea name="TOAST_INPUT_MSG" id="TOAST_INPUT_MSG" rows="8" cols="100"><c:if test="${bo.channel_cd ==null}">
+						<!-- KANG-20200422: change 'channel_cd' to 'toast_input_msg' -->
+						<textarea name="TOAST_INPUT_MSG" id="TOAST_INPUT_MSG" rows="8" cols="100"><c:if test="${bo.toast_input_msg == null || bo.toast_input_msg == ''}">
 <span><b>{회원명}</b>님!</span>
 <p><em></em>
 <br>
 </p>
-</c:if><c:if test="${bo.channel_cd !=''}">${bo.toast_input_msg}</c:if></textarea>
+</c:if><c:if test="${bo.toast_input_msg != ''}">${bo.toast_input_msg}</c:if></textarea>
 
 						<select style="width:150px; height:105px" size="4" id="VAL_LIST" name="VAL_LIST" <c:if test="${bo.audience_cd != 'MEM_NO'}">disabled="disabled"</c:if>>
 							<c:forEach var="val" items="${vri_list}">

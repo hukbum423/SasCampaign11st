@@ -1,0 +1,37 @@
+Request
+
+	1. Toast title be duplicated
+	2. Email content to UTF8 ???
+	3. always Channel Copy
+	
+	4. campaign management to be added a new TAB like campaign list
+	5. think about ShortURL...
+
+Job to Solution
+
+	1-1. channelToast.jsp
+		KANG-20200422: change 'channel_cd' to 'toast_input_msg'
+	
+	2-1. channelEmail.jsp
+	
+	3-1. all channel *.jsp
+		channelMobile.jsp
+		channelEmail.jsp
+		channelSms.jsp
+		channelLms.jsp
+		channelToast.jsp
+		* for TEST, fn_save > validation to be disable
+	
+	3-2. create / update
+		ChannelController.java
+			bo.setCreate_id(tgtbo.getCreate_id());  // KANG-20200422: create upddate
+			.....
+
+
+
+
+
+
+
+
+

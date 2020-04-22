@@ -22,8 +22,9 @@
 			alert(">>>>> channelSms.jsp (CELLID,CHANNEL_CD,COPYCHANNEL) = (${CELLID},${CHANNEL_CD},${COPYCHANNEL})\n"
 				+ " bo = .${bo.campaignid}.${bo.cellid}.${bo.channel_cd}.");
 		}
-		if ("${COPYCHANNEL}" != "YES")
+		if (!true && "${COPYCHANNEL}" != "YES") {
 			$("#copyChannel").hide();
+		}
 		/*
 		if("${bo.channel_priority_yn}" == "N" && "${user.title}" != "N"){
 			alert("해당캠페인은 채널우선순위적용이 [N]입니다\n사용자는 권한이 없으므로 채널정보를 입력할수 없습니다");			
@@ -129,7 +130,7 @@
 	/* 등록 */
 	function fn_save() {
 		//유효성 체크
-		if(!fn_validation()){
+		if (false && !fn_validation()){
 			return;
 		}
 		

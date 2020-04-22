@@ -69,8 +69,9 @@
 			alert(">>>>> channelSms.jsp (CELLID,CHANNEL_CD,COPYCHANNEL) = (${CELLID},${CHANNEL_CD},${COPYCHANNEL})\n"
 				+ " bo = .${bo.campaignid}.${bo.cellid}.${bo.channel_cd}.");
 		}
-		if ("${COPYCHANNEL}" != "YES")
+		if (!true && "${COPYCHANNEL}" != "YES") {
 			$("#copyChannel").hide();
+		}
 
 		/*
 		if ("${bo.channel_priority_yn}" == "N" && "${user.title}" != "N"){
@@ -201,7 +202,7 @@
 			//return true;
 		}
 		//유효성 체크
-		if (!fn_validation()){   // KANG-20200416
+		if (false && !fn_validation()){   // KANG-20200416
 			return;
 		}
 		if (!confirm("저장 하시겠습니까?")){

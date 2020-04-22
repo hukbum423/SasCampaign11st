@@ -23,8 +23,9 @@
 			alert(">>>>> channelSms.jsp (CELLID,CHANNEL_CD,COPYCHANNEL) = (${CELLID},${CHANNEL_CD},${COPYCHANNEL})\n"
 				+ " bo = .${bo.campaignid}.${bo.cellid}.${bo.channel_cd}.");
 		}
-		if ("${COPYCHANNEL}" != "YES")
+		if (!true && "${COPYCHANNEL}" != "YES") {
 			$("#copyChannel").hide();
+		}
 		/*
 		if("${bo.channel_priority_yn}" == "N" && "${user.title}" != "N"){
 			alert("해당캠페인은 채널우선순위적용이 [N]입니다\n사용자는 권한이 없으므로 채널정보를 입력할수 없습니다");
@@ -135,7 +136,7 @@
 	/* 등록 */
 	function fn_save() {
 		//유효성 체크
-		if(!fn_validation()){
+		if (false && !fn_validation()){
 			return;
 		}
 
@@ -176,7 +177,7 @@
 	/* 유효성 체크 */
 	function fn_validation() {
 
-		if("${bo.camp_status_cd}" == "START"){
+		if ("${bo.camp_status_cd}" == "START") {
 			$("#btn_save").hide();
 			alert("진행중인 캠페인은 수정할수 없습니다.");
 			return false;
@@ -188,51 +189,51 @@
 		}
 		*/
 
-		if($("#SMS_INPUT_MSG").val() ==""){
+		if ($("#SMS_INPUT_MSG").val() == "") {
 			alert("SMS 메세지를 입력하세요");
 			$("#SMS_INPUT_MSG").focus();
 			return false;
 		}
 
-		if($("#SMS_INPUT_MSG").val().indexOf("(광고)") < 0){
+		if ($("#SMS_INPUT_MSG").val().indexOf("(광고)") < 0) {
 			alert("SMS 메세지에 (광고) 문구가 포함되어야 합니다.");
 			$("#SMS_INPUT_MSG").focus();
 			return false;
 		}
 
-		if($("#SMS_INPUT_MSG").val().indexOf("무료") < 0){
+		if ($("#SMS_INPUT_MSG").val().indexOf("무료") < 0) {
 			alert("SMS 메세지에 '무료' 문구가 포함되어야 합니다.");
 			$("#SMS_INPUT_MSG").focus();
 			return false;
 		}
 
-		if($("#SMS_INPUT_MSG").val().indexOf("거부") < 0){
+		if ($("#SMS_INPUT_MSG").val().indexOf("거부") < 0) {
 			alert("SMS 메세지에 '거부' 문구가 포함되어야 합니다.");
 			$("#SMS_INPUT_MSG").focus();
 			return false;
 		}
 
-		if($("#SMS_INPUT_MSG").val().indexOf("0802020110") < 0){
+		if ($("#SMS_INPUT_MSG").val().indexOf("0802020110") < 0) {
 			alert("SMS 메세지에 '0802020110'가 포함되어야 합니다.");
 			$("#SMS_INPUT_MSG").focus();
 			return false;
 		}
 
-		if($("#remChars").val() > 255){
+		if ($("#remChars").val() > 255) {
 			alert("메세지 길이가 255Byte가 초과할수 없습니다");
 			$("#SMS_INPUT_MSG").focus();
 			return false;
 		}
 
-		if("${bo.camp_term_cd}" == "01"){
-			if($("#SMS_DISP_DT").val() ==""){
+		if ("${bo.camp_term_cd}" == "01") {
+			if ($("#SMS_DISP_DT").val() == "") {
 				alert("노출일를 입력하세요");
 				$("#SMS_DISP_DT").focus();
 				return false;
 			}
 
 			//from ~ to 일경우 노출일은 캠페인 기간에 포함되어야 한다
-			if("${bo.camp_bgn_dt}" > $("#SMS_DISP_DT").val() || "${bo.camp_end_dt}" < $("#SMS_DISP_DT").val()){
+			if ("${bo.camp_bgn_dt}" > $("#SMS_DISP_DT").val() || "${bo.camp_end_dt}" < $("#SMS_DISP_DT").val()) {
 				alert("노출일이 캠페인기간에 포함되지 않습니다\n (캠페인기간 : ${bo.camp_bgn_dt} ~ ${bo.camp_end_dt} )");
 				$("#SMS_DISP_DT").focus();
 				return false;
@@ -241,20 +242,20 @@
 			// 수동전송여부 : Y && 채널우선순위적용여부 : N ==> 오늘부터 입력가능(즉시전송 가능)
 			// 수동전송여부 : N && 채널우선순위적용여부 : N ==> 내일부터 입력가능
 			// 수동전송여부 : N && 채널우선순위적용여부 : Y ==> 내일부터 입력가능( 2015.02.16 고도화로 모레에서 내일로 변경 )
-			if( "${bo.manual_trans_yn}" == "Y" && "${bo.channel_priority_yn}" =="N" ){ //오늘부터 입력가능
-				if($("#TO_DATE").val() > $("#SMS_DISP_DT").val()){
+			if ("${bo.manual_trans_yn}" == "Y" && "${bo.channel_priority_yn}" =="N" ) { //오늘부터 입력가능
+				if ($("#TO_DATE").val() > $("#SMS_DISP_DT").val()) {
 					alert("수동전송 [Y], 채널우선순위적용여부 [N]일경우 채널전송일은 오늘("+$("#TO_DATE").val()+") 이후여야 합니다");
 					$("#SMS_DISP_DT").focus();
 					return false;
 				}
-			}else if( "${bo.manual_trans_yn}" == "N" && "${bo.channel_priority_yn}" =="N" ){ //내일부터 입력가능
+			} else if ("${bo.manual_trans_yn}" == "N" && "${bo.channel_priority_yn}" == "N" ) { //내일부터 입력가능
 				if($("#TO_DATE_P1").val() > $("#SMS_DISP_DT").val()){
 					alert("수동전송 [N], 채널우선순위적용여부 [N]일경우 채널전송일은 내일("+$("#TO_DATE_P1").val()+") 이후여야 합니다");
 					$("#SMS_DISP_DT").focus();
 					return false;
 				}
-			}else if( "${bo.manual_trans_yn}" == "N" && "${bo.channel_priority_yn}" =="Y" ){ //내일부터 입력가능
-				if($("#TO_DATE_P1").val() > $("#SMS_DISP_DT").val()){
+			} else if ("${bo.manual_trans_yn}" == "N" && "${bo.channel_priority_yn}" == "Y" ) { //내일부터 입력가능
+				if ($("#TO_DATE_P1").val() > $("#SMS_DISP_DT").val()) {
 					alert("수동전송 [N], 채널우선순위적용여부 [Y]일경우 채널전송일은 내일("+$("#TO_DATE_P1").val()+") 이후여야 합니다");
 					$("#SMS_DISP_DT").focus();
 					return false;
@@ -263,12 +264,12 @@
 
 		}
 
-		if( $(":checkbox[name='SMS_RETURNCALL']:checked").length == 0 ){
+		if ($(":checkbox[name='SMS_RETURNCALL']:checked").length == 0) {
 			alert("완료시 전달받을 담당자를 선택하세요(필수1이상)");
 			return false;
 		}
 
-		if( $(":checkbox[name='SMS_RETURNCALL']:checked").length > 10 ){
+		if ($(":checkbox[name='SMS_RETURNCALL']:checked").length > 10) {
 			alert("완료시 전달받을 담당자는 최대 10명까지만 가능합니다");
 			return false;
 		}

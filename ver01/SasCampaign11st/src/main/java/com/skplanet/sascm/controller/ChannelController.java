@@ -362,12 +362,12 @@ public class ChannelController {
 		bo.setCamp_term_cd(tgtbo.getCamp_term_cd());
 		bo.setCamp_bgn_dt(tgtbo.getCamp_bgn_dt());
 		bo.setCamp_end_dt(tgtbo.getCamp_end_dt());
-		bo.setCreate_id("");
-		bo.setCreate_nm("");
-		bo.setCreate_dt("");
-		bo.setUpdate_id("");
-		bo.setUpdate_nm("");
-		bo.setUpdate_dt("");
+		bo.setCreate_id(tgtbo.getCreate_id());  // KANG-20200422: create upddate
+		bo.setCreate_nm(tgtbo.getCreate_nm());
+		bo.setCreate_dt(tgtbo.getCreate_dt());
+		bo.setUpdate_id(tgtbo.getUpdate_id());
+		bo.setUpdate_nm(tgtbo.getUpdate_nm());
+		bo.setUpdate_dt(tgtbo.getUpdate_dt());
 
 		modelMap.addAttribute("channel_list", channel_list);
 		modelMap.addAttribute("priority_rank", priority_rank);
@@ -807,12 +807,12 @@ public class ChannelController {
 		bo.setSms_disp_dt(tgtbo.getSms_disp_dt());
 		bo.setCamp_bgn_dt(tgtbo.getCamp_bgn_dt());
 		bo.setCamp_end_dt(tgtbo.getCamp_end_dt());
-		bo.setCreate_id("");
-		bo.setCreate_nm("");
-		bo.setCreate_dt("");
-		bo.setUpdate_id("");
-		bo.setUpdate_nm("");
-		bo.setUpdate_dt("");
+		bo.setCreate_id(tgtbo.getCreate_id());  // KANG-20200422: create upddate
+		bo.setCreate_nm(tgtbo.getCreate_nm());
+		bo.setCreate_dt(tgtbo.getCreate_dt());
+		bo.setUpdate_id(tgtbo.getUpdate_id());
+		bo.setUpdate_nm(tgtbo.getUpdate_nm());
+		bo.setUpdate_dt(tgtbo.getUpdate_dt());
 		bo.setSms_returncall("");   // KANG-20200418
 
 		modelMap.addAttribute("channel_list", channel_list);
@@ -1286,12 +1286,12 @@ public class ChannelController {
 		bo.setEmail_disp_dt(tgtbo.getEmail_disp_dt());
 		bo.setCamp_bgn_dt(tgtbo.getCamp_bgn_dt());
 		bo.setCamp_end_dt(tgtbo.getCamp_end_dt());
-		bo.setCreate_id("");
-		bo.setCreate_nm("");
-		bo.setCreate_dt("");
-		bo.setUpdate_id("");
-		bo.setUpdate_nm("");
-		bo.setUpdate_dt("");
+		bo.setCreate_id(tgtbo.getCreate_id());   // KANG-20200422: create upddate
+		bo.setCreate_nm(tgtbo.getCreate_nm());
+		bo.setCreate_dt(tgtbo.getCreate_dt());
+		bo.setUpdate_id(tgtbo.getUpdate_id());
+		bo.setUpdate_nm(tgtbo.getUpdate_nm());
+		bo.setUpdate_dt(tgtbo.getUpdate_dt());
 
 		if ( bo.getEmail_subject() != null ){
 			bo.setEmail_subject(bo.getEmail_subject().replaceAll("\"", "&quot;"));
@@ -1602,12 +1602,12 @@ public class ChannelController {
 		bo.setMobile_disp_dt(tgtbo.getMobile_disp_dt());
 		bo.setCamp_bgn_dt(tgtbo.getCamp_bgn_dt());
 		bo.setCamp_end_dt(tgtbo.getCamp_end_dt());
-		bo.setCreate_id("");
-		bo.setCreate_nm("");
-		bo.setCreate_dt("");
-		bo.setUpdate_id("");
-		bo.setUpdate_nm("");
-		bo.setUpdate_dt("");
+		bo.setCreate_id(tgtbo.getCreate_id());  // KANG-20200422: create upddate
+		bo.setCreate_nm(tgtbo.getCreate_nm());
+		bo.setCreate_dt(tgtbo.getCreate_dt());
+		bo.setUpdate_id(tgtbo.getUpdate_id());
+		bo.setUpdate_nm(tgtbo.getUpdate_nm());
+		bo.setUpdate_dt(tgtbo.getUpdate_dt());
 
 		modelMap.addAttribute("channel_list", channel_list);
 		modelMap.addAttribute("priority_rank", priority_rank);
@@ -2578,12 +2578,12 @@ public class ChannelController {
 		bo.setLms_disp_dt(tgtbo.getLms_disp_dt());
 		bo.setCamp_bgn_dt(tgtbo.getCamp_bgn_dt());
 		bo.setCamp_end_dt(tgtbo.getCamp_end_dt());
-		bo.setCreate_id("");
-		bo.setCreate_nm("");
-		bo.setCreate_dt("");
-		bo.setUpdate_id("");
-		bo.setUpdate_nm("");
-		bo.setUpdate_dt("");
+		bo.setCreate_id(tgtbo.getCreate_id());   // KANG-20200422: create upddate
+		bo.setCreate_nm(tgtbo.getCreate_nm());
+		bo.setCreate_dt(tgtbo.getCreate_dt());
+		bo.setUpdate_id(tgtbo.getUpdate_id());
+		bo.setUpdate_nm(tgtbo.getUpdate_nm());
+		bo.setUpdate_dt(tgtbo.getUpdate_dt());
 		bo.setLms_returncall("");   // KANG-20200418
 
 
