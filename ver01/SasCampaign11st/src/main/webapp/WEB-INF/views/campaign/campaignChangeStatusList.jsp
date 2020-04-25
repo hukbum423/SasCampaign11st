@@ -653,6 +653,74 @@
 		});
 	};
 
+	///////////////////////////////////////////////////////////////
+	// 일정 선택 삭제
+	function fn_delete() {
+		if (true) console.log("KANG.fn_delete: 일정 선택 상태변경");
+		if ($("input:checkbox[name='CHK_DATE']:checked").length == 0){
+			alert("상태변경 할 일정을 선택하세요");
+			return;
+		}
+		if (!confirm($("input:checkbox[name='CHK_DATE']:checked").length + "건을 상태변경 하시겠습니까?")){
+			return;
+		}
+		
+		if (true) { // KANG-20190410: to rm
+			/*
+			$("#formSchedule").serialize()
+				TO_DATE=
+				&TO_DATE_P1=
+				&TO_DATE_P2=
+				&CAMPAIGNCODE=CAMP718
+				&CampaignId=718
+				&selectPageNo=
+				&LIST_LENGTH=15
+				&camp_term_cd=01
+				&camp_end_dt=2018-01-01
+				&channel_priority_yn=Y
+				&minDispDt=
+				&SEARCH_TYPE=%EC%A0%84%EC%B2%B4
+				&RSRV_DT=
+				&RSRV_HOUR=8
+				&RSRV_MINUTE=0
+				&CHK_DATE=2018-01-09+16%3A10
+				&CHK_DATE=2018-01-11+22%3A00
+				&CHK_DATE=2018-01-17+14%3A00
+				&CHK_DATE=2018-01-21+10%3A55
+				&CHK_DATE=2018-01-21+15%3A38
+				&CHK_DATE=2018-01-23+16%3A03
+				&CHK_DATE=2018-01-23+18%3A45
+				&CHK_DATE=2018-01-23+22%3A09
+			*/
+			console.log("KANG.fn_delete(): " + $("#formSchedule").serialize());
+			return;
+		}
+		if (true) return;
+		jQuery.ajax({
+			url           : '${staticPATH }/deleteScheduleList.do',
+			dataType      : "JSON",
+			scriptCharset : "UTF-8",
+			async         : true,
+			type          : "POST",
+			data          : $("#formSchedule").serialize(),
+			success: function(result, option) {
+				if (option=="success"){
+					alert("일정이 삭제 되었습니다");
+					fn_selectSearchType();
+				} else {
+					alert("에러가 발생하였습니다.");
+				}
+			},
+			beforeSend:function(){
+			},
+			complete:function(){
+			},
+			error: function(result, option) {
+				alert("에러가 발생하였습니다.");
+			}
+		});
+	}
+
 	/*
 	///////////////////////////////////////////////////////////////
 	// 켐패인 채널 리스트  조회
@@ -1193,7 +1261,7 @@
 <input type="hidden" id="channel_priority_yn" name="channel_priority_yn"  value="" />
 <input type="hidden" id="minDispDt" name="minDispDt"  value="" />
 							<div class="col-md-12" style="text-align:right;margin-bottom:10px;">
-								<button type="button" class="btn btn-danger btn-sm" onclick="campaignStop();" id="campaignStopDiv"><i class="fa fa-plus" aria-hidden="true"></i> 캠페인 중지</button>
+								<button type="button" class="btn btn-danger btn-sm" onclick="fn_delete();" id="campaignStopDiv"><i class="fa fa-plus" aria-hidden="true"></i> 캠페인 상태변경</button>
 								<!--
 								<button type="button" class="btn btn-success btn-sm" onclick="fn_delete();" id="scheduleDel"><i class="fa fa-trash" aria-hidden="true"></i> 삭제</button>
 								<button type="button" class="btn btn-success btn-sm" onclick="fn_deleteAll();"><i class="fa fa-trash-o" aria-hidden="true"></i> 전체삭제</button>
