@@ -20,7 +20,7 @@
 	// 창열리고 처리
 	$(document).ready(function(){
 		window.resizeTo(1000, 950);
-		//if (!true) alert(">>>>> campaignChannel.jsp = .${campaignid}.${cellid}.${channel_cd}.${disp_dt}.");  // KANG-20200413
+		if (!true) alert(">>>>> campaignChangeStatusList.jsp = .${campaignid}.${cellid}.${channel_cd}.${disp_dt}.${ENABLE_PROCESS}.");  // KANG-20200413
 		//tgtCampaignId = "${campaignid}";
 		//tgtCellId = "${cellid}";
 		//tgtChannelCd = "${channel_cd}";
@@ -1284,7 +1284,7 @@
 								</table>
 							</div>
 							<!-- List -->
-							<div id="scheduleListDiv" style="overflow:scroll; width:100%; height:200px;margin-top:0px;">
+							<div id="scheduleListDiv" style="overflow:scroll; width:100%; height:160px;margin-top:0px;">
 								<table id="scheduleListTable" class="table table-striped table-hover table-condensed table-bordered" width="100%" border="0" cellpadding="0" cellspacing="0">
 									<colgroup>
 										<col width="3%"/>

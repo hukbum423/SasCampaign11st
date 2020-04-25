@@ -16,7 +16,6 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.view.json.MappingJacksonJsonView;
@@ -79,8 +78,28 @@ public class CampaignController {
 	 * @return
 	 */
 	@RequestMapping(value = "/campaign/campaignList.do")
-	public String main(HttpServletRequest request, Model model) {
+	public String main(HttpServletRequest request, HttpServletResponse response, ModelMap modelMap, HttpSession session) throws Exception {
+		UsmUserBO user = (UsmUserBO) session.getAttribute("ACCOUNT");
+
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("COMM_CODE_ID", "C050");
+		map.put("CODE_ID", user.getName());
+		log.info("=============================================");
+		log.info("map : " + map);
+		log.info("=============================================");
+
+		UaextCodeDtlBO manager = commCodeService.getCommCodeDtl(map);
+		String isChangeStatus = "NO";
+		if (manager != null  && manager.getUse_yn().equals("Y")) {
+			isChangeStatus = "YES";
+		}
+		log.info("=============================================");
+		log.info("ENABLE_PROCESS: " + isChangeStatus);
+		log.info("=============================================");
+
+		modelMap.addAttribute("ENABLE_PROCESS", isChangeStatus);
 		request.setAttribute("cal", request.getParameter("cal"));
+		
 		return "campaign/campaignList";
 	}
 
@@ -116,16 +135,29 @@ public class CampaignController {
 	 * @return
 	 */
 	@RequestMapping(value = "/campaign/campaignChangeStatusList.do")
-	public String pageCampaignChangeStatusList(HttpServletRequest request, HttpServletResponse response, ModelMap modelMap, HttpSession session) {
-		//request.setAttribute("cal", request.getParameter("cal"));
-		//paramter
+	public String pageCampaignChangeStatusList(HttpServletRequest request, HttpServletResponse response, ModelMap modelMap, HttpSession session) throws Exception {
+		/*
+		UsmUserBO user = (UsmUserBO) session.getAttribute("ACCOUNT");
+
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("COMM_CODE_ID", "C050");
+		map.put("CODE_ID", user.getName());
 		log.info("=============================================");
-		log.info("campaignid <- CampaignId  : " + request.getParameter("CampaignId"));
-		log.info("cellid     <- CELLID      : " + request.getParameter("CELLID"));
-		log.info("channel_cd <- CHANNEL_CD  : " + request.getParameter("CHANNEL_CD"));
-		log.info("disp_dt                   : " + request.getParameter("disp_dt"));   // KANG-20200418
+		log.info("map : " + map);
 		log.info("=============================================");
 
+		UaextCodeDtlBO manager = commCodeService.getCommCodeDtl(map);
+		String isChangeStatus = "NO";
+		if (manager != null  && manager.getUse_yn().equals("Y")) {
+			isChangeStatus = "YES";
+		}
+		log.info("=============================================");
+		log.info("ENABLE_PROCESS: " + isChangeStatus);
+		log.info("=============================================");
+
+		modelMap.addAttribute("ENABLE_PROCESS", isChangeStatus);
+		*/
+		
 		/*
 		modelMap.addAttribute("campaignid", request.getParameter("CampaignId"));
 		modelMap.addAttribute("cellid", request.getParameter("CELLID"));

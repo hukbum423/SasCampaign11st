@@ -60,6 +60,7 @@ Job to Solution
 		campaignList.jsp               <- change, add fn_changeStatus()
 		CampaingController.java        <- add pageCampaignChangeStatusList <- "/campaign/campaignChangeStatusList.do"
 		campaignChangeStatusList.jsp   <- create
+		commCode_SQL.xml
 
 	5-1. create BannerSample.java
 		transferEmailContent / BannerSample.java

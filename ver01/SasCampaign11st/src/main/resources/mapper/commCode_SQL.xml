@@ -190,7 +190,7 @@
 
 	<!-- 공통코드 상세\ 중복 조회 -->
 	<select id="CommCode.getCommCodeDtlDupCnt" parameterType="Map"  resultType="String">
-		SELECT
+		SELECT  /* CommCode.getCommCodeDtlDupCnt */
 			CASE WHEN COUNT(0) > 0 THEN 'Y' ELSE 'N' END DUP
 		FROM
 			CM_CODE_DTL

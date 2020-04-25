@@ -27,6 +27,8 @@
 	var zTree;
 	var treeNodes;
 	
+	//////////////////////////////////////////////////////
+	// ready
 	$(document).ready(function(){
 		if (true) console.log("KANG.ready: init-ajax function");
 		
@@ -42,6 +44,10 @@
 		$("#SEARCH_TYPE").bind("change",fn_selectSearchType);
 		//${staticServerType }
 		
+		if ('${ENABLE_PROCESS}' != 'YES') {
+			$("#changeStatus").hide();
+		}
+
 		jQuery.ajax({
 			type          : 'POST',
 			dataType      : "json",
