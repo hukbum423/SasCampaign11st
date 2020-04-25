@@ -11,13 +11,14 @@
 <script type="text/javascript" src="${staticPATH }/js/common/jquery-ui-1.10.2.custom.js"></script>
 <script type="text/javascript" src="${staticPATH }/js/common/common.js"></script>
 
+
+
 <script>
-	/////////////////////////////////////////////
-	/* ready */
-	$(document).ready(function(){
-		// =================================================
+	// =================================================
+	// ready
+	$(document).ready(function() {
 		// 화면타이틀값 : 메뉴명칭
-		if(window.location != window.parent.location){ //iframe일경우에만
+		if (window.location != window.parent.location) { //iframe일경우에만
 			parent.setPageTitle("공통코드 관리",null);
 			// Tab 메뉴
 			// Step1 메뉴에 url 생성 후 변경 필요함.
@@ -32,24 +33,21 @@
 
 			parent.document.getElementById('gwt-uid-2').innerHTML='<a href="/Campaign/logout.do"><font color="#E8DB6B" bold style={text-decoration:none;}>로그아웃</a>';
 		}
-		// =================================================
 		//조회
 		fn_search();
-
 		//부모코드가 있을경우 상세목록을 조회한다
-		if("${CCOMM_CODE_ID}" !=""){
+		if ("${CCOMM_CODE_ID}" != "") {
 			fn_getDetailList("${CCOMM_CODE_ID}");
 		}
 	});
 
-	/////////////////////////////////////////////
-	/* 조회 */
+	// =================================================
+	// 조회
 	function fn_search() {
 		//dtl 정보 초기화
 		$("#CCOMM_CODE_ID").val("");
 		$("#save").hide();
 		$("#search_layer2").html("");
-
 		jQuery.ajax({
 			url           : '${staticPATH }/getCommCodeList.do',
 			dataType      : "JSON",
@@ -128,15 +126,16 @@
 	};
 
 
-	/////////////////////////////////////////////
-	/* 조회버튼 클릭 */
+	// =================================================
+	// 조회버튼 클릭
 	function fn_clcik_search() {
 		$("#selectPageNo").val("1");
 		fn_search();
 	}
 
 
-	//KANG-20190425: for pagination
+	// =================================================
+	// KANG-20190425: for pagination
 	function pagingNavi2(selectPage, pageRange, pageStart, pageEnd, totalPage, pageMove){
 		if (true) {
 			var msg = " => ";
@@ -157,10 +156,9 @@
 		//페이지 숫자
 		for (var i = pageStart; i <= pageEnd; i++) {
 			var tmpActive = "";
-			if(selectPage == i)	{ 
+			if (selectPage == i)	{
 				tmpActive = "style='background-color:#EEEEEE'";
 			}
-			
 			// page += "<li ><a href=\"javascript:fn_pageMove(" + i + ");\" " + tmpActive + ">" + i + "</a></li>";
 			page += "<li ><a href=\"javascript:" + pageMove + "(" + i + ");\" " + tmpActive + ">" + i + "</a></li>";
 		}
@@ -173,17 +171,16 @@
 	}
 
 
-	/////////////////////////////////////////////
-	/* 페이지 이동 */
+	// =================================================
+	// 페이지 이동
 	function fn_pageMove(selectPageNo) {
 		$("#selectPageNo").val(selectPageNo);
 		fn_search();
 	}
 
 
-
-	/////////////////////////////////////////////
-	/* 코드 마스터 상세 조회 */
+	// =================================================
+	// 코드 마스터 상세 조회
 	function fn_getCodeMstDtl(codeId) {
 		var frm = document.form;
 		$("#COMM_CODE_ID").val(codeId);
@@ -192,9 +189,8 @@
 	}
 
 
-
-	/////////////////////////////////////////////
-	/* 코드 슬레이브 상세 조회 */
+	// =================================================
+	// 코드 슬레이브 상세 조회
 	function fn_getCodeDtlDtl(codeId) {
 		var frm = document.form;
 		$("#CODE_ID").val(codeId);
@@ -203,13 +199,12 @@
 	}
 
 
-	/////////////////////////////////////////////
-	/* 상세 목록 조회 */
+	// =================================================
+	// 상세 목록 조회
 	function fn_getDetailList(codeId) {
 		//dtl정보 설정
 		$("#CCOMM_CODE_ID").val(codeId);
 		$("#save").show();
-		
 		jQuery.ajax({
 			url           : '${staticPATH }/getCommCodeDtlList.do',
 			dataType      : "JSON",
@@ -235,7 +230,7 @@
 						txt += '<col width="12%"/>';
 						txt += '<col width="15%"/>';
 						txt += "</colgroup>";
-						$.each(list, function(key){
+						$.each(list, function(key) {
 							var data = list[key];
 							txt += "<tr>";
 							txt += "<td align=\"center\" class=\"listtd\">"+data.num+"</td>";
@@ -250,7 +245,7 @@
 							txt += "</tr>";
 						});
 					} else {
-					  txt += "<td align=\"center\" class=\"listtd\" colspn=\"9\">데이터가 없습니다.</td>";
+						txt += "<td align=\"center\" class=\"listtd\" colspn=\"9\">데이터가 없습니다.</td>";
 					}
 					txt += "</table>";
 					$("#search_layer2").html(txt);
@@ -265,8 +260,8 @@
 	}
 
 
-	/////////////////////////////////////////////
-	/* 마스터 등록페이지 이동 */
+	// =================================================
+	// 마스터 등록페이지 이동
 	function fn_new_master() {
 		var frm = document.form;
 		frm.action = "${staticPATH }/commCode/commCodeMaster.do";
@@ -274,59 +269,74 @@
 	};
 
 
-	/////////////////////////////////////////////
-	/* 슬레이브 등록페이지 이동 */
+	// =================================================
+	// 슬레이브 등록페이지 이동
 	function fn_new_slave() {
 		var frm = document.form;
-		if($("#CCOMM_CODE_ID").val()==""){
+		if ($("#CCOMM_CODE_ID").val() == "") {
 			alert("상세코드를 입력하기 위해서 마스터 코드ID를 선택하세요.");
 			return;
 		}
 		frm.action = "${staticPATH }/commCode/commCodeSlave.do";
 		frm.submit();
 	};
-
 </script>
-<!--PAGE CONTENT -->
-<div id="content" style="width:100%; height100%;">
-	<!--BLOCK SECTION -->
-	<div class="row" style="width:100%; height100%;">
-		<div class="col-lg-1"></div>
-		<div class="col-lg-10">
-			<div id="optionDiv" class="col-md-12" style="margin-top:15px;margin-right:0px;padding-right:0px;">
-				<div style="display:flex">
-					<div style="flex-basis: 100%;">
-						<ul id="myTab" class="nav nav-tabs" role="tablist">
-							<li role="presentation" class="">
-								<a href="${staticPATH }/toast/toastList.do"> <i class="fa fa-info"></i> 토스트배너 관리 </a>
-							</li>
-							<li role="presentation" class="">
-								<a href="${staticPATH }/testTarget/testTargetList.do" > <i class="fa fa-cog" aria-hidden="true"></i> 테스트대상 관리 </a>
-							</li>
-							<li role="presentation" class="">
-								<a href="${staticPATH }/variable/variableList.do"> <i class="fa fa-filter"></i> 매개변수 관리 </a>
-							</li>
-							<li role="presentation" class="active">
-								<a href="${staticPATH }/commCode/commCodeList.do"> <i class="fa fa-comments-o"></i> 공통코드 관리 </a>
-							</li>
-							<%--
-							<li role="presentation" class="">
-								<a href="${staticPATH }/tableInfo/tableInfoList.do"> <i class="fa fa-calendar"></i> 테이블정보 관리 </a>
-							</li>
-							--%>
-							<li role="presentation" class="">
-								<a href="${staticPATH }/notice/noticeList.do"> <i class="fa fa-calendar"></i> 공지사항 관리 </a>
-							</li>
-						</ul>
+
+
+	<!--PAGE CONTENT -->
+	<div id="content" style="width:100%; height100%;">
+		<!--BLOCK SECTION -->
+		<div class="row" style="width:100%; height100%;">
+			<div class="col-lg-1"></div>
+			<div class="col-lg-10">
+				<div id="optionDiv" class="col-md-12" style="margin-top:15px;margin-right:0px;padding-right:0px;">
+					<div style="display:flex">
+						<div style="flex-basis: 100%;">
+							<ul id="myTab" class="nav nav-tabs" role="tablist">
+								<li role="presentation" class="">
+									<a href="${staticPATH }/toast/toastList.do">
+										<i class="fa fa-info"></i> 토스트배너 관리
+									</a>
+								</li>
+								<li role="presentation" class="">
+									<a href="${staticPATH }/testTarget/testTargetList.do" >
+										<!-- i class="fa fa-cog" aria-hidden="true"></i> 테스트대상 관리 -->
+										<i class="fa fa-cog"></i> 테스트대상 관리
+									</a>
+								</li>
+								<li role="presentation" class="">
+									<a href="${staticPATH }/variable/variableList.do">
+										<i class="fa fa-filter"></i> 매개변수 관리
+									</a>
+								</li>
+								<li role="presentation" class="active">
+									<a href="${staticPATH }/commCode/commCodeList.do">
+										<i class="fa fa-comments-o"></i> 공통코드 관리
+									</a>
+								</li>
+								<%--
+								<li role="presentation" class="">
+									<a href="${staticPATH }/tableInfo/tableInfoList.do">
+										<i class="fa fa-calendar"></i> 테이블정보 관리
+									</a>
+								</li>
+								--%>
+								<li role="presentation" class="">
+									<a href="${staticPATH }/notice/noticeList.do">
+										<i class="fa fa-calendar"></i> 공지사항 관리
+									</a>
+								</li>
+							</ul>
+						</div>
+						<div class="push-right" style="flex-basis: 400px;"></div>
 					</div>
-					<div class="push-right" style="flex-basis: 400px;"></div>
-				</div>
-				<div id="myTabContent" class="tab-content">
-					<form name="form" id="form">
-						<input type="hidden" id="selectPageNo" name="selectPageNo"  value="${selectPageNo}" /> <!-- 페이징 처리용 -->
-						<input type="hidden" id="COMM_CODE_ID" name="COMM_CODE_ID"  value="" /><!-- 마스터 상세보기용 -->
-						<input type="hidden" id="CCOMM_CODE_ID" name="CCOMM_CODE_ID"  value="" /><!-- 디테일 상세보기용 -->
-						<input type="hidden" id="CODE_ID" name="CODE_ID"  value="" /><!-- 디테일 상세보기용 -->
+					<div id="myTabContent" class="tab-content">
+
+<form name="form" id="form">
+<input type="hidden" id="selectPageNo" name="selectPageNo"  value="${selectPageNo}" /> <!-- 페이징 처리용 -->
+<input type="hidden" id="COMM_CODE_ID" name="COMM_CODE_ID"  value="" /><!-- 마스터 상세보기용 -->
+<input type="hidden" id="CCOMM_CODE_ID" name="CCOMM_CODE_ID"  value="" /><!-- 디테일 상세보기용 -->
+<input type="hidden" id="CODE_ID" name="CODE_ID"  value="" /><!-- 디테일 상세보기용 -->
 
 						<div id="table">
 							<table class="table table-striped" width="100%" border="0" cellpadding="0" cellspacing="0">
@@ -353,7 +363,8 @@
 								</tr>
 							</table>
 						</div>
-						<!-- List -->
+
+						<!-- List Header -->
 						<div id="table">
 							<table class="table table-striped" width="100%" border="0" cellpadding="0" cellspacing="0">
 								<colgroup>
@@ -380,18 +391,22 @@
 								</tr>
 							</table>
 						</div>
+						<!-- /List Header -->
+
+						<!-- List -->
 						<div id="search_layer"></div>
 						<nav><ul class="pager" id="paging_layer"></ul></nav>
-						<!-- /List -->
 						<div id="save" class="col-md-12" style="text-align:right;margin-bottom:10px;" >
 							<button type="button" class="btn btn-info btn-sm" onclick="fn_new_slave();"> <i class="fa fa-pencil"></i> 등 록 </button>
 						</div>
+						<!-- /List -->
+
 						<!-- List -->
 						<div id="table">
 							<table class="table table-striped table-hover" width="100%" border="0" cellpadding="0" cellspacing="0">
 								<colgroup>
-									<col width="4%"/> <!-- No       -->
-									<col width="8%"/>  <!-- 코드ID   -->
+									<col width="4%"/>   <!-- No      -->
+									<col width="8%"/>   <!-- 코드ID   -->
 									<col width=""/>     <!-- 코드명   -->
 									<col width="6%"/>   <!-- 정렬순서 -->
 									<col width="6%"/>   <!-- 사용여부 -->
@@ -415,14 +430,17 @@
 						</div>
 						<div id="search_layer2"></div>
 						<!-- /List -->
-					</form>
+</form>
+					</div>
 				</div>
 			</div>
+			<div class="col-lg-1"></div>
 		</div>
-		<div class="col-lg-1"></div>
+		<!--END BLOCK SECTION -->
+		<div class="col-lg-3"></div>
 	</div>
-	<!--END BLOCK SECTION -->
-	<div class="col-lg-3"></div>
-</div>
-<!--END PAGE CONTENT -->
+	<!--END PAGE CONTENT -->
+
+
 <%@ include file="/WEB-INF/views/common/_footer.jsp"%>
+

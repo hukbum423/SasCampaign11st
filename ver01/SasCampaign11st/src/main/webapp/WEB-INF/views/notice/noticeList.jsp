@@ -203,7 +203,8 @@
 								</li>
 								<li role="presentation" class="">
 									<a href="${staticPATH }/testTarget/testTargetList.do" >
-										<i class="fa fa-cog" aria-hidden="true"></i> 테스트대상 관리
+										<!-- i class="fa fa-cog" aria-hidden="true"></i> 테스트대상 관리 -->
+										<i class="fa fa-cog"></i> 테스트대상 관리
 									</a>
 								</li>
 								<li role="presentation" class="">

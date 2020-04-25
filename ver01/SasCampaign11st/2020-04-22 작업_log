@@ -1,10 +1,10 @@
 Request
 
-	1. Toast title be duplicated
+	*1. Toast title be duplicated
 	2. Email content to UTF8 ???
-	3. always Channel Copy
+	*3. always Channel Copy
 	
-	4. campaign management to be added a new TAB like campaign list
+	4. campaign management to be added a new TAB like campaign list -> cancel
 	5. think about ShortURL...
 
 Job to Solution
@@ -12,7 +12,7 @@ Job to Solution
 	1-1. channelToast.jsp
 		KANG-20200422: change 'channel_cd' to 'toast_input_msg'
 	
-	2-1. channelEmail.jsp
+	2-1. channelEmail.jsp ?? -> request the sample email.
 	
 	3-1. all channel *.jsp
 		channelMobile.jsp
@@ -24,12 +24,45 @@ Job to Solution
 	
 	3-2. create / update
 		ChannelController.java
-			bo.setCreate_id(tgtbo.getCreate_id());  // KANG-20200422: create upddate
+			bo.setCreate_id(tgtbo.getCreate_id());  // KANG-20200422: create update
 			.....
 
+	4-1. analyze
+		toastList.jsp
+		testTargetList.jsp
+		variableList.jsp
+		commCodeList.jsp
+		noticeList.jsp
+		manageList.jsp   <- add a new tab and a list, to delete
+		
+		toastDetail.jsp
+		testTargetDetail.jsp
+		variableDetail.jsp
+		commCodeMaster.jsp
+		commCodeSlave.jsp
+		noticeDetail.jsp
+		manageList.jsp   <- add a new page, to delete
 
+	4-2. add manage list
+		<-- new files -->
+		manage_SQL.xml
+		ManageDAO.java
+		ManageDAOImpl.java
+		ManageService.java
+		ManageServiceImpl.java
+		ManageController.java
+		
+	4-3. ignore 4-2
+		like channel copy logic
+		
+	4-4. '캠페인 상태변경처리'
+		'Campaign Status Change Process'
 
-
+	5-1. create BannerSample.java
+		transferEmailContent / BannerSample.java
+		libs/
+			commons-codec-1.14.jar
+			commons-lang3-3.10.jar
 
 
 
