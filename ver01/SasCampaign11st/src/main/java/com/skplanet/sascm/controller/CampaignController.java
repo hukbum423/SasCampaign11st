@@ -91,7 +91,7 @@ public class CampaignController {
 	 * @return
 	 */
 	@RequestMapping(value = "/campaign/campaignChannelList.do")
-	public String campaignChannelList(HttpServletRequest request, HttpServletResponse response, ModelMap modelMap, HttpSession session) {
+	public String pageCampaignChannelList(HttpServletRequest request, HttpServletResponse response, ModelMap modelMap, HttpSession session) {
 		//request.setAttribute("cal", request.getParameter("cal"));
 		//paramter
 		log.info("=============================================");
@@ -107,6 +107,33 @@ public class CampaignController {
 		modelMap.addAttribute("disp_dt", request.getParameter("disp_dt"));   // KANG-20200418
 		
 		return "campaign/campaignChannelList";
+	}
+
+	/**
+	 * KANG-20200425: 
+	 * @param request
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "/campaign/campaignChangeStatusList.do")
+	public String pageCampaignChangeStatusList(HttpServletRequest request, HttpServletResponse response, ModelMap modelMap, HttpSession session) {
+		//request.setAttribute("cal", request.getParameter("cal"));
+		//paramter
+		log.info("=============================================");
+		log.info("campaignid <- CampaignId  : " + request.getParameter("CampaignId"));
+		log.info("cellid     <- CELLID      : " + request.getParameter("CELLID"));
+		log.info("channel_cd <- CHANNEL_CD  : " + request.getParameter("CHANNEL_CD"));
+		log.info("disp_dt                   : " + request.getParameter("disp_dt"));   // KANG-20200418
+		log.info("=============================================");
+
+		/*
+		modelMap.addAttribute("campaignid", request.getParameter("CampaignId"));
+		modelMap.addAttribute("cellid", request.getParameter("CELLID"));
+		modelMap.addAttribute("channel_cd", request.getParameter("CHANNEL_CD"));
+		modelMap.addAttribute("disp_dt", request.getParameter("disp_dt"));   // KANG-20200418
+		*/
+		
+		return "campaign/campaignChangeStatusList";
 	}
 
 	/**

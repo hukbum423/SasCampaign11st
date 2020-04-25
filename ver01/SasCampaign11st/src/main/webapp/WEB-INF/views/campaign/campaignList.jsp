@@ -896,7 +896,7 @@
 	
 	// 켐패인 오퍼 리스트  조회
 	function fn_offer(campaignid) {
-		if (true) console.log("KANG.fn_property: 켐패인 오퍼 리스트 조회");
+		if (true) console.log("KANG.fn_offer: 켐패인 오퍼 리스트 조회");
 		jQuery.ajax({
 			url           : '${staticPATH }/getOfferInfoList.do',
 			dataType      : "JSON",
@@ -957,7 +957,7 @@
 	
 	// 켐패인 채널 리스트  조회
 	function fn_channel(campaignid) {
-		if (true) console.log("KANG.fn_property: 켐패인 채널 리스트 조회");
+		if (true) console.log("KANG.fn_channel: 켐패인 채널 리스트 조회");
 		jQuery.ajax({
 			url           : '${staticPATH }/getChannelInfoList.do',
 			dataType      : "JSON",
@@ -1753,6 +1753,21 @@
 		return page;
 	}
 </script>
+
+
+<script>
+	// change the status of some campaign which you choose.
+	function fn_changeStatus() {
+		// button with id=changeStatus
+		if (!true) alert(">>>>> KANG-20200425: fn_changeStatus: ");
+		popup_campaignChannel = window.open("${staticPATH }/campaign/campaignChangeStatusList.do?"
+				//+ "CampaignId=${bo.campaignid}"
+				//+ "&CELLID=${bo.cellid}"
+				//+ "&CHANNEL_CD=MOBILE"
+				//+ "&disp_dt=" + disp_dt
+				, "propertyPop", "width=1000, height=900, status=1");
+	}
+</script>
 <!-- END SCRIPT -->
 
 
@@ -1765,10 +1780,16 @@
 	<div class="row" style="width:100%; height100%;">
 		<div class="col-lg-1"></div>
 		<div class="col-lg-10">
-			<div class="col-md-10 page-header" style="margin-top:0px;">
+			<div class="col-md-9 page-header" style="margin-top:0px;">
 				<h3>캠페인 리스트</h3>
 			</div>
+			<!-- KANG-20200425: change the status of the campaign -->
 			<div class="col-md-2 page-header" style="margin-top:31px;">
+				<button id="changeStatus" type="button" class="btn btn-danger btn-xs pull-right" style="margin-bottom:3px;" onclick="fn_changeStatus();">
+					<i class="fa fa-refresh" aria-hidden="true"></i> 캠페인 상태변경처리 
+				</button>
+			</div>
+			<div class="col-md-1 page-header" style="margin-top:31px;">
 				<button type="button" class="btn btn-success btn-xs pull-right" onclick="window.open('/SASCampaign/contents/CampaignContent.do?offercode=ALL&channelcode=ALL','contentsmapping','');" style="margin-bottom:3px;" >
 					<i class="fa fa-plus" aria-hidden="true"></i> 컨텐츠 매핑
 				</button>
