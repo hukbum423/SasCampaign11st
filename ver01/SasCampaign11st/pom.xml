@@ -407,6 +407,24 @@
 <!-- END: KANG-20190330: for Alimi -->
 
 
+<!-- KANG-20200428: Banner Send Deny String: START -->
+    <!-- https://mvnrepository.com/artifact/org.apache.commons/codec -->
+    <!--
+    <dependency>
+        <groupId>org.apache.commons</groupId>
+        <artifactId>codec</artifactId>
+        <version>1.4.0</version>
+    </dependency>
+    -->
+    <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
+    <!--
+    <dependency>
+        <groupId>org.apache.commons</groupId>
+        <artifactId>commons-lang3</artifactId>
+        <version>3.10</version>
+    </dependency>
+    -->
+<!-- KANG-20200428: Banner Send Deny String: END -->
 
 
 

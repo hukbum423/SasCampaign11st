@@ -231,6 +231,7 @@
               ,D.push_msg_popup_indc_yn                   push_msg_popup_indc_yn
               ,D.thum_img_url                             thum_img_url
               ,D.bnnr_img_url                             bnnr_img_url
+              ,D.bnnr_str_img_url                         bnnr_str_img_url
               ,D.CREATE_ID                                create_id
               ,(SELECT USER_NAME FROM CM_USER WHERE ID = D.CREATE_ID) create_nm
               ,TO_CHAR(D.CREATE_DT, 'YYYY-MM-DD HH24:MI:SS') create_dt
@@ -501,6 +502,7 @@
                   ,PUSH_MSG_POPUP_INDC_YN     = TRIM(#{PUSH_MSG_POPUP_INDC_YN})
                   ,THUM_IMG_URL               = TRIM(#{THUM_IMG_URL})
                   ,BNNR_IMG_URL               = TRIM(#{BNNR_IMG_URL})
+                  ,BNNR_STR_IMG_URL           = TRIM(#{BNNR_STR_IMG_URL})
                   ,MOBILE_LNK_PAGE_TYP        = TRIM(#{MOBILE_LNK_PAGE_TYP})
                   ,MOBILE_LNK_PAGE_URL        = TRIM(#{MOBILE_LNK_PAGE_URL})
                   ,UPDATE_ID                  = TRIM(#{UPDATE_ID})
@@ -522,6 +524,7 @@
                 ,PUSH_MSG_POPUP_INDC_YN
                 ,THUM_IMG_URL
                 ,BNNR_IMG_URL
+                ,BNNR_STR_IMG_URL
                 ,CAMPAIGNCODE
                 ,FLOWCHARTID
                 ,MOBILE_LNK_PAGE_TYP
@@ -545,6 +548,7 @@
                 ,TRIM(#{PUSH_MSG_POPUP_INDC_YN})
                 ,TRIM(#{THUM_IMG_URL})
                 ,TRIM(#{BNNR_IMG_URL})
+                ,TRIM(#{BNNR_STR_IMG_URL})
                 ,TRIM(#{CAMPAIGNCODE})
                 ,TO_NUMBER(SUBSTR(TRIM(#{CAMPAIGNCODE}),5))
                 ,TRIM(#{MOBILE_LNK_PAGE_TYP})

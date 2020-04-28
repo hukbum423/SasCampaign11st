@@ -1,0 +1,83 @@
+Request
+
+	1. Banner Deny String in old alimi
+	
+			import org.apache.commons.codec.EncoderException;
+			import org.apache.commons.codec.net.URLCodec;
+			import org.apache.commons.lang3.StringUtils;
+			
+			public class BannerDenyImageTestMain {
+				
+				private static final String OVERLAYERED_IMG_URL = "http://i.011st.com/ui_img/cm_display/2018/04/MPMCD/0402/txt_b_w.png";  // overlay(Deny String) image
+				
+				private static String getRolimgByImgTyp() {
+					return "http://img.011st.com/11st-push/o.jpg;sz=800x464/#bannerImg#;sz=800x464;g=0;/#addImg#;g=9;off=-10+35";  // size and position
+				}
+				
+				private static String extractRolimg(URLCodec urlCodec, String bnnrImgUrl) throws EncoderException {
+					String rolImg = getRolimgByImgTyp();
+					String bannerImg = urlCodec.encode(bnnrImgUrl);
+					String addImg = urlCodec.encode(OVERLAYERED_IMG_URL);
+					rolImg = StringUtils.replace(rolImg, "#bannerImg#", bannerImg);
+					rolImg = StringUtils.replace(rolImg, "#addImg", addImg);
+					return rolImg;
+				}
+			
+				public static void main(String[] args) throws EncoderException {
+					String bnnrImgUrl = "http://i.011st.com/browsing/exhibition/2019/06/28/2019062815522853701__img.jpg";  // base image
+					URLCodec urlCodec = new URLCodec();
+					String result = extractRolimg(urlCodec, bnnrImgUrl);
+					System.out.println("result = " + result);
+				}
+			}
+
+
+Job to Solution
+
+	1-1. sample
+		src: test/BannerDenyImageTestMain.java
+		/pom.xml
+			commons-codec-1.14.jar  // already exist
+			commons-lang3-3.10.jar  // already exist
+	
+	1-2. DB Info
+		CM_CAMPAIGN_CHANNEL
+			BNNR_IMG_URL VARCHAR2(600)        // banner image
+			BNNR_STR_IMG_URL VARCHAR2(1024)   // banner send deny image, to be add
+			-> alter table CM_CAMPAIGN_CHANNEL add BNNR_STR_IMG_URL varchar2(1024);
+
+		mapper/channel_SQL.xml
+		
+	1-3. context*.properties
+			.....
+			#########################################################
+			# Banner Send Deny String written by Kiea at 2020-04-28
+			banner.rol.image = http://img.011st.com/11st-push/o.jpg;sz=800x464/#bannerImg#;sz=800x464;g=0;/#addImg#;g=9;off=-10+35
+			banner.add.image = http://i.011st.com/ui_img/cm_display/2018/04/MPMCD/0402/txt_b_w.png
+			.....
+
+	1-3. JSP
+		channel/channelMobile.jsp
+			.....
+			$("#BNNR_IMG_URL").bind("change", fn_change_bnnr_img_url);
+			fn_change_bnnr_img_url();
+			.....
+			id="BNNR_IMG_URL"      event: onchange
+			id="BNNR_STR_IMG_URL" 
+	
+	1-4. JAVA
+		controller/ChannelController.java
+			.....
+			@Value("#{contextProperties['banner.rol.image']}") // http://img.011st.com/11st-push/o.jpg;sz=800x464/#bannerImg#;sz=800x464;g=0;/#addImg#;g=9;off=-10+35
+			private String bannerRolImage;
+			@Value("#{contextProperties['banner.add.image']}")  // http://i.011st.com/ui_img/cm_display/2018/04/MPMCD/0402/txt_b_w.png
+			private String bannerAddImage;
+			@RequestMapping("/channel/makeBnnrStrUrl.do")
+			public void makeBnnrStrUrl(HttpServletRequest request, HttpServletResponse response, ModelMap modelMap, HttpSession session) throws Exception {
+			.....
+		
+
+
+
+
+

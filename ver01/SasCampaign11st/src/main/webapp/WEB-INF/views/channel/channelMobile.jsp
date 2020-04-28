@@ -59,7 +59,7 @@
 
 	// this window resize
 	//window.resizeTo(1180,910);
-	window.resizeTo(1180,1010);  // KANG-20190323: resize of the popup
+	window.resizeTo(1180,1060);  // KANG-20190323: resize of the popup
 	//window.resizeTo(1180,1110);  // KANG-20190323: resize of the popup
 
 	// document.ready
@@ -148,12 +148,44 @@
 			$("#VAL_LIST").attr("disabled","disabled");
 		</c:if>
 		
+		// KANG-20200428: add for Send Deny String Banner
+		$("#BNNR_IMG_URL").bind("change", fn_change_bnnr_img_url);
+		fn_change_bnnr_img_url();
+		
 		//
 		// KANG-20190325: add fn_newAlimi_init() for the new tab
 		//
 		if (true) fn_newAlimi_init();
 	});
 
+	// KANG-20200428: bnnr_img_url 값이 변할 때의 이벤트
+	function fn_change_bnnr_img_url() {
+		var bannerImg = $("#BNNR_IMG_URL").val();
+		if (!true) alert(">>>>> KANG-20200428: fn_change_bnnr_img_url: '" + bannerImg + "'.");
+		jQuery.ajax({
+			url           : '${staticPATH }/channel/makeBnnrStrUrl.do',
+			dataType      : "JSON",
+			scriptCharset : "UTF-8",
+			type          : "POST",
+			data          : {
+				"bannerImg": bannerImg
+			},
+			success: function (result, option) {
+				if (option == "success"){
+					if (!true) alert("만들었습니다.");
+					// $("#BNNR_STR_IMG_URL").val("." + bannerImg + ".");
+					$("#BNNR_STR_IMG_URL").val(result.rolImg);
+				} else {
+					alert("에러가 발생하였습니다.");
+				}
+			},
+			error: function(result, option) {
+				alert("에러가 발생하였습니다.");
+			}
+		});
+	}
+	
+	// 
 	function fn_set_mobile_lnk_page_url(){
 		if ($("#MOBILE_LNK_PAGE_TYP").val() == "01" ) {
 			$("#MOBILE_LNK_PAGE_URL").val("http://m.11st.co.kr");
@@ -3174,7 +3206,15 @@
 												maxlength="100" />
 											<button type="button" class="btn btn-success btn-sm"
 												onclick="fn_pre_view_img('BNNR_IMG_URL');">
-												<i class="fa fa-eye" aria-hidden="true"></i> 미리보기
+												<i class="fa fa-eye" aria-hidden="true"></i> 미리보기1
+											</button>
+											<br>
+											<input type="text" id="BNNR_STR_IMG_URL" name="BNNR_STR_IMG_URL"
+												style="width: 250px;" value="" class="txt"
+												maxlength="500" readonly/>
+											<button type="button" class="btn btn-success btn-sm"
+												onclick="fn_pre_view_img('BNNR_STR_IMG_URL');">
+												<i class="fa fa-eye" aria-hidden="true"></i> 미리보기2
 											</button>
 										</div>
 									</td>

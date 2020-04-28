@@ -16,11 +16,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.codec.net.URLCodec;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -1845,6 +1848,7 @@ public class ChannelController {
 		log.info("PUSH_MSG_POPUP_INDC_YN  : " + request.getParameter("PUSH_MSG_POPUP_INDC_YN"));
 		log.info("THUM_IMG_URL            : " + request.getParameter("THUM_IMG_URL"));
 		log.info("BNNR_IMG_URL            : " + request.getParameter("BNNR_IMG_URL"));
+		log.info("BNNR_STR_IMG_URL        : " + request.getParameter("BNNR_STR_IMG_URL"));
 		log.info("useIndi                 : " + request.getParameter("useIndi"));
 		log.info("MOBILE_SEND_PREFER_CD   : " + request.getParameter("MOBILE_SEND_PREFER_CD"));
 
@@ -1882,6 +1886,7 @@ public class ChannelController {
 		map.put("PUSH_MSG_POPUP_INDC_YN", Common.nvl(request.getParameter("PUSH_MSG_POPUP_INDC_YN"), ""));
 		map.put("THUM_IMG_URL", Common.nvl(request.getParameter("THUM_IMG_URL"), ""));
 		map.put("BNNR_IMG_URL", Common.nvl(request.getParameter("BNNR_IMG_URL"), ""));
+		map.put("BNNR_STR_IMG_URL", Common.nvl(request.getParameter("BNNR_STR_IMG_URL"), ""));
 
 		map.put("MOBILE_LNK_PAGE_TYP", Common.nvl(request.getParameter("MOBILE_LNK_PAGE_TYP"), ""));
 		map.put("MOBILE_LNK_PAGE_URL", Common.nvl(request.getParameter("MOBILE_LNK_PAGE_URL"), ""));
@@ -3207,5 +3212,48 @@ public class ChannelController {
 		}
 
 		return composites;
+	}
+
+	/**
+	 * KANG-20200429:
+	 *
+	 * send 채널 Alimi Test
+	 *
+	 * @param request
+	 * @param response
+	 * @param modelMap
+	 * @return
+	 * @throws Exception
+	 */
+	@Value("#{contextProperties['banner.rol.image']}") // http://img.011st.com/11st-push/o.jpg;sz=800x464/#bannerImg#;sz=800x464;g=0;/#addImg#;g=9;off=-10+35
+	private String bannerRolImage;
+	@Value("#{contextProperties['banner.add.image']}")  // http://i.011st.com/ui_img/cm_display/2018/04/MPMCD/0402/txt_b_w.png
+	private String bannerAddImage;
+	@RequestMapping("/channel/makeBnnrStrUrl.do")
+	public void makeBnnrStrUrl(HttpServletRequest request, HttpServletResponse response, ModelMap modelMap, HttpSession session) throws Exception {
+		Map<String, Object> map = new HashMap<String, Object>();
+		log.info("=============================================");
+		log.info("bannerImg       : " + request.getParameter("bannerImg"));
+		log.info("bannerRolImage  : " + bannerRolImage);
+		log.info("bannerAddImage  : " + bannerAddImage);
+		log.info("=============================================");
+		
+		String bannerImg = request.getParameter("bannerImg");
+		
+		URLCodec urlCodec = new URLCodec();
+		String encBannerImg = urlCodec.encode(bannerImg);
+		String encAddImg = urlCodec.encode(bannerAddImage);
+
+		String rolImg = bannerRolImage;
+		rolImg = StringUtils.replace(rolImg, "#bannerImg#", encBannerImg);
+		rolImg = StringUtils.replace(rolImg, "#addImg#", encAddImg);
+
+		map.put("rolImg", rolImg);
+		log.info("=============================================");
+		log.info("rolImg  : " + rolImg);
+		log.info("map     : " + map);
+		log.info("=============================================");
+		
+		jsonView.render(map, request, response);
 	}
 }
