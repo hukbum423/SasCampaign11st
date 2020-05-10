@@ -148,42 +148,13 @@
 			$("#VAL_LIST").attr("disabled","disabled");
 		</c:if>
 		
-		// KANG-20200428: add for Send Deny String Banner
-		$("#BNNR_IMG_URL").bind("change", fn_change_bnnr_img_url);
-		fn_change_bnnr_img_url();
+		// KANG-20200508:
+		//$("#BNNR_IMG_URL").bind("change", fn_change_bnnr_img_url);
+		//fn_change_bnnr_img_url();
 		
-		//
 		// KANG-20190325: add fn_newAlimi_init() for the new tab
-		//
 		if (true) fn_newAlimi_init();
 	});
-
-	// KANG-20200428: bnnr_img_url 값이 변할 때의 이벤트
-	function fn_change_bnnr_img_url() {
-		var bannerImg = $("#BNNR_IMG_URL").val();
-		if (!true) alert(">>>>> KANG-20200428: fn_change_bnnr_img_url: '" + bannerImg + "'.");
-		jQuery.ajax({
-			url           : '${staticPATH }/channel/makeBnnrStrUrl.do',
-			dataType      : "JSON",
-			scriptCharset : "UTF-8",
-			type          : "POST",
-			data          : {
-				"bannerImg": bannerImg
-			},
-			success: function (result, option) {
-				if (option == "success"){
-					if (!true) alert("만들었습니다.");
-					// $("#BNNR_STR_IMG_URL").val("." + bannerImg + ".");
-					$("#BNNR_STR_IMG_URL").val(result.rolImg);
-				} else {
-					alert("에러가 발생하였습니다.");
-				}
-			},
-			error: function(result, option) {
-				alert("에러가 발생하였습니다.");
-			}
-		});
-	}
 	
 	// 
 	function fn_set_mobile_lnk_page_url(){
@@ -234,7 +205,7 @@
 			//return true;
 		}
 		//유효성 체크
-		if (false && !fn_validation()){   // KANG-20200416
+		if (!fn_validation()){   // KANG-20200416
 			return;
 		}
 		if (!confirm("저장 하시겠습니까?")){
@@ -270,6 +241,26 @@
 
 	/* 유효성 체크 */
 	function fn_validation() {
+		if (true) {
+			// KANG-20200508: 스테이터스바/배너이미지URL
+			var bnnr_img_url = $("#BNNR_IMG_URL").val();
+			var bnnr_str_img_url = $("#BNNR_STR_IMG_URL").val();
+			if (bnnr_img_url != "" && bnnr_str_img_url == "")
+				flg_bnnr_str_img_url = false;
+			
+			if (!true) alert(">>>>> KANG-20200508: fn_validation() \n"
+					+ "flg_bnnr_str_img_url: " + flg_bnnr_str_img_url + "\n"
+					+ "bnnr_img_url: " + bnnr_img_url + "\n"
+					+ "bnnr_str_img_url: " + bnnr_str_img_url + "\n"
+					);
+			if (!flg_bnnr_str_img_url) {
+				alert("'스테이터스바/배너이미지URL' 항목의 [적용&보기] 버튼을 먼저 확인하세요.")
+				// $("#BNNR_STR_IMG_URL").focus();
+				$("#BNNR_STR_IMG_URL_BUTTON").focus();  // focus on the button
+				return false;
+			}
+		}
+		
 		if ("${bo.camp_status_cd}" == "START"){
 			$("#btn_save").hide();
 			alert("진행중인 캠페인은 수정할수 없습니다.");
@@ -342,7 +333,6 @@
 
 	//창닫기
 	function fn_close(){
-		//창닫기
 		window.close();
 	}
 
@@ -435,7 +425,32 @@
 			}
 		}
 	}
+</script>
 
+<script>
+	//
+	// KANG-20200508: 스테이터스바/배너이미지URL
+	// sample: http://i.011st.com/ui_img/cm_display/2017/03/MDP/1798-15/alimpush.png
+	// search for fn_validation
+
+	// KANG-20200508: flag for bnnr_img_url
+	var flg_bnnr_str_img_url = true;
+
+	// KANG-20200508: ready
+	$(function() {
+		$("#BNNR_IMG_URL").bind("change", fn_change_bnnr_img_url);
+		//fn_change_bnnr_img_url();
+	});
+
+	// KANG-20200508: bnnr_img_url 값이 변할 때의 이벤트
+	function fn_change_bnnr_img_url() {
+		var bannerImg = $("#BNNR_IMG_URL").val();
+		if (!true) alert(">>>>> KANG-20200428: fn_change_bnnr_img_url: '" + bannerImg + "'.");
+		flg_bnnr_str_img_url = false;
+		return;
+	}
+
+	// KANG-20200508: bnnr_img_url viewer
 	function fn_pre_view_img(target){
 		var targetImg = document.getElementById(target).value;
 		var img = new Image();
@@ -443,6 +458,39 @@
 		//alert(img.width + ' '+img.height);
 		//alert(e.pageX + '' + e.pageY);
 		cnj_win_view(targetImg);
+	}
+	
+	// KANG-20200508: bnnr_str_img_url viewer
+	function fn_pre_view_str_img(){
+		var bannerImg = $("#BNNR_IMG_URL").val();
+		jQuery.ajax({
+			url           : '${staticPATH }/channel/makeBnnrStrUrl.do',
+			dataType      : "JSON",
+			scriptCharset : "UTF-8",
+			type          : "POST",
+			data          : {
+				"bannerImg": bannerImg
+			},
+			success: function (result, option) {
+				if (option == "success"){
+					if (!true) alert("만들었습니다.");
+					// $("#BNNR_STR_IMG_URL").val("." + bannerImg + ".");
+					$("#BNNR_STR_IMG_URL").val(result.rolImg);
+					var targetImg = result.rolImg;
+					var img = new Image();
+					img.src = targetImg;
+					//alert(img.width + ' '+img.height);
+					//alert(e.pageX + '' + e.pageY);
+					cnj_win_view(targetImg);
+					flg_bnnr_str_img_url = true;
+				} else {
+					alert("에러가 발생하였습니다.");
+				}
+			},
+			error: function(result, option) {
+				alert("에러가 발생하였습니다.");
+			}
+		});
 	}
 </script>
 
@@ -3206,15 +3254,15 @@
 												maxlength="100" />
 											<button type="button" class="btn btn-success btn-sm"
 												onclick="fn_pre_view_img('BNNR_IMG_URL');">
-												<i class="fa fa-eye" aria-hidden="true"></i> 미리보기1
+												<i class="fa fa-eye" aria-hidden="true"></i> 미리보기
 											</button>
 											<br>
 											<input type="text" id="BNNR_STR_IMG_URL" name="BNNR_STR_IMG_URL"
-												style="width: 250px;" value="" class="txt"
+												style="width: 250px;" value="${bo.bnnr_str_img_url}" class="txt"
 												maxlength="500" readonly/>
-											<button type="button" class="btn btn-success btn-sm"
-												onclick="fn_pre_view_img('BNNR_STR_IMG_URL');">
-												<i class="fa fa-eye" aria-hidden="true"></i> 미리보기2
+											<button type="button" class="btn btn-success btn-sm" id="BNNR_STR_IMG_URL_BUTTON"
+												onclick="fn_pre_view_str_img();">
+												<i class="fa fa-eye" aria-hidden="true"></i> 적용 &amp; 보기
 											</button>
 										</div>
 									</td>

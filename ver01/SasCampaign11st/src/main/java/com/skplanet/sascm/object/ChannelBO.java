@@ -62,6 +62,7 @@ public class ChannelBO {
 	private String push_msg_popup_indc_yn;
 	private String thum_img_url;
 	private String bnnr_img_url;
+	private String bnnr_str_img_url;
 	private String create_id;
 	private String create_nm;
 	private String create_dt;
@@ -475,6 +476,14 @@ public class ChannelBO {
 
 	public void setBnnr_img_url(String bnnr_img_url) {
 		this.bnnr_img_url = bnnr_img_url;
+	}
+
+	public String getBnnr_str_img_url() {
+		return bnnr_str_img_url;
+	}
+
+	public void setBnnr_str_img_url(String bnnr_str_img_url) {
+		this.bnnr_str_img_url = bnnr_str_img_url;
 	}
 
 	public void setMobile_disp_time(String mobile_disp_time) {

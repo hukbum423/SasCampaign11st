@@ -136,7 +136,7 @@
 	/* 등록 */
 	function fn_save() {
 		//유효성 체크
-		if (false && !fn_validation()){
+		if (!fn_validation()){
 			return;
 		}
 

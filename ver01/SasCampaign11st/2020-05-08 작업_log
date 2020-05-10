@@ -1,0 +1,127 @@
+2020-05-08
+
+- java
+	com.skplanet.sascm
+		object/
+			ChannelBO.java
+		dao/
+			ScheduleDAO.java
+		daoimpl/
+			ScheduleDAOImpl.java
+		service/
+			ScheduleService.java
+		serviceimpl/
+			ScheduleServiceImpl.java
+		controller/
+			CampaignController.java
+			ChannelController.java
+			ScheduleController.java
+
+- mapper
+	commCode_SQL.xml
+	channel_SQL.xml
+	Schedule_SQL.xml
+
+- jsp
+	views/
+		campaign/
+			campaignChangeStatusList.jsp
+			campaignList.jsp
+		channel/
+			channelEmail.jsp
+			channelLms.jsp
+			channelMobile.jsp
+			channelSms.jsp
+			channelToast.jsp
+
+
+
+
+
+2020-05-10
+		----------------------------------------------------------------------------------
+		-- CAMP11268 에 일정 4개 추가
+		INSERT INTO 
+			"TMSAS"."CM_CAMPAIGN_RUN_SCHEDULE" (CAMPAIGNCODE, FLOWCHARTID, RSRV_DT, RUN_START_DT, RUNID, RUN_STATUS, CREATE_ID, CREATE_DT, UPDATE_ID, UPDATE_DT) 
+		VALUES (
+			'CAMP11268'
+			, '11268'
+			, TO_DATE('2018-01-18 00:00:00', 'YYYY-MM-DD HH24:MI:SS')
+			, TO_DATE('2018-01-18 00:00:00', 'YYYY-MM-DD HH24:MI:SS')
+			, '14691'
+			, 'Running(Channel 전송 시작)', '4'
+			, TO_DATE('2018-01-17 00:00:00', 'YYYY-MM-DD HH24:MI:SS')
+			, '1'
+			, TO_DATE('2020-05-08 08:49:16', 'YYYY-MM-DD HH24:MI:SS')
+		)
+		;
+		INSERT INTO 
+			"TMSAS"."CM_CAMPAIGN_RUN_SCHEDULE" (CAMPAIGNCODE, FLOWCHARTID, RSRV_DT, RUN_START_DT, RUNID, RUN_STATUS, CREATE_ID, CREATE_DT, UPDATE_ID, UPDATE_DT) 
+		VALUES (
+			'CAMP11268'
+			, '11268'
+			, TO_DATE('2018-01-19 00:00:00', 'YYYY-MM-DD HH24:MI:SS')
+			, TO_DATE('2018-01-19 00:00:00', 'YYYY-MM-DD HH24:MI:SS')
+			, '14692'
+			, 'Running(Channel 전송 시작)'
+			, '4'
+			, TO_DATE('2018-01-17 00:00:00', 'YYYY-MM-DD HH24:MI:SS')
+			, '1'
+			, TO_DATE('2020-05-08 08:49:16', 'YYYY-MM-DD HH24:MI:SS')
+		)
+		;
+		INSERT INTO 
+			"TMSAS"."CM_CAMPAIGN_RUN_SCHEDULE" (CAMPAIGNCODE, FLOWCHARTID, RSRV_DT, RUN_START_DT, RUNID, RUN_STATUS, CREATE_ID, CREATE_DT, UPDATE_ID, UPDATE_DT) 
+		VALUES (
+			'CAMP11268'
+			, '11268'
+			, TO_DATE('2018-01-20 00:00:00', 'YYYY-MM-DD HH24:MI:SS')
+			, TO_DATE('2018-01-20 00:00:00', 'YYYY-MM-DD HH24:MI:SS')
+			, '14693'
+			, 'Running(Channel 전송 시작)'
+			, '4'
+			, TO_DATE('2018-01-17 00:00:00', 'YYYY-MM-DD HH24:MI:SS')
+			, '1'
+			, TO_DATE('2020-05-08 08:49:16', 'YYYY-MM-DD HH24:MI:SS')
+		)
+		;
+		INSERT INTO 
+			"TMSAS"."CM_CAMPAIGN_RUN_SCHEDULE" (CAMPAIGNCODE, FLOWCHARTID, RSRV_DT, RUN_START_DT, RUNID, RUN_STATUS, CREATE_ID, CREATE_DT, UPDATE_ID, UPDATE_DT) 
+		VALUES (
+			'CAMP11268'
+			, '11268'
+			, TO_DATE('2018-01-21 00:00:00', 'YYYY-MM-DD HH24:MI:SS')
+			, TO_DATE('2018-01-21 00:00:00', 'YYYY-MM-DD HH24:MI:SS')
+			, '14694'
+			, 'Running(Channel 전송 시작)'
+			, '4'
+			, TO_DATE('2018-01-17 00:00:00', 'YYYY-MM-DD HH24:MI:SS')
+			, '1'
+			, TO_DATE('2020-05-08 08:49:16', 'YYYY-MM-DD HH24:MI:SS')
+		)
+		;
+		----------------------------------------------------------------------------------
+		-- 확인
+		select
+			a.*
+		from
+			cm_campaign_run_schedule a
+		where 1=1
+			and a.campaigncode in ('CAMP11268')
+		order by
+			a.runid desc
+		;
+		
+		----------------------------------------------------------------------------------
+		-- 원상태로 복구
+		update
+			cm_campaign_run_schedule a
+		set
+			a.run_status = 'Running(Channel 전송 시작)'
+			, a.run_success_yn = null
+		where 1=1
+			and a.campaigncode in ('CAMP11268')
+		;
+
+
+

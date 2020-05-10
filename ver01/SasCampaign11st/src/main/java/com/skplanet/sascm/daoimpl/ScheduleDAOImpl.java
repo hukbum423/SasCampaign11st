@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.skplanet.sascm.common.dao.AbstractDAO;
 import com.skplanet.sascm.dao.ScheduleDAO;
+import com.skplanet.sascm.object.CampaignListBO;
 import com.skplanet.sascm.object.CampaignRunResvBO;
 import com.skplanet.sascm.object.CampaignRunScheduleBO;
 /**
@@ -479,5 +480,27 @@ public class ScheduleDAOImpl extends AbstractDAO implements ScheduleDAO {
 	@Override
 	public int campaignStop(Map<String, Object> param) throws SQLException {
 		return (int) update("Schedule.campaignStop", param);
+	}
+
+	/*
+	 * KANG-20200508s
+	 * (non-Javadoc)
+	 * @see com.skplanet.sascm.dao.ScheduleDAO#getCampaignStatusList(java.util.Map)
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<CampaignListBO> getCampaignStatusList(Map<String, Object> param) throws SQLException {
+		return (List<CampaignListBO>) selectList("Schedule.getCampaignStatusList", param);
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<CampaignRunScheduleBO> getScheduleStatusList(Map<String, Object> param) throws SQLException {
+		return (List<CampaignRunScheduleBO>) selectList("Schedule.getScheduleStatusList", param);
+	}
+
+	@Override
+	public int updateScheduleStatusList(Map<String, Object> param) throws SQLException {
+		return (int) update("Schedule.updateScheduleStatusList", param);
 	}
 }

@@ -2,122 +2,122 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="Channel">
-<resultMap type="com.skplanet.sascm.object.CampaignChannelBO" id="CampaignChannelBO">
-    <result property="campaignid"          column="campaignid" />
-    <result property="campaignname"        column="campaignname" />
-    <result property="campaigncode"        column="campaigncode" />
-    <result property="audience_cd"         column="audience_cd" />
-    <result property="manual_trans_yn"     column="manual_trans_yn" />
-    <result property="offer_direct_yn"     column="offer_direct_yn" />
-    <result property="channel_priority_yn" column="channel_priority_yn" />
-    <result property="camp_status_cd"      column="camp_status_cd" />
-    <result property="flowchartid"         column="flowchartid" />
-    <result property="flowchartname"       column="flowchartname" />
-    <result property="flowchartrow"        column="flowchartrow" />
-    <result property="filename"            column="filename" />
-    <result property="status"              column="status" />
-    <result property="cellid"              column="cellid" />
-    <result property="cellrow"             column="cellrow" />
-    <result property="cellname"            column="cellname" />
-    <result property="cellcode"            column="cellcode" />
-    <result property="offerlistid"         column="offerlistid" />
-    <result property="offerid"             column="offerid" />
-    <result property="offername"           column="offername" />
-    <result property="offercode1"          column="offercode1" />
-    <result property="offer_type_cd"       column="offer_type_cd" />
-    <result property="offer_sys_cd"        column="offer_sys_cd" />
-    <result property="channel_cd"          column="channel_cd" />
-    <result property="channel_nm"          column="channel_nm" />
-    <result property="toast_title"         column="toast_title" />
-    <result property="toast_msg"           column="toast_msg" />
-    <result property="toast_msg_query"     column="toast_msg_query" />
-    <result property="toast_link_url"      column="toast_link_url" />
-    <result property="toast_msg_desc"      column="toast_msg_desc" />
-    <result property="toast_priority_rnk"  column="toast_priority_rnk" />
-    <result property="toast_evnt_typ_cd"   column="toast_evnt_typ_cd" />
-    <result property="sms_msg"             column="sms_msg" />
-    <result property="sms_msg_query"       column="sms_msg_query" />
-    <result property="sms_longurl"         column="sms_longurl" />
-    <result property="sms_shorturl"        column="sms_shorturl" />
-    <result property="sms_returncall"      column="sms_returncall" />
-    <result property="sms_disp_dt"         column="sms_disp_dt" />
-    <result property="sms_priority_rnk"    column="sms_priority_rnk" />
-    <result property="email_name"          column="email_name" />
-    <result property="email_desc"          column="email_desc" />
-    <result property="email_disp_dt"       column="email_disp_dt" />
-    <result property="email_priority_rnk"  column="email_priority_rnk" />
-    <result property="mobile_app_kd_cd"    column="mobile_app_kd_cd" />
-    <result property="mobile_disp_title"   column="mobile_disp_title" />
-    <result property="mobile_content"      column="mobile_content" />
-    <result property="mobile_add_text"     column="mobile_add_text" />
-    <result property="mobile_disp_dt"      column="mobile_disp_dt" />
-    <result property="mobile_priority_rnk" column="mobile_priority_rnk" />
-    <result property="create_id"           column="create_id" />
-    <result property="create_nm"           column="create_nm" />
-    <result property="create_dt"           column="create_dt" />
-    <result property="update_id"           column="update_id" />
-    <result property="update_nm"           column="update_nm" />
-    <result property="update_dt"           column="update_dt" />
-    <result property="camp_bgn_dt"         column="camp_bgn_dt" />
-    <result property="camp_end_dt"         column="camp_end_dt" />
-    <result property="lms_title"           column="lms_title" />
-
- </resultMap>
- <resultMap type="com.skplanet.sascm.object.ChannelBO" id="ChannelBO">
-        <result property="campaignid"         column="campaignid" />
-        <result property="campaignname"       column="campaignname" />
-        <result property="campaigncode"       column="campaigncode" />
-        <result property="audience_cd"        column="audience_cd" />
-        <result property="manual_trans_yn"     column="manual_trans_yn" />
-        <result property="offer_direct_yn"     column="offer_direct_yn" />
-        <result property="channel_priority_yn" column="channel_priority_yn" />
-        <result property="camp_status_cd"     column="camp_status_cd" />
-        <result property="camp_bgn_dt"        column="camp_bgn_dt" />
-        <result property="camp_end_dt"        column="camp_end_dt" />
-        <result property="flowchartid"        column="flowchartid" />
-        <result property="flowchartname"      column="flowchartname" />
-        <result property="flowchartrow"       column="flowchartrow" />
-        <result property="filename"           column="filename" />
-        <result property="status"             column="status" />
-        <result property="cellid"             column="cellid" />
-        <result property="cellrow"            column="cellrow" />
-        <result property="cellname"           column="cellname" />
-        <result property="cellcode"           column="cellcode" />
-        <result property="offerlistid"        column="offerlistid" />
-        <result property="lms_title"          column="lms_title" />
-        <result property="lms_msg"            column="lms_msg" />
-        <result property="lms_msg_query"      column="lms_msg_query" />
-        <result property="lms_longurl"        column="lms_longurl" />
-        <result property="lms_shorturl"       column="lms_shorturl" />
-        <result property="lms_returncall"     column="lms_returncall" />
-        <result property="lms_disp_dt"        column="lms_disp_dt" />
-        <result property="lms_callback"       column="lms_callback" />
-        <result property="lms_priority_rnk"   column="lms_priority_rnk" />
-        <result property="lms_disp_time"      column="lms_disp_time" />
-
-        <result property="mobile_lnk_page_url"      column="mobile_lnk_page_url" />
-        <result property="mobile_lnk_page_typ"      column="mobile_lnk_page_typ" />
-        <result property="mobile_send_prefer_cd"    column="mobile_send_prefer_cd" />
-        <result property="mobile_person_msg_yn"     column="mobile_person_msg_yn" />
-
-        <result property="sms_send_prefer_cd"       column="sms_send_prefer_cd" />
-
-        <result property="email_person_msg_yn"     column="email_person_msg_yn" /> 
-
- </resultMap>
- <resultMap type="com.skplanet.sascm.object.ChannelAlimiBO" id="ChannelAlimiBO">
-        <result property="cellId"             column="cellId" />
-        <result property="campaignCode"       column="campaignCode" />
-        <result property="campaignId"         column="campaignId" />
-        <result property="channelCd"          column="channelCd" />
-        <result property="appKdCd"            column="appKdCd" />
-        <result property="talkMsgDispYn"      column="talkMsgDispYn" />
-        <result property="talkMsgSummary"     column="talkMsgSummary" />
-        <result property="talkMsgTmpltNo"     column="talkMsgTmpltNo" />
-        <result property="talkBlckCont"       column="talkBlckCont" />
-        <result property="mobileSendPreferCd" column="mobileSendPreferCd" />
-        <result property="mobilePersonMsgYn"  column="mobilePersonMsgYn" />
- </resultMap>
+	<resultMap type="com.skplanet.sascm.object.CampaignChannelBO" id="CampaignChannelBO">
+		<result property="campaignid"          column="campaignid" />
+		<result property="campaignname"        column="campaignname" />
+		<result property="campaigncode"        column="campaigncode" />
+		<result property="audience_cd"         column="audience_cd" />
+		<result property="manual_trans_yn"     column="manual_trans_yn" />
+		<result property="offer_direct_yn"     column="offer_direct_yn" />
+		<result property="channel_priority_yn" column="channel_priority_yn" />
+		<result property="camp_status_cd"      column="camp_status_cd" />
+		<result property="flowchartid"         column="flowchartid" />
+		<result property="flowchartname"       column="flowchartname" />
+		<result property="flowchartrow"        column="flowchartrow" />
+		<result property="filename"            column="filename" />
+		<result property="status"              column="status" />
+		<result property="cellid"              column="cellid" />
+		<result property="cellrow"             column="cellrow" />
+		<result property="cellname"            column="cellname" />
+		<result property="cellcode"            column="cellcode" />
+		<result property="offerlistid"         column="offerlistid" />
+		<result property="offerid"             column="offerid" />
+		<result property="offername"           column="offername" />
+		<result property="offercode1"          column="offercode1" />
+		<result property="offer_type_cd"       column="offer_type_cd" />
+		<result property="offer_sys_cd"        column="offer_sys_cd" />
+		<result property="channel_cd"          column="channel_cd" />
+		<result property="channel_nm"          column="channel_nm" />
+		<result property="toast_title"         column="toast_title" />
+		<result property="toast_msg"           column="toast_msg" />
+		<result property="toast_msg_query"     column="toast_msg_query" />
+		<result property="toast_link_url"      column="toast_link_url" />
+		<result property="toast_msg_desc"      column="toast_msg_desc" />
+		<result property="toast_priority_rnk"  column="toast_priority_rnk" />
+		<result property="toast_evnt_typ_cd"   column="toast_evnt_typ_cd" />
+		<result property="sms_msg"             column="sms_msg" />
+		<result property="sms_msg_query"       column="sms_msg_query" />
+		<result property="sms_longurl"         column="sms_longurl" />
+		<result property="sms_shorturl"        column="sms_shorturl" />
+		<result property="sms_returncall"      column="sms_returncall" />
+		<result property="sms_disp_dt"         column="sms_disp_dt" />
+		<result property="sms_priority_rnk"    column="sms_priority_rnk" />
+		<result property="email_name"          column="email_name" />
+		<result property="email_desc"          column="email_desc" />
+		<result property="email_disp_dt"       column="email_disp_dt" />
+		<result property="email_priority_rnk"  column="email_priority_rnk" />
+		<result property="mobile_app_kd_cd"    column="mobile_app_kd_cd" />
+		<result property="mobile_disp_title"   column="mobile_disp_title" />
+		<result property="mobile_content"      column="mobile_content" />
+		<result property="mobile_add_text"     column="mobile_add_text" />
+		<result property="mobile_disp_dt"      column="mobile_disp_dt" />
+		<result property="mobile_priority_rnk" column="mobile_priority_rnk" />
+		<result property="create_id"           column="create_id" />
+		<result property="create_nm"           column="create_nm" />
+		<result property="create_dt"           column="create_dt" />
+		<result property="update_id"           column="update_id" />
+		<result property="update_nm"           column="update_nm" />
+		<result property="update_dt"           column="update_dt" />
+		<result property="camp_bgn_dt"         column="camp_bgn_dt" />
+		<result property="camp_end_dt"         column="camp_end_dt" />
+		<result property="lms_title"           column="lms_title" />
+	</resultMap>
+	
+	<resultMap type="com.skplanet.sascm.object.ChannelBO" id="ChannelBO">
+		<result property="campaignid"         column="campaignid" />
+		<result property="campaignname"       column="campaignname" />
+		<result property="campaigncode"       column="campaigncode" />
+		<result property="audience_cd"        column="audience_cd" />
+		<result property="manual_trans_yn"     column="manual_trans_yn" />
+		<result property="offer_direct_yn"     column="offer_direct_yn" />
+		<result property="channel_priority_yn" column="channel_priority_yn" />
+		<result property="camp_status_cd"     column="camp_status_cd" />
+		<result property="camp_bgn_dt"        column="camp_bgn_dt" />
+		<result property="camp_end_dt"        column="camp_end_dt" />
+		<result property="flowchartid"        column="flowchartid" />
+		<result property="flowchartname"      column="flowchartname" />
+		<result property="flowchartrow"       column="flowchartrow" />
+		<result property="filename"           column="filename" />
+		<result property="status"             column="status" />
+		<result property="cellid"             column="cellid" />
+		<result property="cellrow"            column="cellrow" />
+		<result property="cellname"           column="cellname" />
+		<result property="cellcode"           column="cellcode" />
+		<result property="offerlistid"        column="offerlistid" />
+		<result property="lms_title"          column="lms_title" />
+		<result property="lms_msg"            column="lms_msg" />
+		<result property="lms_msg_query"      column="lms_msg_query" />
+		<result property="lms_longurl"        column="lms_longurl" />
+		<result property="lms_shorturl"       column="lms_shorturl" />
+		<result property="lms_returncall"     column="lms_returncall" />
+		<result property="lms_disp_dt"        column="lms_disp_dt" />
+		<result property="lms_callback"       column="lms_callback" />
+		<result property="lms_priority_rnk"   column="lms_priority_rnk" />
+		<result property="lms_disp_time"      column="lms_disp_time" />
+		
+		<result property="mobile_lnk_page_url"      column="mobile_lnk_page_url" />
+		<result property="mobile_lnk_page_typ"      column="mobile_lnk_page_typ" />
+		<result property="mobile_send_prefer_cd"    column="mobile_send_prefer_cd" />
+		<result property="mobile_person_msg_yn"     column="mobile_person_msg_yn" />
+		
+		<result property="sms_send_prefer_cd"       column="sms_send_prefer_cd" />
+		
+		<result property="email_person_msg_yn"     column="email_person_msg_yn" /> 
+	</resultMap>
+	
+	<resultMap type="com.skplanet.sascm.object.ChannelAlimiBO" id="ChannelAlimiBO">
+		<result property="cellId"             column="cellId" />
+		<result property="campaignCode"       column="campaignCode" />
+		<result property="campaignId"         column="campaignId" />
+		<result property="channelCd"          column="channelCd" />
+		<result property="appKdCd"            column="appKdCd" />
+		<result property="talkMsgDispYn"      column="talkMsgDispYn" />
+		<result property="talkMsgSummary"     column="talkMsgSummary" />
+		<result property="talkMsgTmpltNo"     column="talkMsgTmpltNo" />
+		<result property="talkBlckCont"       column="talkBlckCont" />
+		<result property="mobileSendPreferCd" column="mobileSendPreferCd" />
+		<result property="mobilePersonMsgYn"  column="mobilePersonMsgYn" />
+	</resultMap>
   <!-- 캠페인 채널 리스트 -->
 
 

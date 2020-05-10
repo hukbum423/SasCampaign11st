@@ -1,0 +1,46 @@
+Request
+
+	1. SQL
+	
+		SELECT /* CampaignInfo.getCampaignList */
+					a.*
+				FROM (
+					SELECT
+						a.*
+						, ROWNUM num
+					FROM (
+						SELECT
+							CAMPAIGN_NM           campaignnm
+							, CAMPAIGN_DESC       campaign_desc
+							, CAMPAIGN_CD         campaigncd
+							, CAMPAIGN_SK         campaignid
+							, CAMPAIGN_OWNER_NM   campaign_owner_nm
+							, RUN_DTTM            run_dttm
+						FROM
+							CI_CAMPAIGN
+						WHERE 1=1
+							AND TO_CHAR(CAMPAIGN_FOLDER_TXT)  LIKE '%'||''||'%' AND DELETED_FLG ='N'
+							 
+							 
+							 
+								  AND CAMPAIGN_SK < 60000  
+							 
+						ORDER BY
+							CAMPAIGN_SK DESC
+					)a
+				)a
+				 
+				WHERE 1=1
+					AND num >  0
+					AND num <=  100
+				ORDER BY
+					num
+				;
+
+Job to Solution
+
+
+
+
+
+

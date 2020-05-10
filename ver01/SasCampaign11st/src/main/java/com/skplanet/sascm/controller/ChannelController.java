@@ -1848,7 +1848,7 @@ public class ChannelController {
 		log.info("PUSH_MSG_POPUP_INDC_YN  : " + request.getParameter("PUSH_MSG_POPUP_INDC_YN"));
 		log.info("THUM_IMG_URL            : " + request.getParameter("THUM_IMG_URL"));
 		log.info("BNNR_IMG_URL            : " + request.getParameter("BNNR_IMG_URL"));
-		log.info("BNNR_STR_IMG_URL        : " + request.getParameter("BNNR_STR_IMG_URL"));
+		log.info("BNNR_STR_IMG_URL        : " + request.getParameter("BNNR_STR_IMG_URL"));  // KANG-20200508
 		log.info("useIndi                 : " + request.getParameter("useIndi"));
 		log.info("MOBILE_SEND_PREFER_CD   : " + request.getParameter("MOBILE_SEND_PREFER_CD"));
 
@@ -3216,6 +3216,7 @@ public class ChannelController {
 
 	/**
 	 * KANG-20200429:
+	 * KANG-20200508:
 	 *
 	 * send 채널 Alimi Test
 	 *

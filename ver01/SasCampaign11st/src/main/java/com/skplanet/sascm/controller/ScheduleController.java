@@ -304,7 +304,7 @@ public class ScheduleController {
 		}
 
 		//오퍼 템플릿 쿠폰번호사용이 Y일 경우 캠페인 기간과 쿠폰유효기간이 동일한지 체크
-		if (false && return_code.equals("")) {   // KANG-20200407
+		if (return_code.equals("")) {   // KANG-20200407 KANG-20200508
 			List<OfferCuBO> list = offerService.getOfferCuInfoList(map);
 
 			for (int i = 0; i < list.size(); i++) {
@@ -357,7 +357,7 @@ public class ScheduleController {
 		}
 
 		//오퍼 템플릿 쿠폰번호 사용이 N일 경우 캠페인 기간이 쿠폰유효기간에 포함되는 체크
-		if (false && return_code.equals("")) {   // KANG-20200407
+		if (return_code.equals("")) {   // KANG-20200407 KANG-20200508
 			List<OfferCuBO> list = offerService.getOfferCuInfoList(map);
 
 			for (int i = 0; i < list.size(); i++) {
@@ -899,4 +899,94 @@ public class ScheduleController {
 
 		jsonView.render(map, request, response);
 	}
+	
+	///////////////////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////////////
+	/**
+	 * 캠페인 일정 목록
+	 * 
+	 * KANG-20200508
+	 *
+	 * @param request
+	 * @param response
+	 * @param modelMap
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/getScheduleStatusList.do")
+	public void getScheduleStatusList(HttpServletRequest request, HttpServletResponse response, ModelMap modelMap, HttpSession session) throws Exception {
+		Map<String, Object> map = new HashMap<String, Object>();
+
+		//paramter
+		log.info("=============================================");
+		log.info("CampaignId        : " + request.getParameter("CampaignId"));
+		log.info("CAMPAIGNCODE      : " + request.getParameter("CAMPAIGNCODE"));
+		log.info("selectPageNo2     : " + request.getParameter("selectPageNo2"));
+		log.info("SEARCH_TYPE       : " + request.getParameter("SEARCH_TYPE"));
+		log.info("=============================================");
+
+		map.put("CAMPAIGNID", Common.nvl(request.getParameter("CampaignId"), ""));
+		map.put("CAMPAIGNCODE", Common.nvl(request.getParameter("CAMPAIGNCODE"), ""));
+		map.put("SEARCH_TYPE", Common.nvl(request.getParameter("SEARCH_TYPE"), ""));
+		
+		// 일정 목록 조회
+		List<CampaignRunScheduleBO> list = this.scheduleService.getScheduleStatusList(map);
+		map.put("ScheduleList", list);
+
+		jsonView.render(map, request, response);
+	}
+	
+	///////////////////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////////////
+	/**
+	 * 캠페인 일정 상태 변경
+	 * 
+	 * KANG-20200508
+	 *
+	 * @param request
+	 * @param response
+	 * @param modelMap
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/updateScheduleStatusList.do")
+	public void updateScheduleStatusList(HttpServletRequest request, HttpServletResponse response, ModelMap modelMap, HttpSession session) throws Exception {
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		UsmUserBO user = (UsmUserBO) session.getAttribute("ACCOUNT");
+		map.put("UPDATE_ID", user.getId());
+
+		//paramter
+		log.info("=============================================");
+		log.info("CampaignId        : " + request.getParameter("CampaignId"));
+		log.info("CAMPAIGNCODE      : " + request.getParameter("CAMPAIGNCODE"));
+		log.info("CHK_DATE          : " + request.getParameterValues("CHK_DATE"));
+		log.info("=============================================");
+
+		map.put("CAMPAIGNID", Common.nvl(request.getParameter("CampaignId"), ""));
+		map.put("CAMPAIGNCODE", Common.nvl(request.getParameter("CAMPAIGNCODE"), ""));
+
+		String[] CHK_DATE = request.getParameterValues("CHK_DATE");
+		map.put("array", CHK_DATE);
+		
+		// 일정 목록
+		log.info("=============================================");
+		log.info("map  : " + map);
+		if (!Flag.flag) {
+			String[] arr = (String[]) map.get("array");
+			for (int i=0; i < arr.length; i++) {
+				System.out.println(">>>>> " + arr[i]);
+			}
+		}
+		log.info("=============================================");
+		this.scheduleService.updateScheduleStatusList(map);
+		
+		jsonView.render(map, request, response);
+	}
 }
+
+
+
+

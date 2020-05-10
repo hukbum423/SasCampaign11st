@@ -12,22 +12,15 @@
 <script type="text/javascript" src="${staticPATH }/js/common/common.js"></script>
 
 <script>
-	//var tgtCampaignId;
-	//var tgtCellId;
-	//var tgtChannelCd;
-
 	///////////////////////////////////////////////////////////////
 	// 창열리고 처리
 	$(document).ready(function(){
+		// KANG-20200510: reset the size of this popup window
 		window.resizeTo(1000, 950);
 		if (!true) alert(">>>>> campaignChangeStatusList.jsp = .${campaignid}.${cellid}.${channel_cd}.${disp_dt}.${ENABLE_PROCESS}.");  // KANG-20200413
-		//tgtCampaignId = "${campaignid}";
-		//tgtCellId = "${cellid}";
-		//tgtChannelCd = "${channel_cd}";
-		//tgtDispDt = "${disp_dt}";
-
-		//채널선택시 페이지 이동
-		//$("#CHANNEL_CD").bind("change",fn_selectChannel);
+		
+		// KANG-20200510: get the campaign list
+		fn_campaignList();
 	});
 
 	///////////////////////////////////////////////////////////////
@@ -37,51 +30,11 @@
 	}
 
 	///////////////////////////////////////////////////////////////
-	//채널 선택
-	/*
-	function fn_selectChannel(){
-		var form = document.form;
-
-		if($("#CHANNEL_CD").val() == "SMS"){
-			form.action = "${staticPATH }/channel/channelSms.do";
-			form.submit();
-		}
-
-		if($("#CHANNEL_CD").val() == "EMAIL"){
-			form.action = "${staticPATH }/channel/channelEmail.do";
-			form.submit();
-		}
-
-		if($("#CHANNEL_CD").val() == "TOAST"){
-			form.action = "${staticPATH }/channel/channelToast.do";
-			form.submit();
-		}
-
-		if($("#CHANNEL_CD").val() == "MOBILE"){
-			form.action = "${staticPATH }/channel/channelMobile.do";
-			form.submit();
-		}
-		if($("#CHANNEL_CD").val() == "LMS"){
-			form.action = "${staticPATH }/channel/channelLms.do";
-			form.submit();
-		}
-	}
-	*/
-
-	/////////////////////////////////////////////////////////////////////////////////
-	/////////////////////////////////////////////////////////////////////////////////
-	/////////////////////////////////////////////////////////////////////////////////
-	// loading function
-	$(function() {
-		fn_campaignList();
-	});
-
-	///////////////////////////////////////////////////////////////
 	// 캠페인 리스트 for some campaign, and pagination
 	function fn_campaignList() {       // KANG-20190410: analyzing for pagination
-		if (!true) console.log("KANG.fn_campaignList: 캠페인 목록 조회");
+		if (!true) console.log(">>>>> fn_campaignList: 캠페인 목록 조회");
 		jQuery.ajax({
-			url           : '${staticPATH }/campaignList.do?serverType=${staticServerType }',
+			url           : '${staticPATH }/getCampaignStatusList.do?serverType=${staticServerType }',
 			dataType      : "JSON",
 			scriptCharset : "UTF-8",
 			async         : true,
@@ -108,8 +61,8 @@
 							$("#campaignList > tbody:last").append(txt);
 						});
 						//페이징 처리 시작!!
-						var page = _pagingNavi(result.selectPage, result.pageRange, result.pageStart, result.pageEnd, result.totalPage, "fn_pageMove");
-						$("#paging_layer").html(page);
+						//var page = _pagingNavi(result.selectPage, result.pageRange, result.pageStart, result.pageEnd, result.totalPage, "fn_pageMove");
+						//$("#paging_layer").html(page);
 						//페이징 처리 종료
 					} else {
 						txt += "<tr><td align=\"center\" class=\"listtd\" colspn=\"\9\">데이터가 없습니다.</td></tr>";
@@ -143,18 +96,9 @@
 		if (!true) alert("KANG.fn_getCampaignDtl: campaignid = " + campaignid);
 		$("#optionDiv").hide();
 		var reTurnDivView = fn_campaignInfoAll(campaignid);
-		//var ret = fn_channel(campaignid);
-		if (reTurnDivView == "ERROR"){
-		} else {
+		if (reTurnDivView != "ERROR") {
 			$("#optionDiv").show();
 		}
-		/*
-		  wrapWindowByMask();
-		  $("#optionDiv").hide();
-		  chkTime(campaignid);
-		  $("#optionDiv").show();
-		  closeWindowByMask();
-		*/
 	}
 
 	///////////////////////////////////////////////////////////////
@@ -457,7 +401,7 @@
 							console.log("KANG.fn_campaignInfoAll: 캠페인 일정 정보");
 							console.log("KANG.fn_campaignInfoAll.result.scheduleBo.rsrv_gubun_code_name : " + result.scheduleBo.rsrv_gubun_code_name);
 						}
-						if (result.scheduleBo.rsrv_gubun_code_name == null || result.scheduleBo.rsrv_gubun_code_name == "null"){
+						if (false && (result.scheduleBo.rsrv_gubun_code_name == null || result.scheduleBo.rsrv_gubun_code_name == "null")) {   // KANG-20200508
 							$("#scheduleTable").hide();
 							$("#scheduleListDiv").hide();
 							$('#paging_layer2').hide();
@@ -539,7 +483,7 @@
 				}
 			},
 			complete:function() {
-				closeWindowByMask();
+				// closeWindowByMask();
 			},
 			error: function(result, option) {
 				alert("에러가 발생하였습니다.");
@@ -552,7 +496,7 @@
 	function fn_searchSchedule() {   // KANG-20190410: analyzing
 		if (true) console.log("KANG.fn_searchSchedule: 일정 목록 조회 >> " + $("#scheduleCampaignId").val() + ", " + $("#scheduleCAMPAIGNCODE").val());
 		jQuery.ajax({
-			url           : '${staticPATH }/getScheduleList.do',
+			url           : '${staticPATH }/getScheduleStatusList.do',
 			dataType      : "JSON",
 			scriptCharset : "UTF-8",
 			async         : true,
@@ -574,7 +518,7 @@
 							var data = list[key];
 							txt += "<tr>";
 							txt += "<td align=\"center\" class=\"listtd\">" + data.num + "</td>";
-							if (data.run_start_dt == null){
+							if (true || data.run_start_dt == null) {  // KANG-20200508
 								txt += "<td align=\"center\" class=\"listtd\"><input type='checkbox' name='CHK_DATE' value='"+ data.rsrv_dt +"' style='margin:-13px 5px -5px 0px;' /></td>";
 							} else {
 								txt += "<td align=\"center\" class=\"listtd\"><input type='checkbox' disabled='disabled' style='margin:-13px 5px -5px 0px;' /></td>";
@@ -635,8 +579,8 @@
 					//txt += "</table>";
 					$("#scheduleListTable > tbody:last").append(txt);
 					//페이징 처리 시작!!
-					var page = _pagingNavi(result.selectPage2, result.pageRange, result.pageStart, result.pageEnd, result.totalPage, "fn_pageMove2");
-					$("#paging_layer2").html(page);
+					//var page = _pagingNavi(result.selectPage2, result.pageRange, result.pageStart, result.pageEnd, result.totalPage, "fn_pageMove2");
+					//$("#paging_layer2").html(page);
 					//페이징 처리 종료
 					if (true) $('#chkParent').removeAttr('checked');
 				} else {
@@ -654,11 +598,15 @@
 	};
 
 	///////////////////////////////////////////////////////////////
-	// 일정 선택 삭제
-	function fn_delete() {
-		if (true) console.log("KANG.fn_delete: 일정 선택 상태변경");
-		if ($("input:checkbox[name='CHK_DATE']:checked").length == 0){
+	// 일정 선택 변경
+	function fn_changeStatus() {
+		if (true) console.log(">>>>> fn_changeStatus: 일정 선택 상태변경");
+		var cntChecked = $("input:checkbox[name='CHK_DATE']:checked").length;
+		if (cntChecked == 0) {
 			alert("상태변경 할 일정을 선택하세요");
+			return;
+		} else if (cntChecked != 1) {
+			alert("상태변경 할 일정은 1개만 선택하세요.");
 			return;
 		}
 		if (!confirm($("input:checkbox[name='CHK_DATE']:checked").length + "건을 상태변경 하시겠습니까?")){
@@ -692,21 +640,19 @@
 				&CHK_DATE=2018-01-23+18%3A45
 				&CHK_DATE=2018-01-23+22%3A09
 			*/
-			console.log("KANG.fn_delete(): " + $("#formSchedule").serialize());
-			return;
+			console.log("KANG.fn_changeStatus(): " + $("#formSchedule").serialize());
 		}
-		if (true) return;
 		jQuery.ajax({
-			url           : '${staticPATH }/deleteScheduleList.do',
+			url           : '${staticPATH }/updateScheduleStatusList.do',
 			dataType      : "JSON",
 			scriptCharset : "UTF-8",
 			async         : true,
 			type          : "POST",
 			data          : $("#formSchedule").serialize(),
 			success: function(result, option) {
-				if (option=="success"){
-					alert("일정이 삭제 되었습니다");
-					fn_selectSearchType();
+				if (option == "success"){
+					alert("일정상태가 변경 되었습니다");
+					// fn_selectSearchType();
 				} else {
 					alert("에러가 발생하였습니다.");
 				}
@@ -714,206 +660,17 @@
 			beforeSend:function(){
 			},
 			complete:function(){
+				fn_searchSchedule();
 			},
 			error: function(result, option) {
 				alert("에러가 발생하였습니다.");
 			}
 		});
 	}
-
-	/*
-	///////////////////////////////////////////////////////////////
-	// 켐패인 채널 리스트  조회
-	function fn_channel(campaignid) {
-		if (true) console.log("KANG.fn_channel: 켐패인 채널 리스트 조회");
-		jQuery.ajax({
-			url           : '${staticPATH }/getChannelInfoList.do',
-			dataType      : "JSON",
-			scriptCharset : "UTF-8",
-			async         : true,
-			type          : "POST",
-			data          : {
-				campaignid   : campaignid
-			},
-			success: function(result, option) {
-				if (option=="success"){
-					//$('#channel').css('display', '');
-					var list = result.channel_list;
-					var txt ="";
-					txt += "<table class='table table-striped table-hover table-condensed table-bordered' width='100%' border='0' cellpadding='0' cellspacing='0'>";
-					if (list.length>0) {
-						if (result.channelValiChk =="N"){
-							alert("대상수준이 PCID일경우에는 토스트배너만 사용이 가능합니다");
-							return;
-						} else if (result.channelValChkforMobile != "Y"){
-							alert("대상수준이 DEVICEID일 경우에는 모바일 알리미 채널만 사용이 가능합니다.");
-							return;
-						} else {
-							var old_celid2 = "";
-							var old_cellname2 = "";
-							txt += "<colgroup>";
-							txt += "<col width='20%'/>";
-							txt += "<col width='20%'/>";
-							txt += "<col width=''/>";
-							//txt += "<col width='10%'/>";
-							//txt += "<col width='10%'/>";
-							txt += "</colgroup>";
-							$.each(list, function(key){
-								var data = list[key];
-								txt += "<tr>";
-								if (data.cellname != old_cellname2){
-									txt += "<td align=\"left\" class=\"listtd\"rowspan="+data.cellrow+">"+data.cellname+"</td>";
-								}
-								if (data.channel_nm != null){
-									if (tgtChannelCd == data.channel_cd) {
-										txt += "<td align=\"left\" class=\"listtd\"><a href=\"javascript:fn_clickChannel('"+data.cellid+"','"+data.channel_cd+"');\" class='link'>"+data.channel_nm+"</a></td>";
-									} else {
-										txt += "<td align=\"left\" class=\"listtd\">"+data.channel_nm+"</td>";
-									}
-								} else {
-									txt += "<td align=\"left\" class=\"listtd\"></td>";
-								}
-								txt += "<td align=\"left\" class=\"listtd\"";
-								if (data.channel_cd =='TOAST'){
-									txt += "title ='"+data.toast_title+"'";
-								}
-								if (data.channel_cd =='SMS'){
-									txt += "title ='"+data.sms_msg+"'";
-								}
-								if (data.channel_cd =='EMAIL'){
-									txt += "title ='"+ data.email_name+"'";
-								}
-								if (data.channel_cd =='MOBILE'){
-									txt += "title ='"+  data.mobile_disp_title+"'";
-								}
-								if (data.channel_cd =='LMS'){
-									txt += "title ='"+  data.lms_title+"'";
-								}
-								txt +=">";
-								if (data.channel_cd =='TOAST'){
-									txt +=(data.toast_title).substring(0,45);
-									if ((data.toast_title).substring(0,45).length>=18){
-										txt +='...';
-									}
-								}
-								if (data.channel_cd =='SMS'){
-									txt +=(data.sms_msg).substring(0,45);
-									if ((data.sms_msg).substring(0,45).length>=18){
-										txt +='...';
-									}
-								}
-								if (data.channel_cd =='EMAIL'){
-									txt +=(data.email_name).substring(0,45);
-									if ((data.email_name).substring(0,45).length>=18){
-										txt +='...';
-									}
-								}
-								if (data.channel_cd =='MOBILE'){
-									txt +=(data.mobile_disp_title).substring(0,45);
-									if ((data.mobile_disp_title).substring(0,45).length>=18){
-										txt +='...';
-									}
-								}
-								if (data.channel_cd =='LMS'){
-									txt +=(data.lms_title).substring(0,45);
-									if ((data.lms_title).substring(0,45).length>=18){
-										txt +='...';
-									}
-								}
-								txt +="</td>";
-								//if (data.channel_cd != null && data.camp_status_cd =='EDIT'){
-								//	txt += "<td align=\"center\" class=\"listtd\"><a href=\"javascript:fn_delChannel('"+data.cellid+"','"+data.channel_cd+"');\" class='link'>"+'삭제'+"</a></td>";
-								//} else {
-								//	txt += '<td></td>';
-								//}
-								//if (data.cellid !=old_celid2){
-								//	if (data.camp_status_cd =='EDIT'){
-								//		txt += "<td align=\"center\" class=\"listtd\"><a href=\"javascript:fn_addChannel('"+data.cellid+"','"+data.campaignid+"');\" class='link' rowspan="+data.cellrow+">"+'추가'+"</a></td>";
-								//	} else {
-								//		txt += '<td></td>';
-								//	}
-								//} else {
-								//	txt += '<td></td>';
-								//}
-								old_celid2 = data.cellid;
-								old_cellname2 =  data.cellname;
-								txt += "</tr>";
-							});
-						}
-					} else {
-						txt += "<td align=\"center\" class=\"listtd\" colspn=\"5\">데이터가 없습니다.</td>";
-					}
-					txt += "</table>";
-					$("#search_channel").html(txt);
-				} else {
-					alert("에러가 발생하였습니다.");
-					closeWindowByMask();
-				}
-			},
-			beforeSend:function(){
-			},
-			complete:function(){
-			},
-			error: function(result, option) {
-				alert("에러가 발생하였습니다.");
-			}
-		});
-	}
-	*/
-
-	/*
-	///////////////////////////////////////////////////////////////
-	// 채널정보 상세보기(수정화면)   // KANG-20200415
-	function fn_clickChannel(cellid, channel_cd) {
-		if (true) console.log("KANG.fn_clickChannel: 채널정보 상세보기(수정화면)");
-		var srcCellId = cellid;
-		var srcChannelCd = channel_cd;
-
-		if (!true) {
-			// KANG-20200415
-			alert("KANG.fn_clickChannel("+cellid+", "+channel_cd+")\n"
-				+ "src: ." + srcCellId + "." + srcChannelCd + ".\n"
-				+ "tgt: ." + tgtCampaignId + "." + tgtCellId + "." + tgtChannelCd + ".\n");
-			return;
-		}
-
-		// KANG-20200415
-		$("#srcCellId"    ).val(srcCellId    );
-		$("#srcChannelCd" ).val(srcChannelCd );
-		$("#tgtCampaignId").val(tgtCampaignId);
-		$("#tgtCellId"    ).val(tgtCellId    );
-		$("#tgtChannelCd" ).val(tgtChannelCd );
-		$("#tgtDispDt"    ).val(tgtDispDt    );
-
-		var frmChannel = document.frmChannel;
-		$("#ChannelCELLID").val(cellid);
-		$("#CHANNEL_CD").val(channel_cd);
-		pop = window.open('', 'POP_CHANNEL', 'top=50,left=80, location=no,status=no,toolbar=no,scrollbars=yes');
-		if (channel_cd == "TOAST"){
-			frmChannel.action = "${staticPATH }/channel/copyChannelToast.do";   // KANG-20200417
-		}
-		if (channel_cd == "SMS"){
-			frmChannel.action = "${staticPATH }/channel/copyChannelSms.do";   // KANG-20200417
-		}
-		if (channel_cd == "EMAIL"){
-			frmChannel.action = "${staticPATH }/channel/copyChannelEmail.do";   // KANG-20200417
-		}
-		if (channel_cd == "MOBILE"){
-			frmChannel.action = "${staticPATH }/channel/copyChannelMobile.do";   // KANG-20200415
-		}
-		if (channel_cd == "LMS"){
-			frmChannel.action = "${staticPATH }/channel/copyChannelLms.do";   // KANG-20200417
-		}
-		frmChannel.target = "POP_CHANNEL";
-		frmChannel.method = "POST";
-		frmChannel.submit();
-		if (!true) pop.focus();
-		if (true) window.close();
-	}
-	*/
 
 	///////////////////////////////////////////////////////////////
 	// KANG-20190411: for pagination
+	/*
 	function _pagingNavi(selectPage, pageRange, pageStart, pageEnd, totalPage, pageMove){
 		if (true) {
 			var msg = " => ";
@@ -947,6 +704,7 @@
 		}
 		return page;
 	}
+	*/
 </script>
 
 
@@ -1261,7 +1019,7 @@
 <input type="hidden" id="channel_priority_yn" name="channel_priority_yn"  value="" />
 <input type="hidden" id="minDispDt" name="minDispDt"  value="" />
 							<div class="col-md-12" style="text-align:right;margin-bottom:10px;">
-								<button type="button" class="btn btn-danger btn-sm" onclick="fn_delete();" id="campaignStopDiv"><i class="fa fa-plus" aria-hidden="true"></i> 캠페인 상태변경</button>
+								<button type="button" class="btn btn-danger btn-sm" onclick="fn_changeStatus();" id="campaignStopDiv"><i class="fa fa-plus" aria-hidden="true"></i> 캠페인 상태변경</button>
 								<!--
 								<button type="button" class="btn btn-success btn-sm" onclick="fn_delete();" id="scheduleDel"><i class="fa fa-trash" aria-hidden="true"></i> 삭제</button>
 								<button type="button" class="btn btn-success btn-sm" onclick="fn_deleteAll();"><i class="fa fa-trash-o" aria-hidden="true"></i> 전체삭제</button>
@@ -1352,7 +1110,7 @@
 								</table>
 							</div>
 							<!-- List -->
-							<div id="scheduleListDiv" style="overflow:scroll; width:100%; height:160px;margin-top:0px;">
+							<div id="scheduleListDiv" style="overflow:scroll; width:100%; height:220px;margin-top:0px;">
 								<table id="scheduleListTable" class="table table-striped table-hover table-condensed table-bordered" width="100%" border="0" cellpadding="0" cellspacing="0">
 									<colgroup>
 										<col width="3%"/>
@@ -1387,10 +1145,14 @@
 									<tbody></tbody>
 								</table>
 							</div>
+							<!--
 							<div id="search_layer_schedule"></div>
+							-->
+							<!--
 							<nav><ul class="pager" id="paging_layer2" style="display:show;"></ul></nav>
+							-->
 							<!-- /List -->
-							<table style="border-spacing:0px; border:0px;"><tr><td height="20"></td></table>
+							<table style="border-spacing:0px; border:0px;"><tr><td height="1"></td></tr></table>
 </form>
 						</div>
 						<!-- 일정 탭: END -->

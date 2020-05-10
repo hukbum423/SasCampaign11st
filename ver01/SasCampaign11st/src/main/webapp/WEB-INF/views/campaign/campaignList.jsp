@@ -28,7 +28,7 @@
 	var treeNodes;
 	
 	//////////////////////////////////////////////////////
-	// ready
+	// ready KANG-20200508
 	$(document).ready(function(){
 		if (true) console.log("KANG.ready: init-ajax function");
 		

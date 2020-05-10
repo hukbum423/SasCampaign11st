@@ -3,44 +3,41 @@
 
 <mapper namespace="CommCode">
 
-<resultMap type="com.skplanet.sascm.object.UaextCodeMstBO" id="UaextCodeMstBO">
-
-	<result property="comm_code_id" column="comm_code_id" />
-	<result property="comm_code_name" column="comm_code_name" />
-	<result property="code_desc" column="code_desc" />
-	<result property="sort_seq" column="sort_seq" />
-	<result property="use_yn" column="use_yn" />
-	<result property="create_id" column="create_id" />
-	<result property="create_nm" column="create_nm" />
-	<result property="create_dt" column="create_dt" />
-	<result property="update_id" column="update_id" />
-	<result property="update_nm" column="update_nm" />
-	<result property="update_dt" column="update_dt" />
-	<result property="num" column="num" />
-
- </resultMap>
- <resultMap type="com.skplanet.sascm.object.UaextCodeDtlBO" id="UaextCodeDtlBO">
-
-	<result property="code_id" column="code_id" />
-	<result property="code_name" column="code_name" />
-	<result property="code_desc" column="code_desc" />
-	<result property="sort_seq" column="sort_seq" />
-	<result property="use_yn" column="use_yn" />
-	<result property="etc1" column="etc1" />
-	<result property="etc2" column="etc2" />
-	<result property="create_id" column="create_id" />
-	<result property="create_nm" column="create_nm" />
-	<result property="create_dt" column="create_dt" />
-	<result property="update_id" column="update_id" />
-	<result property="update_nm" column="update_nm" />
-	<result property="update_dt" column="update_dt" />
-	<result property="comm_code_id" column="comm_code_id" />
-	<result property="num" column="num" />
-
- </resultMap>
+	<resultMap type="com.skplanet.sascm.object.UaextCodeMstBO" id="UaextCodeMstBO">
+		<result property="comm_code_id" column="comm_code_id" />
+		<result property="comm_code_name" column="comm_code_name" />
+		<result property="code_desc" column="code_desc" />
+		<result property="sort_seq" column="sort_seq" />
+		<result property="use_yn" column="use_yn" />
+		<result property="create_id" column="create_id" />
+		<result property="create_nm" column="create_nm" />
+		<result property="create_dt" column="create_dt" />
+		<result property="update_id" column="update_id" />
+		<result property="update_nm" column="update_nm" />
+		<result property="update_dt" column="update_dt" />
+		<result property="num" column="num" />
+	</resultMap>
+	<resultMap type="com.skplanet.sascm.object.UaextCodeDtlBO" id="UaextCodeDtlBO">
+		<result property="code_id" column="code_id" />
+		<result property="code_name" column="code_name" />
+		<result property="code_desc" column="code_desc" />
+		<result property="sort_seq" column="sort_seq" />
+		<result property="use_yn" column="use_yn" />
+		<result property="etc1" column="etc1" />
+		<result property="etc2" column="etc2" />
+		<result property="create_id" column="create_id" />
+		<result property="create_nm" column="create_nm" />
+		<result property="create_dt" column="create_dt" />
+		<result property="update_id" column="update_id" />
+		<result property="update_nm" column="update_nm" />
+		<result property="update_dt" column="update_dt" />
+		<result property="comm_code_id" column="comm_code_id" />
+		<result property="num" column="num" />
+	</resultMap>
+	
 	<!-- 공통코드 마스터 목록 조회 -->
 	<select id="CommCode.getCommCodeList" parameterType="Map"  resultMap="UaextCodeMstBO">
-		SELECT
+		SELECT  /* CommCode.getCommCodeList */
 			a.*
 		FROM (
 			SELECT
@@ -78,7 +75,7 @@
 
 	<!-- 공통코드 마스터 목록 전체 건수 -->
 	<select id="CommCode.getCommCodeListCnt" parameterType="Map"  resultType="String">
-		SELECT
+		SELECT  /* CommCode.getCommCodeListCnt */
 			COUNT(0)  cnt
 		FROM
 			CM_CODE_MST
@@ -90,9 +87,6 @@
 
 
 	<!-- 공통코드 상세 목록 조회 -->
-	<!--
-					AND USE_YN       LIKE '%'||#{USE_YN}||'%'
-	-->
 	<select id="CommCode.getCommCodeDtlList" parameterType="Map"  resultMap="UaextCodeDtlBO">
 		SELECT  /* CommCode.getCommCodeDtlList */
 			A.*
@@ -130,9 +124,6 @@
 
 
 	<!-- 공통코드 상세 목록 조회 2    // KANG-20200415: add -->
-	<!--  
-					AND USE_YN       LIKE '%'||#{USE_YN}||'%'
-	-->
 	<select id="CommCode.getCommCodeDtlList2" parameterType="Map"  resultMap="UaextCodeDtlBO">
 		SELECT  /* CommCode.getCommCodeDtlList2 */
 			A.*
@@ -179,7 +170,7 @@
 
 	<!-- 공통코드 마스터 중복 조회 -->
 	<select id="CommCode.getCommCodeDupCnt" parameterType="Map"  resultType="String">
-		SELECT
+		SELECT  /* CommCode.getCommCodeDupCnt */
 			CASE WHEN COUNT(0) > 0 THEN 'Y' ELSE 'N' END DUP
 		FROM
 			CM_CODE_MST
@@ -202,7 +193,7 @@
 
 	<!-- 공통코드 마스터 입력 -->
 	<insert id="CommCode.setCommCodeMst" parameterType="Map" >
-		INSERT INTO
+		INSERT INTO  /* CommCode.setCommCodeMst */
 			CM_CODE_MST
 		(
 			COMM_CODE_ID
@@ -228,7 +219,7 @@
 
 	<!-- 공통코드 마스터 수정 -->
 	<update id="CommCode.updateCommCodeMst" parameterType="Map" >
-		UPDATE
+		UPDATE  /* CommCode.updateCommCodeMst */
 			CM_CODE_MST
 		SET
 			COMM_CODE_NAME  = TRIM(#{COMM_CODE_NAME})
@@ -244,7 +235,7 @@
 
 	<!-- 공통코드 마스터 상세조회 -->
 	<select id="CommCode.getCommCodeMst" parameterType="Map"  resultMap="UaextCodeMstBO">
-		SELECT
+		SELECT  /* CommCode.getCommCodeMst */
 			COMM_CODE_ID          comm_code_id
 			, COMM_CODE_NAME      comm_code_name
 			, CODE_DESC           code_desc
@@ -265,7 +256,7 @@
 
 	<!-- 공통코드 상세 입력 -->
 	<insert id="CommCode.setCommCodeDtl" parameterType="Map" >
-		INSERT INTO
+		INSERT INTO  /* CommCode.setCommCodeDtl */
 			CM_CODE_DTL
 		(
 			CODE_ID
@@ -297,7 +288,7 @@
 
 	<!-- 공통코드 상세 수정 -->
 	<update id="CommCode.updateCommCodeDtl" parameterType="Map" >
-		UPDATE
+		UPDATE  /* CommCode.updateCommCodeDtl */
 			CM_CODE_DTL
 		SET
 			CODE_NAME      = TRIM(#{CODE_NAME})

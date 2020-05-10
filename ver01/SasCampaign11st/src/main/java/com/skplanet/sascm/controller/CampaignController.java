@@ -72,6 +72,7 @@ public class CampaignController {
 
 
 	/**
+	 * KANG-20200508:
 	 *
 	 * @param request
 	 * @param model
@@ -802,6 +803,49 @@ public class CampaignController {
 	}
 
 
+	///////////////////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////////////
+	/**
+	 * 캠페인 상태변경처리 화면의 캠페인 목록
+	 * 
+	 * KANG-20190508:
+	 *
+	 * @param request
+	 * @param response
+	 * @param modelMap
+	 * @throws Exception
+	 */
+	@RequestMapping("/getCampaignStatusList.do")
+	public void getCampaignStatusList(HttpServletRequest request, HttpServletResponse response, ModelMap modelMap) throws Exception {
+		Map<String, Object> map = new HashMap<String, Object>();
+
+		//paramter
+		log.info("=============================================");
+		log.info("serverType        : " + request.getParameter("serverType"));
+		log.info("treeValue         : " + request.getParameter("treeValue"));
+		log.info("selectPageNo      : " + request.getParameter("selectPageNo"));
+		log.info("=============================================");
+
+		//공통코드 목록 조회
+		List<CampaignListBO> list = this.scheduleService.getCampaignStatusList(map);
+		map.put("CampaignList", list);
+		if (!Flag.flag) {
+			log.info("=============================================");
+			log.info("list   : " + list);
+			log.info("=============================================");
+		}
+
+		jsonView.render(map, request, response);
+	}
+
+	///////////////////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////////////
 	/*
 	 * KANG-20190413: analyzing
 	 *

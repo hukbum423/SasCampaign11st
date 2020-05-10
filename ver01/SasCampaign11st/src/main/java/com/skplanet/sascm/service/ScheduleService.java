@@ -1,8 +1,10 @@
 package com.skplanet.sascm.service;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
+import com.skplanet.sascm.object.CampaignListBO;
 import com.skplanet.sascm.object.CampaignRunResvBO;
 import com.skplanet.sascm.object.CampaignRunScheduleBO;
 
@@ -370,4 +372,13 @@ public interface ScheduleService {
 	public int getRunScheduleCnt(Map<String, Object> param) throws Exception;
 
 	public int campaignStop(Map<String, Object> param) throws Exception;
+
+	/*
+	 * KANG-20200508s
+	 * (non-Javadoc)
+	 * @see com.skplanet.sascm.dao.ScheduleDAO#getCampaignStatusList(java.util.Map)
+	 */
+	public List<CampaignListBO>  getCampaignStatusList(Map<String, Object> param) throws SQLException;
+	public List<CampaignRunScheduleBO>  getScheduleStatusList(Map<String, Object> param) throws SQLException;
+	public int updateScheduleStatusList(Map<String, Object> param) throws SQLException;
 }
