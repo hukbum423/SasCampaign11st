@@ -26,6 +26,7 @@
 	views/
 		campaign/
 			campaignChangeStatusList.jsp
+			campaignChannelList.jsp
 			campaignList.jsp
 		channel/
 			channelEmail.jsp
