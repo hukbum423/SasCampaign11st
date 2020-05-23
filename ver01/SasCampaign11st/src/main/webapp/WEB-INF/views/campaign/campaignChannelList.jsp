@@ -979,7 +979,9 @@
 							<tbody></tbody>
 						</table>
 						<div id="search_layer"></div>
+						<!--
 						<nav><ul class="pager" id="paging_layer" style="display:show;"></ul></nav>
+						-->
 					</div>
 				</div>
 			</div>
