@@ -1,0 +1,43 @@
+2020-05-25
+
+- java
+	com.skplanet.sascm
+		object/
+			ChannelBO.java
+		dao/
+			ScheduleDAO.java
+		daoimpl/
+			ScheduleDAOImpl.java
+		service/
+			ScheduleService.java
+		serviceimpl/
+			ScheduleServiceImpl.java
+		controller/
+			CampaignController.java
+			ChannelController.java
+			ScheduleController.java
+
+- mapper
+	commCode_SQL.xml
+	channel_SQL.xml
+	Schedule_SQL.xml
+
+- jsp
+	views/
+		campaign/
+			campaignChangeStatusList.jsp
+			campaignChannelList.jsp
+			campaignList.jsp
+		channel/
+			channelEmail.jsp
+			channelLms.jsp
+			channelMobile.jsp
+			channelSms.jsp
+			channelToast.jsp
+
+
+
+
+
+
+
