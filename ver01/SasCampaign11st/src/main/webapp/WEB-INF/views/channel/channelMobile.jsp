@@ -253,7 +253,7 @@
 					+ "bnnr_img_url: " + bnnr_img_url + "\n"
 					+ "bnnr_str_img_url: " + bnnr_str_img_url + "\n"
 					);
-			if (!flg_bnnr_str_img_url) {
+			if (!flg_bnnr_str_img_url) {   // KANG-20200525: false추가, KANG-20200531: false제거
 				alert("'스테이터스바/배너이미지URL' 항목의 [적용&보기] 버튼을 먼저 확인하세요.")
 				// $("#BNNR_STR_IMG_URL").focus();
 				$("#BNNR_STR_IMG_URL_BUTTON").focus();  // focus on the button
