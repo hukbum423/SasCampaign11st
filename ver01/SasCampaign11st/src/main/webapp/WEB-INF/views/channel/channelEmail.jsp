@@ -514,6 +514,8 @@
 				+ "&CELLID=${bo.cellid}"
 				+ "&CHANNEL_CD=EMAIL"
 				+ "&disp_dt=" + disp_dt
+				+ "&MANUAL_TRANS_YN=" + "${bo.manual_trans_yn}"             // KANG-20200606: create
+				+ "&DISP_TIME=" + $("#EMAIL_DISP_TIME").val()               // KANG-20200606: create
 				, "propertyPop", "width=1100, height=450, status=1");
 	}
 </script>
@@ -622,8 +624,8 @@
 					<td class="info">발송시간</td>
 					<td class="tbtd_content">
 
+						<!-- KANG-20200606 -->
 						<select id="EMAIL_DISP_TIME" name="EMAIL_DISP_TIME"  style="width:80px;">
-
 						</select>
 					</td>
 				</tr>

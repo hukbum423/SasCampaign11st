@@ -717,6 +717,9 @@ public class ChannelController {
 		log.info("CELLID        : " + request.getParameter("CELLID"));
 		log.info("CHANNEL_CD    : " + request.getParameter("CHANNEL_CD"));
 		log.info("COPYCHANNEL   : " + request.getParameter("COPYCHANNEL"));
+		log.info("MANUAL_TRANS_YN  : " + request.getParameter("MANUAL_TRANS_YN"));   // KANG-20200606: create
+		log.info("DISP_TIME        : " + request.getParameter("DISP_TIME"));         // KANG-20200606: create
+		log.info("SEND_PREFER_CD   : " + request.getParameter("SEND_PREFER_CD"));    // KANG-20200606: create
 		log.info("=============================================");
 		map.clear();
 		map.put("srcCellId"    , request.getParameter("srcCellId"    ));
@@ -817,6 +820,10 @@ public class ChannelController {
 		bo.setUpdate_nm(tgtbo.getUpdate_nm());
 		bo.setUpdate_dt(tgtbo.getUpdate_dt());
 		bo.setSms_returncall("");   // KANG-20200418
+
+		bo.setManual_trans_yn(request.getParameter("MANUAL_TRANS_YN"));         // KANG-20200606: create
+		bo.setSms_disp_time(request.getParameter("DISP_TIME"));                 // KANG-20200606: create
+		bo.setSms_send_prefer_cd(request.getParameter("SEND_PREFER_CD"));       // KANG-20200606: create
 
 		modelMap.addAttribute("channel_list", channel_list);
 		modelMap.addAttribute("priority_rank", priority_rank);
@@ -1211,6 +1218,9 @@ public class ChannelController {
 		log.info("CELLID        : " + request.getParameter("CELLID"));
 		log.info("CHANNEL_CD    : " + request.getParameter("CHANNEL_CD"));
 		log.info("COPYCHANNEL   : " + request.getParameter("COPYCHANNEL"));
+		log.info("MANUAL_TRANS_YN    : " + request.getParameter("MANUAL_TRANS_YN"));        // KANG-20200606: create
+		log.info("DISP_TIME          : " + request.getParameter("DISP_TIME"));              // KANG-20200606: create
+		log.info("SEND_PREFER_CD     : " + request.getParameter("SEND_PREFER_CD"));         // KANG-20200606: create
 		log.info("=============================================");
 		map.clear();
 		map.put("srcCellId"    , request.getParameter("srcCellId"    ));
@@ -1295,6 +1305,9 @@ public class ChannelController {
 		bo.setUpdate_id(tgtbo.getUpdate_id());
 		bo.setUpdate_nm(tgtbo.getUpdate_nm());
 		bo.setUpdate_dt(tgtbo.getUpdate_dt());
+
+		bo.setManual_trans_yn(request.getParameter("MANUAL_TRANS_YN"));         // KANG-20200606: create
+		bo.setEmail_disp_time(request.getParameter("DISP_TIME"));               // KANG-20200606: create
 
 		if ( bo.getEmail_subject() != null ){
 			bo.setEmail_subject(bo.getEmail_subject().replaceAll("\"", "&quot;"));
@@ -1498,16 +1511,19 @@ public class ChannelController {
 		/////////////////////////////////////////
 		// 채널 복사 KANG-20200415
 		log.info("=============================================");
-		log.info("srcCellId     : " + request.getParameter("srcCellId"));
-		log.info("srcChannelCd  : " + request.getParameter("srcChannelCd"));
-		log.info("tgtCampaignId : " + request.getParameter("tgtCampaignId"));
-		log.info("tgtCellId     : " + request.getParameter("tgtCellId"));
-		log.info("tgtChannelCd  : " + request.getParameter("tgtChannelCd"));
-		log.info("tgtDispDt     : " + request.getParameter("tgtDispDt"));
-		log.info("CampaignId    : " + request.getParameter("CampaignId"));
-		log.info("CELLID        : " + request.getParameter("CELLID"));
-		log.info("CHANNEL_CD    : " + request.getParameter("CHANNEL_CD"));
-		log.info("COPYCHANNEL   : " + request.getParameter("COPYCHANNEL"));
+		log.info("srcCellId               : " + request.getParameter("srcCellId"));
+		log.info("srcChannelCd            : " + request.getParameter("srcChannelCd"));
+		log.info("tgtCampaignId           : " + request.getParameter("tgtCampaignId"));
+		log.info("tgtCellId               : " + request.getParameter("tgtCellId"));
+		log.info("tgtChannelCd            : " + request.getParameter("tgtChannelCd"));
+		log.info("tgtDispDt               : " + request.getParameter("tgtDispDt"));
+		log.info("CampaignId              : " + request.getParameter("CampaignId"));
+		log.info("CELLID                  : " + request.getParameter("CELLID"));
+		log.info("CHANNEL_CD              : " + request.getParameter("CHANNEL_CD"));
+		log.info("COPYCHANNEL             : " + request.getParameter("COPYCHANNEL"));
+		log.info("MANUAL_TRANS_YN         : " + request.getParameter("MANUAL_TRANS_YN"));   // KANG-20200606: create
+		log.info("DISP_TIME               : " + request.getParameter("DISP_TIME"));         // KANG-20200606: create
+		log.info("SEND_PREFER_CD          : " + request.getParameter("SEND_PREFER_CD"));    // KANG-20200606: create
 		log.info("=============================================");
 		map.clear();
 		map.put("srcCellId"    , request.getParameter("srcCellId"    ));
@@ -1611,6 +1627,10 @@ public class ChannelController {
 		bo.setUpdate_id(tgtbo.getUpdate_id());
 		bo.setUpdate_nm(tgtbo.getUpdate_nm());
 		bo.setUpdate_dt(tgtbo.getUpdate_dt());
+		
+		bo.setManual_trans_yn(request.getParameter("MANUAL_TRANS_YN"));         // KANG-20200606: create
+		bo.setMobile_disp_time(request.getParameter("DISP_TIME"));              // KANG-20200606: create
+		bo.setMobile_send_prefer_cd(request.getParameter("SEND_PREFER_CD"));    // KANG-20200606: create
 
 		modelMap.addAttribute("channel_list", channel_list);
 		modelMap.addAttribute("priority_rank", priority_rank);
@@ -2496,6 +2516,9 @@ public class ChannelController {
 		log.info("CELLID        : " + request.getParameter("CELLID"));
 		log.info("CHANNEL_CD    : " + request.getParameter("CHANNEL_CD"));
 		log.info("COPYCHANNEL   : " + request.getParameter("COPYCHANNEL"));
+		log.info("MANUAL_TRANS_YN  : " + request.getParameter("MANUAL_TRANS_YN"));   // KANG-20200606: create
+		log.info("DISP_TIME        : " + request.getParameter("DISP_TIME"));         // KANG-20200606: create
+		log.info("SEND_PREFER_CD   : " + request.getParameter("SEND_PREFER_CD"));    // KANG-20200606: create
 		log.info("=============================================");
 		map.clear();
 		map.put("srcCellId"    , request.getParameter("srcCellId"    ));
@@ -2591,6 +2614,8 @@ public class ChannelController {
 		bo.setUpdate_dt(tgtbo.getUpdate_dt());
 		bo.setLms_returncall("");   // KANG-20200418
 
+		bo.setManual_trans_yn(request.getParameter("MANUAL_TRANS_YN"));         // KANG-20200606: create
+		bo.setLms_disp_time(request.getParameter("DISP_TIME"));                 // KANG-20200606: create
 
 		modelMap.addAttribute("channel_list", channel_list);
 		modelMap.addAttribute("priority_rank", priority_rank);

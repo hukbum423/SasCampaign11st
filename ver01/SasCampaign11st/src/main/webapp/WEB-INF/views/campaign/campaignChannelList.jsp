@@ -1008,6 +1008,9 @@
 <input type="hidden" id="tgtCellId"     name="tgtCellId"     value="" />
 <input type="hidden" id="tgtChannelCd"  name="tgtChannelCd"  value="" />
 <input type="hidden" id="tgtDispDt"     name="tgtDispDt"     value="" />
+<input type="hidden" id="MANUAL_TRANS_YN"  name="MANUAL_TRANS_YN"  value="${MANUAL_TRANS_YN}" />  <!-- KANG-20200606 -->
+<input type="hidden" id="DISP_TIME"        name="DISP_TIME"        value="${DISP_TIME}" />        <!-- KANG-20200606 -->
+<input type="hidden" id="SEND_PREFER_CD"   name="SEND_PREFER_CD"   value="${SEND_PREFER_CD}" />   <!-- KANG-20200606 -->
 						<div id="table">
 							<table class="table table-striped table-hover table-condensed table-bordered">
 								<colgroup>

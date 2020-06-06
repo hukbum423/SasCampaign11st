@@ -3020,6 +3020,9 @@
 				+ "&CELLID=${bo.cellid}"
 				+ "&CHANNEL_CD=MOBILE"
 				+ "&disp_dt=" + disp_dt
+				+ "&MANUAL_TRANS_YN=" + "${bo.manual_trans_yn}"            // KANG-20200606: create
+				+ "&DISP_TIME=" + $("#MOBILE_DISP_TIME").val()             // KANG-20200606: create
+				+ "&SEND_PREFER_CD=" + $("#MOBILE_SEND_PREFER_CD").val()   // KANG-20200606: create
 				, "propertyPop", "width=1100, height=450, status=1");
 	}
 </script>
@@ -3127,15 +3130,15 @@
 											</c:forEach>
 									</select></td>
 									<td class="info">발송시간</td>
-									<td class="tbtd_content"><select id="MOBILE_DISP_TIME"
-										name="MOBILE_DISP_TIME" style="width: 80px;"></select> <select
-										id="MOBILE_SEND_PREFER_CD" name="MOBILE_SEND_PREFER_CD">
+									<td class="tbtd_content">
+										<!-- KANG-20200606: 발송시간 유지 -->
+										<select id="MOBILE_DISP_TIME" name="MOBILE_DISP_TIME" style="width: 80px;"></select> 
+										<select id="MOBILE_SEND_PREFER_CD" name="MOBILE_SEND_PREFER_CD">
 											<c:forEach var="val" items="${mobileSendPreferCd}">
-												<option value="${val.code_id}"
-													<c:if test="${val.code_id eq bo.mobile_send_prefer_cd}">selected="selected"</c:if>>
-													${val.code_name}</option>
+												<option value="${val.code_id}" <c:if test="${val.code_id eq bo.mobile_send_prefer_cd}">selected="selected"</c:if>> ${val.code_name}</option>
 											</c:forEach>
-									</select></td>
+										</select>
+									</td>
 								</tr>
 
 								<tr>

@@ -119,12 +119,18 @@ public class CampaignController {
 		log.info("cellid     <- CELLID      : " + request.getParameter("CELLID"));
 		log.info("channel_cd <- CHANNEL_CD  : " + request.getParameter("CHANNEL_CD"));
 		log.info("disp_dt                   : " + request.getParameter("disp_dt"));   // KANG-20200418
+		log.info("MANUAL_TRANS_YN           : " + request.getParameter("MANUAL_TRANS_YN"));   // KANG-20200606: create
+		log.info("DISP_TIME                 : " + request.getParameter("DISP_TIME"));         // KANG-20200606: create
+		log.info("SEND_PREFER_CD            : " + request.getParameter("SEND_PREFER_CD"));    // KANG-20200606: create
 		log.info("=============================================");
 
 		modelMap.addAttribute("campaignid", request.getParameter("CampaignId"));
 		modelMap.addAttribute("cellid", request.getParameter("CELLID"));
 		modelMap.addAttribute("channel_cd", request.getParameter("CHANNEL_CD"));
 		modelMap.addAttribute("disp_dt", request.getParameter("disp_dt"));   // KANG-20200418
+		modelMap.addAttribute("MANUAL_TRANS_YN", request.getParameter("MANUAL_TRANS_YN"));  // KANG-20200606: create
+		modelMap.addAttribute("DISP_TIME", request.getParameter("DISP_TIME"));              // KANG-20200606: create
+		modelMap.addAttribute("SEND_PREFER_CD", request.getParameter("SEND_PREFER_CD"));    // KANG-20200606: create
 		
 		return "campaign/campaignChannelList";
 	}

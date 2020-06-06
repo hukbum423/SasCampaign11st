@@ -1,0 +1,53 @@
+2020-05-31
+
+**수정사항
+ 
+1) 메인메뉴에서 , 캠페인리스트에서 페이지당 1000개씩 표시
+   -현재 100개씩 표시됨
+   -페이지이동이 안되고 있음 (페이지마다 동일한 내용이 나옴
+ 
+2) 채널목사의 캠페인목록(캠페인리스트) 의 표시 건
+  -> 1000개
+  -현재는 100개 표시됨
+  -페이지 이동 표시 필요 없음
+ 
+3) 4월의 항목6 (수신 거부 표시하는 url 변경 처리
+   -실제 발송 테스트 : 6월1일 저녁6시~9시
+   -요청사항 : 기능 활성화 하는 방법::
+                     기능  비활성화 하는 방법::
+-------------------------------------------------------
+1) 아래파일을 100 -> 1000으로 수정함
+	java: com.skplanet.sascm.controller.CampaignController.java
+	line: #227
+	work: 100 to 1000
+	
+		int rowRange = 1000;
+
+2) 아래 파일의 일부를 comment 처리함으로 1000건 출력하고 Pagination은 없앰.
+	jsp: views/campaign/campaignChannelList.jsp
+	line: #983
+	work: 아래처럼 HTML comment 처리
+	
+		<!-- KANG-20200523: remove pager
+		<nav><ul class="pager" id="paging_layer" style="display:show;"></ul></nav>
+		-->
+
+3) 아래 파일 내의 fn_validation()의 false를 제거함.
+	jsp: views/channel/channelMobile.jsp
+	line: #256
+	work: 아래처럼 false를 제거함.
+	
+		if (!flg_bnnr_str_img_url) {   // KANG-20200525: false추가, KANG-20200531: false제거
+	
+-------------------------------------------------------
+1 적용) PC에서 확인한 CampaignController.class을 운영에 복사한다. 사이즈는 반드시 확인해야 함.
+	WEB-INF/classes/com/skplanet/sascm/controller/CampaignController.class   <- 백업한다.
+
+2 적용) WEB-INF/views/campaign/campaignChannelList.jsp #983을 직접 위와 같이 수정함.
+
+3 적용) WEB-INF/views/channel/channelMobile.jsp #256을 직접 위와 같이 수정함.
+
+
+
+
+
