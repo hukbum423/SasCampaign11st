@@ -1,51 +1,153 @@
-2020-05-31
+2020-06-06
 
-**수정사항
- 
-1) 메인메뉴에서 , 캠페인리스트에서 페이지당 1000개씩 표시
-   -현재 100개씩 표시됨
-   -페이지이동이 안되고 있음 (페이지마다 동일한 내용이 나옴
- 
-2) 채널목사의 캠페인목록(캠페인리스트) 의 표시 건
-  -> 1000개
-  -현재는 100개 표시됨
-  -페이지 이동 표시 필요 없음
- 
-3) 4월의 항목6 (수신 거부 표시하는 url 변경 처리
-   -실제 발송 테스트 : 6월1일 저녁6시~9시
-   -요청사항 : 기능 활성화 하는 방법::
-                     기능  비활성화 하는 방법::
--------------------------------------------------------
-1) 아래파일을 100 -> 1000으로 수정함
-	java: com.skplanet.sascm.controller.CampaignController.java
-	line: #227
-	work: 100 to 1000
+1. 채녈 신규든 갱신이든 채널복사시 '발송시간'에 해당하는 항목은 유지한다.
+
+2. 수동전송[Y] 채널우선순위 적용여부[N]일 경우
+	채널 전송일은 오늘(2020-06-06) 이후여야 합니다.
+	manual campaign: 11052
+
+-------------------------------------------------------------------------------------
+1-job.                                                           search: KANG-20200606
+	11227
+	11221
+	11053 <- manual
+	641   <- email
 	
-		int rowRange = 1000;
-
-2) 아래 파일의 일부를 comment 처리함으로 1000건 출력하고 Pagination은 없앰.
-	jsp: views/campaign/campaignChannelList.jsp
-	line: #983
-	work: 아래처럼 HTML comment 처리
+	channelMobile.jsp
+				+ "&MANUAL_TRANS_YN=" + "${bo.manual_trans_yn}"            // KANG-20200606: create
+				+ "&DISP_TIME=" + $("#MOBILE_DISP_TIME").val()             // KANG-20200606: create
+				+ "&SEND_PREFER_CD=" + $("#MOBILE_SEND_PREFER_CD").val()   // KANG-20200606: create
+				.....
+										<!-- KANG-20200606: 발송시간 유지 -->
+										<select id="MOBILE_DISP_TIME" name="MOBILE_DISP_TIME" style="width: 80px;"></select> 
+										<select id="MOBILE_SEND_PREFER_CD" name="MOBILE_SEND_PREFER_CD">
+											<c:forEach var="val" items="${mobileSendPreferCd}">
+												<option value="${val.code_id}" <c:if test="${val.code_id eq bo.mobile_send_prefer_cd}">selected="selected"</c:if>> ${val.code_name}</option>
+											</c:forEach>
+										</select>
+	channelEmail.jsp
+				+ "&MANUAL_TRANS_YN=" + "${bo.manual_trans_yn}"             // KANG-20200606: create
+				+ "&DISP_TIME=" + $("#EMAIL_DISP_TIME").val()               // KANG-20200606: create
+				.....
+						<!-- KANG-20200606 -->
+						<select id="EMAIL_DISP_TIME" name="EMAIL_DISP_TIME"  style="width:80px;">
+						</select>
+	channelLms.jsp
+				+ "&MANUAL_TRANS_YN=" + "${bo.manual_trans_yn}"         // KANG-20200606: create
+				+ "&DISP_TIME=" + $("#LMS_DISP_TIME").val()             // KANG-20200606: create
+				.....
+						<!-- KANG-20200606 -->
+						<select id="LMS_DISP_TIME" name="LMS_DISP_TIME"  style="width:80px;">
+						</select>
+	channelSms.jsp
+				+ "&MANUAL_TRANS_YN=" + "${bo.manual_trans_yn}"         // KANG-20200606: create
+				+ "&DISP_TIME=" + $("#SMS_DISP_TIME").val()             // KANG-20200606: create
+				+ "&SEND_PREFER_CD=" + $("#SMS_SEND_PREFER_CD").val()   // KANG-20200606: create
+				.....
+						<!-- KANG-20200606 -->
+						<select id="SMS_DISP_TIME" name="SMS_DISP_TIME"  style="width:80px;"> </select>
+						<select id="SMS_SEND_PREFER_CD" name="SMS_SEND_PREFER_CD">
+							<c:forEach var="val" items="${smsSendPreferCd}">
+								<option value="${val.code_id}" <c:if test="${val.code_id eq bo.sms_send_prefer_cd}">selected="selected"</c:if>> ${val.code_name} </option>
+							</c:forEach>
+						</select>
+				
+	channelToast.jsp
 	
-		<!-- KANG-20200523: remove pager
-		<nav><ul class="pager" id="paging_layer" style="display:show;"></ul></nav>
-		-->
-
-3) 아래 파일 내의 fn_validation()의 false를 제거함.
-	jsp: views/channel/channelMobile.jsp
-	line: #256
-	work: 아래처럼 false를 제거함.
+	CampaignController.java
+		log.info("MANUAL_TRANS_YN    : " + request.getParameter("MANUAL_TRANS_YN"));        // KANG-20200606: create
+		log.info("DISP_TIME          : " + request.getParameter("DISP_TIME"));              // KANG-20200606: create
+		log.info("SEND_PREFER_CD     : " + request.getParameter("SEND_PREFER_CD"));         // KANG-20200606: create
+		.....
+		modelMap.addAttribute("MANUAL_TRANS_YN", request.getParameter("MANUAL_TRANS_YN"));   // KANG-20200606: create
+		modelMap.addAttribute("DISP_TIME", request.getParameter("DISP_TIME"));               // KANG-20200606: create
+		modelMap.addAttribute("SEND_PREFER_CD", request.getParameter("SEND_PREFER_CD"));     // KANG-20200606: create
 	
-		if (!flg_bnnr_str_img_url) {   // KANG-20200525: false추가, KANG-20200531: false제거
+	campaignChannelList.jsp
+		<input type="hidden" id="MANUAL_TRANS_YN"  name="MANUAL_TRANS_YN"  value="${MANUAL_TRANS_YN}" />  <!-- KANG-20200606 -->
+		<input type="hidden" id="DISP_TIME"        name="DISP_TIME"        value="${DISP_TIME}" />        <!-- KANG-20200606 -->
+		<input type="hidden" id="SEND_PREFER_CD"   name="SEND_PREFER_CD"   value="${SEND_PREFER_CD}" />   <!-- KANG-20200606 -->
 	
--------------------------------------------------------
-1 적용) PC에서 확인한 CampaignController.class을 운영에 복사한다. 사이즈는 반드시 확인해야 함.
-	WEB-INF/classes/com/skplanet/sascm/controller/CampaignController.class   <- 백업한다.
+	ChannelController.java
+		log.info("MANUAL_TRANS_YN  : " + request.getParameter("MANUAL_TRANS_YN"));   // KANG-20200606: create
+		log.info("DISP_TIME        : " + request.getParameter("DISP_TIME"));         // KANG-20200606: create
+		log.info("SEND_PREFER_CD   : " + request.getParameter("SEND_PREFER_CD"));    // KANG-20200606: create
+		.....
+		bo.setManual_trans_yn(request.getParameter("MANUAL_TRANS_YN"));         // KANG-20200606: create
+		bo.setMobile_disp_time(request.getParameter("DISP_TIME"));              // KANG-20200606: create
+		bo.setMobile_send_prefer_cd(request.getParameter("SEND_PREFER_CD"));    // KANG-20200606: create
+		.....
+		bo.setManual_trans_yn(request.getParameter("MANUAL_TRANS_YN"));         // KANG-20200606: create
+		bo.setEmail_disp_time(request.getParameter("DISP_TIME"));               // KANG-20200606: create
+		.....
+		bo.setManual_trans_yn(request.getParameter("MANUAL_TRANS_YN"));         // KANG-20200606: create
+		bo.setLms_disp_time(request.getParameter("DISP_TIME"));                 // KANG-20200606: create
+		.....
+		bo.setManual_trans_yn(request.getParameter("MANUAL_TRANS_YN"));         // KANG-20200606: create
+		bo.setSms_disp_time(request.getParameter("DISP_TIME"));                 // KANG-20200606: create
+		bo.setSms_send_prefer_cd(request.getParameter("SEND_PREFER_CD"));       // KANG-20200606: create
 
-2 적용) WEB-INF/views/campaign/campaignChannelList.jsp #983을 직접 위와 같이 수정함.
 
-3 적용) WEB-INF/views/channel/channelMobile.jsp #256을 직접 위와 같이 수정함.
+2-job.
+	CAMP11300	제휴사_0119_페이코_WK2(NEW_TARGET_D)
+
+	----------------------------------------------------------------------------------
+	----------------------------------------------------------------------------------
+	-- C001	캠페인 기간구분 01, 02
+	
+	select
+		*
+	from
+		ci_camp_page_date_udf
+	where 1=1
+		and CAMPAIGN_SK = 11300
+	;
+	2020-06-30
+	
+	
+	select
+		*
+	from
+		cm_campaign_dtl
+	where 1=1
+		and CAMPAIGNCODE = 'CAMP11300'
+	;
+	EDIT
+	
+	----------------------------------------------------------------------------------
+	-- C001	캠페인 기간구분 01,
+	-- 02:반복일자 -> '노출일'이 없다
+	
+	select
+		*
+	from
+		ci_camp_page_date_udf
+	where 1=1
+		and CAMPAIGN_SK = 11053
+	;
+	2020-06-30
+	
+	
+	select
+		*
+	from
+		cm_campaign_dtl
+	where 1=1
+		and CAMPAIGNCODE = 'CAMP11053'
+	;
+	EDIT
+	
+	----------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
 
 
 
