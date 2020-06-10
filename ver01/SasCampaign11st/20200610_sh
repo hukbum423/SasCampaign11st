@@ -1,0 +1,41 @@
+#!/bin/bash
+
+# SRC_PATH=/home/sasadm/_KANG/20200420
+SRC_PATH=/app/sasdata/pgm/java/webapps/SASCampaign/KANG_20200610/20200525
+TGT_PATH=/app/sasdata/pgm/java/webapps/SASCampaign/WEB-INF
+
+echo "#### START: start to execute the script ####"
+
+######################################################
+# MAPPER
+echo "#### mapper ####"
+#cp $SRC_PATH/mapper/* $TGT_PATH/classes/mapper
+
+
+######################################################
+# CLASSES
+echo "#### classes ####"
+#cp $SRC_PATH/util/* $TGT_PATH/classes/com/skplanet/sascm/util
+#cp $SRC_PATH/common/interceptor/* $TGT_PATH/classes/com/skplanet/sascm/common/interceptor
+
+#cp $SRC_PATH/object/* $TGT_PATH/classes/com/skplanet/sascm/object
+
+#cp $SRC_PATH/dao/* $TGT_PATH/classes/com/skplanet/sascm/dao
+#cp $SRC_PATH/daoimpl/* $TGT_PATH/classes/com/skplanet/sascm/daoimpl
+
+#cp $SRC_PATH/service/* $TGT_PATH/classes/com/skplanet/sascm/service
+#cp $SRC_PATH/serviceimpl/* $TGT_PATH/classes/com/skplanet/sascm/serviceimpl
+
+cp $SRC_PATH/controller/* $TGT_PATH/classes/com/skplanet/sascm/controller
+
+
+######################################################
+# VIEWS
+echo "#### view(jsp) ####"
+cp $SRC_PATH/views/channel/* $TGT_PATH/views/channel
+cp $SRC_PATH/views/campaign/* $TGT_PATH/views/campaign
+#cp $SRC_PATH/views/contents/* $TGT_PATH/views/contents
+
+
+######################################################
+echo "#### END: finish to execute the script ####"
