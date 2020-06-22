@@ -821,10 +821,31 @@ public class ChannelController {
 		bo.setUpdate_dt(tgtbo.getUpdate_dt());
 		bo.setSms_returncall("");   // KANG-20200418
 
-		bo.setManual_trans_yn(request.getParameter("MANUAL_TRANS_YN"));         // KANG-20200606: create
-		bo.setSms_disp_time(request.getParameter("DISP_TIME"));                 // KANG-20200606: create
-		bo.setSms_send_prefer_cd(request.getParameter("SEND_PREFER_CD"));       // KANG-20200606: create
-
+		if (true) {
+			// KANG-20200622: condition: bo is manual and tgt is manual and tgt is SEND02
+			log.info("============ KANG-20200622(org) =============");
+			log.info("bo.manual_trans_yn     : " + bo.getManual_trans_yn());
+			log.info("bo.sms_disp_time       : " + bo.getSms_disp_time());
+			log.info("bo.sms_send_prefer_cd  : " + bo.getSms_send_prefer_cd());
+			log.info("---------------------------------------------");
+			log.info("tgtbo.manual_trans_yn     : " + tgtbo.getManual_trans_yn());
+			log.info("tgtbo.sms_disp_time       : " + tgtbo.getSms_disp_time());
+			log.info("tgtbo.sms_send_prefer_cd  : " + tgtbo.getSms_send_prefer_cd());
+			log.info("=============================================");
+			
+			if (tgtbo.getManual_trans_yn().equals("N")
+					&& bo.getManual_trans_yn().equals("N")
+					&& bo.getSms_send_prefer_cd().equals("SEND02")) {
+				// KANG-20200622: copy
+				log.info("KANG-20200622 >>>>>> because of condition_OK!!, then COPY from tgt.....");
+			} else {
+				// KANG-20200622: no copy, original
+				bo.setManual_trans_yn(request.getParameter("MANUAL_TRANS_YN"));         // KANG-20200606: create
+				bo.setSms_disp_time(request.getParameter("DISP_TIME"));                 // KANG-20200606: create
+				bo.setSms_send_prefer_cd(request.getParameter("SEND_PREFER_CD"));       // KANG-20200606: create
+			}
+		}
+		
 		modelMap.addAttribute("channel_list", channel_list);
 		modelMap.addAttribute("priority_rank", priority_rank);
 		modelMap.addAttribute("priority_rank_sendtime", priority_rank_sendtime);
@@ -1306,8 +1327,26 @@ public class ChannelController {
 		bo.setUpdate_nm(tgtbo.getUpdate_nm());
 		bo.setUpdate_dt(tgtbo.getUpdate_dt());
 
-		bo.setManual_trans_yn(request.getParameter("MANUAL_TRANS_YN"));         // KANG-20200606: create
-		bo.setEmail_disp_time(request.getParameter("DISP_TIME"));               // KANG-20200606: create
+		if (true) {
+			// KANG-20200622: condition: bo is manual and tgt is manual and tgt is SEND02
+			log.info("============ KANG-20200622(org) =============");
+			log.info("bo.manual_trans_yn       : " + bo.getManual_trans_yn());
+			log.info("bo.email_disp_time       : " + bo.getEmail_disp_time());
+			log.info("---------------------------------------------");
+			log.info("tgtbo.manual_trans_yn       : " + tgtbo.getManual_trans_yn());
+			log.info("tgtbo.email_disp_time       : " + tgtbo.getEmail_disp_time());
+			log.info("=============================================");
+			
+			if (tgtbo.getManual_trans_yn().equals("N")
+					&& bo.getManual_trans_yn().equals("N")) {
+				// KANG-20200622: copy
+				log.info("KANG-20200622 >>>>>> because of condition_OK!!, then COPY from tgt.....");
+			} else {
+				// KANG-20200622: no copy, original
+				bo.setManual_trans_yn(request.getParameter("MANUAL_TRANS_YN"));         // KANG-20200606: create
+				bo.setEmail_disp_time(request.getParameter("DISP_TIME"));               // KANG-20200606: create
+			}
+		}
 
 		if ( bo.getEmail_subject() != null ){
 			bo.setEmail_subject(bo.getEmail_subject().replaceAll("\"", "&quot;"));
@@ -1628,10 +1667,31 @@ public class ChannelController {
 		bo.setUpdate_nm(tgtbo.getUpdate_nm());
 		bo.setUpdate_dt(tgtbo.getUpdate_dt());
 		
-		bo.setManual_trans_yn(request.getParameter("MANUAL_TRANS_YN"));         // KANG-20200606: create
-		bo.setMobile_disp_time(request.getParameter("DISP_TIME"));              // KANG-20200606: create
-		bo.setMobile_send_prefer_cd(request.getParameter("SEND_PREFER_CD"));    // KANG-20200606: create
-
+		if (true) {
+			// KANG-20200622: condition: bo is manual and tgt is manual and tgt is SEND02
+			log.info("============ KANG-20200622(org) =============");
+			log.info("bo.manual_trans_yn        : " + bo.getManual_trans_yn());
+			log.info("bo.mobile_disp_time       : " + bo.getMobile_disp_time());
+			log.info("bo.mobile_send_prefer_cd  : " + bo.getMobile_send_prefer_cd());
+			log.info("---------------------------------------------");
+			log.info("tgtbo.manual_trans_yn        : " + tgtbo.getManual_trans_yn());
+			log.info("tgtbo.mobile_disp_time       : " + tgtbo.getMobile_disp_time());
+			log.info("tgtbo.mobile_send_prefer_cd  : " + tgtbo.getMobile_send_prefer_cd());
+			log.info("=============================================");
+			
+			if (tgtbo.getManual_trans_yn().equals("N")
+					&& bo.getManual_trans_yn().equals("N")
+					&& bo.getMobile_send_prefer_cd().equals("SEND02")) {
+				// KANG-20200622: copy
+				log.info("KANG-20200622 >>>>>> because of condition_OK!!, then COPY from tgt.....");
+			} else {
+				// KANG-20200622: no copy, original
+				bo.setManual_trans_yn(request.getParameter("MANUAL_TRANS_YN"));         // KANG-20200606: create
+				bo.setMobile_disp_time(request.getParameter("DISP_TIME"));              // KANG-20200606: create
+				bo.setMobile_send_prefer_cd(request.getParameter("SEND_PREFER_CD"));    // KANG-20200606: create
+			}
+		}
+		
 		modelMap.addAttribute("channel_list", channel_list);
 		modelMap.addAttribute("priority_rank", priority_rank);
 		modelMap.addAttribute("priority_rank_sendtime", priority_rank_sendtime);
@@ -2614,9 +2674,27 @@ public class ChannelController {
 		bo.setUpdate_dt(tgtbo.getUpdate_dt());
 		bo.setLms_returncall("");   // KANG-20200418
 
-		bo.setManual_trans_yn(request.getParameter("MANUAL_TRANS_YN"));         // KANG-20200606: create
-		bo.setLms_disp_time(request.getParameter("DISP_TIME"));                 // KANG-20200606: create
-
+		if (true) {
+			// KANG-20200622: condition: bo is manual and tgt is manual and tgt is SEND02
+			log.info("============ KANG-20200622(org) =============");
+			log.info("bo.manual_trans_yn     : " + bo.getManual_trans_yn());
+			log.info("bo.lms_disp_time       : " + bo.getLms_disp_time());
+			log.info("---------------------------------------------");
+			log.info("tgtbo.manual_trans_yn     : " + tgtbo.getManual_trans_yn());
+			log.info("tgtbo.lms_disp_time       : " + tgtbo.getLms_disp_time());
+			log.info("=============================================");
+			
+			if (tgtbo.getManual_trans_yn().equals("N")
+					&& bo.getManual_trans_yn().equals("N")) {
+				// KANG-20200622: copy
+				log.info("KANG-20200622 >>>>>> because of condition_OK!!, then COPY from tgt.....");
+			} else {
+				// KANG-20200622: no copy, original
+				bo.setManual_trans_yn(request.getParameter("MANUAL_TRANS_YN"));         // KANG-20200606: create
+				bo.setLms_disp_time(request.getParameter("DISP_TIME"));                 // KANG-20200606: create
+			}
+		}
+		
 		modelMap.addAttribute("channel_list", channel_list);
 		modelMap.addAttribute("priority_rank", priority_rank);
 		modelMap.addAttribute("priority_rank_sendtime", priority_rank_sendtime);

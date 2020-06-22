@@ -1,0 +1,206 @@
+2020-06-22
+
+1. 채널 복사시 예외처리 로직
+	복사 조건:
+		1. target: batch
+		2. source: batch 선호시간 send02
+	
+	campaignid
+		11194
+		11254
+		
+		11227
+		11221
+		11053
+		641
+
+-------------------------------------------------------------------------------------
+1-test
+	org: CI_CAMP_PAGE_DATE_UDF.CAMPAIGN_SK = 11194
+	
+	----------------------------------------------------------------------------------
+	SELECT
+		A.*
+	FROM
+		CI_CAMP_PAGE_DATE_UDF A
+	WHERE 1=1
+		AND A.CAMPAIGN_SK = '11194'
+	;
+	
+	UPDATE
+		CI_CAMP_PAGE_DATE_UDF A
+	SET
+		A.DATE_UDF_VAL = TO_DATE('20200630','YYYYMMDD')
+	WHERE 1=1
+		AND A.CAMPAIGN_SK = '11194'
+		AND A.DATE_EXT_COLUMN_NM = 'CAMP_TO_DT1'
+	;
+	
+	----------------------------------------------------------------------------------
+	
+	SELECT
+		A.*
+	FROM
+		CM_CAMPAIGN_DTL A
+	WHERE 1=1
+		AND A.CAMPAIGNCODE = 'CAMP'||'11194'
+	;
+	
+	UPDATE
+		CM_CAMPAIGN_DTL A
+	SET
+		A.CAMP_END_DT = TO_DATE('20200630','YYYYMMDD')
+		, A.CAMP_STATUS_CD = 'EDIT'
+	WHERE 1=1
+		AND A.CAMPAIGNCODE = 'CAMP'||'11194'
+	;
+
+	
+-------------------------------------------------------------------------------------
+1-solution
+	
+	> controller/ChannelController.java
+	
+	----------------------------------------------------------------------------------
+		if (true) {
+			// KANG-20200622: condition: bo is manual and tgt is manual and tgt is SEND02
+			log.info("============ KANG-20200622(org) =============");
+			log.info("bo.manual_trans_yn     : " + bo.getManual_trans_yn());
+			log.info("bo.sms_disp_time       : " + bo.getSms_disp_time());
+			log.info("bo.sms_send_prefer_cd  : " + bo.getSms_send_prefer_cd());
+			log.info("---------------------------------------------");
+			log.info("tgtbo.manual_trans_yn     : " + tgtbo.getManual_trans_yn());
+			log.info("tgtbo.sms_disp_time       : " + tgtbo.getSms_disp_time());
+			log.info("tgtbo.sms_send_prefer_cd  : " + tgtbo.getSms_send_prefer_cd());
+			log.info("=============================================");
+			
+			if (tgtbo.getManual_trans_yn().equals("N")
+					&& bo.getManual_trans_yn().equals("N")
+					&& bo.getSms_send_prefer_cd().equals("SEND02")) {
+				// KANG-20200622: copy
+				log.info("KANG-20200622 >>>>>> because of condition_OK!!, then COPY from tgt.....");
+			} else {
+				// KANG-20200622: no copy, original
+				bo.setManual_trans_yn(request.getParameter("MANUAL_TRANS_YN"));         // KANG-20200606: create
+				bo.setSms_disp_time(request.getParameter("DISP_TIME"));                 // KANG-20200606: create
+				bo.setSms_send_prefer_cd(request.getParameter("SEND_PREFER_CD"));       // KANG-20200606: create
+			}
+		}
+	----------------------------------------------------------------------------------
+		if (true) {
+			// KANG-20200622: condition: bo is manual and tgt is manual and tgt is SEND02
+			log.info("============ KANG-20200622(org) =============");
+			log.info("bo.manual_trans_yn       : " + bo.getManual_trans_yn());
+			log.info("bo.email_disp_time       : " + bo.getEmail_disp_time());
+			log.info("---------------------------------------------");
+			log.info("tgtbo.manual_trans_yn       : " + tgtbo.getManual_trans_yn());
+			log.info("tgtbo.email_disp_time       : " + tgtbo.getEmail_disp_time());
+			log.info("=============================================");
+			
+			if (tgtbo.getManual_trans_yn().equals("N")
+					&& bo.getManual_trans_yn().equals("N")) {
+				// KANG-20200622: copy
+				log.info("KANG-20200622 >>>>>> because of condition_OK!!, then COPY from tgt.....");
+			} else {
+				// KANG-20200622: no copy, original
+				bo.setManual_trans_yn(request.getParameter("MANUAL_TRANS_YN"));         // KANG-20200606: create
+				bo.setEmail_disp_time(request.getParameter("DISP_TIME"));               // KANG-20200606: create
+			}
+		}
+	----------------------------------------------------------------------------------
+		if (true) {
+			// KANG-20200622: condition: bo is manual and tgt is manual and tgt is SEND02
+			log.info("============ KANG-20200622(org) =============");
+			log.info("bo.manual_trans_yn        : " + bo.getManual_trans_yn());
+			log.info("bo.mobile_disp_time       : " + bo.getMobile_disp_time());
+			log.info("bo.mobile_send_prefer_cd  : " + bo.getMobile_send_prefer_cd());
+			log.info("---------------------------------------------");
+			log.info("tgtbo.manual_trans_yn        : " + tgtbo.getManual_trans_yn());
+			log.info("tgtbo.mobile_disp_time       : " + tgtbo.getMobile_disp_time());
+			log.info("tgtbo.mobile_send_prefer_cd  : " + tgtbo.getMobile_send_prefer_cd());
+			log.info("=============================================");
+			
+			if (tgtbo.getManual_trans_yn().equals("N")
+					&& bo.getManual_trans_yn().equals("N")
+					&& bo.getMobile_send_prefer_cd().equals("SEND02")) {
+				// KANG-20200622: copy
+				log.info("KANG-20200622 >>>>>> because of condition_OK!!, then COPY from tgt.....");
+			} else {
+				// KANG-20200622: no copy, original
+				bo.setManual_trans_yn(request.getParameter("MANUAL_TRANS_YN"));         // KANG-20200606: create
+				bo.setMobile_disp_time(request.getParameter("DISP_TIME"));              // KANG-20200606: create
+				bo.setMobile_send_prefer_cd(request.getParameter("SEND_PREFER_CD"));    // KANG-20200606: create
+			}
+		}
+	----------------------------------------------------------------------------------
+		if (true) {
+			// KANG-20200622: condition: bo is manual and tgt is manual and tgt is SEND02
+			log.info("============ KANG-20200622(org) =============");
+			log.info("bo.manual_trans_yn     : " + bo.getManual_trans_yn());
+			log.info("bo.lms_disp_time       : " + bo.getLms_disp_time());
+			log.info("---------------------------------------------");
+			log.info("tgtbo.manual_trans_yn     : " + tgtbo.getManual_trans_yn());
+			log.info("tgtbo.lms_disp_time       : " + tgtbo.getLms_disp_time());
+			log.info("=============================================");
+			
+			if (tgtbo.getManual_trans_yn().equals("N")
+					&& bo.getManual_trans_yn().equals("N")) {
+				// KANG-20200622: copy
+				log.info("KANG-20200622 >>>>>> because of condition_OK!!, then COPY from tgt.....");
+			} else {
+				// KANG-20200622: no copy, original
+				bo.setManual_trans_yn(request.getParameter("MANUAL_TRANS_YN"));         // KANG-20200606: create
+				bo.setLms_disp_time(request.getParameter("DISP_TIME"));                 // KANG-20200606: create
+			}
+		}
+	----------------------------------------------------------------------------------
+
+-------------------------------------------------------------------------------------
+shell 20200625_sh
+	
+	#!/bin/bash
+	
+	# SRC_PATH=/home/sasadm/_KANG/20200420
+	SRC_PATH=/app/sasdata/pgm/java/webapps/SASCampaign/KANG_20200625/20200625
+	TGT_PATH=/app/sasdata/pgm/java/webapps/SASCampaign/WEB-INF
+	
+	echo "#### START: start to execute the script ####"
+	
+	######################################################
+	# MAPPER
+	echo "#### mapper ####"
+	#cp $SRC_PATH/mapper/* $TGT_PATH/classes/mapper
+	
+	
+	######################################################
+	# CLASSES
+	echo "#### classes ####"
+	#cp $SRC_PATH/util/* $TGT_PATH/classes/com/skplanet/sascm/util
+	#cp $SRC_PATH/common/interceptor/* $TGT_PATH/classes/com/skplanet/sascm/common/interceptor
+	
+	#cp $SRC_PATH/object/* $TGT_PATH/classes/com/skplanet/sascm/object
+	
+	#cp $SRC_PATH/dao/* $TGT_PATH/classes/com/skplanet/sascm/dao
+	#cp $SRC_PATH/daoimpl/* $TGT_PATH/classes/com/skplanet/sascm/daoimpl
+	
+	#cp $SRC_PATH/service/* $TGT_PATH/classes/com/skplanet/sascm/service
+	#cp $SRC_PATH/serviceimpl/* $TGT_PATH/classes/com/skplanet/sascm/serviceimpl
+	
+	cp $SRC_PATH/controller/* $TGT_PATH/classes/com/skplanet/sascm/controller
+	
+	
+	######################################################
+	# VIEWS
+	echo "#### view(jsp) ####"
+	#cp $SRC_PATH/views/channel/* $TGT_PATH/views/channel
+	#cp $SRC_PATH/views/campaign/* $TGT_PATH/views/campaign
+	#cp $SRC_PATH/views/contents/* $TGT_PATH/views/contents
+	
+	
+	######################################################
+	echo "#### END: finish to execute the script ####"
+
+
+
+
+
