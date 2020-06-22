@@ -19,41 +19,78 @@
 	org: CI_CAMP_PAGE_DATE_UDF.CAMPAIGN_SK = 11194
 	
 	----------------------------------------------------------------------------------
-	SELECT
-		A.*
-	FROM
-		CI_CAMP_PAGE_DATE_UDF A
-	WHERE 1=1
-		AND A.CAMPAIGN_SK = '11194'
+	
+	select
+		a.*
+	from
+		ci_camp_page_date_udf a
+	where 1=1
+		and a.campaign_sk = '11194'
 	;
 	
-	UPDATE
-		CI_CAMP_PAGE_DATE_UDF A
-	SET
-		A.DATE_UDF_VAL = TO_DATE('20200630','YYYYMMDD')
-	WHERE 1=1
-		AND A.CAMPAIGN_SK = '11194'
-		AND A.DATE_EXT_COLUMN_NM = 'CAMP_TO_DT1'
+	update
+		ci_camp_page_date_udf a
+	set
+		a.date_udf_val = to_date('20200630','YYYYMMDD')
+	where 1=1
+		and a.campaign_sk = '11194'
+		and a.date_ext_column_nm = 'CAMP_TO_DT1'
 	;
+	
 	
 	----------------------------------------------------------------------------------
+	----------------------------------------------------------------------------------
 	
-	SELECT
-		A.*
-	FROM
-		CM_CAMPAIGN_DTL A
-	WHERE 1=1
-		AND A.CAMPAIGNCODE = 'CAMP'||'11194'
+	select
+		a.*
+	from
+		cm_campaign_dtl a
+	where 1=1
+		and a.campaigncode = 'CAMP'||'11194'
 	;
 	
-	UPDATE
-		CM_CAMPAIGN_DTL A
-	SET
-		A.CAMP_END_DT = TO_DATE('20200630','YYYYMMDD')
-		, A.CAMP_STATUS_CD = 'EDIT'
-	WHERE 1=1
-		AND A.CAMPAIGNCODE = 'CAMP'||'11194'
+	update
+		cm_campaign_dtl a
+	set
+		a.camp_end_dt = to_date('20200630','YYYYMMDD')
+		, a.camp_status_cd = 'EDIT'
+	where 1=1
+		and a.campaigncode = 'CAMP'||'11194'
 	;
+	
+	
+	----------------------------------------------------------------------------------
+	----------------------------------------------------------------------------------
+	select
+		a.*
+	from
+		cm_campaign_dtl a
+	where 1=1
+		and a.campaigncode = 'CAMP'||'11254'
+	;
+	
+	select
+		a.mobile_disp_time
+		, a.mobile_send_prefer_cd
+		, a.*
+	from
+		cm_campaign_channel a
+	where 1=1
+		and a.campaigncode = 'CAMP'||'11254'
+		and a.channel_cd = 'MOBILE'
+	;
+	
+	update
+		cm_campaign_channel a
+	set
+		a.mobile_disp_time = '0000'
+		, a.mobile_send_prefer_cd = 'SEND02'
+	where 1=1
+		and a.campaigncode = 'CAMP'||'11254'
+		and a.channel_cd = 'MOBILE'
+		and a.cellid = 11633   -- 1천원 할인
+	;
+	
 
 	
 -------------------------------------------------------------------------------------
