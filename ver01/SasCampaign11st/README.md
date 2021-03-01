@@ -66,7 +66,7 @@ server.xml
 
 		<!-- -->
 		<Interceptor className="org.apache.catalina.tribes.group.interceptors.TcpFailureDetector"/>
-		<Interceptor className="org.apache.catalina.tribes.group.interceptors.MessageDispatch15Interceptor"/>
+		<Interceptor className="org.apache.catalina.tribes.group.interceptors.MessageDispatchInterceptor"/>
 		
 	</Channel>
 
