@@ -8,21 +8,16 @@
 		http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd
 		">
 
-	<!-- Welcome File List -->
-	<welcome-file-list>
-		<welcome-file>main.do</welcome-file>
-	</welcome-file-list>
+	<!-- Listener -->
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
 
 	<!-- Root Context -->
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>classpath*:/config/spring/context-*.xml</param-value>
 	</context-param>
-
-	<!-- Listener -->
-	<listener>
-		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-	</listener>
 
 	<!-- Servlet -->
 	<servlet>
@@ -64,6 +59,11 @@
 		</cookie-config>
 		-->
 	</session-config>
+
+	<!-- Welcome File List -->
+	<welcome-file-list>
+		<welcome-file>main.do</welcome-file>
+	</welcome-file-list>
 
 	<!-- Error Pages -->
 	<error-page>

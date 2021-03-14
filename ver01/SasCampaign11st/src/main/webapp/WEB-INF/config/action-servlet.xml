@@ -27,16 +27,16 @@
 		</mvc:argument-resolvers>
 	</mvc:annotation-driven>
 
-<!--
+	<!--
 	<mvc:interceptors>
 		<mvc:interceptor>
 			<mvc:mapping path="/**" />
 			<bean id="loggerInterceptor" class="com.skplanet.sascm.common.logger.LoggerInterceptor"></bean>
 		</mvc:interceptor>
 	</mvc:interceptors>
--->
+	-->
 
-	<!-- Actionu URL -->
+	<!-- Action URL -->
 	<mvc:interceptors>
 		<mvc:interceptor>
 			<mvc:mapping path="/**" />
