@@ -21,8 +21,10 @@
 		http://www.springframework.org/schema/util/spring-util-3.1.xsd
 		">
 
+	<!-- parameters on the file context.properties -->
 	<util:properties id="contextProperties" location="classpath:context${server.type}.properties"/>
 
+	<!-- component scan information -->
 	<context:component-scan base-package="com.skplanet.sascm">
 		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
 	</context:component-scan>
